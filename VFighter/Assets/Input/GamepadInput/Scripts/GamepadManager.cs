@@ -18,7 +18,7 @@ public abstract class GamepadManager
 	{
 		gamepads.Add (device);
 		
-		//Debug.Log (string.Format ("Gamepad added: deviceId={0} systemName={1} displayName={2}", device.deviceId, device.systemName, device.displayName));
+		Debug.Log (string.Format ("Gamepad added: deviceId={0} systemName={1} displayName={2}", device.deviceId, device.systemName, device.displayName));
 
 		if (OnGamepadAdded != null)
 			OnGamepadAdded (device);

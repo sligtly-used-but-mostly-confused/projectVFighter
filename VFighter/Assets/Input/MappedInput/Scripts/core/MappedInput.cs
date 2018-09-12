@@ -6,16 +6,16 @@ using System.Text.RegularExpressions;
 [RequireComponent(typeof(GamepadInput))]
 public class MappedInput : MonoBehaviour {
 
-	public float lastInputTime {get; private set;}
+	public float LastInputTime {get; private set;}
 
-	public static MappedInput instance {
+	public static MappedInput Instance {
 		get; private set;
 	}
 
-	public static bool useDisabledDevices;
+	public static bool UseDisabledDevices;
 
 	static InputDevice _activeDevice;
-	public static InputDevice activeDevice
+	public static InputDevice ActiveDevice
 	{
 		get{
 			return _activeDevice;
@@ -32,7 +32,7 @@ public class MappedInput : MonoBehaviour {
 
 	GamepadInput _gamepadInput;
 
-	public GamepadInput gamepadInput {
+	public GamepadInput GamepadInput {
 		get {
 			if (!_gamepadInput)
 				_gamepadInput = GetComponent<GamepadInput> ();
@@ -43,57 +43,61 @@ public class MappedInput : MonoBehaviour {
 	public static System.Action<InputDevice> OnDeviceAdded;
 	public static System.Action<InputDevice> OnDeviceRemoved;
 
-	public static List<InputDevice> inputDevices = new List<InputDevice>();
+	public static List<InputDevice> InputDevices = new List<InputDevice>();
 
-	public GamepadInputMapping gamepadInputMapping;
-	public KeyboardInputMapping keyboardInputMapping;
-	public MouseInputMapping mouseInputMapping;
+	public GamepadInputMapping GamepadInputMapping;
+	public KeyboardInputMapping KeyboardInputMapping;
+	public MouseInputMapping MouseInputMapping;
 
 	public static System.Action<InputDevice> OnActiveDeviceChanged;
 
-	void Awake()
+    public static InputDevice Mouse;
+    public static InputDevice KeyBoard;
+
+
+    void Awake()
 	{
 #if UNITY_STANDALONE || UNITY_EDITOR
 
-		if( mouseInputMapping != null)
+		if( MouseInputMapping != null)
 			AddMouseDevice ();
 
-		if( keyboardInputMapping != null)
+		if( KeyboardInputMapping != null)
 			AddKeyboardDevice ();
 		
 #elif UNITY_IOS || UNITY_ANDROID
 		AddMouseDevice ();
 #endif
 
-		instance = this;
+		Instance = this;
 	}
 
 	void Start()
 	{
-		for (int i = 0; i < gamepadInput.gamepads.Count; i++)
+		for (int i = 0; i < GamepadInput.gamepads.Count; i++)
 		{
-			OnGamepadAdded (gamepadInput .gamepads[i]);
+			OnGamepadAdded (GamepadInput .gamepads[i]);
 		}
 
-		gamepadInput.OnGamepadAdded += OnGamepadAdded;
-		gamepadInput.OnGamepadRemoved += OnGamepadRemoved;
+		GamepadInput.OnGamepadAdded += OnGamepadAdded;
+		GamepadInput.OnGamepadRemoved += OnGamepadRemoved;
 	}
 
 	void OnDestroy()
 	{
-		gamepadInput.OnGamepadAdded -= OnGamepadAdded;
-		gamepadInput.OnGamepadRemoved -= OnGamepadRemoved;
+		GamepadInput.OnGamepadAdded -= OnGamepadAdded;
+		GamepadInput.OnGamepadRemoved -= OnGamepadRemoved;
 	}
 
 	void Update()
 	{
-		for (int i = 0; i < inputDevices.Count; i++)
+		for (int i = 0; i < InputDevices.Count; i++)
 		{
-			if (!inputDevices [i].autoActive && !useDisabledDevices)
+			if (!InputDevices [i].autoActive && !UseDisabledDevices)
 				continue;
-			if (!activeDevice || inputDevices [i].lastInputTime > activeDevice.lastInputTime)
-				activeDevice = inputDevices [i];
-			lastInputTime = Mathf.Max (inputDevices [i].lastInputTime, lastInputTime);
+			if (!ActiveDevice || InputDevices [i].lastInputTime > ActiveDevice.lastInputTime)
+				ActiveDevice = InputDevices [i];
+			LastInputTime = Mathf.Max (InputDevices [i].lastInputTime, LastInputTime);
 		}
 	}
 		
@@ -105,7 +109,7 @@ public class MappedInput : MonoBehaviour {
 		obj.transform.parent = transform;
 
 		obj.name = "Device: "+ gamepad.displayName;
-		inputDevices.Add (device);
+		InputDevices.Add (device);
 		
 		if( OnDeviceAdded != null )
 			OnDeviceAdded(device);
@@ -113,12 +117,12 @@ public class MappedInput : MonoBehaviour {
 
 	void OnGamepadRemoved(GamepadDevice gamepad)
 	{
-		for(int i = 0; i < inputDevices.Count; i++)
+		for(int i = 0; i < InputDevices.Count; i++)
 		{
-			if( inputDevices[i] is GamepadInputDevice && (inputDevices[i] as GamepadInputDevice).gamepad == gamepad)
+			if( InputDevices[i] is GamepadInputDevice && (InputDevices[i] as GamepadInputDevice).gamepad == gamepad)
 			{
-				var device = inputDevices[i];
-				inputDevices.Remove (device);
+				var device = InputDevices[i];
+				InputDevices.Remove (device);
 
 				if( OnDeviceRemoved != null )
 					OnDeviceRemoved(device);
@@ -131,15 +135,16 @@ public class MappedInput : MonoBehaviour {
 	{
 		GameObject obj = new GameObject ("Keyboard",typeof(KeyboardInputDevice));
 		obj.transform.parent = transform;
-		InputDevice device = obj.GetComponent<KeyboardInputDevice> ();
-		inputDevices.Add(device);
+		KeyBoard = obj.GetComponent<KeyboardInputDevice> ();
+		InputDevices.Add(KeyBoard);
 	}
 
 	void AddMouseDevice()
 	{
-		GameObject obj = new GameObject ("Mouse",typeof(MouseInputDevice));
+        Debug.Log("setting mouse");
+        GameObject obj = new GameObject ("Mouse",typeof(MouseInputDevice));
 		obj.transform.parent = transform;
-		InputDevice device = obj.GetComponent<MouseInputDevice> ();
-		inputDevices.Add(device);
+		Mouse = obj.GetComponent<MouseInputDevice> ();
+		InputDevices.Add(Mouse);
 	}
 }

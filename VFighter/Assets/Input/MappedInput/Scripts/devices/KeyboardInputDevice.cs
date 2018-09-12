@@ -6,7 +6,7 @@ public class KeyboardInputDevice : InputDevice
 {	
 	public override string GetButtonName(MappedButton button)
 	{
-		var mapping = MappedInput.instance.keyboardInputMapping.GetButtonMapping (button);
+		var mapping = MappedInput.Instance.KeyboardInputMapping.GetButtonMapping (button);
 		if (mapping == null)
 			return "";
 
@@ -15,7 +15,7 @@ public class KeyboardInputDevice : InputDevice
 
 	public override string GetAxisName(MappedAxis axis)
 	{
-		var mapping = MappedInput.instance.keyboardInputMapping.GetAxisMapping (axis);
+		var mapping = MappedInput.Instance.KeyboardInputMapping.GetAxisMapping (axis);
 		if (mapping != null) {
 		
 			if (mapping.buttonsPositive.Length > 0 && mapping.buttonsNegative.Length > 0)
@@ -28,7 +28,7 @@ public class KeyboardInputDevice : InputDevice
 
 	public override bool GetButton(MappedButton button)
 	{
-		var mapping = MappedInput.instance.keyboardInputMapping.GetButtonMapping (button);
+		var mapping = MappedInput.Instance.KeyboardInputMapping.GetButtonMapping (button);
 		if (mapping == null)
 			return false;
 		
@@ -43,7 +43,7 @@ public class KeyboardInputDevice : InputDevice
 
 	public override bool GetButtonDown(MappedButton button)
 	{
-		var mapping = MappedInput.instance.keyboardInputMapping.GetButtonMapping (button);
+		var mapping = MappedInput.Instance.KeyboardInputMapping.GetButtonMapping (button);
 		if (mapping == null)
 			return false;
 		
@@ -58,7 +58,7 @@ public class KeyboardInputDevice : InputDevice
 
 	public override bool GetButtonUp(MappedButton button)
 	{
-		var mapping = MappedInput.instance.keyboardInputMapping.GetButtonMapping (button);
+		var mapping = MappedInput.Instance.KeyboardInputMapping.GetButtonMapping (button);
 		if (mapping == null)
 			return false;
 		
@@ -73,7 +73,7 @@ public class KeyboardInputDevice : InputDevice
 	protected override float GetAxisValueRaw (MappedAxis axis)
 	{
 
-		var mapping = MappedInput.instance.keyboardInputMapping.GetAxisMapping (axis);
+		var mapping = MappedInput.Instance.KeyboardInputMapping.GetAxisMapping (axis);
 
 		if (mapping == null)
 			return 0;

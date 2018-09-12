@@ -6,7 +6,7 @@ public class MouseInputDevice : InputDevice
 {	
 	public override string GetButtonName(MappedButton button)
 	{
-		var mapping = MappedInput.instance.mouseInputMapping.GetButtonMapping (button);
+		var mapping = MappedInput.Instance.MouseInputMapping.GetButtonMapping (button);
 		if (mapping != null)
 		{
 			return string.Format ("Mouse Button {0}", mapping.mouseButtonId);
@@ -17,7 +17,7 @@ public class MouseInputDevice : InputDevice
 
 	public override string GetAxisName(MappedAxis axis)
 	{
-		var mapping = MappedInput.instance.mouseInputMapping.GetAxisMapping (axis);
+		var mapping = MappedInput.Instance.MouseInputMapping.GetAxisMapping (axis);
 		if (mapping != null)
 		{
 			return string.Format ("Mouse Axis {0}", mapping.mouseAxisId);
@@ -27,7 +27,7 @@ public class MouseInputDevice : InputDevice
 
 	public override bool GetButton(MappedButton button)
 	{
-		var mapping = MappedInput.instance.mouseInputMapping.GetButtonMapping (button);
+		var mapping = MappedInput.Instance.MouseInputMapping.GetButtonMapping (button);
 		if (mapping != null)
 		{
 			return Input.GetMouseButton (mapping.mouseButtonId);
@@ -37,7 +37,7 @@ public class MouseInputDevice : InputDevice
 
 	public override bool GetButtonDown(MappedButton button)
 	{
-		var mapping = MappedInput.instance.mouseInputMapping.GetButtonMapping (button);
+		var mapping = MappedInput.Instance.MouseInputMapping.GetButtonMapping (button);
 		if (mapping != null)
 		{
 			return Input.GetMouseButtonDown (mapping.mouseButtonId);
@@ -48,7 +48,7 @@ public class MouseInputDevice : InputDevice
 
 	public override bool GetButtonUp(MappedButton button)
 	{
-		var mapping = MappedInput.instance.mouseInputMapping.GetButtonMapping (button);
+		var mapping = MappedInput.Instance.MouseInputMapping.GetButtonMapping (button);
 		if (mapping != null)
 		{
 			return Input.GetMouseButtonUp (mapping.mouseButtonId);
@@ -60,7 +60,7 @@ public class MouseInputDevice : InputDevice
 	protected override float GetAxisValueRaw (MappedAxis axis)
 	{
 		float rawVal = 0;
-		var mapping = MappedInput.instance.mouseInputMapping.GetAxisMapping (axis);
+		var mapping = MappedInput.Instance.MouseInputMapping.GetAxisMapping (axis);
 
 		if (mapping != null)
 		{

@@ -8,7 +8,7 @@ public class GamepadInputDevice : InputDevice
 
 	public override string GetButtonName(MappedButton button)
 	{
-		var mapping = MappedInput.instance.gamepadInputMapping.GetGamepadButtonMapping (button);
+		var mapping = MappedInput.Instance.GamepadInputMapping.GetGamepadButtonMapping (button);
 		if( mapping != null )
 		{
 			return gamepad.layout.GetButtonName(mapping.buttons[0]);
@@ -19,7 +19,7 @@ public class GamepadInputDevice : InputDevice
 
 	public override string GetAxisName(MappedAxis axis)
 	{
-		var mapping = MappedInput.instance.gamepadInputMapping.GetGamepadAxisMapping (axis);
+		var mapping = MappedInput.Instance.GamepadInputMapping.GetGamepadAxisMapping (axis);
 		if( mapping != null )
 		{
 			return gamepad.layout.GetAxisName(mapping.axes[0]);
@@ -30,7 +30,7 @@ public class GamepadInputDevice : InputDevice
 
 	public override bool GetButton(MappedButton button)
 	{
-		var mapping = MappedInput.instance.gamepadInputMapping.GetGamepadButtonMapping (button);
+		var mapping = MappedInput.Instance.GamepadInputMapping.GetGamepadButtonMapping (button);
 		if (mapping != null)
 		{
 			for (int i = 0; i < mapping.buttons.Length; i++)
@@ -44,7 +44,7 @@ public class GamepadInputDevice : InputDevice
 
 	public override bool GetButtonDown(MappedButton button)
 	{
-		var mapping = MappedInput.instance.gamepadInputMapping.GetGamepadButtonMapping (button);
+		var mapping = MappedInput.Instance.GamepadInputMapping.GetGamepadButtonMapping (button);
 		if (mapping != null)
 		{
 			for (int i = 0; i < mapping.buttons.Length; i++)
@@ -59,7 +59,7 @@ public class GamepadInputDevice : InputDevice
 
 	public override bool GetButtonUp(MappedButton button)
 	{
-		var mapping = MappedInput.instance.gamepadInputMapping.GetGamepadButtonMapping (button);
+		var mapping = MappedInput.Instance.GamepadInputMapping.GetGamepadButtonMapping (button);
 		if( mapping != null )
 		{
 			for(int i = 0; i < mapping.buttons.Length; i++)
@@ -75,7 +75,7 @@ public class GamepadInputDevice : InputDevice
 	protected override float GetAxisValueRaw (MappedAxis axis)
 	{
 		float rawVal = 0;
-		var mapping = MappedInput.instance.gamepadInputMapping.GetGamepadAxisMapping (axis);
+		var mapping = MappedInput.Instance.GamepadInputMapping.GetGamepadAxisMapping (axis);
 		if (mapping == null)
 		{
 			Debug.LogWarningFormat ("Axis {0} is not mapped on device {1}", axis, this);
