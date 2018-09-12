@@ -16,7 +16,7 @@ public class KeyboardPlayerController : PlayerController
 
         Move(new Vector2(horizontalLeft, verticalLeft));
 
-        var mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        var mousePos = Camera.main.ScreenToWorldPoint(MappedInput.Mouse.GetAxis2D(MappedAxis.Horizontal, MappedAxis.Vertical));
         var deltaFromPlayer = mousePos - transform.position;
 
         AimReticle(deltaFromPlayer);
