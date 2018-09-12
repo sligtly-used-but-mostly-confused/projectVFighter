@@ -14,6 +14,8 @@ public class GravityObjectRigidBody : MonoBehaviour {
     [SerializeField]
     private float MaxComponentSpeed = 10;
 
+    public PlayerController Owner;
+
     public float GravityScale
     {
         get { return _gravityScale; }
