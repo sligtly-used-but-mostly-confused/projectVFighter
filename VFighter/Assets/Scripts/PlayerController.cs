@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 [RequireComponent(typeof(GravityObjectRigidBody))]
 public abstract class PlayerController : MonoBehaviour {
@@ -18,6 +19,8 @@ public abstract class PlayerController : MonoBehaviour {
     [SerializeField]
     protected GameObject AimingReticle;
 
+    public List<GravityObjectRigidBody> AttachedObjects;
+
     public void Move(Vector2 dir)
     {
         GetComponent<GravityObjectRigidBody>().AddLinearAcceleration(dir * MoveSpeed);
@@ -31,6 +34,7 @@ public abstract class PlayerController : MonoBehaviour {
     public void ChangeGravity(Vector2 dir)
     {
         GetComponent<GravityObjectRigidBody>().ChangeGravityDirection(dir);
+        AttachedObjects.ForEach(x => x.ChangeGravityDirection(dir));
     }
 
     public void Jump()
