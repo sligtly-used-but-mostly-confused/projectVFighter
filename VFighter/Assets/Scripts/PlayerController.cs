@@ -44,8 +44,13 @@ public abstract class PlayerController : MonoBehaviour {
 
     public void ShootGravityGun(Vector2 dir)
     {
-        Debug.Log("Im trying!");
-        GameObject projectileClone = (GameObject)Instantiate(Projectile, AimingReticle.transform.position, AimingReticle.transform.rotation);
+        GameObject projectileClone = Instantiate(Projectile, AimingReticle.transform.position, AimingReticle.transform.rotation);
+        projectileClone.GetComponent<GravityGunProjectileController>().Owner = this;
         projectileClone.GetComponent<Rigidbody2D>().velocity = dir * ShootSpeed;
+    }
+
+    public void AttachGORB(GravityObjectRigidBody gravityObjectRB)
+    {
+        AttachedObjects.Add(gravityObjectRB);
     }
 }

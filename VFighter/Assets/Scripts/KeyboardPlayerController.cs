@@ -14,8 +14,6 @@ public class KeyboardPlayerController : PlayerController
         float verticalLeft = Input.GetAxis("VerticalLeft");
         float horizontalLeft = Input.GetAxis("HorizontalLeft");
 
-        //Debug.Log("Right " + new Vector2(horizontal, vertical));
-        //Debug.Log("Left " + new Vector2(horizontalLeft, verticalLeft));
         Move(new Vector2(horizontalLeft, verticalLeft));
 
         var mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -28,7 +26,7 @@ public class KeyboardPlayerController : PlayerController
             var closestDir = ClosestDirection(deltaFromPlayer.normalized);
             ChangeGravity(closestDir);
         }
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetButtonDown("Fire1"))
         {
             ShootGravityGun(deltaFromPlayer);
         }
