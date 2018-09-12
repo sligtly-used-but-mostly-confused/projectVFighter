@@ -16,6 +16,8 @@ public class KeyboardPlayerController : PlayerController
 
         Move(new Vector2(horizontalLeft, verticalLeft));
 
+        MappedInput.inputDevices.
+
         var mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         var deltaFromPlayer = mousePos - transform.position;
 
