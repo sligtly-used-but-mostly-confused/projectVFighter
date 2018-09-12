@@ -294,9 +294,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72e227611bd16ec43923854f771b221f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gravityScale: 1
+  _gravityScale: 5
   _gravityDirection: {x: 0, y: -1}
-  MaxComponentSpeed: 10
+  MaxComponentSpeed: 20
 --- !u!50 &1142028251
 Rigidbody2D:
   serializedVersion: 4
@@ -316,7 +316,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!212 &1142028252
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -597,6 +597,8 @@ MonoBehaviour:
   MoveSpeed: 10
   JumpForce: 10
   AimingReticle: {fileID: 1083582641}
+  AttachedObjects:
+  - {fileID: 1142028250}
 --- !u!114 &1308650588
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -608,9 +610,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72e227611bd16ec43923854f771b221f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gravityScale: 2
+  _gravityScale: 10
   _gravityDirection: {x: 0, y: -1}
-  MaxComponentSpeed: 10
+  MaxComponentSpeed: 20
 --- !u!61 &1308650589
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -655,7 +657,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!1 &1638255712
 GameObject:
   m_ObjectHideFlags: 0

@@ -32,11 +32,6 @@ public class GravityObjectRigidBody : MonoBehaviour {
         private set { _id = value; }
     }
 
-    private void Awake()
-    {
-        
-    }
-
     void Start () {
         GetComponent<Rigidbody2D>().gravityScale = 0;
 	}
@@ -58,13 +53,15 @@ public class GravityObjectRigidBody : MonoBehaviour {
         var tempVel = prevVel + velocityDelta;
         var newVel = prevVel;
 
-        if (MaxComponentSpeed > tempVel.x)
+        if (MaxComponentSpeed > Mathf.Abs(tempVel.x))
         {
+            //Debug.Log("x " + tempVel.x);
             newVel += new Vector2(velocityDelta.x, 0);
         }
 
-        if (MaxComponentSpeed > tempVel.y)
+        if (MaxComponentSpeed > Mathf.Abs(tempVel.y))
         {
+            //Debug.Log("y " + tempVel.y);
             newVel += new Vector2(0, velocityDelta.y);
         }
 
@@ -73,8 +70,10 @@ public class GravityObjectRigidBody : MonoBehaviour {
 
     public void ChangeGravityDirection(Vector2 dir)
     {
+        Debug.Log(name + " " + dir);
         if (dir != GravityDirection)
         {
+            Debug.Log("inside " + name + " " + dir);
             GetComponent<Rigidbody2D>().velocity = Vector2.zero;
             GravityDirection = dir;
         }
