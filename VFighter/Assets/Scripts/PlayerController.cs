@@ -10,14 +10,18 @@ public abstract class PlayerController : MonoBehaviour {
     [SerializeField]
     protected float MoveSpeed = 1f;
     [SerializeField]
+    protected float ShootSpeed = 1f;
+    [SerializeField]
     protected float JumpForce = 10f;
+    [SerializeField]
+    protected GameObject Projectile;
 
     [SerializeField]
     protected GameObject AimingReticle;
 
     public List<GravityObjectRigidBody> AttachedObjects;
 
-    public void Move(Vector3 dir)
+    public void Move(Vector2 dir)
     {
         GetComponent<GravityObjectRigidBody>().AddLinearAcceleration(dir * MoveSpeed);
     }
@@ -38,8 +42,10 @@ public abstract class PlayerController : MonoBehaviour {
         throw new System.NotImplementedException();
     }
 
-    public void ShootGravityGun(Vector3 dir)
+    public void ShootGravityGun(Vector2 dir)
     {
-        throw new System.NotImplementedException();
+        Debug.Log("Im trying!");
+        GameObject projectileClone = (GameObject)Instantiate(Projectile, AimingReticle.transform.position, AimingReticle.transform.rotation);
+        projectileClone.GetComponent<Rigidbody2D>().velocity = dir * ShootSpeed;
     }
 }
