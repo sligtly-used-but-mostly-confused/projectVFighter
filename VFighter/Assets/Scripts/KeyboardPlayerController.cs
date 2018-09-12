@@ -28,6 +28,10 @@ public class KeyboardPlayerController : PlayerController
             var closestDir = ClosestDirection(deltaFromPlayer.normalized);
             ChangeGravity(closestDir);
         }
+        if (Input.GetMouseButtonDown(1))
+        {
+            ShootGravityGun(deltaFromPlayer);
+        }
     }
 
     Vector2 ClosestDirection(Vector2 v)

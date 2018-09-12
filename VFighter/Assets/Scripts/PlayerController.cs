@@ -14,7 +14,7 @@ public abstract class PlayerController : MonoBehaviour {
     [SerializeField]
     protected float JumpForce = 10f;
     [SerializeField]
-    protected Rigidbody2D Projectile;
+    protected GameObject Projectile;
 
     [SerializeField]
     protected GameObject AimingReticle;
@@ -45,7 +45,7 @@ public abstract class PlayerController : MonoBehaviour {
     public void ShootGravityGun(Vector2 dir)
     {
         Debug.Log("Im trying!");
-        Rigidbody2D projectileClone = (Rigidbody2D)Instantiate(Projectile, AimingReticle.transform.position, AimingReticle.transform.rotation);
-        projectileClone.velocity = dir * ShootSpeed;
+        GameObject projectileClone = (GameObject)Instantiate(Projectile, AimingReticle.transform.position, AimingReticle.transform.rotation);
+        projectileClone.GetComponent<Rigidbody2D>().velocity = dir * ShootSpeed;
     }
 }
