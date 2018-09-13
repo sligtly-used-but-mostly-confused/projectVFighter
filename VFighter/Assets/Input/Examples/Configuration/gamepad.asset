@@ -16,10 +16,6 @@ MonoBehaviour:
     buttons: 00000000
   - target: 2
     buttons: 01000000
-  - target: 3
-    buttons: 05000000
-  - target: 4
-    buttons: 00000000
   axisMappings:
   - target: 0
     axes: 00000000

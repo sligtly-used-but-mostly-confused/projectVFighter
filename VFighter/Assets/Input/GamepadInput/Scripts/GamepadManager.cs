@@ -14,7 +14,7 @@ public abstract class GamepadManager
 		} 
 	}
 
-	protected void AddDevice(GamepadDevice device)
+	public void AddDevice(GamepadDevice device)
 	{
 		gamepads.Add (device);
 		

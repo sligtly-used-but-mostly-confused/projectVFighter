@@ -13,8 +13,7 @@ using System.Collections;
 public enum MappedButton
 {
 	None,
-	Button1,
-	Button2,
-	Button3,
-	Button4
+    ShootGravGun,
+    Jump,
+    ChangeGrav
 }
