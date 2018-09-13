@@ -14,6 +14,9 @@ public abstract class PlayerController : MonoBehaviour {
     [SerializeField]
     protected float JumpForce = 10f;
     [SerializeField]
+    protected float ImpulseToKill = 10f;
+
+    [SerializeField]
     protected GameObject Projectile;
 
     [SerializeField]
@@ -52,5 +55,14 @@ public abstract class PlayerController : MonoBehaviour {
     public void AttachGORB(GravityObjectRigidBody gravityObjectRB)
     {
         AttachedObjects.Add(gravityObjectRB);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        var impulse = (collision.relativeVelocity * collision.rigidbody.mass).magnitude;
+        if (impulse > ImpulseToKill && collision.collider.GetComponent<GravityObjectRigidBody>())
+        {
+            Destroy(gameObject);
+        }
     }
 }
