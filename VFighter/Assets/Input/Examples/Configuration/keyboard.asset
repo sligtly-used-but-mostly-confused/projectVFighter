@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Name: keyboard
   m_EditorClassIdentifier: 
   keyboardButtonMapping:
-  - target: 1
+  - target: 3
     buttons: 20000000
   - target: 2
     buttons: 73000000

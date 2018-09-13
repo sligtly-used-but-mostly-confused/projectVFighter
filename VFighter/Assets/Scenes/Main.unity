@@ -412,6 +412,7 @@ GameObject:
   - component: {fileID: 1148894442}
   - component: {fileID: 1148894441}
   - component: {fileID: 1148894443}
+  - component: {fileID: 1148894444}
   m_Layer: 0
   m_Name: New Sprite (3)
   m_TagString: Untagged
@@ -503,6 +504,26 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.5, y: 0.5}
   m_EdgeRadius: 0
+--- !u!50 &1148894444
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1148894440}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 7
 --- !u!1 &1155191871
 GameObject:
   m_ObjectHideFlags: 0
@@ -675,6 +696,7 @@ MonoBehaviour:
   MoveSpeed: 10
   ShootSpeed: 1
   JumpForce: 10
+  ImpulseToKill: 10
   Projectile: {fileID: 1553312605624202, guid: 7b549a10b0a7a4de4843efb95d3176eb, type: 2}
   AimingReticle: {fileID: 1083582641}
   AttachedObjects: []
@@ -825,6 +847,7 @@ GameObject:
   - component: {fileID: 1710883875}
   - component: {fileID: 1710883874}
   - component: {fileID: 1710883876}
+  - component: {fileID: 1710883877}
   m_Layer: 0
   m_Name: whiteBoxx (2)
   m_TagString: Untagged
@@ -916,6 +939,26 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.5, y: 0.5}
   m_EdgeRadius: 0
+--- !u!50 &1710883877
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1710883873}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 7
 --- !u!1 &1775526600
 GameObject:
   m_ObjectHideFlags: 0
@@ -926,6 +969,7 @@ GameObject:
   - component: {fileID: 1775526602}
   - component: {fileID: 1775526601}
   - component: {fileID: 1775526603}
+  - component: {fileID: 1775526604}
   m_Layer: 0
   m_Name: whiteBoxx (3)
   m_TagString: Untagged
@@ -1017,6 +1061,26 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.5, y: 0.5}
   m_EdgeRadius: 0
+--- !u!50 &1775526604
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1775526600}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 7
 --- !u!1 &2136838574
 GameObject:
   m_ObjectHideFlags: 0
@@ -1027,6 +1091,7 @@ GameObject:
   - component: {fileID: 2136838576}
   - component: {fileID: 2136838575}
   - component: {fileID: 2136838577}
+  - component: {fileID: 2136838578}
   m_Layer: 0
   m_Name: New Sprite (2)
   m_TagString: Untagged
@@ -1118,3 +1183,23 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.5, y: 0.5}
   m_EdgeRadius: 0
+--- !u!50 &2136838578
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2136838574}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 7
