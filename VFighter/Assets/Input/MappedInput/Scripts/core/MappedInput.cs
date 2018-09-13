@@ -49,7 +49,7 @@ public class MappedInput : MonoBehaviour {
 	public KeyboardInputMapping KeyboardInputMapping;
 	public MouseInputMapping MouseInputMapping;
 
-	public static System.Action<InputDevice> OnActiveDeviceChanged;
+    public static System.Action<InputDevice> OnActiveDeviceChanged;
 
     public static InputDevice Mouse;
     public static InputDevice KeyBoard;
@@ -62,14 +62,17 @@ public class MappedInput : MonoBehaviour {
 		if( MouseInputMapping != null)
 			AddMouseDevice ();
 
-		if( KeyboardInputMapping != null)
+		if(KeyboardInputMapping != null)
 			AddKeyboardDevice ();
-		
+
+        if (MouseInputMapping != null && KeyboardInputMapping != null)
+            AddKeyboardMouseDevice();
+
 #elif UNITY_IOS || UNITY_ANDROID
 		AddMouseDevice ();
 #endif
 
-		Instance = this;
+            Instance = this;
 	}
 
 	void Start()
@@ -147,4 +150,13 @@ public class MappedInput : MonoBehaviour {
 		Mouse = obj.GetComponent<MouseInputDevice> ();
 		InputDevices.Add(Mouse);
 	}
+
+    void AddKeyboardMouseDevice()
+    {
+        Debug.Log("setting KeyboardMouse");
+        GameObject obj = new GameObject("KeyboardMouse", typeof(KeyboardMouseInputDevice));
+        obj.transform.parent = transform;
+        var KeyboardMouse = obj.GetComponent<KeyboardMouseInputDevice>();
+        InputDevices.Add(KeyboardMouse);
+    }
 }

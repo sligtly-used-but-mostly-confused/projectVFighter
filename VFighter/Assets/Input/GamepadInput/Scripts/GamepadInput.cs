@@ -4,6 +4,8 @@ using System.Collections.Generic;
 
 public class GamepadInput : MonoBehaviour
 {
+    private static GamepadInput _instance;
+    public static GamepadInput Instance { get { return _instance; } }
 	GamepadManager manager;
 
 	public List<GamepadDevice> gamepads { 
@@ -20,6 +22,15 @@ public class GamepadInput : MonoBehaviour
 
 	void Start()
 	{
+        if(_instance == null)
+        {
+            _instance = this;
+        }
+        else
+        {
+            Destroy(this);
+        }
+
 #if UNITY_STANDALONE_WIN
 		manager = new XGamepadManager (xGamepadLayout);
 #else
@@ -30,7 +41,7 @@ public class GamepadInput : MonoBehaviour
 		manager.OnGamepadRemoved += GamepadRemoved;
 		
 		manager.Init ();
-	}
+    }
 
 	void OnDestroy()
 	{

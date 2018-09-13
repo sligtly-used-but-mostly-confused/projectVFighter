@@ -7,26 +7,23 @@ public class KeyboardPlayerController : PlayerController
     private Vector2[] _compass = { Vector2.left, Vector2.right, Vector2.up, Vector2.down };
 
     void Update()
-    {
-        float vertical = Input.GetAxis("Vertical");
-        float horizontal = Input.GetAxis("Horizontal");
+    { 
+        var inputDevice = MappedInput.InputDevices[2];
 
-        float verticalLeft = Input.GetAxis("VerticalLeft");
-        float horizontalLeft = Input.GetAxis("HorizontalLeft");
+        float mouseY = inputDevice.GetAxisRaw(MappedAxis.Vertical);
+        float mouseX = inputDevice.GetAxisRaw(MappedAxis.Horizontal);
 
-        Move(new Vector2(horizontalLeft, verticalLeft));
-
-        var mousePos = Camera.main.ScreenToWorldPoint(MappedInput.Mouse.GetAxis2D(MappedAxis.Horizontal, MappedAxis.Vertical));
+        var mousePos = Camera.main.ScreenToWorldPoint(new Vector2(mouseX, mouseY));
         var deltaFromPlayer = mousePos - transform.position;
 
         AimReticle(deltaFromPlayer);
 
-        if(Input.GetKeyDown(KeyCode.Space))
+        if(inputDevice.GetButtonDown(MappedButton.ChangeGrav))
         {
             var closestDir = ClosestDirection(deltaFromPlayer.normalized);
             ChangeGravity(closestDir);
         }
-        if (Input.GetButtonDown("Fire1"))
+        if (inputDevice.GetButtonDown(MappedButton.ShootGravGun))
         {
             ShootGravityGun(deltaFromPlayer);
         }
