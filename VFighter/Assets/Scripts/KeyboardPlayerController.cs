@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class KeyboardPlayerController : PlayerController
 {
-    private Vector2[] _compass = { Vector2.left, Vector2.right, Vector2.up, Vector2.down };
-
     void Update()
     { 
         var inputDevice = MappedInput.InputDevices[2];
@@ -27,24 +25,5 @@ public class KeyboardPlayerController : PlayerController
         {
             ShootGravityGun(deltaFromPlayer);
         }
-    }
-
-    Vector2 ClosestDirection(Vector2 v)
-    {
- 
-        var maxDot = -Mathf.Infinity;
-        var ret = Vector3.zero;
-     
-        foreach(var dir in _compass)
-        { 
-            var t = Vector3.Dot(v, dir);
-            if (t > maxDot)
-            {
-                ret = dir;
-                maxDot = t;
-            }
-        }
- 
-        return ret;
     }
 }

@@ -5,6 +5,9 @@ using System.Linq;
 
 [RequireComponent(typeof(GravityObjectRigidBody))]
 public abstract class PlayerController : MonoBehaviour {
+
+    public List<GravityObjectRigidBody> AttachedObjects;
+
     [SerializeField]
     protected float RechargeTime = .25f;
     [SerializeField]
@@ -22,7 +25,15 @@ public abstract class PlayerController : MonoBehaviour {
     [SerializeField]
     protected GameObject AimingReticle;
 
-    public List<GravityObjectRigidBody> AttachedObjects;
+    private readonly Vector2[] _compass = { Vector2.left, Vector2.right, Vector2.up, Vector2.down };
+
+    protected DataService _dataService;
+
+    protected virtual void Awake()
+    {
+        _dataService = new DataService("ActionLogs.db");
+        //_dataService.CreateDB();
+    }
 
     public void Move(Vector2 dir)
     {
@@ -36,6 +47,7 @@ public abstract class PlayerController : MonoBehaviour {
 
     public void ChangeGravity(Vector2 dir)
     {
+        _dataService.InsertAction(new PlayerAction(ActionType.ChangeGrav, dir));
         GetComponent<GravityObjectRigidBody>().ChangeGravityDirection(dir);
         AttachedObjects.ForEach(x => x.ChangeGravityDirection(dir));
     }
@@ -47,6 +59,7 @@ public abstract class PlayerController : MonoBehaviour {
 
     public void ShootGravityGun(Vector2 dir)
     {
+        _dataService.InsertAction(new PlayerAction(ActionType.FireGravGun, dir));
         GameObject projectileClone = Instantiate(Projectile, AimingReticle.transform.position, AimingReticle.transform.rotation);
         projectileClone.GetComponent<GravityGunProjectileController>().Owner = this;
         projectileClone.GetComponent<Rigidbody2D>().velocity = dir * ShootSpeed;
@@ -64,5 +77,24 @@ public abstract class PlayerController : MonoBehaviour {
         {
             Destroy(gameObject);
         }
+    }
+
+    protected Vector2 ClosestDirection(Vector2 v)
+    {
+
+        var maxDot = -Mathf.Infinity;
+        var ret = Vector3.zero;
+
+        foreach (var dir in _compass)
+        {
+            var t = Vector3.Dot(v, dir);
+            if (t > maxDot)
+            {
+                ret = dir;
+                maxDot = t;
+            }
+        }
+
+        return ret;
     }
 }
