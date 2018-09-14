@@ -4,8 +4,11 @@ using UnityEngine;
 using System.Linq;
 
 [RequireComponent(typeof(GravityObjectRigidBody))]
-public abstract class PlayerController : MonoBehaviour
-{
+
+public abstract class PlayerController : MonoBehaviour {
+
+    public List<GravityObjectRigidBody> AttachedObjects;
+
     [SerializeField]
     protected float RechargeTime = 1f;
     [SerializeField]
@@ -15,11 +18,22 @@ public abstract class PlayerController : MonoBehaviour
     [SerializeField]
     protected float JumpForce = 10f;
     [SerializeField]
+    protected float ImpulseToKill = 10f;
+
+    [SerializeField]
     protected GameObject Projectile;
     [SerializeField]
     protected GameObject AimingReticle;
 
-    public List<GravityObjectRigidBody> AttachedObjects;
+    private readonly Vector2[] _compass = { Vector2.left, Vector2.right, Vector2.up, Vector2.down };
+
+    protected DataService _dataService;
+
+    protected virtual void Awake()
+    {
+        _dataService = new DataService("ActionLogs.db");
+        //_dataService.CreateDB();
+    }
 
     private bool coolingDown;
 
@@ -35,6 +49,7 @@ public abstract class PlayerController : MonoBehaviour
 
     public void ChangeGravity(Vector2 dir)
     {
+        _dataService.InsertAction(new PlayerAction(ActionType.ChangeGrav, dir));
         GetComponent<GravityObjectRigidBody>().ChangeGravityDirection(dir);
         AttachedObjects.ForEach(x => x.ChangeGravityDirection(dir));
     }
@@ -48,6 +63,7 @@ public abstract class PlayerController : MonoBehaviour
     {
         if (!coolingDown)
         {
+            _dataService.InsertAction(new PlayerAction(ActionType.FireGravGun, dir));
             GameObject projectileClone = (GameObject)Instantiate(Projectile, AimingReticle.transform.position, AimingReticle.transform.rotation);
             projectileClone.GetComponent<Rigidbody2D>().velocity = dir * ShootSpeed;
             StartCoroutine(CoolDown());
@@ -59,5 +75,38 @@ public abstract class PlayerController : MonoBehaviour
         coolingDown = true;
         yield return new WaitForSeconds(RechargeTime);
         coolingDown = false;
+    }
+
+    public void AttachGORB(GravityObjectRigidBody gravityObjectRB)
+    {
+        AttachedObjects.Add(gravityObjectRB);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        var impulse = (collision.relativeVelocity * collision.rigidbody.mass).magnitude;
+        if (impulse > ImpulseToKill && collision.collider.GetComponent<GravityObjectRigidBody>())
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    protected Vector2 ClosestDirection(Vector2 v)
+    {
+
+        var maxDot = -Mathf.Infinity;
+        var ret = Vector3.zero;
+
+        foreach (var dir in _compass)
+        {
+            var t = Vector3.Dot(v, dir);
+            if (t > maxDot)
+            {
+                ret = dir;
+                maxDot = t;
+            }
+        }
+
+        return ret;
     }
 }
