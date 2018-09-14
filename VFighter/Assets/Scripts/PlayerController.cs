@@ -4,9 +4,10 @@ using UnityEngine;
 using System.Linq;
 
 [RequireComponent(typeof(GravityObjectRigidBody))]
-public abstract class PlayerController : MonoBehaviour {
+public abstract class PlayerController : MonoBehaviour
+{
     [SerializeField]
-    protected float RechargeTime = .25f;
+    protected float RechargeTime = 1f;
     [SerializeField]
     protected float MoveSpeed = 1f;
     [SerializeField]
@@ -15,11 +16,12 @@ public abstract class PlayerController : MonoBehaviour {
     protected float JumpForce = 10f;
     [SerializeField]
     protected GameObject Projectile;
-
     [SerializeField]
     protected GameObject AimingReticle;
 
     public List<GravityObjectRigidBody> AttachedObjects;
+
+    private bool coolingDown;
 
     public void Move(Vector2 dir)
     {
@@ -44,8 +46,18 @@ public abstract class PlayerController : MonoBehaviour {
 
     public void ShootGravityGun(Vector2 dir)
     {
-        Debug.Log("Im trying!");
-        GameObject projectileClone = (GameObject)Instantiate(Projectile, AimingReticle.transform.position, AimingReticle.transform.rotation);
-        projectileClone.GetComponent<Rigidbody2D>().velocity = dir * ShootSpeed;
+        if (!coolingDown)
+        {
+            GameObject projectileClone = (GameObject)Instantiate(Projectile, AimingReticle.transform.position, AimingReticle.transform.rotation);
+            projectileClone.GetComponent<Rigidbody2D>().velocity = dir * ShootSpeed;
+            StartCoroutine(CoolDown());
+        }
+    }
+
+    IEnumerator CoolDown()
+    {
+        coolingDown = true;
+        yield return new WaitForSeconds(RechargeTime);
+        coolingDown = false;
     }
 }

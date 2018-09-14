@@ -28,7 +28,7 @@ public class KeyboardPlayerController : PlayerController
             var closestDir = ClosestDirection(deltaFromPlayer.normalized);
             ChangeGravity(closestDir);
         }
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetButtonDown("Fire2"))
         {
             ShootGravityGun(deltaFromPlayer);
         }
