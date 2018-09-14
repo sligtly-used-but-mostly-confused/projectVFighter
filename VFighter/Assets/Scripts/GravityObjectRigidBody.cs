@@ -4,15 +4,16 @@ using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class GravityObjectRigidBody : MonoBehaviour {
+    private static int _idCnt = 0;
 
     [SerializeField]
-    private static int _id;
+    private int _id;
     [SerializeField]
     private float _gravityScale = 1f;
     [SerializeField]
     private Vector2 _gravityDirection = Vector2.down;
     [SerializeField]
-    private float MaxComponentSpeed = 10;
+    private float _maxComponentSpeed = 10;
 
     public PlayerController Owner;
 
@@ -28,10 +29,21 @@ public class GravityObjectRigidBody : MonoBehaviour {
         private set { _gravityDirection = value; }
     }
 
-    public static int Id
+    public int Id
     {
         get { return _id; }
         private set { _id = value; }
+    }
+
+    public float MaxComponentSpeed
+    {
+        get{return _maxComponentSpeed;}
+        set{_maxComponentSpeed = value;}
+    }
+
+    private void Awake()
+    {
+        _id = _idCnt++;
     }
 
     void Start () {

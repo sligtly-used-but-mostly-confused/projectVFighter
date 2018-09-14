@@ -7,7 +7,7 @@ using System.Linq;
 public abstract class PlayerController : MonoBehaviour {
 
     public List<GravityObjectRigidBody> AttachedObjects;
-
+    
     [SerializeField]
     protected float RechargeTime = .25f;
     [SerializeField]
@@ -25,14 +25,14 @@ public abstract class PlayerController : MonoBehaviour {
     [SerializeField]
     protected GameObject AimingReticle;
 
-    private readonly Vector2[] _compass = { Vector2.left, Vector2.right, Vector2.up, Vector2.down };
+    [SerializeField]
+    public bool IsDead;
 
-    protected DataService _dataService;
+    private readonly Vector2[] _compass = { Vector2.left, Vector2.right, Vector2.up, Vector2.down };
 
     protected virtual void Awake()
     {
-        _dataService = new DataService("ActionLogs.db");
-        //_dataService.CreateDB();
+        IsDead = false;
     }
 
     public void Move(Vector2 dir)
@@ -47,9 +47,17 @@ public abstract class PlayerController : MonoBehaviour {
 
     public void ChangeGravity(Vector2 dir)
     {
-        _dataService.InsertAction(new PlayerAction(ActionType.ChangeGrav, dir));
-        GetComponent<GravityObjectRigidBody>().ChangeGravityDirection(dir);
-        AttachedObjects.ForEach(x => x.ChangeGravityDirection(dir));
+        /*
+        _dataService.InsertAction(new PlayerAction(
+            ActionType.ChangeGrav, 
+            dir, 
+            transform.position,
+            GravityObjectManager.Instance.GetOtherPlayers(this), 
+            GravityObjectManager.Instance.GravityObjectsNotPlayers));
+            */
+        var closestDir = ClosestDirection(dir);
+        GetComponent<GravityObjectRigidBody>().ChangeGravityDirection(closestDir);
+        AttachedObjects.ForEach(x => x.ChangeGravityDirection(closestDir));
     }
 
     public void Jump()
@@ -59,7 +67,14 @@ public abstract class PlayerController : MonoBehaviour {
 
     public void ShootGravityGun(Vector2 dir)
     {
-        _dataService.InsertAction(new PlayerAction(ActionType.FireGravGun, dir));
+        /*
+        _dataService.InsertAction(new PlayerAction(
+            ActionType.FireGravGun,
+            dir,
+            transform.position,
+            GravityObjectManager.Instance.GetOtherPlayers(this),
+            GravityObjectManager.Instance.GravityObjectsNotPlayers));
+        */
         GameObject projectileClone = Instantiate(Projectile, AimingReticle.transform.position, AimingReticle.transform.rotation);
         projectileClone.GetComponent<GravityGunProjectileController>().Owner = this;
         projectileClone.GetComponent<Rigidbody2D>().velocity = dir * ShootSpeed;
@@ -73,13 +88,15 @@ public abstract class PlayerController : MonoBehaviour {
     private void OnCollisionEnter2D(Collision2D collision)
     {
         var impulse = (collision.relativeVelocity * collision.rigidbody.mass).magnitude;
+
+        Debug.Log((impulse + " " + ImpulseToKill) + " " + collision.collider.GetComponent<GravityObjectRigidBody>());
         if (impulse > ImpulseToKill && collision.collider.GetComponent<GravityObjectRigidBody>())
         {
-            Destroy(gameObject);
+            Kill();
         }
     }
 
-    protected Vector2 ClosestDirection(Vector2 v)
+    public Vector2 ClosestDirection(Vector2 v)
     {
 
         var maxDot = -Mathf.Infinity;
@@ -96,5 +113,10 @@ public abstract class PlayerController : MonoBehaviour {
         }
 
         return ret;
+    }
+
+    public void Kill()
+    {
+        IsDead = true;
     }
 }

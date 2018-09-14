@@ -10,7 +10,7 @@ public class AIPlayerController : PlayerController
     }
     void Start()
     {
-        StartCoroutine(DoAIMove());
+        //StartCoroutine(DoAIMove());
     }
 
     IEnumerator DoAIMove()
@@ -24,8 +24,7 @@ public class AIPlayerController : PlayerController
 
         if(chance < .1f)
         {
-            var closestDir = ClosestDirection(dir);
-            ChangeGravity(closestDir);
+            ChangeGravity(dir);
         }
         else
         {
