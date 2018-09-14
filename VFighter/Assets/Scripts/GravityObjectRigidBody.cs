@@ -4,9 +4,10 @@ using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class GravityObjectRigidBody : MonoBehaviour {
+    private static int _idCnt = 0;
 
     [SerializeField]
-    private static int _id;
+    private int _id;
     [SerializeField]
     private float _gravityScale = 1f;
     [SerializeField]
@@ -28,10 +29,15 @@ public class GravityObjectRigidBody : MonoBehaviour {
         private set { _gravityDirection = value; }
     }
 
-    public static int Id
+    public int Id
     {
         get { return _id; }
         private set { _id = value; }
+    }
+
+    private void Awake()
+    {
+        _id = _idCnt++;
     }
 
     void Start () {

@@ -27,12 +27,8 @@ public abstract class PlayerController : MonoBehaviour {
 
     private readonly Vector2[] _compass = { Vector2.left, Vector2.right, Vector2.up, Vector2.down };
 
-    protected DataService _dataService;
-
     protected virtual void Awake()
     {
-        _dataService = new DataService("ActionLogs.db");
-        //_dataService.CreateDB();
     }
 
     public void Move(Vector2 dir)
@@ -47,7 +43,14 @@ public abstract class PlayerController : MonoBehaviour {
 
     public void ChangeGravity(Vector2 dir)
     {
-        _dataService.InsertAction(new PlayerAction(ActionType.ChangeGrav, dir));
+        /*
+        _dataService.InsertAction(new PlayerAction(
+            ActionType.ChangeGrav, 
+            dir, 
+            transform.position,
+            GravityObjectManager.Instance.GetOtherPlayers(this), 
+            GravityObjectManager.Instance.GravityObjectsNotPlayers));
+            */
         GetComponent<GravityObjectRigidBody>().ChangeGravityDirection(dir);
         AttachedObjects.ForEach(x => x.ChangeGravityDirection(dir));
     }
@@ -59,7 +62,14 @@ public abstract class PlayerController : MonoBehaviour {
 
     public void ShootGravityGun(Vector2 dir)
     {
-        _dataService.InsertAction(new PlayerAction(ActionType.FireGravGun, dir));
+        /*
+        _dataService.InsertAction(new PlayerAction(
+            ActionType.FireGravGun,
+            dir,
+            transform.position,
+            GravityObjectManager.Instance.GetOtherPlayers(this),
+            GravityObjectManager.Instance.GravityObjectsNotPlayers));
+        */
         GameObject projectileClone = Instantiate(Projectile, AimingReticle.transform.position, AimingReticle.transform.rotation);
         projectileClone.GetComponent<GravityGunProjectileController>().Owner = this;
         projectileClone.GetComponent<Rigidbody2D>().velocity = dir * ShootSpeed;

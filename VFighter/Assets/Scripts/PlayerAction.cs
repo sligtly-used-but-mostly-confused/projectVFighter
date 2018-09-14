@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using SQLite4Unity3d;
+
 
 public enum ActionType
 {
@@ -10,22 +10,28 @@ public enum ActionType
 }
 
 public class PlayerAction {
-
-    [PrimaryKey, AutoIncrement]
     public int Id { get; set; }
     public ActionType Action { get; set; }
-    public float DirX { get; set; }
-    public float DirY { get; set; }
 
-    public PlayerAction(ActionType type, Vector2 dir)
+    public string Dir { get; set; }
+
+    public string Pos { get; set; }
+
+    public string OtherPlayers { get; set; }
+
+    public string GravityObjects { get; set; }
+
+    public PlayerAction(ActionType type, Vector2 dir, Vector2 pos,
+        List<PlayerController> otherPlayers, List<GravityObjectRigidBody> otherObjects)
     {
-        this.Action = type;
-        this.DirX = dir.x;
-        this.DirY = dir.y;
+        Action = type;
+        Dir = JsonUtility.ToJson(dir);
+        Pos = JsonUtility.ToJson(pos);
+        OtherPlayers = JsonUtility.ToJson(OtherPlayers);
     }
 
     public override string ToString()
     {
-        return string.Format("[Id = {0}, Action = {1}, DirX = {2}, DirY = {3}]", Id, Action, DirX, DirY);
+        return string.Format("[Id = {0}, Action = {1}, Dir = {2}, Pos = {3}]", Id, Action, Dir, Pos);
     }
 }
