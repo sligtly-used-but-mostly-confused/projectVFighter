@@ -21,7 +21,6 @@ public class KeyboardPlayerController : PlayerController
             var closestDir = ClosestDirection(deltaFromPlayer.normalized);
             ChangeGravity(closestDir);
         }
-
         if (inputDevice.GetButtonDown(MappedButton.ShootGravGun))
         {
             ShootGravityGun(deltaFromPlayer);
