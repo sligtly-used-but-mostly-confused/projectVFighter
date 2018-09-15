@@ -89,7 +89,7 @@ public abstract class PlayerController : MonoBehaviour {
     {
         var impulse = (collision.relativeVelocity * collision.rigidbody.mass).magnitude;
 
-        Debug.Log((impulse + " " + ImpulseToKill) + " " + collision.collider.GetComponent<GravityObjectRigidBody>());
+        //Debug.Log((impulse + " " + ImpulseToKill) + " " + collision.collider.GetComponent<GravityObjectRigidBody>());
         if (impulse > ImpulseToKill && collision.collider.GetComponent<GravityObjectRigidBody>())
         {
             Kill();

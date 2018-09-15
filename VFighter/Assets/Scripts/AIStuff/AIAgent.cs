@@ -13,6 +13,9 @@ public class AIAgent : Agent {
 
     public GravityObjectRigidBody AttachedGravityRigidBody;
 
+    public PlayerController OtherPlayer;
+    public GravityObjectRigidBody OtherPlayerGORB;
+
     void Start()
     {
         startingPos = transform.position;
@@ -45,15 +48,20 @@ public class AIAgent : Agent {
 
     public override void CollectObservations()
     {
-        // Calculate relative position
-        Vector3 relativePosition = AttachedGravityRigidBody.transform.position - this.transform.position;
+        var distanceToAttachedObject = GetRelativePosition(AttachedGravityRigidBody.transform);
+        AddVectorObs(distanceToAttachedObject.x);
+        AddVectorObs(distanceToAttachedObject.y);
+
+        var distanceToOtherPlayer = GetRelativePosition(OtherPlayer.transform);
+        AddVectorObs(distanceToOtherPlayer.x);
+        AddVectorObs(distanceToOtherPlayer.y);
+
+        var distanceToOtherPlayerGORB = GetRelativePosition(OtherPlayerGORB.transform);
+        AddVectorObs(distanceToOtherPlayerGORB.x);
+        AddVectorObs(distanceToOtherPlayerGORB.y);
 
         float h = LevelManager.Instance.height / 2;
         float w = LevelManager.Instance.width / 2;
-
-        // Relative position to grav obj
-        AddVectorObs(relativePosition.x / w);
-        AddVectorObs(relativePosition.y / h);
 
         //distances to walls
         AddVectorObs((this.transform.position.x + w) / w);
@@ -69,6 +77,25 @@ public class AIAgent : Agent {
         //velocity of gravity object
         AddVectorObs(AttachedGravityRigidBody.GetComponent<Rigidbody2D>().velocity.x / AttachedGravityRigidBody.MaxComponentSpeed);
         AddVectorObs(AttachedGravityRigidBody.GetComponent<Rigidbody2D>().velocity.y / AttachedGravityRigidBody.MaxComponentSpeed);
+
+        //velocity of the the other AI
+        AddVectorObs(OtherPlayer.GetComponent<Rigidbody2D>().velocity.x / OtherPlayer.GetComponent<GravityObjectRigidBody>().MaxComponentSpeed);
+        AddVectorObs(OtherPlayer.GetComponent<Rigidbody2D>().velocity.y / OtherPlayer.GetComponent<GravityObjectRigidBody>().MaxComponentSpeed);
+
+        //velocity of other gravity object
+        AddVectorObs(OtherPlayerGORB.GetComponent<Rigidbody2D>().velocity.x / OtherPlayerGORB.MaxComponentSpeed);
+        AddVectorObs(OtherPlayerGORB.GetComponent<Rigidbody2D>().velocity.y / OtherPlayerGORB.MaxComponentSpeed);
+    }
+
+    private Vector3 GetRelativePosition(Transform other)
+    {
+        Vector3 relativePosition = other.position - this.transform.position;
+
+        float h = LevelManager.Instance.height / 2;
+        float w = LevelManager.Instance.width / 2;
+        relativePosition.Scale(new Vector3(1 / w, 1 / h));
+
+        return relativePosition;
     }
 
     public override void AgentAction(float[] vectorAction, string textAction)
@@ -77,16 +104,30 @@ public class AIAgent : Agent {
         if (AIController.IsDead)
         {
             AddReward(-1);
+            OtherPlayer.GetComponent<AIAgent>()?.AddReward(1);
             Done();
         }
 
-        Vector3 relativePosition = AttachedGravityRigidBody.transform.position - this.transform.position;
+        if(OtherPlayer.IsDead)
+        {
+            AddReward(1);
+            OtherPlayer.GetComponent<AIAgent>()?.AddReward(-1);
+            Done();
+        }
+
         
         float h = LevelManager.Instance.height;
         float w = LevelManager.Instance.width;
-        float relativeDistanceScale = relativePosition.magnitude / new Vector2(w, h).magnitude;
+        /*
+        Vector3 relativePositionToAttachedGORB = AttachedGravityRigidBody.transform.position - this.transform.position;
+        float relativeDistanceToAttachedGORBScale = relativePositionToAttachedGORB.magnitude / new Vector2(w, h).magnitude;
+        AddReward(relativeDistanceToAttachedGORBScale * .01f);
+        */
+        Vector3 relativePositionFromOtherPlayerToAttachedGORB = OtherPlayer.transform.position - AttachedGravityRigidBody.transform.position;
+        float relativeDistanceFromOtherPlayerToAttachedGORBScale = 1 - (relativePositionFromOtherPlayerToAttachedGORB.magnitude / new Vector2(w, h).magnitude);
+        AddReward(relativeDistanceFromOtherPlayerToAttachedGORBScale * .5f);
+        //Debug.Log(relativeDistanceFromOtherPlayerToAttachedGORBScale * .1f);
 
-        AddReward(relativeDistanceScale * .1f);
         //Debug.Log(relativePosition.magnitude);
 
         // Time award
