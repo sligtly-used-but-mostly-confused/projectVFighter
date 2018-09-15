@@ -86,7 +86,7 @@ public class AIAgent : Agent {
         float w = LevelManager.Instance.width;
         float relativeDistanceScale = relativePosition.magnitude / new Vector2(w, h).magnitude;
 
-        AddReward(relativeDistanceScale * .05f);
+        AddReward(relativeDistanceScale * .1f);
         //Debug.Log(relativePosition.magnitude);
 
         // Time award
@@ -97,7 +97,7 @@ public class AIAgent : Agent {
         controlSignal.x = vectorAction[1];
         controlSignal.y = vectorAction[2];
 
-        bool isChangeingGrav = vectorAction[0] > .5;
+        bool isChangeingGrav = vectorAction[0] > 0;
         if(isChangeingGrav)
         {
             AIController.ChangeGravity(controlSignal);
