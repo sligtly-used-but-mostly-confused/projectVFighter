@@ -4,12 +4,13 @@ using UnityEngine;
 using System.Linq;
 
 [RequireComponent(typeof(GravityObjectRigidBody))]
+
 public abstract class PlayerController : MonoBehaviour {
 
     public List<GravityObjectRigidBody> AttachedObjects;
 
     [SerializeField]
-    protected float RechargeTime = .25f;
+    protected float RechargeTime = 1f;
     [SerializeField]
     protected float MoveSpeed = 1f;
     [SerializeField]
@@ -21,7 +22,6 @@ public abstract class PlayerController : MonoBehaviour {
 
     [SerializeField]
     protected GameObject Projectile;
-
     [SerializeField]
     protected GameObject AimingReticle;
 
@@ -34,6 +34,8 @@ public abstract class PlayerController : MonoBehaviour {
         _dataService = new DataService("ActionLogs.db");
         //_dataService.CreateDB();
     }
+
+    private bool coolingDown;
 
     public void Move(Vector2 dir)
     {
@@ -59,10 +61,21 @@ public abstract class PlayerController : MonoBehaviour {
 
     public void ShootGravityGun(Vector2 dir)
     {
-        _dataService.InsertAction(new PlayerAction(ActionType.FireGravGun, dir));
-        GameObject projectileClone = Instantiate(Projectile, AimingReticle.transform.position, AimingReticle.transform.rotation);
-        projectileClone.GetComponent<GravityGunProjectileController>().Owner = this;
-        projectileClone.GetComponent<Rigidbody2D>().velocity = dir * ShootSpeed;
+        if (!coolingDown)
+        {
+            _dataService.InsertAction(new PlayerAction(ActionType.FireGravGun, dir));
+            GameObject projectileClone = (GameObject)Instantiate(Projectile, AimingReticle.transform.position, AimingReticle.transform.rotation);
+            projectileClone.GetComponent<GravityGunProjectileController>().Owner = this;
+            projectileClone.GetComponent<Rigidbody2D>().velocity = dir * ShootSpeed;
+            StartCoroutine(CoolDown());
+        }
+    }
+
+    IEnumerator CoolDown()
+    {
+        coolingDown = true;
+        yield return new WaitForSeconds(RechargeTime);
+        coolingDown = false;
     }
 
     public void AttachGORB(GravityObjectRigidBody gravityObjectRB)
