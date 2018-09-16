@@ -8,9 +8,11 @@ using System.Linq;
 public abstract class PlayerController : MonoBehaviour {
 
     public List<GravityObjectRigidBody> AttachedObjects;
-
+    
     [SerializeField]
     protected float RechargeTime = 1f;
+    [SerializeField]
+    protected float ChangeGravityRechargeTime = .1f;
     [SerializeField]
     protected float MoveSpeed = 1f;
     [SerializeField]
@@ -25,17 +27,18 @@ public abstract class PlayerController : MonoBehaviour {
     [SerializeField]
     protected GameObject AimingReticle;
 
+    [SerializeField]
+    public bool IsDead;
+
     private readonly Vector2[] _compass = { Vector2.left, Vector2.right, Vector2.up, Vector2.down };
 
-    protected DataService _dataService;
+    private bool _isCoolingDown;
+    private bool _isChangeGravityCoolingDown;
 
     protected virtual void Awake()
     {
-        _dataService = new DataService("ActionLogs.db");
-        //_dataService.CreateDB();
+        IsDead = false;
     }
-
-    private bool coolingDown;
 
     public void Move(Vector2 dir)
     {
@@ -49,9 +52,21 @@ public abstract class PlayerController : MonoBehaviour {
 
     public void ChangeGravity(Vector2 dir)
     {
-        _dataService.InsertAction(new PlayerAction(ActionType.ChangeGrav, dir));
-        GetComponent<GravityObjectRigidBody>().ChangeGravityDirection(dir);
-        AttachedObjects.ForEach(x => x.ChangeGravityDirection(dir));
+        /*
+        _dataService.InsertAction(new PlayerAction(
+            ActionType.ChangeGrav, 
+            dir, 
+            transform.position,
+            GravityObjectManager.Instance.GetOtherPlayers(this), 
+            GravityObjectManager.Instance.GravityObjectsNotPlayers));
+            */
+        if (!_isChangeGravityCoolingDown)
+        {
+            var closestDir = ClosestDirection(dir);
+            GetComponent<GravityObjectRigidBody>().ChangeGravityDirection(closestDir);
+            AttachedObjects.ForEach(x => x.ChangeGravityDirection(closestDir));
+            StartCoroutine(ChangeGravityCoolDown());
+        }
     }
 
     public void Jump()
@@ -61,9 +76,8 @@ public abstract class PlayerController : MonoBehaviour {
 
     public void ShootGravityGun(Vector2 dir)
     {
-        if (!coolingDown)
+        if (!_isCoolingDown)
         {
-            _dataService.InsertAction(new PlayerAction(ActionType.FireGravGun, dir));
             GameObject projectileClone = (GameObject)Instantiate(Projectile, AimingReticle.transform.position, AimingReticle.transform.rotation);
             projectileClone.GetComponent<GravityGunProjectileController>().Owner = this;
             projectileClone.GetComponent<Rigidbody2D>().velocity = dir * ShootSpeed;
@@ -73,9 +87,16 @@ public abstract class PlayerController : MonoBehaviour {
 
     IEnumerator CoolDown()
     {
-        coolingDown = true;
+        _isCoolingDown = true;
         yield return new WaitForSeconds(RechargeTime);
-        coolingDown = false;
+        _isCoolingDown = false;
+    }
+
+    IEnumerator ChangeGravityCoolDown()
+    {
+        _isChangeGravityCoolingDown = true;
+        yield return new WaitForSeconds(ChangeGravityRechargeTime);
+        _isChangeGravityCoolingDown = false;
     }
 
     public void AttachGORB(GravityObjectRigidBody gravityObjectRB)
@@ -86,13 +107,19 @@ public abstract class PlayerController : MonoBehaviour {
     private void OnCollisionEnter2D(Collision2D collision)
     {
         var impulse = (collision.relativeVelocity * collision.rigidbody.mass).magnitude;
+
+        //Debug.Log((impulse + " " + ImpulseToKill) + " " + collision.collider.GetComponent<GravityObjectRigidBody>());
         if (impulse > ImpulseToKill && collision.collider.GetComponent<GravityObjectRigidBody>())
         {
-            Destroy(gameObject);
+            if(collision.collider.GetComponent<PlayerController>())
+            {
+                Debug.Log("double kill");
+            }
+            Kill();
         }
     }
 
-    protected Vector2 ClosestDirection(Vector2 v)
+    public Vector2 ClosestDirection(Vector2 v)
     {
 
         var maxDot = -Mathf.Infinity;
@@ -109,5 +136,11 @@ public abstract class PlayerController : MonoBehaviour {
         }
 
         return ret;
+    }
+
+    public void Kill()
+    {
+        Debug.Log("dead");
+        IsDead = true;
     }
 }

@@ -7,6 +7,6 @@ public enum MappedAxis
 {
 	Horizontal,
 	Vertical,
-	Axis3,
-	Axis4
+	AimX,
+	AimY
 }

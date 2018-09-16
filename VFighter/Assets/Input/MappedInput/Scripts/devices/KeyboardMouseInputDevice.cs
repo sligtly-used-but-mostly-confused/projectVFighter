@@ -50,10 +50,9 @@ public class KeyboardMouseInputDevice : InputDevice
 
     protected override float GetAxisValueRaw(MappedAxis axis)
     {
-        
-        var MouseMapping = MappedInput.Mouse.GetAxisRaw(axis);
+        var MouseMapping = MappedInput.Mouse.GetAxis(axis);
         var KeyboardMapping = MappedInput.KeyBoard.GetAxisRaw(axis);
-        //Debug.Log(axis + " " + MouseMapping + " " + KeyboardMapping);
-        return Mathf.Max(MouseMapping, KeyboardMapping);
+
+        return MouseMapping != 0 ? MouseMapping : KeyboardMapping;
     }
 }
