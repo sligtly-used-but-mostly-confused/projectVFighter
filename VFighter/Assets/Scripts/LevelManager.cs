@@ -10,7 +10,6 @@ public class LevelManager : MonoBehaviour
     public List<GameObject> Walls;
     public float height;
     public float width;
-
     private static LevelManager _instance;
 
     private void Awake()
@@ -20,8 +19,8 @@ public class LevelManager : MonoBehaviour
 
     void Start ()
     {
-        height = Walls.Max(obj => obj.transform.position.y) * 2;
-        width = Walls.Max(obj => obj.transform.position.x) * 2;
+        height = Walls.Max(obj => obj.transform.localPosition.y) * 2;
+        width = Walls.Max(obj => obj.transform.localPosition.x) * 2;
     }
 	
 	// Update is called once per frame

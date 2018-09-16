@@ -12,6 +12,8 @@ public abstract class PlayerController : MonoBehaviour {
     [SerializeField]
     protected float RechargeTime = 1f;
     [SerializeField]
+    protected float ChangeGravityRechargeTime = .1f;
+    [SerializeField]
     protected float MoveSpeed = 1f;
     [SerializeField]
     protected float ShootSpeed = 1f;
@@ -30,12 +32,13 @@ public abstract class PlayerController : MonoBehaviour {
 
     private readonly Vector2[] _compass = { Vector2.left, Vector2.right, Vector2.up, Vector2.down };
 
+    private bool _isCoolingDown;
+    private bool _isChangeGravityCoolingDown;
+
     protected virtual void Awake()
     {
         IsDead = false;
     }
-
-    private bool coolingDown;
 
     public void Move(Vector2 dir)
     {
@@ -57,9 +60,13 @@ public abstract class PlayerController : MonoBehaviour {
             GravityObjectManager.Instance.GetOtherPlayers(this), 
             GravityObjectManager.Instance.GravityObjectsNotPlayers));
             */
-        var closestDir = ClosestDirection(dir);
-        GetComponent<GravityObjectRigidBody>().ChangeGravityDirection(closestDir);
-        AttachedObjects.ForEach(x => x.ChangeGravityDirection(closestDir));
+        if (!_isChangeGravityCoolingDown)
+        {
+            var closestDir = ClosestDirection(dir);
+            GetComponent<GravityObjectRigidBody>().ChangeGravityDirection(closestDir);
+            AttachedObjects.ForEach(x => x.ChangeGravityDirection(closestDir));
+            StartCoroutine(ChangeGravityCoolDown());
+        }
     }
 
     public void Jump()
@@ -69,7 +76,7 @@ public abstract class PlayerController : MonoBehaviour {
 
     public void ShootGravityGun(Vector2 dir)
     {
-        if (!coolingDown)
+        if (!_isCoolingDown)
         {
             GameObject projectileClone = (GameObject)Instantiate(Projectile, AimingReticle.transform.position, AimingReticle.transform.rotation);
             projectileClone.GetComponent<GravityGunProjectileController>().Owner = this;
@@ -80,9 +87,16 @@ public abstract class PlayerController : MonoBehaviour {
 
     IEnumerator CoolDown()
     {
-        coolingDown = true;
+        _isCoolingDown = true;
         yield return new WaitForSeconds(RechargeTime);
-        coolingDown = false;
+        _isCoolingDown = false;
+    }
+
+    IEnumerator ChangeGravityCoolDown()
+    {
+        _isChangeGravityCoolingDown = true;
+        yield return new WaitForSeconds(ChangeGravityRechargeTime);
+        _isChangeGravityCoolingDown = false;
     }
 
     public void AttachGORB(GravityObjectRigidBody gravityObjectRB)
@@ -97,6 +111,10 @@ public abstract class PlayerController : MonoBehaviour {
         //Debug.Log((impulse + " " + ImpulseToKill) + " " + collision.collider.GetComponent<GravityObjectRigidBody>());
         if (impulse > ImpulseToKill && collision.collider.GetComponent<GravityObjectRigidBody>())
         {
+            if(collision.collider.GetComponent<PlayerController>())
+            {
+                Debug.Log("double kill");
+            }
             Kill();
         }
     }
@@ -122,6 +140,7 @@ public abstract class PlayerController : MonoBehaviour {
 
     public void Kill()
     {
+        Debug.Log("dead");
         IsDead = true;
     }
 }
