@@ -124,7 +124,6 @@ GameObject:
   - component: {fileID: 238235810}
   - component: {fileID: 238235809}
   - component: {fileID: 238235808}
-  - component: {fileID: 238235812}
   m_Layer: 0
   m_Name: Cube (1)
   m_TagString: Untagged
@@ -199,17 +198,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &238235812
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 238235807}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7fb5e4685f8f647f794b48101990efce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &351704466
 GameObject:
   m_ObjectHideFlags: 0
@@ -220,6 +208,7 @@ GameObject:
   - component: {fileID: 351704469}
   - component: {fileID: 351704468}
   - component: {fileID: 351704467}
+  - component: {fileID: 351704470}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -287,6 +276,23 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &351704470
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 351704466}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab78c6da661bf6643a7fee48253967fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bloomShader: {fileID: 4800000, guid: 06a28526ae4e3014ebb0c5f7f2aad52d, type: 3}
+  intensity: 1
+  iterations: 4
+  threshold: 1
+  softThreshold: 0.5
+  debug: 0
 --- !u!1 &725438411
 GameObject:
   m_ObjectHideFlags: 0
