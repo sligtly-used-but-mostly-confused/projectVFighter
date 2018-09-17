@@ -104,6 +104,11 @@ public abstract class PlayerController : MonoBehaviour {
         AttachedObjects.Add(gravityObjectRB);
     }
 
+    public void DetachGORB(GravityObjectRigidBody gravityObjectRB)
+    {
+        AttachedObjects.Remove(gravityObjectRB);
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         var impulse = (collision.relativeVelocity * collision.rigidbody.mass).magnitude;
@@ -138,7 +143,7 @@ public abstract class PlayerController : MonoBehaviour {
         return ret;
     }
 
-    public void Kill()
+    public virtual void Kill()
     {
         Debug.Log("dead");
         IsDead = true;
