@@ -7,7 +7,7 @@ using System.Linq;
 
 public abstract class PlayerController : MonoBehaviour {
 
-    public List<GravityObjectRigidBody> AttachedObjects;
+    public GravityObjectRigidBody AttachedObject;
     
     [SerializeField]
     protected float RechargeTime = 1f;
@@ -42,12 +42,7 @@ public abstract class PlayerController : MonoBehaviour {
 
     public void Move(Vector2 dir)
     {
-        GetComponent<GravityObjectRigidBody>().AddLinearAcceleration(dir * MoveSpeed);
-    }
-
-    public void AimReticle(Vector2 dir)
-    {
-        AimingReticle.transform.localPosition = dir.normalized;
+        GetComponent<Rigidbody2D>().velocity = dir * MoveSpeed;
     }
 
     public void FlipGravity()
@@ -65,7 +60,7 @@ public abstract class PlayerController : MonoBehaviour {
         {
             var closestDir = ClosestDirection(dir);
             GetComponent<GravityObjectRigidBody>().ChangeGravityDirection(closestDir);
-            AttachedObjects.ForEach(x => x.ChangeGravityDirection(closestDir));
+            //AttachedObjects.ForEach(x => x.ChangeGravityDirection(closestDir));
             StartCoroutine(ChangeGravityCoolDown());
         }
     }
@@ -75,15 +70,42 @@ public abstract class PlayerController : MonoBehaviour {
         throw new System.NotImplementedException();
     }
 
+    public void AimReticle(Vector2 dir)
+    {
+        AimingReticle.transform.localPosition = dir.normalized;
+    }
+
     public void ShootGravityGun(Vector2 dir)
     {
+        dir = dir.normalized;
         if (!_isCoolingDown)
         {
-            GameObject projectileClone = (GameObject)Instantiate(Projectile, AimingReticle.transform.position, AimingReticle.transform.rotation);
-            projectileClone.GetComponent<GravityGunProjectileController>().Owner = this;
-            projectileClone.GetComponent<Rigidbody2D>().velocity = dir * ShootSpeed;
-            StartCoroutine(CoolDown());
+            if(AttachedObject == null)
+            {
+                GameObject projectileClone = (GameObject)Instantiate(Projectile, AimingReticle.transform.position, AimingReticle.transform.rotation);
+                projectileClone.GetComponent<GravityGunProjectileController>().Owner = this;
+                projectileClone.GetComponent<Rigidbody2D>().velocity = dir * ShootSpeed;
+                StartCoroutine(CoolDown());
+            }
+            else
+            {
+                AttachedObject.ChangeGravityDirection(dir);
+                DetachGORB();
+            }
         }
+    }
+
+    public void AttachGORB(GravityObjectRigidBody gravityObjectRB)
+    {
+        AttachedObject = gravityObjectRB;
+        AimingReticle.transform.parent = AttachedObject.transform;
+    }
+
+    public void DetachGORB()
+    {
+        AttachedObject.Owner = null;
+        AttachedObject = null;
+        AimingReticle.transform.parent = transform;
     }
 
     IEnumerator CoolDown()
@@ -98,16 +120,6 @@ public abstract class PlayerController : MonoBehaviour {
         _isChangeGravityCoolingDown = true;
         yield return new WaitForSeconds(ChangeGravityRechargeTime);
         _isChangeGravityCoolingDown = false;
-    }
-
-    public void AttachGORB(GravityObjectRigidBody gravityObjectRB)
-    {
-        AttachedObjects.Add(gravityObjectRB);
-    }
-
-    public void DetachGORB(GravityObjectRigidBody gravityObjectRB)
-    {
-        AttachedObjects.Remove(gravityObjectRB);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

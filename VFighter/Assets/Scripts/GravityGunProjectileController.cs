@@ -29,9 +29,6 @@ public class GravityGunProjectileController : MonoBehaviour {
             }
             else
             {
-                Debug.Log("same owner");
-                gravityObjectRB.Owner = null;
-                Owner.DetachGORB(gravityObjectRB);
                 Destroy(gameObject);
             }
         }
