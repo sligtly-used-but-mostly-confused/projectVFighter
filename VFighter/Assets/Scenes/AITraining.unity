@@ -352,7 +352,7 @@ Prefab:
     - target: {fileID: 114328187941221456, guid: 4eada1e1659f95242bfbc15991ba7b9c,
         type: 2}
       propertyPath: ChangeGravityRechargeTime
-      value: 0.5
+      value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 114328187941221456, guid: 4eada1e1659f95242bfbc15991ba7b9c,
         type: 2}
@@ -719,7 +719,7 @@ Prefab:
     - target: {fileID: 114328187941221456, guid: 4eada1e1659f95242bfbc15991ba7b9c,
         type: 2}
       propertyPath: ChangeGravityRechargeTime
-      value: 0.5
+      value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 114328187941221456, guid: 4eada1e1659f95242bfbc15991ba7b9c,
         type: 2}
@@ -959,7 +959,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: cf3124984e90ede41a0b071a0491c3c4, type: 3}
-  m_Color: {r: 0.14174241, g: 1, b: 0.0990566, a: 1}
+  m_Color: {r: 0, g: 0.02433443, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -1754,7 +1754,7 @@ Prefab:
     - target: {fileID: 114328187941221456, guid: 4eada1e1659f95242bfbc15991ba7b9c,
         type: 2}
       propertyPath: ChangeGravityRechargeTime
-      value: 0.5
+      value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 114328187941221456, guid: 4eada1e1659f95242bfbc15991ba7b9c,
         type: 2}
@@ -1867,6 +1867,21 @@ Prefab:
         type: 2}
       propertyPath: _maxComponentSpeed
       value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 212379404126488900, guid: 3106df6d6bd5f49b8ba6a9d98347ea22,
+        type: 2}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 212379404126488900, guid: 3106df6d6bd5f49b8ba6a9d98347ea22,
+        type: 2}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 212379404126488900, guid: 3106df6d6bd5f49b8ba6a9d98347ea22,
+        type: 2}
+      propertyPath: m_Color.b
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3106df6d6bd5f49b8ba6a9d98347ea22, type: 2}
@@ -2453,7 +2468,7 @@ Prefab:
     - target: {fileID: 114328187941221456, guid: 4eada1e1659f95242bfbc15991ba7b9c,
         type: 2}
       propertyPath: ChangeGravityRechargeTime
-      value: 0.5
+      value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 114328187941221456, guid: 4eada1e1659f95242bfbc15991ba7b9c,
         type: 2}
@@ -3018,11 +3033,26 @@ Prefab:
     - target: {fileID: 114328187941221456, guid: 4eada1e1659f95242bfbc15991ba7b9c,
         type: 2}
       propertyPath: ChangeGravityRechargeTime
-      value: 0.5
+      value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 114328187941221456, guid: 4eada1e1659f95242bfbc15991ba7b9c,
         type: 2}
       propertyPath: ImpulseToKill
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 212492929401775568, guid: 4eada1e1659f95242bfbc15991ba7b9c,
+        type: 2}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 212492929401775568, guid: 4eada1e1659f95242bfbc15991ba7b9c,
+        type: 2}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 212492929401775568, guid: 4eada1e1659f95242bfbc15991ba7b9c,
+        type: 2}
+      propertyPath: m_Color.b
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -3131,7 +3161,7 @@ Prefab:
     - target: {fileID: 114328187941221456, guid: 4eada1e1659f95242bfbc15991ba7b9c,
         type: 2}
       propertyPath: ChangeGravityRechargeTime
-      value: 0.5
+      value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 114328187941221456, guid: 4eada1e1659f95242bfbc15991ba7b9c,
         type: 2}
@@ -3256,7 +3286,7 @@ Prefab:
     - target: {fileID: 114328187941221456, guid: 4eada1e1659f95242bfbc15991ba7b9c,
         type: 2}
       propertyPath: ChangeGravityRechargeTime
-      value: 0.5
+      value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 114328187941221456, guid: 4eada1e1659f95242bfbc15991ba7b9c,
         type: 2}
@@ -3377,7 +3407,7 @@ Prefab:
     - target: {fileID: 114328187941221456, guid: 4eada1e1659f95242bfbc15991ba7b9c,
         type: 2}
       propertyPath: ChangeGravityRechargeTime
-      value: 0.5
+      value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 114328187941221456, guid: 4eada1e1659f95242bfbc15991ba7b9c,
         type: 2}
@@ -3633,7 +3663,7 @@ Prefab:
     - target: {fileID: 114328187941221456, guid: 4eada1e1659f95242bfbc15991ba7b9c,
         type: 2}
       propertyPath: ChangeGravityRechargeTime
-      value: 0.5
+      value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 114328187941221456, guid: 4eada1e1659f95242bfbc15991ba7b9c,
         type: 2}
@@ -3897,7 +3927,7 @@ Prefab:
     - target: {fileID: 114328187941221456, guid: 4eada1e1659f95242bfbc15991ba7b9c,
         type: 2}
       propertyPath: ChangeGravityRechargeTime
-      value: 0.5
+      value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 114328187941221456, guid: 4eada1e1659f95242bfbc15991ba7b9c,
         type: 2}
@@ -4318,7 +4348,7 @@ Prefab:
     - target: {fileID: 114328187941221456, guid: 4eada1e1659f95242bfbc15991ba7b9c,
         type: 2}
       propertyPath: ChangeGravityRechargeTime
-      value: 0.5
+      value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 114328187941221456, guid: 4eada1e1659f95242bfbc15991ba7b9c,
         type: 2}
@@ -5360,7 +5390,7 @@ Prefab:
     - target: {fileID: 114328187941221456, guid: 4eada1e1659f95242bfbc15991ba7b9c,
         type: 2}
       propertyPath: ChangeGravityRechargeTime
-      value: 0.5
+      value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 114328187941221456, guid: 4eada1e1659f95242bfbc15991ba7b9c,
         type: 2}
@@ -5415,6 +5445,121 @@ MonoBehaviour:
   AttachedGravityRigidBody: {fileID: 110026113}
   OtherPlayer: {fileID: 798769466}
   OtherPlayerGORB: {fileID: 845739797}
+--- !u!1001 &738685848
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1374163387}
+    m_Modifications:
+    - target: {fileID: 114328187941221456, guid: 4eada1e1659f95242bfbc15991ba7b9c,
+        type: 2}
+      propertyPath: AttachedObjects.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4722902742955884, guid: 4eada1e1659f95242bfbc15991ba7b9c, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -5.6800003
+      objectReference: {fileID: 0}
+    - target: {fileID: 4722902742955884, guid: 4eada1e1659f95242bfbc15991ba7b9c, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -4.63
+      objectReference: {fileID: 0}
+    - target: {fileID: 4722902742955884, guid: 4eada1e1659f95242bfbc15991ba7b9c, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4722902742955884, guid: 4eada1e1659f95242bfbc15991ba7b9c, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4722902742955884, guid: 4eada1e1659f95242bfbc15991ba7b9c, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4722902742955884, guid: 4eada1e1659f95242bfbc15991ba7b9c, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4722902742955884, guid: 4eada1e1659f95242bfbc15991ba7b9c, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4722902742955884, guid: 4eada1e1659f95242bfbc15991ba7b9c, type: 2}
+      propertyPath: m_RootOrder
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 1408956540310992, guid: 4eada1e1659f95242bfbc15991ba7b9c, type: 2}
+      propertyPath: m_Name
+      value: AI Player (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 114328187941221456, guid: 4eada1e1659f95242bfbc15991ba7b9c,
+        type: 2}
+      propertyPath: AttachedObjects.Array.data[0]
+      value: 
+      objectReference: {fileID: 1726189099}
+    - target: {fileID: 114307595255156028, guid: 4eada1e1659f95242bfbc15991ba7b9c,
+        type: 2}
+      propertyPath: _gravityScale
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 114307595255156028, guid: 4eada1e1659f95242bfbc15991ba7b9c,
+        type: 2}
+      propertyPath: _maxComponentSpeed
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 1408956540310992, guid: 4eada1e1659f95242bfbc15991ba7b9c, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114328187941221456, guid: 4eada1e1659f95242bfbc15991ba7b9c,
+        type: 2}
+      propertyPath: ChangeGravityRechargeTime
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 114328187941221456, guid: 4eada1e1659f95242bfbc15991ba7b9c,
+        type: 2}
+      propertyPath: ImpulseToKill
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4722902742955884, guid: 4eada1e1659f95242bfbc15991ba7b9c, type: 2}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 4eada1e1659f95242bfbc15991ba7b9c, type: 2}
+  m_IsPrefabAsset: 0
+--- !u!4 &738685849 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4722902742955884, guid: 4eada1e1659f95242bfbc15991ba7b9c,
+    type: 2}
+  m_PrefabInternal: {fileID: 738685848}
+--- !u!1 &738685850 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1408956540310992, guid: 4eada1e1659f95242bfbc15991ba7b9c,
+    type: 2}
+  m_PrefabInternal: {fileID: 738685848}
+--- !u!114 &738685851
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 738685850}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32b2c0ea12db99a4ba872bd4eb01c7d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  brain: {fileID: 2018298041}
+  agentParameters:
+    agentCameras: []
+    maxStep: 0
+    resetOnDone: 1
+    onDemandDecision: 0
+    numberOfActionsBetweenDecisions: 1
+  AttachedGravityRigidBody: {fileID: 1726189099}
+  OtherPlayer: {fileID: 585448603}
+  OtherPlayerGORB: {fileID: 2056930862}
 --- !u!1001 &798769465
 Prefab:
   m_ObjectHideFlags: 0
@@ -5485,7 +5630,7 @@ Prefab:
     - target: {fileID: 114328187941221456, guid: 4eada1e1659f95242bfbc15991ba7b9c,
         type: 2}
       propertyPath: ChangeGravityRechargeTime
-      value: 0.5
+      value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 114328187941221456, guid: 4eada1e1659f95242bfbc15991ba7b9c,
         type: 2}
@@ -5606,7 +5751,7 @@ Prefab:
     - target: {fileID: 114328187941221456, guid: 4eada1e1659f95242bfbc15991ba7b9c,
         type: 2}
       propertyPath: ChangeGravityRechargeTime
-      value: 0.5
+      value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 114328187941221456, guid: 4eada1e1659f95242bfbc15991ba7b9c,
         type: 2}
@@ -5701,7 +5846,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 20
+  orthographic size: 5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -5800,7 +5945,7 @@ Prefab:
     - target: {fileID: 114328187941221456, guid: 4eada1e1659f95242bfbc15991ba7b9c,
         type: 2}
       propertyPath: ChangeGravityRechargeTime
-      value: 0.5
+      value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 114328187941221456, guid: 4eada1e1659f95242bfbc15991ba7b9c,
         type: 2}
@@ -6108,18 +6253,6 @@ Transform:
   m_Father: {fileID: 719827414}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &852188293
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 35813a1be64e144f887d7d5f15b963fa, type: 3}
-  m_Name: (Clone)(Clone)(Clone)(Clone)(Clone)
-  m_EditorClassIdentifier: 
-  brain: {fileID: 2018298041}
 --- !u!1 &854139424
 GameObject:
   m_ObjectHideFlags: 0
@@ -6398,7 +6531,7 @@ Transform:
   m_Father: {fileID: 1068630977}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &866001120
+--- !u!114 &871609493
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -6406,44 +6539,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 41e9bda8f3cf1492fa74926a530f6f70, type: 3}
-  m_Name: (Clone)(Clone)(Clone)(Clone)(Clone)
+  m_Script: {fileID: 11500000, guid: 943466ab374444748a364f9d6c3e2fe2, type: 3}
+  m_Name: (Clone)(Clone)(Clone)(Clone)(Clone)(Clone)
   m_EditorClassIdentifier: 
   broadcast: 1
-  keyContinuousPlayerActions:
-  - key: 32
-    index: 0
-    value: 1
-  - key: 97
-    index: 1
-    value: -1
-  - key: 100
-    index: 1
-    value: 1
-  - key: 115
-    index: 2
-    value: -1
-  - key: 119
-    index: 2
-    value: 1
-  axisContinuousPlayerActions: []
-  discretePlayerActions:
-  - key: 32
-    branchIndex: 0
-    value: 0
-  - key: 97
-    branchIndex: 1
-    value: -1
-  - key: 100
-    branchIndex: 1
-    value: 1
-  - key: 98
-    branchIndex: 2
-    value: -1
-  - key: 98
-    branchIndex: 2
-    value: 1
-  brain: {fileID: 2018298041}
+  brain: {fileID: 0}
 --- !u!1001 &873415818
 Prefab:
   m_ObjectHideFlags: 0
@@ -6514,7 +6614,7 @@ Prefab:
     - target: {fileID: 114328187941221456, guid: 4eada1e1659f95242bfbc15991ba7b9c,
         type: 2}
       propertyPath: ChangeGravityRechargeTime
-      value: 0.5
+      value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 114328187941221456, guid: 4eada1e1659f95242bfbc15991ba7b9c,
         type: 2}
@@ -6759,7 +6859,7 @@ Prefab:
     - target: {fileID: 114328187941221456, guid: 4eada1e1659f95242bfbc15991ba7b9c,
         type: 2}
       propertyPath: ChangeGravityRechargeTime
-      value: 0.5
+      value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 114328187941221456, guid: 4eada1e1659f95242bfbc15991ba7b9c,
         type: 2}
@@ -7412,7 +7512,7 @@ Prefab:
     - target: {fileID: 114328187941221456, guid: 4eada1e1659f95242bfbc15991ba7b9c,
         type: 2}
       propertyPath: ChangeGravityRechargeTime
-      value: 0.5
+      value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 114328187941221456, guid: 4eada1e1659f95242bfbc15991ba7b9c,
         type: 2}
@@ -7670,7 +7770,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: cf3124984e90ede41a0b071a0491c3c4, type: 3}
-  m_Color: {r: 0.14174241, g: 1, b: 0.0990566, a: 1}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -8290,7 +8390,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1106449215}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.99, y: -0.5000001, z: 0}
+  m_LocalPosition: {x: -0.02, y: 0.07, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 557347640}
@@ -9158,7 +9258,7 @@ Prefab:
     - target: {fileID: 114328187941221456, guid: 4eada1e1659f95242bfbc15991ba7b9c,
         type: 2}
       propertyPath: ChangeGravityRechargeTime
-      value: 0.5
+      value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 114328187941221456, guid: 4eada1e1659f95242bfbc15991ba7b9c,
         type: 2}
@@ -9213,6 +9313,18 @@ MonoBehaviour:
   AttachedGravityRigidBody: {fileID: 1252602657}
   OtherPlayer: {fileID: 1277544789}
   OtherPlayerGORB: {fileID: 484064735}
+--- !u!114 &1254811755
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35813a1be64e144f887d7d5f15b963fa, type: 3}
+  m_Name: (Clone)(Clone)(Clone)(Clone)(Clone)(Clone)
+  m_EditorClassIdentifier: 
+  brain: {fileID: 2018298041}
 --- !u!1001 &1277544788
 Prefab:
   m_ObjectHideFlags: 0
@@ -9283,7 +9395,7 @@ Prefab:
     - target: {fileID: 114328187941221456, guid: 4eada1e1659f95242bfbc15991ba7b9c,
         type: 2}
       propertyPath: ChangeGravityRechargeTime
-      value: 0.5
+      value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 114328187941221456, guid: 4eada1e1659f95242bfbc15991ba7b9c,
         type: 2}
@@ -9404,7 +9516,7 @@ Prefab:
     - target: {fileID: 114328187941221456, guid: 4eada1e1659f95242bfbc15991ba7b9c,
         type: 2}
       propertyPath: ChangeGravityRechargeTime
-      value: 0.5
+      value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 114328187941221456, guid: 4eada1e1659f95242bfbc15991ba7b9c,
         type: 2}
@@ -9701,7 +9813,7 @@ Prefab:
     - target: {fileID: 114328187941221456, guid: 4eada1e1659f95242bfbc15991ba7b9c,
         type: 2}
       propertyPath: ChangeGravityRechargeTime
-      value: 0.5
+      value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 114328187941221456, guid: 4eada1e1659f95242bfbc15991ba7b9c,
         type: 2}
@@ -10035,6 +10147,29 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1351885283
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b23992c8eb17439887f5e944bf04a40, type: 3}
+  m_Name: (Clone)(Clone)(Clone)(Clone)(Clone)(Clone)
+  m_EditorClassIdentifier: 
+  broadcast: 1
+  graphModel: {fileID: 4900000, guid: d474be4879a365c4d9a60fce45cbd6e4, type: 3}
+  graphScope: 
+  graphPlaceholders: []
+  BatchSizePlaceholderName: batch_size
+  VectorObservationPlacholderName: vector_observation
+  RecurrentInPlaceholderName: recurrent_in
+  RecurrentOutPlaceholderName: recurrent_out
+  VisualObservationPlaceholderName: []
+  ActionPlaceholderName: action
+  PreviousActionPlaceholderName: prev_action
+  brain: {fileID: 2018298041}
 --- !u!1 &1374163386
 GameObject:
   m_ObjectHideFlags: 0
@@ -10073,6 +10208,7 @@ Transform:
   - {fileID: 1781674785}
   - {fileID: 816169229}
   - {fileID: 89352999}
+  - {fileID: 738685849}
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -10146,7 +10282,7 @@ Prefab:
     - target: {fileID: 114328187941221456, guid: 4eada1e1659f95242bfbc15991ba7b9c,
         type: 2}
       propertyPath: ChangeGravityRechargeTime
-      value: 0.5
+      value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 114328187941221456, guid: 4eada1e1659f95242bfbc15991ba7b9c,
         type: 2}
@@ -10723,7 +10859,7 @@ Prefab:
     - target: {fileID: 114328187941221456, guid: 4eada1e1659f95242bfbc15991ba7b9c,
         type: 2}
       propertyPath: ChangeGravityRechargeTime
-      value: 0.5
+      value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 114328187941221456, guid: 4eada1e1659f95242bfbc15991ba7b9c,
         type: 2}
@@ -10803,7 +10939,7 @@ Prefab:
     - target: {fileID: 114328187941221456, guid: 4eada1e1659f95242bfbc15991ba7b9c,
         type: 2}
       propertyPath: ChangeGravityRechargeTime
-      value: 0.5
+      value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 114328187941221456, guid: 4eada1e1659f95242bfbc15991ba7b9c,
         type: 2}
@@ -11357,7 +11493,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: cf3124984e90ede41a0b071a0491c3c4, type: 3}
-  m_Color: {r: 0.14174241, g: 1, b: 0.0990566, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -12037,6 +12173,52 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1686291664
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41e9bda8f3cf1492fa74926a530f6f70, type: 3}
+  m_Name: (Clone)(Clone)(Clone)(Clone)(Clone)(Clone)
+  m_EditorClassIdentifier: 
+  broadcast: 1
+  keyContinuousPlayerActions:
+  - key: 32
+    index: 0
+    value: 1
+  - key: 97
+    index: 1
+    value: -1
+  - key: 100
+    index: 1
+    value: 1
+  - key: 115
+    index: 2
+    value: -1
+  - key: 119
+    index: 2
+    value: 1
+  axisContinuousPlayerActions: []
+  discretePlayerActions:
+  - key: 32
+    branchIndex: 0
+    value: 0
+  - key: 97
+    branchIndex: 1
+    value: -1
+  - key: 100
+    branchIndex: 1
+    value: 1
+  - key: 98
+    branchIndex: 2
+    value: -1
+  - key: 98
+    branchIndex: 2
+    value: 1
+  brain: {fileID: 2018298041}
 --- !u!1 &1693331020
 GameObject:
   m_ObjectHideFlags: 0
@@ -12153,7 +12335,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: cf3124984e90ede41a0b071a0491c3c4, type: 3}
-  m_Color: {r: 0.14174241, g: 1, b: 0.0990566, a: 1}
+  m_Color: {r: 1, g: 0.18324642, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -12217,19 +12399,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1706644390
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 943466ab374444748a364f9d6c3e2fe2, type: 3}
-  m_Name: (Clone)(Clone)(Clone)(Clone)(Clone)
-  m_EditorClassIdentifier: 
-  broadcast: 1
-  brain: {fileID: 0}
 --- !u!1 &1710030643
 GameObject:
   m_ObjectHideFlags: 0
@@ -13778,7 +13947,7 @@ Prefab:
     - target: {fileID: 114328187941221456, guid: 4eada1e1659f95242bfbc15991ba7b9c,
         type: 2}
       propertyPath: ChangeGravityRechargeTime
-      value: 0.5
+      value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 114328187941221456, guid: 4eada1e1659f95242bfbc15991ba7b9c,
         type: 2}
@@ -13791,6 +13960,21 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4722902742955884, guid: 4eada1e1659f95242bfbc15991ba7b9c, type: 2}
       propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 212492929401775568, guid: 4eada1e1659f95242bfbc15991ba7b9c,
+        type: 2}
+      propertyPath: m_Color.g
+      value: 0.18324642
+      objectReference: {fileID: 0}
+    - target: {fileID: 212492929401775568, guid: 4eada1e1659f95242bfbc15991ba7b9c,
+        type: 2}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 212492929401775568, guid: 4eada1e1659f95242bfbc15991ba7b9c,
+        type: 2}
+      propertyPath: m_Color.r
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -14077,29 +14261,6 @@ Transform:
   m_Father: {fileID: 1683654999}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1982839999
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b23992c8eb17439887f5e944bf04a40, type: 3}
-  m_Name: (Clone)(Clone)(Clone)(Clone)(Clone)
-  m_EditorClassIdentifier: 
-  broadcast: 1
-  graphModel: {fileID: 4900000, guid: d474be4879a365c4d9a60fce45cbd6e4, type: 3}
-  graphScope: 
-  graphPlaceholders: []
-  BatchSizePlaceholderName: batch_size
-  VectorObservationPlacholderName: vector_observation
-  RecurrentInPlaceholderName: recurrent_in
-  RecurrentOutPlaceholderName: recurrent_out
-  VisualObservationPlaceholderName: []
-  ActionPlaceholderName: action
-  PreviousActionPlaceholderName: prev_action
-  brain: {fileID: 2018298041}
 --- !u!1 &1995243604
 GameObject:
   m_ObjectHideFlags: 0
@@ -14430,11 +14591,11 @@ MonoBehaviour:
     vectorActionSpaceType: 1
   brainType: 3
   CoreBrains:
-  - {fileID: 866001120}
-  - {fileID: 1706644390}
-  - {fileID: 852188293}
-  - {fileID: 1982839999}
-  instanceID: 13400
+  - {fileID: 1686291664}
+  - {fileID: 871609493}
+  - {fileID: 1254811755}
+  - {fileID: 1351885283}
+  instanceID: 14452
 --- !u!1001 &2019840755
 Prefab:
   m_ObjectHideFlags: 0
@@ -14505,7 +14666,7 @@ Prefab:
     - target: {fileID: 114328187941221456, guid: 4eada1e1659f95242bfbc15991ba7b9c,
         type: 2}
       propertyPath: ChangeGravityRechargeTime
-      value: 0.5
+      value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 114328187941221456, guid: 4eada1e1659f95242bfbc15991ba7b9c,
         type: 2}
@@ -14515,6 +14676,21 @@ Prefab:
     - target: {fileID: 4722902742955884, guid: 4eada1e1659f95242bfbc15991ba7b9c, type: 2}
       propertyPath: m_LocalScale.y
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 212492929401775568, guid: 4eada1e1659f95242bfbc15991ba7b9c,
+        type: 2}
+      propertyPath: m_Color.g
+      value: 0.02433443
+      objectReference: {fileID: 0}
+    - target: {fileID: 212492929401775568, guid: 4eada1e1659f95242bfbc15991ba7b9c,
+        type: 2}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 212492929401775568, guid: 4eada1e1659f95242bfbc15991ba7b9c,
+        type: 2}
+      propertyPath: m_Color.r
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4eada1e1659f95242bfbc15991ba7b9c, type: 2}
