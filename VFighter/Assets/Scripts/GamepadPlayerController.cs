@@ -15,7 +15,7 @@ public class GamepadPlayerController : PlayerController {
 
         float leftStickX = inputDevice.GetAxis(MappedAxis.Horizontal);
         //Debug.Log(leftStickX);
-        Move(new Vector2(leftStickX, 0));
+        Move(leftStickX);
         //float ChangeGravY = inputDevice.GetAxis(MappedAxis.Vertical);
 
         //Vector2 changeGravDir = new Vector2(ChangeGravX, ChangeGravY);

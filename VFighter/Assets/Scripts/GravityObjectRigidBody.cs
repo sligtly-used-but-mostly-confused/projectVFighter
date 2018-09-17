@@ -80,7 +80,6 @@ public class GravityObjectRigidBody : MonoBehaviour {
         //Debug.Log(name + " " + dir);
         if (dir != GravityDirection)
         {
-            //Debug.Log("inside " + name + " " + dir);
             GetComponent<Rigidbody2D>().velocity = Vector2.zero;
             GravityDirection = dir;
         }

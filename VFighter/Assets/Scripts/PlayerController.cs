@@ -40,17 +40,16 @@ public abstract class PlayerController : MonoBehaviour {
         IsDead = false;
     }
 
-    public void Move(Vector2 dir)
+    public void Move(float dir)
     {
-        GetComponent<Rigidbody2D>().velocity = dir * MoveSpeed;
+        GetComponent<Rigidbody2D>().velocity = new Vector2(dir * MoveSpeed, GetComponent<Rigidbody2D>().velocity.y);
     }
 
     public void FlipGravity()
     {
         if (!_isChangeGravityCoolingDown)
         {
-            GetComponent<GravityObjectRigidBody>().ChangeGravityDirection(GetComponent<GravityObjectRigidBody>().GravityDirection * -1);
-            StartCoroutine(ChangeGravityCoolDown());
+            ChangeGravity(GetComponent<GravityObjectRigidBody>().GravityDirection * -1);
         }
     }
 
@@ -60,7 +59,7 @@ public abstract class PlayerController : MonoBehaviour {
         {
             var closestDir = ClosestDirection(dir);
             GetComponent<GravityObjectRigidBody>().ChangeGravityDirection(closestDir);
-            //AttachedObjects.ForEach(x => x.ChangeGravityDirection(closestDir));
+            _isChangeGravityCoolingDown = true;
             StartCoroutine(ChangeGravityCoolDown());
         }
     }
@@ -117,7 +116,6 @@ public abstract class PlayerController : MonoBehaviour {
 
     IEnumerator ChangeGravityCoolDown()
     {
-        _isChangeGravityCoolingDown = true;
         yield return new WaitForSeconds(ChangeGravityRechargeTime);
         _isChangeGravityCoolingDown = false;
     }

@@ -16,7 +16,7 @@ public class KeyboardPlayerController : PlayerController
 
         float Horz = inputDevice.GetAxis(MappedAxis.Horizontal);
         float Vert = inputDevice.GetAxis(MappedAxis.Vertical);
-        Move(new Vector2(Horz, 0));
+        Move(Horz);
         //Vector2 changeGravDir = new Vector2(ChangeGravX, ChangeGravY);
         //Debug.Log(changeGravDir);
         var mousePos = Camera.main.ScreenToWorldPoint(new Vector2(mouseX, mouseY));

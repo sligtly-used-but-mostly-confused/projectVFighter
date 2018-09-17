@@ -299,7 +299,7 @@ Prefab:
     - target: {fileID: 114051578744213862, guid: 3106df6d6bd5f49b8ba6a9d98347ea22,
         type: 2}
       propertyPath: _maxComponentSpeed
-      value: 100
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 114675527720798124, guid: 3106df6d6bd5f49b8ba6a9d98347ea22,
         type: 2}
@@ -309,7 +309,7 @@ Prefab:
     - target: {fileID: 114051578744213862, guid: 3106df6d6bd5f49b8ba6a9d98347ea22,
         type: 2}
       propertyPath: _gravityScale
-      value: 50
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 114675527720798124, guid: 3106df6d6bd5f49b8ba6a9d98347ea22,
         type: 2}
