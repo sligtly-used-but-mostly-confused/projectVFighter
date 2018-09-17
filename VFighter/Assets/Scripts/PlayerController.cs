@@ -30,7 +30,7 @@ public abstract class PlayerController : MonoBehaviour {
     [SerializeField]
     public bool IsDead;
 
-    private readonly Vector2[] _compass = { Vector2.left, Vector2.right, Vector2.up, Vector2.down };
+    private readonly Vector2[] _gravChangeDirections = {Vector2.up, Vector2.down };
 
     private bool _isCoolingDown;
     private bool _isChangeGravityCoolingDown;
@@ -50,16 +50,17 @@ public abstract class PlayerController : MonoBehaviour {
         AimingReticle.transform.localPosition = dir.normalized;
     }
 
+    public void FlipGravity()
+    {
+        if (!_isChangeGravityCoolingDown)
+        {
+            GetComponent<GravityObjectRigidBody>().ChangeGravityDirection(GetComponent<GravityObjectRigidBody>().GravityDirection * -1);
+            StartCoroutine(ChangeGravityCoolDown());
+        }
+    }
+
     public void ChangeGravity(Vector2 dir)
     {
-        /*
-        _dataService.InsertAction(new PlayerAction(
-            ActionType.ChangeGrav, 
-            dir, 
-            transform.position,
-            GravityObjectManager.Instance.GetOtherPlayers(this), 
-            GravityObjectManager.Instance.GravityObjectsNotPlayers));
-            */
         if (!_isChangeGravityCoolingDown)
         {
             var closestDir = ClosestDirection(dir);
@@ -112,8 +113,6 @@ public abstract class PlayerController : MonoBehaviour {
     private void OnCollisionEnter2D(Collision2D collision)
     {
         var impulse = (collision.relativeVelocity * collision.rigidbody.mass).magnitude;
-
-        //Debug.Log((impulse + " " + ImpulseToKill) + " " + collision.collider.GetComponent<GravityObjectRigidBody>());
         if (impulse > ImpulseToKill && collision.collider.GetComponent<GravityObjectRigidBody>())
         {
             if(collision.collider.GetComponent<PlayerController>())
@@ -126,11 +125,10 @@ public abstract class PlayerController : MonoBehaviour {
 
     public Vector2 ClosestDirection(Vector2 v)
     {
-
         var maxDot = -Mathf.Infinity;
         var ret = Vector3.zero;
 
-        foreach (var dir in _compass)
+        foreach (var dir in _gravChangeDirections)
         {
             var t = Vector3.Dot(v, dir);
             if (t > maxDot)

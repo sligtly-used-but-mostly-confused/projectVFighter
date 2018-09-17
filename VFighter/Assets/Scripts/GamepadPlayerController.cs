@@ -10,29 +10,35 @@ public class GamepadPlayerController : PlayerController {
     {
         var inputDevice = MappedInput.InputDevices[_inputDevice];
 
-        float mouseX = inputDevice.GetAxisRaw(MappedAxis.AimX);
-        float mouseY = inputDevice.GetAxisRaw(MappedAxis.AimY);
+        float rightSitckX = inputDevice.GetAxisRaw(MappedAxis.AimX);
+        float rightSitckY = inputDevice.GetAxisRaw(MappedAxis.AimY);
 
-        float ChangeGravX = inputDevice.GetAxis(MappedAxis.Horizontal);
-        float ChangeGravY = inputDevice.GetAxis(MappedAxis.Vertical);
+        float leftStickX = inputDevice.GetAxis(MappedAxis.Horizontal);
+        //Debug.Log(leftStickX);
+        Move(new Vector2(leftStickX, 0));
+        //float ChangeGravY = inputDevice.GetAxis(MappedAxis.Vertical);
 
-        Vector2 changeGravDir = new Vector2(ChangeGravX, ChangeGravY);
-        Debug.Log(changeGravDir);
-        //Debug.Log(changeGravDir);
-        var mousePos = Camera.main.ScreenToWorldPoint(new Vector2(mouseX, mouseY));
-        var deltaFromPlayer = mousePos - transform.position;
-
-        AimReticle(deltaFromPlayer);
+        //Vector2 changeGravDir = new Vector2(ChangeGravX, ChangeGravY);
+        
+        Vector2 aimDir = new Vector2(rightSitckX, rightSitckY).normalized;
+        
+        AimReticle(aimDir);
 
         //if(inputDevice.GetButtonDown(MappedButton.ChangeGrav))
-        if (changeGravDir != Vector2.zero)
+        //if (changeGravDir != Vector2.zero)
+        //{
+        //    var closestDir = ClosestDirection(changeGravDir.normalized);
+        //    ChangeGravity(closestDir);
+        //}
+        
+        if(inputDevice.GetButtonDown(MappedButton.ChangeGrav))
         {
-            var closestDir = ClosestDirection(changeGravDir.normalized);
-            ChangeGravity(closestDir);
+            FlipGravity();
         }
+
         if (inputDevice.GetButtonDown(MappedButton.ShootGravGun))
         {
-            ShootGravityGun(deltaFromPlayer);
+            ShootGravityGun(aimDir);
         }
     }
 }
