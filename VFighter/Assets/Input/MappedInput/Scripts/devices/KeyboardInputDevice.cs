@@ -87,11 +87,11 @@ public class KeyboardInputDevice : InputDevice
 
 		for(int i = 0; i < mapping.buttonsNegative.Length; i++)
 		{
-			if( Input.GetKey(mapping.buttonsNegative[i]) )
-				rawVal--;
+            if (Input.GetKey(mapping.buttonsNegative[i]))
+                rawVal--;
 		}
 
-		return Mathf.Clamp (rawVal, -1, 1);
+        return Mathf.Clamp (rawVal, -1, 1);
 	}
 
 }
