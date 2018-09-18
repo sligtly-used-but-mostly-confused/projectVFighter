@@ -8,5 +8,6 @@ public enum MappedAxis
 	Horizontal,
 	Vertical,
 	AimX,
-	AimY
+	AimY,
+    ShootGravGun
 }

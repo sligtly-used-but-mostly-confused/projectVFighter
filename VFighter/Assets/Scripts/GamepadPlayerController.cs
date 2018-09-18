@@ -9,6 +9,7 @@ public class GamepadPlayerController : PlayerController {
     void Update()
     {
         var inputDevice = MappedInput.InputDevices[_inputDevice];
+        inputDevice.Center = transform.position;
 
         float rightSitckX = inputDevice.GetAxisRaw(MappedAxis.AimX);
         float rightSitckY = inputDevice.GetAxisRaw(MappedAxis.AimY);
@@ -16,7 +17,7 @@ public class GamepadPlayerController : PlayerController {
         float leftStickX = inputDevice.GetAxis(MappedAxis.Horizontal);
 
         Move(leftStickX);
-        Vector2 aimDir = new Vector2(rightSitckX, rightSitckY).normalized;
+        Vector2 aimDir = new Vector2(rightSitckX, rightSitckY);
         
         AimReticle(aimDir);
         
@@ -25,7 +26,7 @@ public class GamepadPlayerController : PlayerController {
             FlipGravity();
         }
 
-        if (inputDevice.GetButtonDown(MappedButton.ShootGravGun))
+        if (inputDevice.GetAxis(MappedAxis.ShootGravGun) != 0)
         {
             ShootGravityGun(aimDir);
         }
