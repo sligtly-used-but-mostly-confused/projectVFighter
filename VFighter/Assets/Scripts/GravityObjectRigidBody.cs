@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(BoxCollider2D))]
 public class GravityObjectRigidBody : MonoBehaviour {
     private static int _idCnt = 0;
 
@@ -14,7 +15,8 @@ public class GravityObjectRigidBody : MonoBehaviour {
     private Vector2 _gravityDirection = Vector2.down;
     [SerializeField]
     private float _maxComponentSpeed = 10;
-
+    [SerializeField]
+    private bool _stopObjectOnCollide = true;
     public PlayerController Owner;
 
     public float GravityScale
@@ -90,4 +92,12 @@ public class GravityObjectRigidBody : MonoBehaviour {
         GravityScale = newGravityScale;
     }
 
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(_stopObjectOnCollide)
+        {
+            Debug.Log("hit somthing, so reset to a cardinal direction");
+            ChangeGravityDirection(Vector2.zero);
+        }
+    }
 }

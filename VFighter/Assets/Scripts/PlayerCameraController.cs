@@ -8,7 +8,7 @@ public class PlayerCameraController : MonoBehaviour {
     private Rigidbody2D _rB;
     void Start()
     {
-        _player = GameManager.Instance.Player;
+        //_player = GameManager.Instance.Player;
         _rB = GetComponent<Rigidbody2D>();
     }
 

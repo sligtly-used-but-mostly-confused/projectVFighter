@@ -24,11 +24,12 @@ public class GamepadInput : MonoBehaviour
 	{
         if(_instance == null)
         {
+            DontDestroyOnLoad(gameObject);
             _instance = this;
         }
         else
         {
-            Destroy(this);
+            Destroy(gameObject);
         }
 
 #if UNITY_STANDALONE_WIN
