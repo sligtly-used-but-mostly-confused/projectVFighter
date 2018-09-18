@@ -7,7 +7,7 @@ using System.Linq;
 
 public abstract class PlayerController : MonoBehaviour {
 
-    public List<GravityObjectRigidBody> AttachedObjects;
+    public GravityObjectRigidBody AttachedObject;
     
     [SerializeField]
     protected float RechargeTime = 1f;
@@ -30,7 +30,8 @@ public abstract class PlayerController : MonoBehaviour {
     [SerializeField]
     public bool IsDead;
 
-    private readonly Vector2[] _compass = { Vector2.left, Vector2.right, Vector2.up, Vector2.down };
+    protected readonly Vector2[] _gravChangeDirections = {Vector2.up, Vector2.down };
+    protected readonly Vector2[] _gravChangeDirectionsForThrownObject = { Vector2.up, Vector2.down, Vector2.left, Vector2.right };
 
     private bool _isCoolingDown;
     private bool _isChangeGravityCoolingDown;
@@ -40,31 +41,28 @@ public abstract class PlayerController : MonoBehaviour {
         IsDead = false;
     }
 
-    public void Move(Vector2 dir)
+    public void Move(float dir)
     {
-        GetComponent<GravityObjectRigidBody>().AddLinearAcceleration(dir * MoveSpeed);
+        
+        GetComponent<Rigidbody2D>().velocity = new Vector2(dir * MoveSpeed, GetComponent<Rigidbody2D>().velocity.y);
+        //Debug.Log(Time.times + " " + GetComponent<Rigidbody2D>().velocity);
     }
 
-    public void AimReticle(Vector2 dir)
+    public void FlipGravity()
     {
-        AimingReticle.transform.localPosition = dir.normalized;
+        if (!_isChangeGravityCoolingDown)
+        {
+            ChangeGravity(GetComponent<GravityObjectRigidBody>().GravityDirection * -1);
+        }
     }
 
     public void ChangeGravity(Vector2 dir)
     {
-        /*
-        _dataService.InsertAction(new PlayerAction(
-            ActionType.ChangeGrav, 
-            dir, 
-            transform.position,
-            GravityObjectManager.Instance.GetOtherPlayers(this), 
-            GravityObjectManager.Instance.GravityObjectsNotPlayers));
-            */
         if (!_isChangeGravityCoolingDown)
         {
-            var closestDir = ClosestDirection(dir);
+            var closestDir = ClosestDirection(dir, _gravChangeDirections);
             GetComponent<GravityObjectRigidBody>().ChangeGravityDirection(closestDir);
-            AttachedObjects.ForEach(x => x.ChangeGravityDirection(closestDir));
+            _isChangeGravityCoolingDown = true;
             StartCoroutine(ChangeGravityCoolDown());
         }
     }
@@ -74,15 +72,42 @@ public abstract class PlayerController : MonoBehaviour {
         throw new System.NotImplementedException();
     }
 
+    public void AimReticle(Vector2 dir)
+    {
+        AimingReticle.transform.localPosition = dir.normalized;
+    }
+
     public void ShootGravityGun(Vector2 dir)
     {
+        dir = dir.normalized;
         if (!_isCoolingDown)
         {
-            GameObject projectileClone = (GameObject)Instantiate(Projectile, AimingReticle.transform.position, AimingReticle.transform.rotation);
-            projectileClone.GetComponent<GravityGunProjectileController>().Owner = this;
-            projectileClone.GetComponent<Rigidbody2D>().velocity = dir * ShootSpeed;
-            StartCoroutine(CoolDown());
+            if(AttachedObject == null)
+            {
+                GameObject projectileClone = (GameObject)Instantiate(Projectile, AimingReticle.transform.position, AimingReticle.transform.rotation);
+                projectileClone.GetComponent<GravityGunProjectileController>().Owner = this;
+                projectileClone.GetComponent<Rigidbody2D>().velocity = dir * ShootSpeed;
+                StartCoroutine(CoolDown());
+            }
+            else
+            { 
+                AttachedObject.ChangeGravityDirection(dir);
+                DetachGORB();
+            }
         }
+    }
+
+    public void AttachGORB(GravityObjectRigidBody gravityObjectRB)
+    {
+        AttachedObject = gravityObjectRB;
+        AimingReticle.transform.parent = AttachedObject.transform;
+    }
+
+    public void DetachGORB()
+    {
+        AttachedObject.Owner = null;
+        AttachedObject = null;
+        AimingReticle.transform.parent = transform;
     }
 
     IEnumerator CoolDown()
@@ -94,26 +119,13 @@ public abstract class PlayerController : MonoBehaviour {
 
     IEnumerator ChangeGravityCoolDown()
     {
-        _isChangeGravityCoolingDown = true;
         yield return new WaitForSeconds(ChangeGravityRechargeTime);
         _isChangeGravityCoolingDown = false;
-    }
-
-    public void AttachGORB(GravityObjectRigidBody gravityObjectRB)
-    {
-        AttachedObjects.Add(gravityObjectRB);
-    }
-
-    public void DetachGORB(GravityObjectRigidBody gravityObjectRB)
-    {
-        AttachedObjects.Remove(gravityObjectRB);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         var impulse = (collision.relativeVelocity * collision.rigidbody.mass).magnitude;
-
-        //Debug.Log((impulse + " " + ImpulseToKill) + " " + collision.collider.GetComponent<GravityObjectRigidBody>());
         if (impulse > ImpulseToKill && collision.collider.GetComponent<GravityObjectRigidBody>())
         {
             if(collision.collider.GetComponent<PlayerController>())
@@ -124,13 +136,12 @@ public abstract class PlayerController : MonoBehaviour {
         }
     }
 
-    public Vector2 ClosestDirection(Vector2 v)
+    public Vector2 ClosestDirection(Vector2 v, Vector2[] compass)
     {
-
         var maxDot = -Mathf.Infinity;
         var ret = Vector3.zero;
 
-        foreach (var dir in _compass)
+        foreach (var dir in compass)
         {
             var t = Vector3.Dot(v, dir);
             if (t > maxDot)

@@ -18,20 +18,19 @@ public class GravityGunProjectileController : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        Debug.Log("hit");
         var gravityObjectRB = collision.GetComponent<GravityObjectRigidBody>();
         if (gravityObjectRB)
         {
             if(gravityObjectRB.Owner != Owner)
             {
+                
                 gravityObjectRB.Owner = Owner;
                 Owner.AttachGORB(gravityObjectRB);
                 Destroy(gameObject);
             }
             else
             {
-                Debug.Log("same owner");
-                gravityObjectRB.Owner = null;
-                Owner.DetachGORB(gravityObjectRB);
                 Destroy(gameObject);
             }
         }

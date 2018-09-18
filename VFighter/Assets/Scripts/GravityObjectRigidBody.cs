@@ -60,26 +60,19 @@ public class GravityObjectRigidBody : MonoBehaviour {
         AddLinearAcceleration(GravityDirection * GravityScale * 9.81f);
     }
 
-    public void AddLinearAcceleration(Vector2 AccelerationVector)
+    public void AddVelocity(Vector2 velocityVector)
     {
         var prevVel = GetComponent<Rigidbody2D>().velocity;
-        var velocityDelta = AccelerationVector * Time.fixedDeltaTime;
+        var velocityDelta = velocityVector;
         var tempVel = prevVel + velocityDelta;
-        var newVel = prevVel;
+        var xVel = Mathf.Clamp(tempVel.x, -MaxComponentSpeed, MaxComponentSpeed);
+        var yVel = Mathf.Clamp(tempVel.y, -MaxComponentSpeed, MaxComponentSpeed);
+        GetComponent<Rigidbody2D>().velocity = new Vector2(xVel, yVel);
+    }
 
-        if (MaxComponentSpeed > Mathf.Abs(tempVel.x))
-        {
-            //Debug.Log("x " + tempVel.x);
-            newVel += new Vector2(velocityDelta.x, 0);
-        }
-
-        if (MaxComponentSpeed > Mathf.Abs(tempVel.y))
-        {
-            //Debug.Log("y " + tempVel.y);
-            newVel += new Vector2(0, velocityDelta.y);
-        }
-
-        GetComponent<Rigidbody2D>().velocity = newVel;
+    public void AddLinearAcceleration(Vector2 AccelerationVector)
+    {
+        AddVelocity(AccelerationVector * Time.fixedDeltaTime);
     }
 
     public void ChangeGravityDirection(Vector2 dir)
@@ -87,7 +80,6 @@ public class GravityObjectRigidBody : MonoBehaviour {
         //Debug.Log(name + " " + dir);
         if (dir != GravityDirection)
         {
-            //Debug.Log("inside " + name + " " + dir);
             GetComponent<Rigidbody2D>().velocity = Vector2.zero;
             GravityDirection = dir;
         }
@@ -97,4 +89,5 @@ public class GravityObjectRigidBody : MonoBehaviour {
     {
         GravityScale = newGravityScale;
     }
+
 }
