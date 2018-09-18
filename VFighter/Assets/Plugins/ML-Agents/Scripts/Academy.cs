@@ -40,7 +40,7 @@ namespace MLAgents
         [Tooltip("Rendering quality of environment. (Higher is better quality.)")] [Range(0, 5)]
         public int qualityLevel;
 
-        [Tooltip("Speed at which environment is run. (Higher is faster.)")] [Range(1f, 100f)]
+        [Tooltip("Speed at which environment is run. (Higher is faster.)")] [Range(.5f, 100f)]
         public float timeScale;
 
         [Tooltip("Frames per second (FPS) engine attempts to maintain.")]
@@ -113,7 +113,7 @@ namespace MLAgents
         [Tooltip("The engine-level settings which correspond to rendering " +
                  "quality and engine speed during Inference.")]
         EnvironmentConfiguration inferenceConfiguration =
-            new EnvironmentConfiguration(1280, 720, 5, 1.0f, 60);
+            new EnvironmentConfiguration(1280, 720, 5, 0.5f, 60);
 
         /// <summary>
         /// Contains a mapping from parameter names to float values. They are

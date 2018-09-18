@@ -30,7 +30,8 @@ public abstract class PlayerController : MonoBehaviour {
     [SerializeField]
     public bool IsDead;
 
-    private readonly Vector2[] _gravChangeDirections = {Vector2.up, Vector2.down };
+    protected readonly Vector2[] _gravChangeDirections = {Vector2.up, Vector2.down };
+    protected readonly Vector2[] _gravChangeDirectionsForThrownObject = { Vector2.up, Vector2.down, Vector2.left, Vector2.right };
 
     private bool _isCoolingDown;
     private bool _isChangeGravityCoolingDown;
@@ -42,7 +43,9 @@ public abstract class PlayerController : MonoBehaviour {
 
     public void Move(float dir)
     {
+        
         GetComponent<Rigidbody2D>().velocity = new Vector2(dir * MoveSpeed, GetComponent<Rigidbody2D>().velocity.y);
+        //Debug.Log(Time.times + " " + GetComponent<Rigidbody2D>().velocity);
     }
 
     public void FlipGravity()
@@ -57,7 +60,7 @@ public abstract class PlayerController : MonoBehaviour {
     {
         if (!_isChangeGravityCoolingDown)
         {
-            var closestDir = ClosestDirection(dir);
+            var closestDir = ClosestDirection(dir, _gravChangeDirections);
             GetComponent<GravityObjectRigidBody>().ChangeGravityDirection(closestDir);
             _isChangeGravityCoolingDown = true;
             StartCoroutine(ChangeGravityCoolDown());
@@ -87,7 +90,7 @@ public abstract class PlayerController : MonoBehaviour {
                 StartCoroutine(CoolDown());
             }
             else
-            {
+            { 
                 AttachedObject.ChangeGravityDirection(dir);
                 DetachGORB();
             }
@@ -133,12 +136,12 @@ public abstract class PlayerController : MonoBehaviour {
         }
     }
 
-    public Vector2 ClosestDirection(Vector2 v)
+    public Vector2 ClosestDirection(Vector2 v, Vector2[] compass)
     {
         var maxDot = -Mathf.Infinity;
         var ret = Vector3.zero;
 
-        foreach (var dir in _gravChangeDirections)
+        foreach (var dir in compass)
         {
             var t = Vector3.Dot(v, dir);
             if (t > maxDot)

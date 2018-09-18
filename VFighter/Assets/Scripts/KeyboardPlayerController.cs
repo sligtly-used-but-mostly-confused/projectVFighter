@@ -20,7 +20,6 @@ public class KeyboardPlayerController : PlayerController
         //Vector2 changeGravDir = new Vector2(ChangeGravX, ChangeGravY);
         //Debug.Log(changeGravDir);
         var mousePos = Camera.main.ScreenToWorldPoint(new Vector2(mouseX, mouseY));
-
         var aimVector = Vector2.zero;
             
         if(AttachedObject == null)

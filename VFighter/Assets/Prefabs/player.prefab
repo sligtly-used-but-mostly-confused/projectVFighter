@@ -177,7 +177,7 @@ MonoBehaviour:
   _id: 0
   _gravityScale: 10
   _gravityDirection: {x: 0, y: -1}
-  _maxComponentSpeed: 10
+  _maxComponentSpeed: 20
   Owner: {fileID: 0}
 --- !u!114 &114675527720798124
 MonoBehaviour:
@@ -190,11 +190,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12609b73de0d22a47b3aeac01f7908e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AttachedObjects: []
+  AttachedObject: {fileID: 0}
   RechargeTime: 0.25
   ChangeGravityRechargeTime: 0.1
   MoveSpeed: 10
-  ShootSpeed: 2
+  ShootSpeed: 10
   JumpForce: 10
   ImpulseToKill: 10
   Projectile: {fileID: 1553312605624202, guid: 7b549a10b0a7a4de4843efb95d3176eb, type: 2}
