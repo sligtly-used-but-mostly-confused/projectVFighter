@@ -14,22 +14,11 @@ public class GamepadPlayerController : PlayerController {
         float rightSitckY = inputDevice.GetAxisRaw(MappedAxis.AimY);
 
         float leftStickX = inputDevice.GetAxis(MappedAxis.Horizontal);
-        //Debug.Log(leftStickX);
-        Move(leftStickX);
-        //float ChangeGravY = inputDevice.GetAxis(MappedAxis.Vertical);
 
-        //Vector2 changeGravDir = new Vector2(ChangeGravX, ChangeGravY);
-        
+        Move(leftStickX);
         Vector2 aimDir = new Vector2(rightSitckX, rightSitckY).normalized;
         
         AimReticle(aimDir);
-
-        //if(inputDevice.GetButtonDown(MappedButton.ChangeGrav))
-        //if (changeGravDir != Vector2.zero)
-        //{
-        //    var closestDir = ClosestDirection(changeGravDir.normalized);
-        //    ChangeGravity(closestDir);
-        //}
         
         if(inputDevice.GetButtonDown(MappedButton.ChangeGrav))
         {
