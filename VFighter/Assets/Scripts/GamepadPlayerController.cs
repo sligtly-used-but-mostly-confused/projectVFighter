@@ -17,16 +17,13 @@ public class GamepadPlayerController : PlayerController {
 
     void Update()
     {
-        //inputDevice.Center = transform.position;
+        float leftStickX = inputDevice.GetAxis(MappedAxis.Horizontal);
+        Move(leftStickX);
 
         float rightSitckX = inputDevice.GetAxisRaw(MappedAxis.AimX);
         float rightSitckY = inputDevice.GetAxisRaw(MappedAxis.AimY);
 
-        float leftStickX = inputDevice.GetAxis(MappedAxis.Horizontal);
-
-        Move(leftStickX);
         Vector2 aimDir = new Vector2(rightSitckX, rightSitckY);
-        
         AimReticle(aimDir);
         
         if(IsAxisTapped(MappedAxis.ChangeGrav) && inputDevice.GetAxis(MappedAxis.ChangeGrav) > 0)
