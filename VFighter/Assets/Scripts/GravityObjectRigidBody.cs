@@ -96,7 +96,6 @@ public class GravityObjectRigidBody : MonoBehaviour {
     {
         if(_stopObjectOnCollide)
         {
-            Debug.Log("hit somthing, so reset to a cardinal direction");
             ChangeGravityDirection(Vector2.zero);
         }
     }
