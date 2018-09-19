@@ -26,6 +26,8 @@ public abstract class PlayerController : MonoBehaviour {
     protected GameObject Projectile;
     [SerializeField]
     protected GameObject AimingReticle;
+    [SerializeField]
+    protected Material ObjectMaterial;
 
     [SerializeField]
     public bool IsDead;
@@ -43,6 +45,8 @@ public abstract class PlayerController : MonoBehaviour {
     protected virtual void Awake()
     {
         IsDead = false;
+        GetComponent<Renderer>().material = ObjectMaterial;
+        AimingReticle.GetComponent<Renderer>().material = ObjectMaterial;
     }
 
     public void Move(float dir)
@@ -78,7 +82,7 @@ public abstract class PlayerController : MonoBehaviour {
 
     public void AimReticle(Vector2 dir)
     {
-        AimingReticle.transform.localPosition = dir.normalized;
+        AimingReticle.transform.localPosition = dir.normalized * 2;
     }
 
     public void ShootGravityGun(Vector2 dir)
