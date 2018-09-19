@@ -54,7 +54,7 @@ public abstract class PlayerController : MonoBehaviour {
         IsCoolingDown = false;
         IsChangeGravityCoolingDown = false;
         IsDashCoolingDown = false;
-}
+    }
 
     public void Move(float dir)
     {
