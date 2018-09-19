@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class KeyboardMouseInputDevice : InputDevice
 {
+    private Dictionary<MappedAxis, float> MouseAxisPrevValues = new Dictionary<MappedAxis, float>();
+
     public override string GetAxisName(MappedAxis axis)
     {
         var MouseMapping = MappedInput.Mouse.GetAxisName(axis);

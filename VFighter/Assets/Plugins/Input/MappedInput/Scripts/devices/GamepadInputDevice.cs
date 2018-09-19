@@ -44,7 +44,6 @@ public class GamepadInputDevice : InputDevice
 
 	public override bool GetButtonDown(MappedButton button)
 	{
-        Debug.Log(button);
 		var mapping = MappedInput.Instance.GamepadInputMapping.GetGamepadButtonMapping (button);
 		if (mapping != null)
 		{

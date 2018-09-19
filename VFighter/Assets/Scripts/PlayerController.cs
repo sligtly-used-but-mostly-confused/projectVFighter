@@ -136,7 +136,7 @@ public abstract class PlayerController : MonoBehaviour {
         }
     }
 
-    public Vector2 ClosestDirection(Vector2 v, Vector2[] compass)
+    public static Vector2 ClosestDirection(Vector2 v, Vector2[] compass)
     {
         var maxDot = -Mathf.Infinity;
         var ret = Vector3.zero;
@@ -158,5 +158,6 @@ public abstract class PlayerController : MonoBehaviour {
     {
         Debug.Log("dead");
         IsDead = true;
+        GameManager.Instance.ResetLevel();
     }
 }

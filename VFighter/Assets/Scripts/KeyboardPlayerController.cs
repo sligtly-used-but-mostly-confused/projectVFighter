@@ -14,6 +14,8 @@ public class KeyboardPlayerController : PlayerController
         float mouseX = inputDevice.GetAxisRaw(MappedAxis.AimX);
         float mouseY = inputDevice.GetAxisRaw(MappedAxis.AimY);
 
+        //Debug.Log(inputDevice.GetAxis2DCircleClamp(MappedAxis.AimX, MappedAxis.AimY));
+
         float Horz = inputDevice.GetAxis(MappedAxis.Horizontal);
         float Vert = inputDevice.GetAxis(MappedAxis.Vertical);
         Move(Horz);
@@ -30,7 +32,7 @@ public class KeyboardPlayerController : PlayerController
         {
             aimVector = mousePos - AttachedObject.transform.position;
         }
-
+        
         AimReticle(aimVector);
 
         if (inputDevice.GetButtonDown(MappedButton.ChangeGrav))
