@@ -336,6 +336,16 @@ Prefab:
       propertyPath: m_LocalPosition.x
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 114105182756240840, guid: 9807f3b1172b88243a7ae3da48d1d3a4,
+        type: 2}
+      propertyPath: ChangeGravityRechargeTime
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114105182756240840, guid: 9807f3b1172b88243a7ae3da48d1d3a4,
+        type: 2}
+      propertyPath: _inputDevice
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 212862557611333726, guid: 9807f3b1172b88243a7ae3da48d1d3a4, type: 2}
   m_SourcePrefab: {fileID: 100100000, guid: 9807f3b1172b88243a7ae3da48d1d3a4, type: 2}
