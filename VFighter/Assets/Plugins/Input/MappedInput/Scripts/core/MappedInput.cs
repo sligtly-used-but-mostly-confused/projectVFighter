@@ -78,7 +78,6 @@ public class MappedInput : MonoBehaviour {
 #endif
 
             Instance = this;
-        Debug.Log(InputDevices.Count);
 	}
 
 	void Start()

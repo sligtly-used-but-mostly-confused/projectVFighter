@@ -10,7 +10,10 @@ public abstract class InputDevice : MonoBehaviour
 
 	public bool autoActive = true;
 	public float lastInputTime { get; private set;}
-	internal bool HasAnyInputLastFrame = false;
+
+    public delegate void OnAxisEvent(MappedAxis axis);
+
+    internal bool HasAnyInputLastFrame = false;
 	
 	protected float[] prevAxes = new float[System.Enum.GetValues(typeof(MappedAxis)).Length];
 	protected float[] axes = new float[System.Enum.GetValues(typeof(MappedAxis)).Length];
@@ -90,7 +93,7 @@ public abstract class InputDevice : MonoBehaviour
 
 		axesRaw[(int)axis] = GetAxisValueRaw (axis);
 		prevAxes [(int)axis] = axes [(int)axis];
-        
+
         axes [(int)axis] = GetSmoothValue (axes [(int)axis],axesRaw [(int)axis],sensitivity);
 
         if (!Mathf.Approximately(axes[(int)axis], prevAxes[(int)axis]))

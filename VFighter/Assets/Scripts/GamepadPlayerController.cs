@@ -6,9 +6,17 @@ public class GamepadPlayerController : PlayerController {
     [SerializeField]
     private int _inputDevice = 2;
 
+    InputDevice inputDevice;
+    private float _triggerDeadZone;
+    List<float> TriggerPastVals = new List<float>();
+
+    private void Start()
+    {
+        inputDevice = MappedInput.InputDevices[_inputDevice];
+    }
+
     void Update()
     {
-        var inputDevice = MappedInput.InputDevices[_inputDevice];
         inputDevice.Center = transform.position;
 
         float rightSitckX = inputDevice.GetAxisRaw(MappedAxis.AimX);
@@ -26,9 +34,27 @@ public class GamepadPlayerController : PlayerController {
             FlipGravity();
         }
 
-        if (inputDevice.GetAxis(MappedAxis.ShootGravGun) != 0)
+        if (IsTriggerTapped(MappedAxis.ShootGravGun) && aimDir.magnitude > 0)
         {
             ShootGravityGun(aimDir);
         }
+    }
+
+    bool IsTriggerTapped(MappedAxis axis)
+    {
+        float val = inputDevice.GetAxis(axis);
+        TriggerPastVals.Add(val);
+
+        if (TriggerPastVals.Count > 3)
+        {
+            TriggerPastVals.RemoveAt(0);
+        }
+
+        if(TriggerPastVals.Count < 3)
+        {
+            return false;
+        }
+
+        return TriggerPastVals[0] >= TriggerPastVals[1] && TriggerPastVals[1] < TriggerPastVals[2];
     }
 }
