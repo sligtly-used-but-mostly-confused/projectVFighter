@@ -8,7 +8,7 @@ public class GamepadPlayerController : PlayerController {
 
     InputDevice inputDevice;
     private float _triggerDeadZone;
-    List<float> TriggerPastVals = new List<float>();
+    Dictionary<MappedAxis,List<float>> TriggerPastVals = new Dictionary<MappedAxis, List<float>>();
 
     private void Start()
     {
@@ -29,11 +29,11 @@ public class GamepadPlayerController : PlayerController {
         
         AimReticle(aimDir);
         
-        if(inputDevice.GetButtonDown(MappedButton.ChangeGrav))
+        if(IsTriggerTapped(MappedAxis.ChangeGrav) && inputDevice.GetAxis(MappedAxis.ChangeGrav) > 0)
         {
             FlipGravity();
         }
-
+        
         if (IsTriggerTapped(MappedAxis.ShootGravGun) && aimDir.magnitude > 0)
         {
             ShootGravityGun(aimDir);
@@ -43,18 +43,24 @@ public class GamepadPlayerController : PlayerController {
     bool IsTriggerTapped(MappedAxis axis)
     {
         float val = inputDevice.GetAxis(axis);
-        TriggerPastVals.Add(val);
-
-        if (TriggerPastVals.Count > 3)
+        
+        if(!TriggerPastVals.ContainsKey(axis))
         {
-            TriggerPastVals.RemoveAt(0);
+            TriggerPastVals.Add(axis, new List<float>());
         }
 
-        if(TriggerPastVals.Count < 3)
+        TriggerPastVals[axis].Add(val);
+
+        if (TriggerPastVals[axis].Count > 3)
+        {
+            TriggerPastVals[axis].RemoveAt(0);
+        }
+
+        if(TriggerPastVals[axis].Count < 3)
         {
             return false;
         }
 
-        return TriggerPastVals[0] >= TriggerPastVals[1] && TriggerPastVals[1] < TriggerPastVals[2];
+        return TriggerPastVals[axis][0] >= TriggerPastVals[axis][1] && TriggerPastVals[axis][1] < TriggerPastVals[axis][2];
     }
 }
