@@ -9,45 +9,45 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1149458543194074}
+  m_RootGameObject: {fileID: 1651367713116142}
   m_IsPrefabAsset: 1
---- !u!1 &1149458543194074
+--- !u!1 &1651367713116142
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4349437965455620}
-  - component: {fileID: 61738971596308168}
-  - component: {fileID: 114599767842218698}
-  - component: {fileID: 212358178604106758}
+  - component: {fileID: 4064653207566866}
+  - component: {fileID: 61645894483048676}
+  - component: {fileID: 114568056544318070}
+  - component: {fileID: 212664063133129500}
   m_Layer: 0
-  m_Name: ForceZone
+  m_Name: TeleportZone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4349437965455620
+--- !u!4 &4064653207566866
 Transform:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1149458543194074}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.16, y: 2.15, z: -0.27167553}
-  m_LocalScale: {x: 4, y: 6, z: 1}
+  m_GameObject: {fileID: 1651367713116142}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 5.59, y: 1.87, z: -0.27167553}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &61738971596308168
+--- !u!61 &61645894483048676
 BoxCollider2D:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1149458543194074}
+  m_GameObject: {fileID: 1651367713116142}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -61,32 +61,30 @@ BoxCollider2D:
     oldSize: {x: 0.5, y: 0.5}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
-    drawMode: 0
+    drawMode: 2
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.5, y: 0.5}
+  m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &114599767842218698
+--- !u!114 &114568056544318070
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1149458543194074}
+  m_GameObject: {fileID: 1651367713116142}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bcf580cc199cf4079855461769a77b2f, type: 3}
+  m_Script: {fileID: 11500000, guid: e0e45ebcfeec7433a9cac3975927aa27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AffectedPrefab: {fileID: 1167609975392520, guid: 55fe9360236ce094b8791837356c4d89,
-    type: 2}
-  gravityForce: {x: 300, y: 300}
---- !u!212 &212358178604106758
+  TeleportTo: {fileID: 0}
+--- !u!212 &212664063133129500
 SpriteRenderer:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1149458543194074}
+  m_GameObject: {fileID: 1651367713116142}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -117,10 +115,10 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: cf3124984e90ede41a0b071a0491c3c4, type: 3}
-  m_Color: {r: 0.6792453, g: 0.34297726, b: 0.17621931, a: 1}
+  m_Color: {r: 0.9803922, g: 0.9803922, b: 0.9803922, a: 1}
   m_FlipX: 0
   m_FlipY: 0
-  m_DrawMode: 0
+  m_DrawMode: 2
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
