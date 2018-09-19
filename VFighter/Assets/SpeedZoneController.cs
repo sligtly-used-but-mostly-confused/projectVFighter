@@ -15,6 +15,5 @@ public class SpeedZoneController : MonoBehaviour {
         {
             collision.attachedRigidbody.AddForce(transform.TransformDirection(rb.velocity * SpeedIncreaseForce), ForceMode2D.Force);
         }
-
     }
 }

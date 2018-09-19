@@ -14,6 +14,5 @@ public class TeleportZoneController : MonoBehaviour {
         {
             collision.transform.position = TeleportTo.transform.position;
         }
-
     }
 }
