@@ -17,7 +17,7 @@ public class GamepadPlayerController : PlayerController {
 
     void Update()
     {
-        inputDevice.Center = transform.position;
+        //inputDevice.Center = transform.position;
 
         float rightSitckX = inputDevice.GetAxisRaw(MappedAxis.AimX);
         float rightSitckY = inputDevice.GetAxisRaw(MappedAxis.AimY);
@@ -29,18 +29,23 @@ public class GamepadPlayerController : PlayerController {
         
         AimReticle(aimDir);
         
-        if(IsTriggerTapped(MappedAxis.ChangeGrav) && inputDevice.GetAxis(MappedAxis.ChangeGrav) > 0)
+        if(IsAxisTapped(MappedAxis.ChangeGrav) && inputDevice.GetAxis(MappedAxis.ChangeGrav) > 0)
         {
             FlipGravity();
         }
         
-        if (IsTriggerTapped(MappedAxis.ShootGravGun) && aimDir.magnitude > 0)
+        if (IsAxisTapped(MappedAxis.ShootGravGun) && aimDir.magnitude > 0)
         {
             ShootGravityGun(aimDir);
         }
+
+        if(inputDevice.GetButtonDown(MappedButton.Dash))
+        {
+            Dash(aimDir);
+        }
     }
 
-    bool IsTriggerTapped(MappedAxis axis)
+    bool IsAxisTapped(MappedAxis axis)
     {
         float val = inputDevice.GetAxis(axis);
         

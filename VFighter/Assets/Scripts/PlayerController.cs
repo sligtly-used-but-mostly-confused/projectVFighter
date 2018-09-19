@@ -21,13 +21,14 @@ public abstract class PlayerController : MonoBehaviour {
     protected float JumpForce = 10f;
     [SerializeField]
     protected float ImpulseToKill = 10f;
-
     [SerializeField]
     protected GameObject Projectile;
     [SerializeField]
     protected GameObject AimingReticle;
     [SerializeField]
     protected Material ObjectMaterial;
+    [SerializeField]
+    protected float DashSpeed = 10f;
 
     [SerializeField]
     public bool IsDead;
@@ -51,8 +52,10 @@ public abstract class PlayerController : MonoBehaviour {
 
     public void Move(float dir)
     {
-        
-        GetComponent<Rigidbody2D>().velocity = new Vector2(dir * MoveSpeed, GetComponent<Rigidbody2D>().velocity.y);
+
+        //GetComponent<Rigidbody2D>().velocity = new Vector2(dir * MoveSpeed, GetComponent<Rigidbody2D>().velocity.y);
+        //Debug.Log(new Vector2(dir * MoveSpeed, 0));
+        GetComponent<GravityObjectRigidBody>().UpdateVelocity(VelocityType.Movement, new Vector2(dir * MoveSpeed, 0));
         //Debug.Log(Time.times + " " + GetComponent<Rigidbody2D>().velocity);
     }
 
@@ -79,6 +82,15 @@ public abstract class PlayerController : MonoBehaviour {
     {
         throw new System.NotImplementedException();
     }
+
+    public void Dash(Vector2 dir)
+    {
+        Debug.Log(dir * DashSpeed);
+        //need to account for gravity
+        var dashVec = -GetComponent<GravityObjectRigidBody>().GravityDirection.normalized * (DashSpeed) + dir * DashSpeed;
+        Debug.Log(dashVec);
+        GetComponent<GravityObjectRigidBody>().UpdateVelocity(VelocityType.Dash, dashVec);
+    } 
 
     public void AimReticle(Vector2 dir)
     {
