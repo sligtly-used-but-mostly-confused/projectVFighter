@@ -87,12 +87,10 @@ public abstract class PlayerController : MonoBehaviour {
 
     public void Dash(Vector2 dir)
     {
-        Debug.Log(dir * DashSpeed);
         if(!IsDashCoolingDown)
         {
             //need to account for gravity
             var dashVec = -GetComponent<GravityObjectRigidBody>().GravityDirection.normalized * DashSpeed + dir * DashSpeed;
-            Debug.Log(dashVec);
             GetComponent<GravityObjectRigidBody>().UpdateVelocity(VelocityType.Dash, dashVec);
 
             IsDashCoolingDown = true;
