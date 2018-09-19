@@ -160,6 +160,53 @@ MonoBehaviour:
   - {fileID: 50606800}
   height: 0
   width: 0
+--- !u!1001 &16837755
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1106449216}
+    m_Modifications:
+    - target: {fileID: 4620390156459464, guid: 3106df6d6bd5f49b8ba6a9d98347ea22, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 2.6505594
+      objectReference: {fileID: 0}
+    - target: {fileID: 4620390156459464, guid: 3106df6d6bd5f49b8ba6a9d98347ea22, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -3.3757727
+      objectReference: {fileID: 0}
+    - target: {fileID: 4620390156459464, guid: 3106df6d6bd5f49b8ba6a9d98347ea22, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4620390156459464, guid: 3106df6d6bd5f49b8ba6a9d98347ea22, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4620390156459464, guid: 3106df6d6bd5f49b8ba6a9d98347ea22, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4620390156459464, guid: 3106df6d6bd5f49b8ba6a9d98347ea22, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4620390156459464, guid: 3106df6d6bd5f49b8ba6a9d98347ea22, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4620390156459464, guid: 3106df6d6bd5f49b8ba6a9d98347ea22, type: 2}
+      propertyPath: m_RootOrder
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 114051578744213862, guid: 3106df6d6bd5f49b8ba6a9d98347ea22,
+        type: 2}
+      propertyPath: _maxComponentSpeed
+      value: 20
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 3106df6d6bd5f49b8ba6a9d98347ea22, type: 2}
+  m_IsPrefabAsset: 0
 --- !u!1 &21153144
 GameObject:
   m_ObjectHideFlags: 0
@@ -396,9 +443,9 @@ MonoBehaviour:
     resetOnDone: 1
     onDemandDecision: 0
     numberOfActionsBetweenDecisions: 1
-  AttachedGravityRigidBody: {fileID: 1072588319}
   OtherPlayer: {fileID: 1495400125}
-  OtherPlayerGORB: {fileID: 290126137}
+  GORB1: {fileID: 0}
+  GORB2: {fileID: 0}
 --- !u!114 &36802202 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 114675527720798124, guid: 3106df6d6bd5f49b8ba6a9d98347ea22,
@@ -763,9 +810,9 @@ MonoBehaviour:
     resetOnDone: 1
     onDemandDecision: 0
     numberOfActionsBetweenDecisions: 1
-  AttachedGravityRigidBody: {fileID: 854139427}
   OtherPlayer: {fileID: 597109264}
-  OtherPlayerGORB: {fileID: 1524152394}
+  GORB1: {fileID: 0}
+  GORB2: {fileID: 0}
 --- !u!1001 &66682061
 Prefab:
   m_ObjectHideFlags: 0
@@ -861,7 +908,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &78541219
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -877,7 +924,7 @@ MonoBehaviour:
   _gravityScale: 10
   _gravityDirection: {x: 0, y: -1}
   _maxComponentSpeed: 15
-  Owner: {fileID: 2019840756}
+  Owner: {fileID: 0}
 --- !u!61 &78541220
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -959,7 +1006,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: cf3124984e90ede41a0b071a0491c3c4, type: 3}
-  m_Color: {r: 0, g: 0.02433443, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.38341936, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -976,7 +1023,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 78541218}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -5.6800003, y: 0, z: 0}
+  m_LocalPosition: {x: -2.62, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1106449216}
@@ -1802,101 +1849,9 @@ MonoBehaviour:
     resetOnDone: 1
     onDemandDecision: 0
     numberOfActionsBetweenDecisions: 1
-  AttachedGravityRigidBody: {fileID: 1622186479}
   OtherPlayer: {fileID: 484632941}
-  OtherPlayerGORB: {fileID: 512761553}
---- !u!1001 &146792240
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 1106449216}
-    m_Modifications:
-    - target: {fileID: 114675527720798124, guid: 3106df6d6bd5f49b8ba6a9d98347ea22,
-        type: 2}
-      propertyPath: AttachedObjects.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4620390156459464, guid: 3106df6d6bd5f49b8ba6a9d98347ea22, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 2.98
-      objectReference: {fileID: 0}
-    - target: {fileID: 4620390156459464, guid: 3106df6d6bd5f49b8ba6a9d98347ea22, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: -3.8926198
-      objectReference: {fileID: 0}
-    - target: {fileID: 4620390156459464, guid: 3106df6d6bd5f49b8ba6a9d98347ea22, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4620390156459464, guid: 3106df6d6bd5f49b8ba6a9d98347ea22, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4620390156459464, guid: 3106df6d6bd5f49b8ba6a9d98347ea22, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4620390156459464, guid: 3106df6d6bd5f49b8ba6a9d98347ea22, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4620390156459464, guid: 3106df6d6bd5f49b8ba6a9d98347ea22, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4620390156459464, guid: 3106df6d6bd5f49b8ba6a9d98347ea22, type: 2}
-      propertyPath: m_RootOrder
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 114675527720798124, guid: 3106df6d6bd5f49b8ba6a9d98347ea22,
-        type: 2}
-      propertyPath: AttachedObjects.Array.data[0]
-      value: 
-      objectReference: {fileID: 1562239204}
-    - target: {fileID: 1069332506086692, guid: 3106df6d6bd5f49b8ba6a9d98347ea22, type: 2}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114675527720798124, guid: 3106df6d6bd5f49b8ba6a9d98347ea22,
-        type: 2}
-      propertyPath: ImpulseToKill
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114051578744213862, guid: 3106df6d6bd5f49b8ba6a9d98347ea22,
-        type: 2}
-      propertyPath: _maxComponentSpeed
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 212379404126488900, guid: 3106df6d6bd5f49b8ba6a9d98347ea22,
-        type: 2}
-      propertyPath: m_Color.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 212379404126488900, guid: 3106df6d6bd5f49b8ba6a9d98347ea22,
-        type: 2}
-      propertyPath: m_Color.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 212379404126488900, guid: 3106df6d6bd5f49b8ba6a9d98347ea22,
-        type: 2}
-      propertyPath: m_Color.b
-      value: 1
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 3106df6d6bd5f49b8ba6a9d98347ea22, type: 2}
-  m_IsPrefabAsset: 0
---- !u!114 &146792241 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 114675527720798124, guid: 3106df6d6bd5f49b8ba6a9d98347ea22,
-    type: 2}
-  m_PrefabInternal: {fileID: 146792240}
-  m_Script: {fileID: 11500000, guid: 12609b73de0d22a47b3aeac01f7908e3, type: 3}
---- !u!4 &146792242 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4620390156459464, guid: 3106df6d6bd5f49b8ba6a9d98347ea22,
-    type: 2}
-  m_PrefabInternal: {fileID: 146792240}
+  GORB1: {fileID: 0}
+  GORB2: {fileID: 0}
 --- !u!1 &148340909
 GameObject:
   m_ObjectHideFlags: 0
@@ -3005,7 +2960,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4722902742955884, guid: 4eada1e1659f95242bfbc15991ba7b9c, type: 2}
       propertyPath: m_RootOrder
-      value: 11
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 1408956540310992, guid: 4eada1e1659f95242bfbc15991ba7b9c, type: 2}
       propertyPath: m_Name
@@ -3028,7 +2983,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1408956540310992, guid: 4eada1e1659f95242bfbc15991ba7b9c, type: 2}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114328187941221456, guid: 4eada1e1659f95242bfbc15991ba7b9c,
         type: 2}
@@ -3092,9 +3047,9 @@ MonoBehaviour:
     resetOnDone: 1
     onDemandDecision: 0
     numberOfActionsBetweenDecisions: 1
-  AttachedGravityRigidBody: {fileID: 1070256636}
-  OtherPlayer: {fileID: 146792241}
-  OtherPlayerGORB: {fileID: 1562239204}
+  OtherPlayer: {fileID: 0}
+  GORB1: {fileID: 0}
+  GORB2: {fileID: 0}
 --- !u!1001 &430242468
 Prefab:
   m_ObjectHideFlags: 0
@@ -3213,9 +3168,9 @@ MonoBehaviour:
     resetOnDone: 1
     onDemandDecision: 0
     numberOfActionsBetweenDecisions: 1
-  AttachedGravityRigidBody: {fileID: 1433660870}
   OtherPlayer: {fileID: 430261344}
-  OtherPlayerGORB: {fileID: 1103434395}
+  GORB1: {fileID: 0}
+  GORB2: {fileID: 0}
 --- !u!1001 &430261343
 Prefab:
   m_ObjectHideFlags: 0
@@ -3334,9 +3289,9 @@ MonoBehaviour:
     resetOnDone: 1
     onDemandDecision: 0
     numberOfActionsBetweenDecisions: 1
-  AttachedGravityRigidBody: {fileID: 1103434395}
   OtherPlayer: {fileID: 430242469}
-  OtherPlayerGORB: {fileID: 1433660870}
+  GORB1: {fileID: 0}
+  GORB2: {fileID: 0}
 --- !u!1001 &472548449
 Prefab:
   m_ObjectHideFlags: 0
@@ -3455,9 +3410,9 @@ MonoBehaviour:
     resetOnDone: 1
     onDemandDecision: 0
     numberOfActionsBetweenDecisions: 1
-  AttachedGravityRigidBody: {fileID: 1726189099}
   OtherPlayer: {fileID: 585448603}
-  OtherPlayerGORB: {fileID: 2056930862}
+  GORB1: {fileID: 0}
+  GORB2: {fileID: 0}
 --- !u!1 &484064734
 GameObject:
   m_ObjectHideFlags: 0
@@ -3715,9 +3670,9 @@ MonoBehaviour:
     resetOnDone: 1
     onDemandDecision: 0
     numberOfActionsBetweenDecisions: 1
-  AttachedGravityRigidBody: {fileID: 512761553}
   OtherPlayer: {fileID: 146741958}
-  OtherPlayerGORB: {fileID: 1622186479}
+  GORB1: {fileID: 0}
+  GORB2: {fileID: 0}
 --- !u!1 &512761552
 GameObject:
   m_ObjectHideFlags: 0
@@ -3971,9 +3926,9 @@ MonoBehaviour:
     resetOnDone: 1
     onDemandDecision: 0
     numberOfActionsBetweenDecisions: 1
-  AttachedGravityRigidBody: {fileID: 174544876}
   OtherPlayer: {fileID: 1499156533}
-  OtherPlayerGORB: {fileID: 622236054}
+  GORB1: {fileID: 0}
+  GORB2: {fileID: 0}
 --- !u!1 &557347636
 GameObject:
   m_ObjectHideFlags: 0
@@ -4400,9 +4355,9 @@ MonoBehaviour:
     resetOnDone: 1
     onDemandDecision: 0
     numberOfActionsBetweenDecisions: 1
-  AttachedGravityRigidBody: {fileID: 2056930862}
   OtherPlayer: {fileID: 472548450}
-  OtherPlayerGORB: {fileID: 1726189099}
+  GORB1: {fileID: 0}
+  GORB2: {fileID: 0}
 --- !u!1001 &597109263
 Prefab:
   m_ObjectHideFlags: 0
@@ -4775,9 +4730,9 @@ MonoBehaviour:
     resetOnDone: 1
     onDemandDecision: 0
     numberOfActionsBetweenDecisions: 1
-  AttachedGravityRigidBody: {fileID: 1836183434}
   OtherPlayer: {fileID: 36802202}
-  OtherPlayerGORB: {fileID: 1625564231}
+  GORB1: {fileID: 0}
+  GORB2: {fileID: 0}
 --- !u!1 &678859382
 GameObject:
   m_ObjectHideFlags: 0
@@ -5442,9 +5397,9 @@ MonoBehaviour:
     resetOnDone: 1
     onDemandDecision: 0
     numberOfActionsBetweenDecisions: 1
-  AttachedGravityRigidBody: {fileID: 110026113}
   OtherPlayer: {fileID: 798769466}
-  OtherPlayerGORB: {fileID: 845739797}
+  GORB1: {fileID: 0}
+  GORB2: {fileID: 0}
 --- !u!1001 &738685848
 Prefab:
   m_ObjectHideFlags: 0
@@ -5557,9 +5512,87 @@ MonoBehaviour:
     resetOnDone: 1
     onDemandDecision: 0
     numberOfActionsBetweenDecisions: 1
-  AttachedGravityRigidBody: {fileID: 1726189099}
   OtherPlayer: {fileID: 585448603}
-  OtherPlayerGORB: {fileID: 2056930862}
+  GORB1: {fileID: 0}
+  GORB2: {fileID: 0}
+--- !u!114 &758150157
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b23992c8eb17439887f5e944bf04a40, type: 3}
+  m_Name: (Clone)(Clone)(Clone)(Clone)(Clone)(Clone)(Clone)(Clone)(Clone)
+  m_EditorClassIdentifier: 
+  broadcast: 1
+  graphModel: {fileID: 4900000, guid: d474be4879a365c4d9a60fce45cbd6e4, type: 3}
+  graphScope: 
+  graphPlaceholders: []
+  BatchSizePlaceholderName: batch_size
+  VectorObservationPlacholderName: vector_observation
+  RecurrentInPlaceholderName: recurrent_in
+  RecurrentOutPlaceholderName: recurrent_out
+  VisualObservationPlaceholderName: []
+  ActionPlaceholderName: action
+  PreviousActionPlaceholderName: prev_action
+  brain: {fileID: 2018298041}
+--- !u!114 &765132801
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41e9bda8f3cf1492fa74926a530f6f70, type: 3}
+  m_Name: (Clone)(Clone)(Clone)(Clone)(Clone)(Clone)(Clone)(Clone)(Clone)
+  m_EditorClassIdentifier: 
+  broadcast: 1
+  keyContinuousPlayerActions:
+  - key: 32
+    index: 0
+    value: 1
+  - key: 97
+    index: 1
+    value: -1
+  - key: 100
+    index: 1
+    value: 1
+  - key: 115
+    index: 2
+    value: -1
+  - key: 119
+    index: 2
+    value: 1
+  - key: 44
+    index: 3
+    value: 1
+  - key: 122
+    index: 4
+    value: -1
+  - key: 120
+    index: 4
+    value: 1
+  axisContinuousPlayerActions: []
+  discretePlayerActions:
+  - key: 32
+    branchIndex: 0
+    value: 0
+  - key: 97
+    branchIndex: 1
+    value: -1
+  - key: 100
+    branchIndex: 1
+    value: 1
+  - key: 98
+    branchIndex: 2
+    value: -1
+  - key: 98
+    branchIndex: 2
+    value: 1
+  brain: {fileID: 2018298041}
 --- !u!1001 &798769465
 Prefab:
   m_ObjectHideFlags: 0
@@ -5678,9 +5711,9 @@ MonoBehaviour:
     resetOnDone: 1
     onDemandDecision: 0
     numberOfActionsBetweenDecisions: 1
-  AttachedGravityRigidBody: {fileID: 845739797}
   OtherPlayer: {fileID: 734286498}
-  OtherPlayerGORB: {fileID: 110026113}
+  GORB1: {fileID: 0}
+  GORB2: {fileID: 0}
 --- !u!1001 &798927473
 Prefab:
   m_ObjectHideFlags: 0
@@ -5795,9 +5828,9 @@ MonoBehaviour:
     resetOnDone: 1
     onDemandDecision: 0
     numberOfActionsBetweenDecisions: 1
-  AttachedGravityRigidBody: {fileID: 1895811515}
   OtherPlayer: {fileID: 66682062}
-  OtherPlayerGORB: {fileID: 1849756630}
+  GORB1: {fileID: 0}
+  GORB2: {fileID: 0}
 --- !u!1 &811171177
 GameObject:
   m_ObjectHideFlags: 0
@@ -5989,9 +6022,9 @@ MonoBehaviour:
     resetOnDone: 1
     onDemandDecision: 0
     numberOfActionsBetweenDecisions: 1
-  AttachedGravityRigidBody: {fileID: 89353001}
   OtherPlayer: {fileID: 1781674784}
-  OtherPlayerGORB: {fileID: 2006398606}
+  GORB1: {fileID: 0}
+  GORB2: {fileID: 0}
 --- !u!1 &836216411
 GameObject:
   m_ObjectHideFlags: 0
@@ -6253,6 +6286,18 @@ Transform:
   m_Father: {fileID: 719827414}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &853980006
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35813a1be64e144f887d7d5f15b963fa, type: 3}
+  m_Name: (Clone)(Clone)(Clone)(Clone)(Clone)(Clone)(Clone)(Clone)(Clone)
+  m_EditorClassIdentifier: 
+  brain: {fileID: 2018298041}
 --- !u!1 &854139424
 GameObject:
   m_ObjectHideFlags: 0
@@ -6531,19 +6576,11 @@ Transform:
   m_Father: {fileID: 1068630977}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &871609493
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 943466ab374444748a364f9d6c3e2fe2, type: 3}
-  m_Name: (Clone)(Clone)(Clone)(Clone)(Clone)(Clone)
-  m_EditorClassIdentifier: 
-  broadcast: 1
-  brain: {fileID: 0}
+--- !u!4 &863975970 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4620390156459464, guid: 3106df6d6bd5f49b8ba6a9d98347ea22,
+    type: 2}
+  m_PrefabInternal: {fileID: 16837755}
 --- !u!1001 &873415818
 Prefab:
   m_ObjectHideFlags: 0
@@ -6911,9 +6948,9 @@ MonoBehaviour:
     resetOnDone: 1
     onDemandDecision: 0
     numberOfActionsBetweenDecisions: 1
-  AttachedGravityRigidBody: {fileID: 1914857130}
   OtherPlayer: {fileID: 1040487383}
-  OtherPlayerGORB: {fileID: 1203089576}
+  GORB1: {fileID: 0}
+  GORB2: {fileID: 0}
 --- !u!1 &932123656
 GameObject:
   m_ObjectHideFlags: 0
@@ -7560,9 +7597,9 @@ MonoBehaviour:
     resetOnDone: 1
     onDemandDecision: 0
     numberOfActionsBetweenDecisions: 1
-  AttachedGravityRigidBody: {fileID: 1203089576}
   OtherPlayer: {fileID: 900113652}
-  OtherPlayerGORB: {fileID: 1914857130}
+  GORB1: {fileID: 0}
+  GORB2: {fileID: 0}
 --- !u!1 &1047028017 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1408956540310992, guid: 4eada1e1659f95242bfbc15991ba7b9c,
@@ -7597,9 +7634,9 @@ MonoBehaviour:
     resetOnDone: 1
     onDemandDecision: 0
     numberOfActionsBetweenDecisions: 1
-  AttachedGravityRigidBody: {fileID: 1995243606}
   OtherPlayer: {fileID: 1897391707}
-  OtherPlayerGORB: {fileID: 932123658}
+  GORB1: {fileID: 0}
+  GORB2: {fileID: 0}
 --- !u!1 &1068630976
 GameObject:
   m_ObjectHideFlags: 0
@@ -7659,7 +7696,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1070256634
 Transform:
   m_ObjectHideFlags: 0
@@ -7671,7 +7708,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1106449216}
-  m_RootOrder: 12
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &1070256635
 BoxCollider2D:
@@ -8403,9 +8440,9 @@ Transform:
   - {fileID: 78541223}
   - {fileID: 884062113}
   - {fileID: 1562239208}
-  - {fileID: 146792242}
   - {fileID: 378331839}
   - {fileID: 1070256634}
+  - {fileID: 863975970}
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -9310,21 +9347,9 @@ MonoBehaviour:
     resetOnDone: 1
     onDemandDecision: 0
     numberOfActionsBetweenDecisions: 1
-  AttachedGravityRigidBody: {fileID: 1252602657}
   OtherPlayer: {fileID: 1277544789}
-  OtherPlayerGORB: {fileID: 484064735}
---- !u!114 &1254811755
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 35813a1be64e144f887d7d5f15b963fa, type: 3}
-  m_Name: (Clone)(Clone)(Clone)(Clone)(Clone)(Clone)
-  m_EditorClassIdentifier: 
-  brain: {fileID: 2018298041}
+  GORB1: {fileID: 0}
+  GORB2: {fileID: 0}
 --- !u!1001 &1277544788
 Prefab:
   m_ObjectHideFlags: 0
@@ -9443,9 +9468,9 @@ MonoBehaviour:
     resetOnDone: 1
     onDemandDecision: 0
     numberOfActionsBetweenDecisions: 1
-  AttachedGravityRigidBody: {fileID: 484064735}
   OtherPlayer: {fileID: 1254736546}
-  OtherPlayerGORB: {fileID: 1252602657}
+  GORB1: {fileID: 0}
+  GORB2: {fileID: 0}
 --- !u!1001 &1292983974
 Prefab:
   m_ObjectHideFlags: 0
@@ -9560,9 +9585,9 @@ MonoBehaviour:
     resetOnDone: 1
     onDemandDecision: 0
     numberOfActionsBetweenDecisions: 1
-  AttachedGravityRigidBody: {fileID: 138900294}
   OtherPlayer: {fileID: 1014612632}
-  OtherPlayerGORB: {fileID: 861507975}
+  GORB1: {fileID: 0}
+  GORB2: {fileID: 0}
 --- !u!1 &1302277744
 GameObject:
   m_ObjectHideFlags: 0
@@ -9857,9 +9882,9 @@ MonoBehaviour:
     resetOnDone: 1
     onDemandDecision: 0
     numberOfActionsBetweenDecisions: 1
-  AttachedGravityRigidBody: {fileID: 1217584483}
   OtherPlayer: {fileID: 1922860920}
-  OtherPlayerGORB: {fileID: 1302277745}
+  GORB1: {fileID: 0}
+  GORB2: {fileID: 0}
 --- !u!1 &1325259683
 GameObject:
   m_ObjectHideFlags: 0
@@ -10147,29 +10172,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1351885283
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b23992c8eb17439887f5e944bf04a40, type: 3}
-  m_Name: (Clone)(Clone)(Clone)(Clone)(Clone)(Clone)
-  m_EditorClassIdentifier: 
-  broadcast: 1
-  graphModel: {fileID: 4900000, guid: d474be4879a365c4d9a60fce45cbd6e4, type: 3}
-  graphScope: 
-  graphPlaceholders: []
-  BatchSizePlaceholderName: batch_size
-  VectorObservationPlacholderName: vector_observation
-  RecurrentInPlaceholderName: recurrent_in
-  RecurrentOutPlaceholderName: recurrent_out
-  VisualObservationPlaceholderName: []
-  ActionPlaceholderName: action
-  PreviousActionPlaceholderName: prev_action
-  brain: {fileID: 2018298041}
 --- !u!1 &1374163386
 GameObject:
   m_ObjectHideFlags: 0
@@ -10212,6 +10214,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1386850821
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 943466ab374444748a364f9d6c3e2fe2, type: 3}
+  m_Name: (Clone)(Clone)(Clone)(Clone)(Clone)(Clone)(Clone)(Clone)(Clone)
+  m_EditorClassIdentifier: 
+  broadcast: 1
+  brain: {fileID: 0}
 --- !u!1001 &1403047608
 Prefab:
   m_ObjectHideFlags: 0
@@ -10330,9 +10345,9 @@ MonoBehaviour:
     resetOnDone: 1
     onDemandDecision: 0
     numberOfActionsBetweenDecisions: 1
-  AttachedGravityRigidBody: {fileID: 569033835}
   OtherPlayer: {fileID: 1517870904}
-  OtherPlayerGORB: {fileID: 680529309}
+  GORB1: {fileID: 0}
+  GORB2: {fileID: 0}
 --- !u!1 &1418666401
 GameObject:
   m_ObjectHideFlags: 0
@@ -10991,9 +11006,9 @@ MonoBehaviour:
     resetOnDone: 1
     onDemandDecision: 0
     numberOfActionsBetweenDecisions: 1
-  AttachedGravityRigidBody: {fileID: 680529309}
   OtherPlayer: {fileID: 1403047609}
-  OtherPlayerGORB: {fileID: 569033835}
+  GORB1: {fileID: 0}
+  GORB2: {fileID: 0}
 --- !u!1 &1524152393
 GameObject:
   m_ObjectHideFlags: 0
@@ -11395,7 +11410,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1562239204
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12173,52 +12188,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1686291664
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 41e9bda8f3cf1492fa74926a530f6f70, type: 3}
-  m_Name: (Clone)(Clone)(Clone)(Clone)(Clone)(Clone)
-  m_EditorClassIdentifier: 
-  broadcast: 1
-  keyContinuousPlayerActions:
-  - key: 32
-    index: 0
-    value: 1
-  - key: 97
-    index: 1
-    value: -1
-  - key: 100
-    index: 1
-    value: 1
-  - key: 115
-    index: 2
-    value: -1
-  - key: 119
-    index: 2
-    value: 1
-  axisContinuousPlayerActions: []
-  discretePlayerActions:
-  - key: 32
-    branchIndex: 0
-    value: 0
-  - key: 97
-    branchIndex: 1
-    value: -1
-  - key: 100
-    branchIndex: 1
-    value: 1
-  - key: 98
-    branchIndex: 2
-    value: -1
-  - key: 98
-    branchIndex: 2
-    value: 1
-  brain: {fileID: 2018298041}
 --- !u!1 &1693331020
 GameObject:
   m_ObjectHideFlags: 0
@@ -12237,7 +12206,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1693331021
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12253,7 +12222,7 @@ MonoBehaviour:
   _gravityScale: 10
   _gravityDirection: {x: 0, y: -1}
   _maxComponentSpeed: 15
-  Owner: {fileID: 1936633994}
+  Owner: {fileID: 0}
 --- !u!61 &1693331022
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -12335,7 +12304,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: cf3124984e90ede41a0b071a0491c3c4, type: 3}
-  m_Color: {r: 1, g: 0.18324642, b: 0, a: 1}
+  m_Color: {r: 0.8463775, g: 1, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -12352,7 +12321,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1693331020}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.78, y: 0, z: 0}
+  m_LocalPosition: {x: 5.85, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1106449216}
@@ -12536,7 +12505,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1713313996
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12559,7 +12528,7 @@ MonoBehaviour:
     width: 1280
     height: 720
     qualityLevel: 5
-    timeScale: 1
+    timeScale: 0.5
     targetFrameRate: 60
   resetParameters:
     resetParameters: []
@@ -13540,9 +13509,9 @@ MonoBehaviour:
     resetOnDone: 1
     onDemandDecision: 0
     numberOfActionsBetweenDecisions: 1
-  AttachedGravityRigidBody: {fileID: 932123658}
   OtherPlayer: {fileID: 1047028018}
-  OtherPlayerGORB: {fileID: 1995243606}
+  GORB1: {fileID: 0}
+  GORB2: {fileID: 0}
 --- !u!1 &1906823705
 GameObject:
   m_ObjectHideFlags: 0
@@ -13947,7 +13916,7 @@ Prefab:
     - target: {fileID: 114328187941221456, guid: 4eada1e1659f95242bfbc15991ba7b9c,
         type: 2}
       propertyPath: ChangeGravityRechargeTime
-      value: 0.75
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114328187941221456, guid: 4eada1e1659f95242bfbc15991ba7b9c,
         type: 2}
@@ -13976,6 +13945,16 @@ Prefab:
         type: 2}
       propertyPath: m_Color.r
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114328187941221456, guid: 4eada1e1659f95242bfbc15991ba7b9c,
+        type: 2}
+      propertyPath: RechargeTime
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114328187941221456, guid: 4eada1e1659f95242bfbc15991ba7b9c,
+        type: 2}
+      propertyPath: MoveSpeed
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4eada1e1659f95242bfbc15991ba7b9c, type: 2}
@@ -14014,9 +13993,9 @@ MonoBehaviour:
     resetOnDone: 1
     onDemandDecision: 0
     numberOfActionsBetweenDecisions: 1
-  AttachedGravityRigidBody: {fileID: 1693331021}
   OtherPlayer: {fileID: 2019840756}
-  OtherPlayerGORB: {fileID: 78541219}
+  GORB1: {fileID: 1693331021}
+  GORB2: {fileID: 78541219}
 --- !u!1 &1971703643
 GameObject:
   m_ObjectHideFlags: 0
@@ -14580,22 +14559,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   brainParameters:
-    vectorObservationSize: 20
+    vectorObservationSize: 18
     numStackedVectorObservations: 1
-    vectorActionSize: 03000000
+    vectorActionSize: 05000000
     cameraResolutions: []
     vectorActionDescriptions:
     - 
     - 
     - 
+    - 
+    - 
     vectorActionSpaceType: 1
-  brainType: 3
+  brainType: 0
   CoreBrains:
-  - {fileID: 1686291664}
-  - {fileID: 871609493}
-  - {fileID: 1254811755}
-  - {fileID: 1351885283}
-  instanceID: 14452
+  - {fileID: 765132801}
+  - {fileID: 1386850821}
+  - {fileID: 853980006}
+  - {fileID: 758150157}
+  instanceID: 38292
 --- !u!1001 &2019840755
 Prefab:
   m_ObjectHideFlags: 0
@@ -14666,7 +14647,7 @@ Prefab:
     - target: {fileID: 114328187941221456, guid: 4eada1e1659f95242bfbc15991ba7b9c,
         type: 2}
       propertyPath: ChangeGravityRechargeTime
-      value: 0.75
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114328187941221456, guid: 4eada1e1659f95242bfbc15991ba7b9c,
         type: 2}
@@ -14691,6 +14672,16 @@ Prefab:
         type: 2}
       propertyPath: m_Color.r
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114328187941221456, guid: 4eada1e1659f95242bfbc15991ba7b9c,
+        type: 2}
+      propertyPath: RechargeTime
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114328187941221456, guid: 4eada1e1659f95242bfbc15991ba7b9c,
+        type: 2}
+      propertyPath: MoveSpeed
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4eada1e1659f95242bfbc15991ba7b9c, type: 2}
@@ -14729,9 +14720,9 @@ MonoBehaviour:
     resetOnDone: 1
     onDemandDecision: 0
     numberOfActionsBetweenDecisions: 1
-  AttachedGravityRigidBody: {fileID: 78541219}
   OtherPlayer: {fileID: 1936633994}
-  OtherPlayerGORB: {fileID: 1693331021}
+  GORB1: {fileID: 1693331021}
+  GORB2: {fileID: 78541219}
 --- !u!1 &2056930861
 GameObject:
   m_ObjectHideFlags: 0

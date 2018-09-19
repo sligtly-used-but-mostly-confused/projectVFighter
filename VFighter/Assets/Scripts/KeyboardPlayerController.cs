@@ -14,25 +14,35 @@ public class KeyboardPlayerController : PlayerController
         float mouseX = inputDevice.GetAxisRaw(MappedAxis.AimX);
         float mouseY = inputDevice.GetAxisRaw(MappedAxis.AimY);
 
-        float ChangeGravX = inputDevice.GetAxis(MappedAxis.Horizontal);
-        float ChangeGravY = inputDevice.GetAxis(MappedAxis.Vertical);
+        //Debug.Log(inputDevice.GetAxis2DCircleClamp(MappedAxis.AimX, MappedAxis.AimY));
 
-        Vector2 changeGravDir = new Vector2(ChangeGravX, ChangeGravY);
+        float Horz = inputDevice.GetAxis(MappedAxis.Horizontal);
+        float Vert = inputDevice.GetAxis(MappedAxis.Vertical);
+        Move(Horz);
+        //Vector2 changeGravDir = new Vector2(ChangeGravX, ChangeGravY);
         //Debug.Log(changeGravDir);
         var mousePos = Camera.main.ScreenToWorldPoint(new Vector2(mouseX, mouseY));
-        var deltaFromPlayer = mousePos - transform.position;
-
-        AimReticle(deltaFromPlayer);
-
-        //if(inputDevice.GetButtonDown(MappedButton.ChangeGrav))
-        if(changeGravDir != Vector2.zero)
-        {
-            var closestDir = ClosestDirection(changeGravDir.normalized);
-            ChangeGravity(closestDir);
+        var aimVector = Vector2.zero;
+            
+        if(AttachedObject == null)
+        { 
+            aimVector = mousePos - transform.position;
         }
+        else
+        {
+            aimVector = mousePos - AttachedObject.transform.position;
+        }
+        
+        AimReticle(aimVector);
+
+        if (inputDevice.GetButtonDown(MappedButton.ChangeGrav))
+        {
+            FlipGravity();
+        }
+
         if (inputDevice.GetButtonDown(MappedButton.ShootGravGun))
         {
-            ShootGravityGun(deltaFromPlayer);
+            ShootGravityGun(aimVector);
         }
     }
 }

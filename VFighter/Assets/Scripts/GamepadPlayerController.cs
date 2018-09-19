@@ -6,33 +6,55 @@ public class GamepadPlayerController : PlayerController {
     [SerializeField]
     private int _inputDevice = 2;
 
+    InputDevice inputDevice;
+    private float _triggerDeadZone;
+    List<float> TriggerPastVals = new List<float>();
+
+    private void Start()
+    {
+        inputDevice = MappedInput.InputDevices[_inputDevice];
+    }
+
     void Update()
     {
-        var inputDevice = MappedInput.InputDevices[_inputDevice];
+        inputDevice.Center = transform.position;
 
-        float mouseX = inputDevice.GetAxisRaw(MappedAxis.AimX);
-        float mouseY = inputDevice.GetAxisRaw(MappedAxis.AimY);
+        float rightSitckX = inputDevice.GetAxisRaw(MappedAxis.AimX);
+        float rightSitckY = inputDevice.GetAxisRaw(MappedAxis.AimY);
 
-        float ChangeGravX = inputDevice.GetAxis(MappedAxis.Horizontal);
-        float ChangeGravY = inputDevice.GetAxis(MappedAxis.Vertical);
+        float leftStickX = inputDevice.GetAxis(MappedAxis.Horizontal);
 
-        Vector2 changeGravDir = new Vector2(ChangeGravX, ChangeGravY);
-        Debug.Log(changeGravDir);
-        //Debug.Log(changeGravDir);
-        var mousePos = Camera.main.ScreenToWorldPoint(new Vector2(mouseX, mouseY));
-        var deltaFromPlayer = mousePos - transform.position;
-
-        AimReticle(deltaFromPlayer);
-
-        //if(inputDevice.GetButtonDown(MappedButton.ChangeGrav))
-        if (changeGravDir != Vector2.zero)
+        Move(leftStickX);
+        Vector2 aimDir = new Vector2(rightSitckX, rightSitckY);
+        
+        AimReticle(aimDir);
+        
+        if(inputDevice.GetButtonDown(MappedButton.ChangeGrav))
         {
-            var closestDir = ClosestDirection(changeGravDir.normalized);
-            ChangeGravity(closestDir);
+            FlipGravity();
         }
-        if (inputDevice.GetButtonDown(MappedButton.ShootGravGun))
+
+        if (IsTriggerTapped(MappedAxis.ShootGravGun) && aimDir.magnitude > 0)
         {
-            ShootGravityGun(deltaFromPlayer);
+            ShootGravityGun(aimDir);
         }
+    }
+
+    bool IsTriggerTapped(MappedAxis axis)
+    {
+        float val = inputDevice.GetAxis(axis);
+        TriggerPastVals.Add(val);
+
+        if (TriggerPastVals.Count > 3)
+        {
+            TriggerPastVals.RemoveAt(0);
+        }
+
+        if(TriggerPastVals.Count < 3)
+        {
+            return false;
+        }
+
+        return TriggerPastVals[0] >= TriggerPastVals[1] && TriggerPastVals[1] < TriggerPastVals[2];
     }
 }

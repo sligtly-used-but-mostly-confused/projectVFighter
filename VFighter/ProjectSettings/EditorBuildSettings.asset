@@ -8,4 +8,13 @@ EditorBuildSettings:
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
+  - enabled: 1
+    path: Assets/Scenes/AITraining.unity
+    guid: 498c59a3c848622469bdffd108b57be4
+  - enabled: 1
+    path: Assets/Scenes/Main.unity
+    guid: 78b633aafa4c2704abec99aa89515703
+  - enabled: 1
+    path: Assets/Scenes/SpringLevel.unity
+    guid: 7b3d67703854b174d82bc187f671885b
   m_configObjects: {}

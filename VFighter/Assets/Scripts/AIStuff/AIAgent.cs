@@ -11,10 +11,10 @@ public class AIAgent : Agent {
     GravityObjectRigidBody AIGravityObjectRB;
     AIPlayerController AIController;
 
-    public GravityObjectRigidBody AttachedGravityRigidBody;
-
     public PlayerController OtherPlayer;
-    public GravityObjectRigidBody OtherPlayerGORB;
+
+    public GravityObjectRigidBody GORB1;
+    public GravityObjectRigidBody GORB2;
 
     void Start()
     {
@@ -28,7 +28,6 @@ public class AIAgent : Agent {
     {
         if (AIController.IsDead)
         {
-            // The Agent fell
             this.transform.position = startingPos;
             this.AIRigidBody.angularVelocity = 0;
             this.AIRigidBody.velocity = Vector3.zero;
@@ -36,7 +35,7 @@ public class AIAgent : Agent {
             this.AIController.IsDead = false;
             float h = LevelManager.Instance.height;
             float w = LevelManager.Instance.width;
-            AttachedGravityRigidBody.transform.localPosition = new Vector2(Random.value*w,Random.value*h) - new Vector2(w/2, h/2);
+            GORB1.transform.localPosition = new Vector2(Random.value*w,Random.value*h) - new Vector2(w/2, h/2);
         }
         else
         {
@@ -51,22 +50,24 @@ public class AIAgent : Agent {
 
     public override void CollectObservations()
     {
-        var distanceToAttachedObject = GetRelativePosition(AttachedGravityRigidBody.transform, transform);
-        AddVectorObs(distanceToAttachedObject.x);
-        AddVectorObs(distanceToAttachedObject.y);
+        var distanceToGORB1 = GetRelativePosition(GORB1.transform, transform);
+        AddVectorObs(distanceToGORB1.x);
+        AddVectorObs(distanceToGORB1.y);
+
+        var distanceToGORB2 = GetRelativePosition(GORB2.transform, transform);
+        AddVectorObs(distanceToGORB2.x);
+        AddVectorObs(distanceToGORB2.y);
 
         var distanceToOtherPlayer = GetRelativePosition(OtherPlayer.transform, transform);
         AddVectorObs(distanceToOtherPlayer.x);
         AddVectorObs(distanceToOtherPlayer.y);
 
-        var distanceToOtherPlayerGORB = GetRelativePosition(OtherPlayerGORB.transform, transform);
-        AddVectorObs(distanceToOtherPlayerGORB.x);
-        AddVectorObs(distanceToOtherPlayerGORB.y);
-
-        var distanceFromAttachedRBtoOtherPlayer = GetRelativePosition(OtherPlayer.transform, AttachedGravityRigidBody.transform);
+        /*
+        var distanceFromAttachedRBtoOtherPlayer = GetRelativePosition(OtherPlayer.transform, GORB1.transform);
         AddVectorObs(distanceFromAttachedRBtoOtherPlayer.x);
         AddVectorObs(distanceFromAttachedRBtoOtherPlayer.y);
-
+        */
+        
         float h = LevelManager.Instance.height / 2;
         float w = LevelManager.Instance.width / 2;
 
@@ -81,17 +82,17 @@ public class AIAgent : Agent {
         AddVectorObs(AIRigidBody.velocity.x / AIGravityObjectRB.MaxComponentSpeed);
         AddVectorObs(AIRigidBody.velocity.y / AIGravityObjectRB.MaxComponentSpeed);
 
-        //velocity of gravity object
-        AddVectorObs(AttachedGravityRigidBody.GetComponent<Rigidbody2D>().velocity.x / AttachedGravityRigidBody.MaxComponentSpeed);
-        AddVectorObs(AttachedGravityRigidBody.GetComponent<Rigidbody2D>().velocity.y / AttachedGravityRigidBody.MaxComponentSpeed);
-
         //velocity of the the other AI
         AddVectorObs(OtherPlayer.GetComponent<Rigidbody2D>().velocity.x / OtherPlayer.GetComponent<GravityObjectRigidBody>().MaxComponentSpeed);
         AddVectorObs(OtherPlayer.GetComponent<Rigidbody2D>().velocity.y / OtherPlayer.GetComponent<GravityObjectRigidBody>().MaxComponentSpeed);
 
+        //velocity of gravity object
+        AddVectorObs(GORB1.GetComponent<Rigidbody2D>().velocity.x / GORB1.MaxComponentSpeed);
+        AddVectorObs(GORB1.GetComponent<Rigidbody2D>().velocity.y / GORB1.MaxComponentSpeed);
+
         //velocity of other gravity object
-        AddVectorObs(OtherPlayerGORB.GetComponent<Rigidbody2D>().velocity.x / OtherPlayerGORB.MaxComponentSpeed);
-        AddVectorObs(OtherPlayerGORB.GetComponent<Rigidbody2D>().velocity.y / OtherPlayerGORB.MaxComponentSpeed);
+        AddVectorObs(GORB2.GetComponent<Rigidbody2D>().velocity.x / GORB2.MaxComponentSpeed);
+        AddVectorObs(GORB2.GetComponent<Rigidbody2D>().velocity.y / GORB2.MaxComponentSpeed);
     }
 
     private Vector3 GetRelativePosition(Transform to, Transform from)
@@ -132,15 +133,16 @@ public class AIAgent : Agent {
         
         float h = LevelManager.Instance.height;
         float w = LevelManager.Instance.width;
+
         /*
         Vector3 relativePositionToAttachedGORB = AttachedGravityRigidBody.transform.position - this.transform.position;
         float relativeDistanceToAttachedGORBScale = relativePositionToAttachedGORB.magnitude / new Vector2(w, h).magnitude;
         AddReward(relativeDistanceToAttachedGORBScale * .01f);
-        */
-        Vector3 relativePositionFromOtherPlayerToAttachedGORB = OtherPlayer.transform.localPosition - AttachedGravityRigidBody.transform.localPosition;
+        
+        Vector3 relativePositionFromOtherPlayerToAttachedGORB = OtherPlayer.transform.localPosition - GORB1.transform.localPosition;
         float relativeDistanceFromOtherPlayerToAttachedGORBScale = 1f - (relativePositionFromOtherPlayerToAttachedGORB.magnitude / new Vector2(w, h).magnitude);
         AddReward(relativeDistanceFromOtherPlayerToAttachedGORBScale * .02f);
-        
+        */
         //Debug.Log(relativeDistanceFromOtherPlayerToAttachedGORBScale * .1f);
 
         //Debug.Log(relativePosition.magnitude);
@@ -148,15 +150,30 @@ public class AIAgent : Agent {
         AddReward(-0.01f);
 
         // Actions, size = 4
-        Vector3 controlSignal = Vector3.zero;
-        controlSignal.x = vectorAction[1];
-        controlSignal.y = vectorAction[2];
+        Vector3 aimSignal = Vector3.zero;
+        aimSignal.x = vectorAction[1];
+        aimSignal.y = vectorAction[2];
+        AIController.AimReticle(aimSignal);
 
-        bool isChangeingGrav = vectorAction[0] > 0;
-        if(isChangeingGrav)
+        bool isShooting = vectorAction[0] > 0;
+        if(isShooting)
         {
-            AIController.ChangeGravity(controlSignal);
+            
+            AIController.ShootGravityGun(aimSignal);
         }
+        
+        float moveSignal = 0;
+        moveSignal = vectorAction[4];
+
+        AIController.Move(moveSignal);
+        
+        bool isChangingGrav = vectorAction[3] > 0;
+        if (isChangingGrav)
+        {
+            AIController.FlipGravity();
+        }
+
+
     }
 
 }

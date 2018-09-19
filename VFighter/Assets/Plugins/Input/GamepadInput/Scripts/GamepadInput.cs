@@ -19,20 +19,25 @@ public class GamepadInput : MonoBehaviour
 
 	public event System.Action<GamepadDevice> OnGamepadAdded;
 	public event System.Action<GamepadDevice> OnGamepadRemoved;
+    /*
+    private void Awake()
+    {
 
-	void Start()
+    }
+    */
+    void Awake()
 	{
-        if(_instance == null)
+        if (_instance == null)
         {
+            DontDestroyOnLoad(gameObject);
             _instance = this;
         }
         else
         {
-            Destroy(this);
+            Destroy(gameObject);
         }
-
 #if UNITY_STANDALONE_WIN
-		manager = new XGamepadManager (xGamepadLayout);
+        manager = new XGamepadManager (xGamepadLayout);
 #else
 		manager = new UnGamepadManager (unGamepadConfigs);
 #endif

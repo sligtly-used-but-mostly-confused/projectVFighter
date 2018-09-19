@@ -57,6 +57,11 @@ public class MappedInput : MonoBehaviour {
 
     void Awake()
 	{
+        if(Instance)
+        {
+            Destroy(gameObject);
+            return;
+        }
 #if UNITY_STANDALONE || UNITY_EDITOR
 
 		if( MouseInputMapping != null)

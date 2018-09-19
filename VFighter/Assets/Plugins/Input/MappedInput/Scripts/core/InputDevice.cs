@@ -10,7 +10,10 @@ public abstract class InputDevice : MonoBehaviour
 
 	public bool autoActive = true;
 	public float lastInputTime { get; private set;}
-	internal bool HasAnyInputLastFrame = false;
+
+    public delegate void OnAxisEvent(MappedAxis axis);
+
+    internal bool HasAnyInputLastFrame = false;
 	
 	protected float[] prevAxes = new float[System.Enum.GetValues(typeof(MappedAxis)).Length];
 	protected float[] axes = new float[System.Enum.GetValues(typeof(MappedAxis)).Length];
@@ -21,6 +24,8 @@ public abstract class InputDevice : MonoBehaviour
 	protected float axisButtonActivateThreshold = 0.4f;
 	protected float sensitivity = 3;
 	protected float lastKeyPressTime;
+
+    public Vector3 Center; 
 
 	void Awake()
 	{
@@ -72,8 +77,8 @@ public abstract class InputDevice : MonoBehaviour
 	}
 
 	public float GetAxis(MappedAxis axis)
-	{ 
-		return axes[(int)axis];
+    { 
+        return axes[(int)axis];
 	}
 	
 	public float GetAxisRaw(MappedAxis axis)
@@ -87,12 +92,11 @@ public abstract class InputDevice : MonoBehaviour
 		bool changed = false;
 
 		axesRaw[(int)axis] = GetAxisValueRaw (axis);
-		
 		prevAxes [(int)axis] = axes [(int)axis];
 
-		axes [(int)axis] = GetSmoothValue (axes [(int)axis],axesRaw [(int)axis],sensitivity);
+        axes [(int)axis] = GetSmoothValue (axes [(int)axis],axesRaw [(int)axis],sensitivity);
 
-		if (!Mathf.Approximately(axes[(int)axis], prevAxes[(int)axis]))
+        if (!Mathf.Approximately(axes[(int)axis], prevAxes[(int)axis]))
 			changed = true;
 		
 		prevAxisButtonsActive [(int)axis] = axisButtonsActive [(int)axis];
@@ -109,7 +113,7 @@ public abstract class InputDevice : MonoBehaviour
 
 		axisButtonsActive [(int)axis] = (AxisDirection)dir;
 
-		return changed;
+        return changed;
 	}
 
 	public Vector2 GetAxis2DCircleClamp(MappedAxis axis1, MappedAxis axis2)

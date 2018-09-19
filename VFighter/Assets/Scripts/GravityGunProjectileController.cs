@@ -25,13 +25,12 @@ public class GravityGunProjectileController : MonoBehaviour {
             {
                 gravityObjectRB.Owner = Owner;
                 Owner.AttachGORB(gravityObjectRB);
-                Destroy(gameObject);
+                Owner.IsCoolingDown = true;
+                Owner.StartGravGunCoolDown();
+                Owner.DestroyAllGravGunProjectiles();
             }
             else
             {
-                Debug.Log("same owner");
-                gravityObjectRB.Owner = null;
-                Owner.DetachGORB(gravityObjectRB);
                 Destroy(gameObject);
             }
         }
