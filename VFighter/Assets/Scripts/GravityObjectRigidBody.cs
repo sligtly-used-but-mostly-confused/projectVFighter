@@ -87,7 +87,6 @@ public class GravityObjectRigidBody : MonoBehaviour {
         Vector2 dashVel = GetVelocity(VelocityType.Dash);
         var deltaPerSecond = dashVel * _dashDecay;
         var deltaPerTick = deltaPerSecond * Time.fixedDeltaTime;
-        //float decayPerTick = 1 - (decayPerSecond * Time.fixedDeltaTime);
         UpdateVelocity(VelocityType.Dash, dashVel - deltaPerTick);
     }
 
