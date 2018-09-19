@@ -57,6 +57,11 @@ public class MappedInput : MonoBehaviour {
 
     void Awake()
 	{
+        if(Instance)
+        {
+            Destroy(gameObject);
+            return;
+        }
 #if UNITY_STANDALONE || UNITY_EDITOR
 
 		if( MouseInputMapping != null)
@@ -73,6 +78,7 @@ public class MappedInput : MonoBehaviour {
 #endif
 
             Instance = this;
+        Debug.Log(InputDevices.Count);
 	}
 
 	void Start()

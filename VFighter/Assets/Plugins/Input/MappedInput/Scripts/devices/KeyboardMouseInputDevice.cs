@@ -55,24 +55,6 @@ public class KeyboardMouseInputDevice : InputDevice
         var MouseMapping = MappedInput.Mouse.GetAxis(axis);
         var KeyboardMapping = MappedInput.KeyBoard.GetAxisRaw(axis);
 
-        if(MouseMapping != 0)
-        {
-            //var mousePos = Camera.main.ScreenToWorldPoint(new Vector2(mouseX, mouseY));
-            var mouseVec = MappedInput.Mouse.GetAxis2D(MappedAxis.AimX, MappedAxis.AimY);
-            var delta = (mouseVec - new Vector2(Center.x, Center.y)).normalized;
-
-            if (axis == MappedAxis.AimX)
-            {
-                return delta.x;
-            }
-            if (axis == MappedAxis.AimY)
-            {
-                return delta.y;
-            }
-
-            return MouseMapping;
-        }
-
-        return KeyboardMapping;
+        return MouseMapping != 0 ? MouseMapping : KeyboardMapping;
     }
 }
