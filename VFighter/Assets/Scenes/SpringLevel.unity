@@ -349,7 +349,7 @@ Prefab:
     - target: {fileID: 114105182756240840, guid: 9807f3b1172b88243a7ae3da48d1d3a4,
         type: 2}
       propertyPath: DashSpeed
-      value: 100
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 61020088342662242, guid: 9807f3b1172b88243a7ae3da48d1d3a4,
         type: 2}
@@ -379,7 +379,12 @@ Prefab:
     - target: {fileID: 114052366512496734, guid: 9807f3b1172b88243a7ae3da48d1d3a4,
         type: 2}
       propertyPath: _dashDecay
-      value: 1.5
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114105182756240840, guid: 9807f3b1172b88243a7ae3da48d1d3a4,
+        type: 2}
+      propertyPath: DashCoolDownTime
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 212862557611333726, guid: 9807f3b1172b88243a7ae3da48d1d3a4, type: 2}

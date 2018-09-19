@@ -79,7 +79,6 @@ public class GravityObjectRigidBody : MonoBehaviour {
         foreach (var velocity in _velocities)
         {
             _rB.velocity += velocity.Value;
-            Debug.Log(velocity.Key + " " + velocity.Value);
         }
     }
 

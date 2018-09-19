@@ -14,6 +14,8 @@ public abstract class PlayerController : MonoBehaviour {
     [SerializeField]
     protected float ChangeGravityRechargeTime = .1f;
     [SerializeField]
+    protected float DashCoolDownTime = .1f;
+    [SerializeField]
     protected float MoveSpeed = 1f;
     [SerializeField]
     protected float ShootSpeed = 1f;
@@ -36,8 +38,9 @@ public abstract class PlayerController : MonoBehaviour {
     protected readonly Vector2[] _gravChangeDirections = {Vector2.up, Vector2.down };
     protected readonly Vector2[] _gravChangeDirectionsForThrownObject = { Vector2.up, Vector2.down, Vector2.left, Vector2.right };
 
-    public bool IsCoolingDown;
-    public bool IsChangeGravityCoolingDown;
+    public bool IsCoolingDown = false;
+    public bool IsChangeGravityCoolingDown = false;
+    public bool IsDashCoolingDown = false;
 
     private List<GameObject> GravityGunProjectiles = new List<GameObject>();
 
@@ -48,15 +51,14 @@ public abstract class PlayerController : MonoBehaviour {
         IsDead = false;
         GetComponent<Renderer>().material = ObjectMaterial;
         AimingReticle.GetComponent<Renderer>().material = ObjectMaterial;
-    }
+        IsCoolingDown = false;
+        IsChangeGravityCoolingDown = false;
+        IsDashCoolingDown = false;
+}
 
     public void Move(float dir)
     {
-
-        //GetComponent<Rigidbody2D>().velocity = new Vector2(dir * MoveSpeed, GetComponent<Rigidbody2D>().velocity.y);
-        //Debug.Log(new Vector2(dir * MoveSpeed, 0));
         GetComponent<GravityObjectRigidBody>().UpdateVelocity(VelocityType.Movement, new Vector2(dir * MoveSpeed, 0));
-        //Debug.Log(Time.times + " " + GetComponent<Rigidbody2D>().velocity);
     }
 
     public void FlipGravity()
@@ -86,10 +88,17 @@ public abstract class PlayerController : MonoBehaviour {
     public void Dash(Vector2 dir)
     {
         Debug.Log(dir * DashSpeed);
-        //need to account for gravity
-        var dashVec = -GetComponent<GravityObjectRigidBody>().GravityDirection.normalized * (DashSpeed) + dir * DashSpeed;
-        Debug.Log(dashVec);
-        GetComponent<GravityObjectRigidBody>().UpdateVelocity(VelocityType.Dash, dashVec);
+        if(!IsDashCoolingDown)
+        {
+            //need to account for gravity
+            var dashVec = -GetComponent<GravityObjectRigidBody>().GravityDirection.normalized * DashSpeed + dir * DashSpeed;
+            Debug.Log(dashVec);
+            GetComponent<GravityObjectRigidBody>().UpdateVelocity(VelocityType.Dash, dashVec);
+
+            IsDashCoolingDown = true;
+            StartCoroutine(DashCoolDown());
+        }
+        
     } 
 
     public void AimReticle(Vector2 dir)
@@ -151,6 +160,13 @@ public abstract class PlayerController : MonoBehaviour {
     {
         yield return new WaitForSeconds(ChangeGravityRechargeTime);
         IsChangeGravityCoolingDown = false;
+    }
+
+    IEnumerator DashCoolDown()
+    {
+        IsDashCoolingDown = true;
+        yield return new WaitForSeconds(DashCoolDownTime);
+        IsDashCoolingDown = false;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
