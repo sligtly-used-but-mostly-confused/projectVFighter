@@ -175,6 +175,11 @@ public abstract class PlayerController : MonoBehaviour {
             if(collision.collider.GetComponent<PlayerController>())
             {
                 Debug.Log("double kill");
+                if(IsDashCoolingDown)
+                {
+                    //dont kil because we dashed into this
+                    return;
+                }
             }
             Kill();
         }
@@ -201,7 +206,7 @@ public abstract class PlayerController : MonoBehaviour {
     public virtual void Kill()
     {
         IsDead = true;
-        GameManager.Instance.ResetLevel();
+        //GameManager.Instance.ResetLevel();
     }
 
     public void DestroyAllGravGunProjectiles()
