@@ -14,6 +14,8 @@ public abstract class PlayerController : MonoBehaviour {
     [SerializeField]
     protected float ChangeGravityRechargeTime = .1f;
     [SerializeField]
+    protected float DashCoolDownTime = .1f;
+    [SerializeField]
     protected float MoveSpeed = 1f;
     [SerializeField]
     protected float ShootSpeed = 1f;
@@ -21,13 +23,14 @@ public abstract class PlayerController : MonoBehaviour {
     protected float JumpForce = 10f;
     [SerializeField]
     protected float ImpulseToKill = 10f;
-
     [SerializeField]
     protected GameObject Projectile;
     [SerializeField]
     protected GameObject AimingReticle;
     [SerializeField]
     protected Material ObjectMaterial;
+    [SerializeField]
+    protected float DashSpeed = 10f;
 
     [SerializeField]
     public bool IsDead;
@@ -35,8 +38,9 @@ public abstract class PlayerController : MonoBehaviour {
     protected readonly Vector2[] _gravChangeDirections = {Vector2.up, Vector2.down };
     protected readonly Vector2[] _gravChangeDirectionsForThrownObject = { Vector2.up, Vector2.down, Vector2.left, Vector2.right };
 
-    public bool IsCoolingDown;
-    public bool IsChangeGravityCoolingDown;
+    public bool IsCoolingDown = false;
+    public bool IsChangeGravityCoolingDown = false;
+    public bool IsDashCoolingDown = false;
 
     private List<GameObject> GravityGunProjectiles = new List<GameObject>();
 
@@ -47,13 +51,14 @@ public abstract class PlayerController : MonoBehaviour {
         IsDead = false;
         GetComponent<Renderer>().material = ObjectMaterial;
         AimingReticle.GetComponent<Renderer>().material = ObjectMaterial;
+        IsCoolingDown = false;
+        IsChangeGravityCoolingDown = false;
+        IsDashCoolingDown = false;
     }
 
     public void Move(float dir)
     {
-        
-        GetComponent<Rigidbody2D>().velocity = new Vector2(dir * MoveSpeed, GetComponent<Rigidbody2D>().velocity.y);
-        //Debug.Log(Time.times + " " + GetComponent<Rigidbody2D>().velocity);
+        GetComponent<GravityObjectRigidBody>().UpdateVelocity(VelocityType.Movement, new Vector2(dir * MoveSpeed, 0));
     }
 
     public void FlipGravity()
@@ -80,6 +85,20 @@ public abstract class PlayerController : MonoBehaviour {
         throw new System.NotImplementedException();
     }
 
+    public void Dash(Vector2 dir)
+    {
+        if(!IsDashCoolingDown)
+        {
+            //need to account for gravity
+            var dashVec = -GetComponent<GravityObjectRigidBody>().GravityDirection.normalized * DashSpeed + dir * DashSpeed;
+            GetComponent<GravityObjectRigidBody>().UpdateVelocity(VelocityType.Dash, dashVec);
+
+            IsDashCoolingDown = true;
+            StartCoroutine(DashCoolDown());
+        }
+        
+    } 
+
     public void AimReticle(Vector2 dir)
     {
         AimingReticle.transform.localPosition = dir.normalized * 2;
@@ -95,6 +114,7 @@ public abstract class PlayerController : MonoBehaviour {
                 GameObject projectileClone = (GameObject)Instantiate(Projectile, AimingReticle.transform.position, AimingReticle.transform.rotation);
                 projectileClone.GetComponent<GravityGunProjectileController>().Owner = this;
                 projectileClone.GetComponent<Rigidbody2D>().velocity = dir * ShootSpeed;
+                projectileClone.GetComponent<Renderer>().material = ObjectMaterial;
                 StartGravGunCoolDown();
                 GravityGunProjectiles.Add(projectileClone);
             }
@@ -141,6 +161,13 @@ public abstract class PlayerController : MonoBehaviour {
         IsChangeGravityCoolingDown = false;
     }
 
+    IEnumerator DashCoolDown()
+    {
+        IsDashCoolingDown = true;
+        yield return new WaitForSeconds(DashCoolDownTime);
+        IsDashCoolingDown = false;
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         var impulse = (collision.relativeVelocity * collision.rigidbody.mass).magnitude;
@@ -149,6 +176,11 @@ public abstract class PlayerController : MonoBehaviour {
             if(collision.collider.GetComponent<PlayerController>())
             {
                 Debug.Log("double kill");
+                if(IsDashCoolingDown)
+                {
+                    //dont kil because we dashed into this
+                    return;
+                }
             }
             Kill();
         }
@@ -175,7 +207,6 @@ public abstract class PlayerController : MonoBehaviour {
     public virtual void Kill()
     {
         IsDead = true;
-        GameManager.Instance.ResetLevel();
     }
 
     public void DestroyAllGravGunProjectiles()

@@ -2,6 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum VelocityType
+{
+    Gravity,
+    Movement,
+    Dash
+}
+
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(BoxCollider2D))]
 public class GravityObjectRigidBody : MonoBehaviour {
@@ -14,10 +21,16 @@ public class GravityObjectRigidBody : MonoBehaviour {
     [SerializeField]
     private Vector2 _gravityDirection = Vector2.down;
     [SerializeField]
-    private float _maxComponentSpeed = 10;
+    private Vector2 _maxComponentSpeed = new Vector2(10f, 10f);
     [SerializeField]
     private bool _stopObjectOnCollide = true;
+    [SerializeField]
+    private float _dashDecay = 1f;
     public PlayerController Owner;
+
+    private Dictionary<VelocityType, Vector2> _velocities = new Dictionary<VelocityType, Vector2>();
+
+    private Rigidbody2D _rB;
 
     public float GravityScale
     {
@@ -37,7 +50,7 @@ public class GravityObjectRigidBody : MonoBehaviour {
         private set { _id = value; }
     }
 
-    public float MaxComponentSpeed
+    public Vector2 MaxComponentSpeed
     {
         get{return _maxComponentSpeed;}
         set{_maxComponentSpeed = value;}
@@ -46,43 +59,82 @@ public class GravityObjectRigidBody : MonoBehaviour {
     private void Awake()
     {
         _id = _idCnt++;
+        _rB = GetComponent<Rigidbody2D>();
     }
 
     void Start () {
-        GetComponent<Rigidbody2D>().gravityScale = 0;
+        _rB.gravityScale = 0;
 	}
 	
 	void FixedUpdate () {
         DoGravity();
+        DashDecay();
+        ProcessVelocity();
 	}
+
+    private void ProcessVelocity()
+    {
+        _rB.velocity = Vector2.zero;
+
+        foreach (var velocity in _velocities)
+        {
+            _rB.velocity += velocity.Value;
+        }
+    }
+
+    private void DashDecay()
+    {
+        Vector2 dashVel = GetVelocity(VelocityType.Dash);
+        var deltaPerSecond = dashVel * _dashDecay;
+        var deltaPerTick = deltaPerSecond * Time.fixedDeltaTime;
+        UpdateVelocity(VelocityType.Dash, dashVel - deltaPerTick);
+    }
 
     private void DoGravity()
     {
         GetComponent<Rigidbody2D>().gravityScale = 0;
-        AddLinearAcceleration(GravityDirection * GravityScale * 9.81f);
+        AddLinearAcceleration(VelocityType.Gravity, GravityDirection * GravityScale * 9.81f);
     }
 
-    public void AddVelocity(Vector2 velocityVector)
+    public Vector2 GetVelocity(VelocityType id)
     {
-        var prevVel = GetComponent<Rigidbody2D>().velocity;
+        if (!_velocities.ContainsKey(id))
+        {
+            _velocities.Add(id, Vector2.zero);
+        }
+
+        return _velocities[id];
+    }
+
+    public void UpdateVelocity(VelocityType id, Vector2 vel)
+    {
+        if(!_velocities.ContainsKey(id))
+        {
+            _velocities.Add(id, vel);
+        }
+
+        _velocities[id] = vel;
+    }
+
+    public void AddVelocity(VelocityType id, Vector2 velocityVector)
+    {
         var velocityDelta = velocityVector;
-        var tempVel = prevVel + velocityDelta;
-        var xVel = Mathf.Clamp(tempVel.x, -MaxComponentSpeed, MaxComponentSpeed);
-        var yVel = Mathf.Clamp(tempVel.y, -MaxComponentSpeed, MaxComponentSpeed);
-        GetComponent<Rigidbody2D>().velocity = new Vector2(xVel, yVel);
+        var tempVel = GetVelocity(id) + velocityDelta;
+        var xVel = Mathf.Clamp(tempVel.x, -MaxComponentSpeed.x, MaxComponentSpeed.x);
+        var yVel = Mathf.Clamp(tempVel.y, -MaxComponentSpeed.y, MaxComponentSpeed.y);
+        _velocities[id] = new Vector2(xVel, yVel);
     }
 
-    public void AddLinearAcceleration(Vector2 AccelerationVector)
+    public void AddLinearAcceleration(VelocityType id, Vector2 AccelerationVector)
     {
-        AddVelocity(AccelerationVector * Time.fixedDeltaTime);
+        AddVelocity(id, AccelerationVector * Time.fixedDeltaTime);
     }
 
     public void ChangeGravityDirection(Vector2 dir)
     {
-        //Debug.Log(name + " " + dir);
         if (dir != GravityDirection)
         {
-            GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+            UpdateVelocity(VelocityType.Gravity, Vector2.zero);
             GravityDirection = dir;
         }
     }

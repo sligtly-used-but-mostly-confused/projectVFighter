@@ -77,7 +77,7 @@ public class AIAgent : Agent {
 
         AddVectorObs((this.transform.localPosition.y + h) / h);
         AddVectorObs((this.transform.localPosition.y - h) / h);
-
+        /*
         //velocity of the the AI
         AddVectorObs(AIRigidBody.velocity.x / AIGravityObjectRB.MaxComponentSpeed);
         AddVectorObs(AIRigidBody.velocity.y / AIGravityObjectRB.MaxComponentSpeed);
@@ -93,6 +93,7 @@ public class AIAgent : Agent {
         //velocity of other gravity object
         AddVectorObs(GORB2.GetComponent<Rigidbody2D>().velocity.x / GORB2.MaxComponentSpeed);
         AddVectorObs(GORB2.GetComponent<Rigidbody2D>().velocity.y / GORB2.MaxComponentSpeed);
+        */
     }
 
     private Vector3 GetRelativePosition(Transform to, Transform from)

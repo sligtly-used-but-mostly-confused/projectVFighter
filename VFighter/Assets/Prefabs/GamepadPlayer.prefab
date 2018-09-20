@@ -23,8 +23,8 @@ GameObject:
   - component: {fileID: 50501387085746266}
   - component: {fileID: 114052366512496734}
   - component: {fileID: 114105182756240840}
-  - component: {fileID: 23115901093875606}
-  - component: {fileID: 33254950597739468}
+  - component: {fileID: 23321131834757868}
+  - component: {fileID: 33756766857751174}
   m_Layer: 0
   m_Name: GamepadPlayer
   m_TagString: Untagged
@@ -57,8 +57,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1503121510406556}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.69, y: 1.24, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
+  m_LocalPosition: {x: -4.22, y: 1.24, z: 0}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.25}
   m_Children:
   - {fileID: 4628442890880200}
   m_Father: {fileID: 0}
@@ -77,7 +77,7 @@ Transform:
   m_Father: {fileID: 4568176647062598}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!23 &23115901093875606
+--- !u!23 &23321131834757868
 MeshRenderer:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -92,7 +92,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 1e01bbf040afb634ba0886e4aa75366d, type: 2}
+  - {fileID: 2100000, guid: 9deecdb4676371249b7f95020c639f94, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -154,13 +154,13 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1816439501200690}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
---- !u!33 &33254950597739468
+--- !u!33 &33756766857751174
 MeshFilter:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1503121510406556}
-  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!50 &50501387085746266
 Rigidbody2D:
   serializedVersion: 4
@@ -172,7 +172,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 0.5
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
@@ -189,7 +189,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 1503121510406556}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: b7b33062816642c4887f4da28e53d2a1, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -220,8 +220,9 @@ MonoBehaviour:
   _id: 0
   _gravityScale: 10
   _gravityDirection: {x: 0, y: -1}
-  _maxComponentSpeed: 20
+  _maxComponentSpeed: {x: 10, y: 10}
   _stopObjectOnCollide: 0
+  _dashDecay: 2
   Owner: {fileID: 114105182756240840}
 --- !u!114 &114105182756240840
 MonoBehaviour:
@@ -236,18 +237,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AttachedObject: {fileID: 0}
   RechargeTime: 0.4
-  ChangeGravityRechargeTime: 0.1
+  ChangeGravityRechargeTime: 0
+  DashCoolDownTime: 1
   MoveSpeed: 10
   ShootSpeed: 10
   JumpForce: 10
   ImpulseToKill: 1
   Projectile: {fileID: 1553312605624202, guid: 7b549a10b0a7a4de4843efb95d3176eb, type: 2}
   AimingReticle: {fileID: 1816439501200690}
-  ObjectMaterial: {fileID: 2100000, guid: 1e01bbf040afb634ba0886e4aa75366d, type: 2}
+  ObjectMaterial: {fileID: 2100000, guid: 9deecdb4676371249b7f95020c639f94, type: 2}
+  DashSpeed: 15
   IsDead: 0
   IsCoolingDown: 0
   IsChangeGravityCoolingDown: 0
-  _inputDevice: 4
+  IsDashCoolingDown: 0
+  _inputDevice: 3
 --- !u!135 &135684991341674584
 SphereCollider:
   m_ObjectHideFlags: 1
