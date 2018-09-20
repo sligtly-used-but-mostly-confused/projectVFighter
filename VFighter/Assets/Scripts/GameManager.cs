@@ -11,15 +11,7 @@ public class GameManager : MonoBehaviour {
     public List<PlayerController> players;
 
 	void Awake () {
-        //if (_instance == null)
-       // {
-        //    DontDestroyOnLoad(gameObject);
-            _instance = this;
-        //}
-        //else
-        //{
-           // Destroy(gameObject);
-        //}
+        _instance = this;
 	}
 
     private void Start()
@@ -45,6 +37,5 @@ public class GameManager : MonoBehaviour {
     public void ResetLevel()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-       // Init();
     }
 }

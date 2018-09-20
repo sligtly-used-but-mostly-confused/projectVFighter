@@ -207,7 +207,6 @@ public abstract class PlayerController : MonoBehaviour {
     public virtual void Kill()
     {
         IsDead = true;
-        //GameManager.Instance.ResetLevel();
     }
 
     public void DestroyAllGravGunProjectiles()
