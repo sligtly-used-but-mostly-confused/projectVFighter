@@ -114,6 +114,7 @@ public abstract class PlayerController : MonoBehaviour {
                 GameObject projectileClone = (GameObject)Instantiate(Projectile, AimingReticle.transform.position, AimingReticle.transform.rotation);
                 projectileClone.GetComponent<GravityGunProjectileController>().Owner = this;
                 projectileClone.GetComponent<Rigidbody2D>().velocity = dir * ShootSpeed;
+                projectileClone.GetComponent<Renderer>().material = ObjectMaterial;
                 StartGravGunCoolDown();
                 GravityGunProjectiles.Add(projectileClone);
             }
