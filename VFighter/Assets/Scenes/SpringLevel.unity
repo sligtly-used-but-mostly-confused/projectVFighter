@@ -344,6 +344,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 114105182756240840, guid: 9807f3b1172b88243a7ae3da48d1d3a4,
+        type: 2}
+      propertyPath: ImpulseToKill
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9807f3b1172b88243a7ae3da48d1d3a4, type: 2}
   m_IsPrefabAsset: 0
@@ -1169,7 +1174,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1167609975392520, guid: 55fe9360236ce094b8791837356c4d89, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 55fe9360236ce094b8791837356c4d89, type: 2}
@@ -1221,7 +1226,7 @@ Prefab:
     - target: {fileID: 114105182756240840, guid: 9807f3b1172b88243a7ae3da48d1d3a4,
         type: 2}
       propertyPath: ImpulseToKill
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 212862557611333726, guid: 9807f3b1172b88243a7ae3da48d1d3a4,
         type: 2}
@@ -1290,7 +1295,7 @@ Prefab:
     - target: {fileID: 114105182756240840, guid: 9807f3b1172b88243a7ae3da48d1d3a4,
         type: 2}
       propertyPath: _inputDevice
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 114105182756240840, guid: 9807f3b1172b88243a7ae3da48d1d3a4,
         type: 2}
@@ -1424,6 +1429,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 693be3ae2191bc541abb9cee66dcf397, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  players: []
 --- !u!4 &1988376997
 Transform:
   m_ObjectHideFlags: 0
