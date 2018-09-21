@@ -11,6 +11,7 @@ public enum VelocityType
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(BoxCollider2D))]
+[RequireComponent(typeof(Light))]
 public class GravityObjectRigidBody : MonoBehaviour {
     private static int _idCnt = 0;
 
@@ -26,6 +27,7 @@ public class GravityObjectRigidBody : MonoBehaviour {
     private bool _stopObjectOnCollide = true;
     [SerializeField]
     private float _dashDecay = 1f;
+
     public PlayerController Owner;
 
     private Dictionary<VelocityType, Vector2> _velocities = new Dictionary<VelocityType, Vector2>();
@@ -60,6 +62,7 @@ public class GravityObjectRigidBody : MonoBehaviour {
     {
         _id = _idCnt++;
         _rB = GetComponent<Rigidbody2D>();
+        GetComponent<Light>().color = GetComponent<Renderer>().material.color;
     }
 
     void Start () {
