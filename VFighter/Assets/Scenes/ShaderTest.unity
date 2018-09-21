@@ -205,7 +205,7 @@ MonoBehaviour:
   bloomShader: {fileID: 4800000, guid: da38352ac9cc6f542b10eae73755baef, type: 3}
   intensity: 2
   iterations: 4
-  threshold: 1
+  threshold: 10
   softThreshold: 0.35
   debug: 0
 --- !u!1 &1054056733
@@ -253,7 +253,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: b0dff6ed54e0fef4083625113af443c8, type: 2}
+  - {fileID: 2100000, guid: b4c6db0e25b384a6d9cd876ddb0f0da9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -338,7 +338,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: a53f736afdaa243469f8015e25e684a5, type: 2}
+  - {fileID: 2100000, guid: 04d126ba1f0d0478f801292308bbc946, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
