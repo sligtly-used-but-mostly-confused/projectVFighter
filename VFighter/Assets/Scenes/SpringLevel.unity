@@ -291,7 +291,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   xGamepadLayout: {fileID: 0}
-  unGamepadConfigs: []
+  unGamepadConfigs:
+  - {fileID: 11400000, guid: 15c40c6963c5c4718b3f19115620b7a0, type: 2}
 --- !u!4 &84860711
 Transform:
   m_ObjectHideFlags: 0
@@ -1300,7 +1301,7 @@ Prefab:
     - target: {fileID: 114105182756240840, guid: 9807f3b1172b88243a7ae3da48d1d3a4,
         type: 2}
       propertyPath: _inputDevice
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 114105182756240840, guid: 9807f3b1172b88243a7ae3da48d1d3a4,
         type: 2}
@@ -1349,6 +1350,10 @@ Prefab:
     - target: {fileID: 4568176647062598, guid: 9807f3b1172b88243a7ae3da48d1d3a4, type: 2}
       propertyPath: m_LocalScale.z
       value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 1503121510406556, guid: 9807f3b1172b88243a7ae3da48d1d3a4, type: 2}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 212862557611333726, guid: 9807f3b1172b88243a7ae3da48d1d3a4, type: 2}
