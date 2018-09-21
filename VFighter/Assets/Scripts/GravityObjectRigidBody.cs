@@ -6,11 +6,12 @@ public enum VelocityType
 {
     Gravity,
     Movement,
-    Dash
+    Dash,
+    OtherPhysics
 }
 
 [RequireComponent(typeof(Rigidbody2D))]
-[RequireComponent(typeof(BoxCollider2D))]
+[RequireComponent(typeof(Collider2D))]
 public class GravityObjectRigidBody : MonoBehaviour {
     private static int _idCnt = 0;
 
@@ -26,6 +27,14 @@ public class GravityObjectRigidBody : MonoBehaviour {
     private bool _stopObjectOnCollide = true;
     [SerializeField]
     private float _dashDecay = 1f;
+    [SerializeField]
+    private float _drag = 1f;
+
+    public float Bounciness = 0f;
+
+    public bool CanBeSelected = true;
+    public bool KillsPlayer = true;
+
     public PlayerController Owner;
 
     private Dictionary<VelocityType, Vector2> _velocities = new Dictionary<VelocityType, Vector2>();
@@ -69,6 +78,7 @@ public class GravityObjectRigidBody : MonoBehaviour {
 	void FixedUpdate () {
         DoGravity();
         DashDecay();
+        DoDrag();
         ProcessVelocity();
 	}
 
@@ -80,6 +90,13 @@ public class GravityObjectRigidBody : MonoBehaviour {
         {
             _rB.velocity += velocity.Value;
         }
+    }
+
+    private void DoDrag()
+    {
+        Vector2 vel = GetVelocity(VelocityType.OtherPhysics);
+        vel *= 1 - _drag;
+        UpdateVelocity(VelocityType.OtherPhysics, vel);
     }
 
     private void DashDecay()
@@ -146,7 +163,22 @@ public class GravityObjectRigidBody : MonoBehaviour {
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if(_stopObjectOnCollide)
+        if(collision.gameObject.GetComponent<GravityObjectRigidBody>())
+        {
+            var vel = _rB.velocity;
+            var normal = Vector2.zero;
+            foreach (var contact in collision.contacts)
+            {
+                normal += contact.normal;
+                break;
+            }
+
+            vel = Vector2.Reflect(vel, normal.normalized);
+            Debug.Log(name +" " + vel * collision.gameObject.GetComponent<GravityObjectRigidBody>().Bounciness);
+            UpdateVelocity(VelocityType.OtherPhysics, vel * collision.gameObject.GetComponent<GravityObjectRigidBody>().Bounciness);
+        }
+
+        if (_stopObjectOnCollide)
         {
             ChangeGravityDirection(Vector2.zero);
         }

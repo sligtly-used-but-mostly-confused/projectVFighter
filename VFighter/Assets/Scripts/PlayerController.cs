@@ -101,7 +101,10 @@ public abstract class PlayerController : MonoBehaviour {
 
     public void AimReticle(Vector2 dir)
     {
-        AimingReticle.transform.localPosition = dir.normalized * 2;
+        var aimParent = AimingReticle.transform.parent;
+        var normalizedDir = dir.normalized;
+        AimingReticle.transform.position = aimParent.position + new Vector3(normalizedDir.x, normalizedDir.y, 0);
+        //AimingReticle.transform.localPosition = dir.normalized * 2;
     }
 
     public void ShootGravityGun(Vector2 dir)
@@ -171,7 +174,8 @@ public abstract class PlayerController : MonoBehaviour {
     private void OnCollisionEnter2D(Collision2D collision)
     {
         var impulse = (collision.relativeVelocity * collision.rigidbody.mass).magnitude;
-        if (impulse > ImpulseToKill && collision.collider.GetComponent<GravityObjectRigidBody>())
+        var GORB = collision.collider.GetComponent<GravityObjectRigidBody>();
+        if (impulse > ImpulseToKill && GORB && GORB.KillsPlayer)
         {
             if(collision.collider.GetComponent<PlayerController>())
             {

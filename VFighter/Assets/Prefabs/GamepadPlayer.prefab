@@ -25,6 +25,7 @@ GameObject:
   - component: {fileID: 114105182756240840}
   - component: {fileID: 23321131834757868}
   - component: {fileID: 33756766857751174}
+  - component: {fileID: 108674846225015388}
   m_Layer: 0
   m_Name: GamepadPlayer
   m_TagString: Untagged
@@ -58,7 +59,7 @@ Transform:
   m_GameObject: {fileID: 1503121510406556}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -4.22, y: 1.24, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.25}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children:
   - {fileID: 4628442890880200}
   m_Father: {fileID: 0}
@@ -92,7 +93,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 9deecdb4676371249b7f95020c639f94, type: 2}
+  - {fileID: 2100000, guid: b2a8a02c59a65284d9aae1c3dd996a45, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -206,6 +207,43 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!108 &108674846225015388
+Light:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1503121510406556}
+  m_Enabled: 1
+  serializedVersion: 8
+  m_Type: 2
+  m_Color: {r: 1, g: 0.5330188, b: 0.5330188, a: 1}
+  m_Intensity: 1
+  m_Range: 3
+  m_SpotAngle: 30
+  m_CookieSize: 10
+  m_Shadows:
+    m_Type: 0
+    m_Resolution: -1
+    m_CustomResolution: -1
+    m_Strength: 1
+    m_Bias: 0.05
+    m_NormalBias: 0.4
+    m_NearPlane: 0.2
+  m_Cookie: {fileID: 0}
+  m_DrawHalo: 0
+  m_Flare: {fileID: 0}
+  m_RenderMode: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_Lightmapping: 4
+  m_LightShadowCasterMode: 0
+  m_AreaSize: {x: 1, y: 1}
+  m_BounceIntensity: 1
+  m_ColorTemperature: 6570
+  m_UseColorTemperature: 0
+  m_ShadowRadius: 0
+  m_ShadowAngle: 0
 --- !u!114 &114052366512496734
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -223,6 +261,7 @@ MonoBehaviour:
   _maxComponentSpeed: {x: 10, y: 10}
   _stopObjectOnCollide: 0
   _dashDecay: 2
+  _drag: 1
   Owner: {fileID: 114105182756240840}
 --- !u!114 &114105182756240840
 MonoBehaviour:
@@ -242,7 +281,7 @@ MonoBehaviour:
   MoveSpeed: 10
   ShootSpeed: 10
   JumpForce: 10
-  ImpulseToKill: 1
+  ImpulseToKill: 0
   Projectile: {fileID: 1553312605624202, guid: 7b549a10b0a7a4de4843efb95d3176eb, type: 2}
   AimingReticle: {fileID: 1816439501200690}
   ObjectMaterial: {fileID: 2100000, guid: 9deecdb4676371249b7f95020c639f94, type: 2}
