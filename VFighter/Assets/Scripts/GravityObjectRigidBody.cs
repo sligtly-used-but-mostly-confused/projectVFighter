@@ -175,7 +175,13 @@ public class GravityObjectRigidBody : MonoBehaviour {
 
             vel = Vector2.Reflect(vel, normal.normalized);
             Debug.Log(name +" " + vel * collision.gameObject.GetComponent<GravityObjectRigidBody>().Bounciness);
-            UpdateVelocity(VelocityType.OtherPhysics, vel * collision.gameObject.GetComponent<GravityObjectRigidBody>().Bounciness);
+            var thisMass = _rB.mass;
+            var otherMass = collision.rigidbody.mass;
+            Debug.Log(thisMass + " " + otherMass);
+            Debug.Log(1 - (thisMass / (thisMass + otherMass)));
+            var reflectionCoef = collision.gameObject.GetComponent<GravityObjectRigidBody>().Bounciness * (1 - (thisMass / (thisMass + otherMass)));
+            var reflectionVec = vel * reflectionCoef;
+            UpdateVelocity(VelocityType.OtherPhysics, reflectionVec);
         }
 
         if (_stopObjectOnCollide)
