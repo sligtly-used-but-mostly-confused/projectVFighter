@@ -28,12 +28,10 @@ public abstract class PlayerController : MonoBehaviour {
     [SerializeField]
     protected GameObject AimingReticle;
     [SerializeField]
-    protected Material ObjectMaterial;
-    [SerializeField]
     protected float DashSpeed = 10f;
-
     [SerializeField]
-    public bool IsDead;
+    protected Player ControlledPlayer;
+    
 
     protected readonly Vector2[] _gravChangeDirections = {Vector2.up, Vector2.down };
     protected readonly Vector2[] _gravChangeDirectionsForThrownObject = { Vector2.up, Vector2.down, Vector2.left, Vector2.right };
@@ -41,19 +39,27 @@ public abstract class PlayerController : MonoBehaviour {
     public bool IsCoolingDown = false;
     public bool IsChangeGravityCoolingDown = false;
     public bool IsDashCoolingDown = false;
+    public bool IsDead;
 
     private List<GameObject> GravityGunProjectiles = new List<GameObject>();
 
     private Coroutine GravGunCoolDownCoroutine;
 
+    public virtual void Init(Player player, SpawnPosition spawnPosition)
+    {
+        GetComponent<GravityObjectRigidBody>().ChangeGravityDirection(Vector2.zero);
+        ControlledPlayer = player;
+        transform.position = spawnPosition.transform.position;
+        GetComponent<Renderer>().material = ControlledPlayer.PlayerMaterial;
+        AimingReticle.GetComponent<Renderer>().material = ControlledPlayer.PlayerMaterial;
+    }
+
     protected virtual void Awake()
     {
-        IsDead = false;
-        GetComponent<Renderer>().material = ObjectMaterial;
-        AimingReticle.GetComponent<Renderer>().material = ObjectMaterial;
         IsCoolingDown = false;
         IsChangeGravityCoolingDown = false;
         IsDashCoolingDown = false;
+        IsDead = false;
     }
 
     public void Move(float dir)
@@ -117,7 +123,7 @@ public abstract class PlayerController : MonoBehaviour {
                 GameObject projectileClone = (GameObject)Instantiate(Projectile, AimingReticle.transform.position, AimingReticle.transform.rotation);
                 projectileClone.GetComponent<GravityGunProjectileController>().Owner = this;
                 projectileClone.GetComponent<Rigidbody2D>().velocity = dir * ShootSpeed;
-                projectileClone.GetComponent<Renderer>().material = ObjectMaterial;
+                projectileClone.GetComponent<Renderer>().material = ControlledPlayer.PlayerMaterial;
                 StartGravGunCoolDown();
                 GravityGunProjectiles.Add(projectileClone);
             }

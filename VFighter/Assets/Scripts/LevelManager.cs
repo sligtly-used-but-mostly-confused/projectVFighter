@@ -1,31 +1,59 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Linq;
 
 public class LevelManager : MonoBehaviour
 {
-    
-    public static LevelManager Instance { get { return _instance; } }
-    public List<GameObject> Walls;
-    public float height;
-    public float width;
     private static LevelManager _instance;
+    public static LevelManager Instance { get { return _instance; } }
 
-    private void Awake()
+    public List<PlayerController> Players;
+
+    [SerializeField]
+    private List<SpawnPosition> _spawnPositions;
+    [SerializeField]
+    private GameObject GamepadPlayerControllerPrefab;
+
+    void Awake()
     {
         _instance = this;
     }
 
-    void Start ()
+    private void Start()
     {
-        height = Walls.Max(obj => obj.transform.localPosition.y) * 2;
-        width = Walls.Max(obj => obj.transform.localPosition.x) * 2;
+        Init();
     }
-	
-	// Update is called once per frame
-	void Update ()
+
+    private void Update()
     {
-		
-	}
+        var alive = Players.Where(x => !x.IsDead);
+        if (alive.Count() <= 1)
+        {
+            //Debug.Log(alive.First()?.name + " won");
+            ResetLevel();
+        }
+    }
+
+    private void Init()
+    {
+        _spawnPositions = new List<SpawnPosition>(FindObjectsOfType<PlayerSpawnPosition>());
+
+        foreach (var player in PlayerManager.Instance.Players)
+        {
+            int index = (int)(Random.value * (_spawnPositions.Count - 1));
+            SpawnPosition position = _spawnPositions[index];
+            _spawnPositions.RemoveAt(index);
+            var playerObj = Instantiate(GamepadPlayerControllerPrefab);
+            playerObj.GetComponent<PlayerController>().Init(player, position);
+
+            Players.Add(playerObj.GetComponent<PlayerController>());
+        }
+    }
+
+    public void ResetLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
 }
