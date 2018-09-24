@@ -24,7 +24,7 @@ public class GameManager : MonoBehaviour {
         var alive = players.Where(x => !x.IsDead);
         if (alive.Count() <= 1)
         {
-            Debug.Log(alive.First()?.name + " won");
+            //Debug.Log(alive.First()?.name + " won");
             ResetLevel();
         }
     }

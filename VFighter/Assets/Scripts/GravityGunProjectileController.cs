@@ -30,7 +30,7 @@ public class GravityGunProjectileController : MonoBehaviour {
                 return;
             }
 
-            if(gravityObjectRB.Owner != Owner)
+            if(gravityObjectRB.Owner != Owner && gravityObjectRB.CanBeSelected)
             {
                 gravityObjectRB.Owner = Owner;
                 Owner.AttachGORB(gravityObjectRB);
