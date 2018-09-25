@@ -16,8 +16,9 @@ public class GamepadPlayerController : PlayerController {
 
         float rightSitckX = inputDevice.GetAxisRaw(MappedAxis.AimX);
         float rightSitckY = inputDevice.GetAxisRaw(MappedAxis.AimY);
-
+        
         Vector2 aimDir = new Vector2(rightSitckX, rightSitckY);
+        Debug.Log(aimDir + " " + aimDir.normalized);
         AimReticle(aimDir);
         
         if(IsAxisTapped(MappedAxis.ChangeGrav) && inputDevice.GetAxis(MappedAxis.ChangeGrav) > 0)

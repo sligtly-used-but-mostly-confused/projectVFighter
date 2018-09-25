@@ -51,8 +51,8 @@ public class GravityObjectRigidBody : MonoBehaviour {
 
     public PlayerController Owner;
 
-    private Dictionary<VelocityType, Vector2> _maxComponentVelocities = new Dictionary<VelocityType, Vector2>();
-    private Dictionary<VelocityType, Vector2> _velocities = new Dictionary<VelocityType, Vector2>();
+    protected Dictionary<VelocityType, Vector2> _maxComponentVelocities = new Dictionary<VelocityType, Vector2>();
+    protected Dictionary<VelocityType, Vector2> _velocities = new Dictionary<VelocityType, Vector2>();
 
     private Rigidbody2D _rB;
 
@@ -133,7 +133,7 @@ public class GravityObjectRigidBody : MonoBehaviour {
         return _velocities[id];
     }
 
-    public void UpdateVelocity(VelocityType id, Vector2 vel)
+    public virtual void UpdateVelocity(VelocityType id, Vector2 vel)
     {
         if(!_velocities.ContainsKey(id))
         {
@@ -143,7 +143,7 @@ public class GravityObjectRigidBody : MonoBehaviour {
         _velocities[id] = vel;
     }
 
-    public Vector2 GetMaxComponentVelocity(VelocityType type)
+    public virtual Vector2 GetMaxComponentVelocity(VelocityType type)
     {
         if(!_maxComponentVelocities.ContainsKey(type))
         {
@@ -153,14 +153,19 @@ public class GravityObjectRigidBody : MonoBehaviour {
         return _maxComponentVelocities[type];
     }
 
-    public void AddVelocity(VelocityType id, Vector2 velocityVector)
+    public virtual void AddVelocity(VelocityType id, Vector2 velocityVector)
     {
         var velocityDelta = velocityVector;
         var tempVel = GetVelocity(id) + velocityDelta;
         var maxComponentSpeed = GetMaxComponentVelocity(id);
-        var xVel = Mathf.Clamp(tempVel.x, -maxComponentSpeed.x, maxComponentSpeed.x);
-        var yVel = Mathf.Clamp(tempVel.y, -maxComponentSpeed.y, maxComponentSpeed.y);
-        _velocities[id] = new Vector2(xVel, yVel);
+        if (tempVel.magnitude > maxComponentSpeed.magnitude)
+        {
+            tempVel = tempVel.normalized * maxComponentSpeed.magnitude;
+        }
+        
+        //var xVel = Mathf.Clamp(tempVel.x, -maxComponentSpeed.x, maxComponentSpeed.x);
+        //var yVel = Mathf.Clamp(tempVel.y, -maxComponentSpeed.y, maxComponentSpeed.y);
+        _velocities[id] = tempVel;
     }
 
     public void AddLinearAcceleration(VelocityType id, Vector2 AccelerationVector)

@@ -7,8 +7,8 @@ public class ObjectSpawnPosition : SpawnPosition {
 
     public override void Spawn()
     {
-        float stageMultiplyer = ((float)GameManager.Instance.StageNum / (float)GameManager.Instance.MaxStageNum);
-        if (Random.value < 1 - (chanceToSpawn + stageMultiplyer))
+        float stageMultiplyer = (float)GameManager.Instance.StageNum / (float)GameManager.Instance.MaxStageNum;
+        if (Random.value > chanceToSpawn * stageMultiplyer)
         {
             for(int i = 0; i < transform.childCount; i++)
             {

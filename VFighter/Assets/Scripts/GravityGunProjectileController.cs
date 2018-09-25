@@ -32,6 +32,11 @@ public class GravityGunProjectileController : MonoBehaviour {
 
             if(gravityObjectRB.Owner != Owner && gravityObjectRB.CanBeSelected)
             {
+                if(gravityObjectRB is ControllableGravityObjectRigidBody)
+                {
+                    (gravityObjectRB as ControllableGravityObjectRigidBody).StepMultiplier();
+                }
+
                 gravityObjectRB.Owner = Owner;
                 Owner.AttachGORB(gravityObjectRB);
                 Owner.IsCoolingDown = true;
