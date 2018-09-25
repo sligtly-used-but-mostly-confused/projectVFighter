@@ -24,9 +24,9 @@ public class ControllerSelectManager : MonoBehaviour {
                 int matIndex = (int)(Random.value * (_playerMaterials.Count - 1));
                 Material mat = _playerMaterials[matIndex];
                 _playerMaterials.RemoveAt(matIndex);
-                Player player = new Player(inputDevice, mat);
-                sadasdasd
-                    //make an add keyboard player
+                bool isKeyboard = inputDevice is KeyboardMouseInputDevice;
+                Player player = new Player(inputDevice, mat, isKeyboard);
+
                 PlayerManager.Instance.AddPlayer(player);
                 readyControllers.Add(inputDevice, false);
             }  

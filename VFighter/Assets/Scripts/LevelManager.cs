@@ -14,7 +14,9 @@ public class LevelManager : MonoBehaviour
     [SerializeField]
     private List<SpawnPosition> _spawnPositions;
     [SerializeField]
-    private GameObject GamepadPlayerControllerPrefab;
+    private GameObject _gamepadPlayerControllerPrefab;
+    [SerializeField]
+    private GameObject _keyboardPlayerControllerPrefab;
     [SerializeField]
     private bool _startNextLevelWinCondition = true;
     void Awake()
@@ -52,7 +54,19 @@ public class LevelManager : MonoBehaviour
         int index = (int)(Random.value * (_spawnPositions.Count - 1));
         SpawnPosition position = _spawnPositions[index];
         _spawnPositions.RemoveAt(index);
-        var playerObj = Instantiate(GamepadPlayerControllerPrefab);
+
+        GameObject playerObj = null;
+
+        if(player.IsKeyboardPlayer)
+        {
+            playerObj = Instantiate(_keyboardPlayerControllerPrefab);
+        }
+        else
+        {
+            playerObj = Instantiate(_gamepadPlayerControllerPrefab);
+        }
+            
+
         playerObj.GetComponent<PlayerController>().Init(player, position.transform);
         Players.Add(playerObj.GetComponent<PlayerController>());
     }

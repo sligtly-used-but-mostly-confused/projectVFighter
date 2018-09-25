@@ -584,7 +584,9 @@ MonoBehaviour:
   - {fileID: 1055669993}
   - {fileID: 2075442567}
   - {fileID: 1586884416}
-  GamepadPlayerControllerPrefab: {fileID: 1503121510406556, guid: 9807f3b1172b88243a7ae3da48d1d3a4,
+  _gamepadPlayerControllerPrefab: {fileID: 1503121510406556, guid: 9807f3b1172b88243a7ae3da48d1d3a4,
+    type: 2}
+  _keyboardPlayerControllerPrefab: {fileID: 1865601022989246, guid: 58fb49fb4a9055343934f6f995dac95a,
     type: 2}
   _startNextLevelWinCondition: 0
 --- !u!4 &707236919
