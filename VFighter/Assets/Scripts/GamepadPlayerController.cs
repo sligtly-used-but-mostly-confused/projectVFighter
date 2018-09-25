@@ -16,7 +16,7 @@ public class GamepadPlayerController : PlayerController {
 
         float rightSitckX = inputDevice.GetAxisRaw(MappedAxis.AimX);
         float rightSitckY = inputDevice.GetAxisRaw(MappedAxis.AimY);
-
+        
         Vector2 aimDir = new Vector2(rightSitckX, rightSitckY);
         AimReticle(aimDir);
         
