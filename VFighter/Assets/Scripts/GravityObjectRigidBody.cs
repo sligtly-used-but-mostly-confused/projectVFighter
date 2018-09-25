@@ -162,9 +162,7 @@ public class GravityObjectRigidBody : MonoBehaviour {
         {
             tempVel = tempVel.normalized * maxComponentSpeed.magnitude;
         }
-        
-        //var xVel = Mathf.Clamp(tempVel.x, -maxComponentSpeed.x, maxComponentSpeed.x);
-        //var yVel = Mathf.Clamp(tempVel.y, -maxComponentSpeed.y, maxComponentSpeed.y);
+
         _velocities[id] = tempVel;
     }
 
