@@ -6,7 +6,7 @@ using UnityEngine;
 public class Player {
 
     [SerializeField]
-    public int InputDeviceIndex = 0;
+    public InputDevice PairedInputDevice;
     [SerializeField]
     public Material PlayerMaterial;
     [SerializeField]
@@ -16,9 +16,12 @@ public class Player {
     [SerializeField]
     public int NumDeaths = 0;
 
-
-    public Player(int inputDeviceIndex)
+    public Player(InputDevice pairedInputDevice, Material playerMaterial, bool isKeyboardPlayer = false, int numWins = 0, int numDeaths = 0)
     {
-        this.InputDeviceIndex = inputDeviceIndex;
+        PairedInputDevice = pairedInputDevice;
+        PlayerMaterial = playerMaterial;
+        IsKeyboardPlayer = isKeyboardPlayer;
+        NumWins = numWins;
+        NumDeaths = numDeaths;
     }
 }

@@ -16,5 +16,6 @@ public enum MappedButton
     ShootGravGun,
     Jump,
     ChangeGrav,
-    Dash
+    Dash,
+    Ready
 }

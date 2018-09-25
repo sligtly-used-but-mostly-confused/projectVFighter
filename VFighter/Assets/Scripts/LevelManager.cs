@@ -15,9 +15,15 @@ public class LevelManager : MonoBehaviour
     private List<SpawnPosition> _spawnPositions;
     [SerializeField]
     private GameObject GamepadPlayerControllerPrefab;
-
+    [SerializeField]
+    private bool _startNextLevelWinCondition = true;
     void Awake()
     {
+        if(_instance)
+        {
+            Destroy(_instance.gameObject);
+        }
+
         _instance = this;
     }
 
@@ -29,7 +35,7 @@ public class LevelManager : MonoBehaviour
     private void Update()
     {
         var alive = Players.Where(x => !x.IsDead);
-        if (alive.Count() <= 1)
+        if (_startNextLevelWinCondition && alive.Count() <= 1)
         {
             if(alive.Count() > 0)
             {
@@ -41,19 +47,23 @@ public class LevelManager : MonoBehaviour
         }
     }
 
+    public void SpawnPlayer(Player player)
+    {
+        int index = (int)(Random.value * (_spawnPositions.Count - 1));
+        SpawnPosition position = _spawnPositions[index];
+        _spawnPositions.RemoveAt(index);
+        var playerObj = Instantiate(GamepadPlayerControllerPrefab);
+        playerObj.GetComponent<PlayerController>().Init(player, position.transform);
+        Players.Add(playerObj.GetComponent<PlayerController>());
+    }
+
     private void Init()
     {
         _spawnPositions = new List<SpawnPosition>(FindObjectsOfType<PlayerSpawnPosition>());
 
         foreach (var player in PlayerManager.Instance.Players)
         {
-            int index = (int)(Random.value * (_spawnPositions.Count - 1));
-            SpawnPosition position = _spawnPositions[index];
-            _spawnPositions.RemoveAt(index);
-            var playerObj = Instantiate(GamepadPlayerControllerPrefab);
-            playerObj.GetComponent<PlayerController>().Init(player, position);
-
-            Players.Add(playerObj.GetComponent<PlayerController>());
+            SpawnPlayer(player);
         }
 
         var objectSpawns = new List<SpawnPosition>(FindObjectsOfType<ObjectSpawnPosition>());

@@ -24,6 +24,7 @@ public abstract class InputDevice : MonoBehaviour
 	protected float axisButtonActivateThreshold = 0.4f;
 	protected float sensitivity = 3;
 	protected float lastKeyPressTime;
+    protected Dictionary<MappedAxis, List<float>> PastAxisVals = new Dictionary<MappedAxis, List<float>>();
 
     public Vector3 Center; 
 
@@ -149,6 +150,29 @@ public abstract class InputDevice : MonoBehaviour
 		return currentVal;
 	}
 
+    public virtual bool GetIsAxisTapped(MappedAxis axis)
+    {
+        float val = GetAxis(axis);
+
+        if (!PastAxisVals.ContainsKey(axis))
+        {
+            PastAxisVals.Add(axis, new List<float>());
+        }
+
+        PastAxisVals[axis].Add(val);
+
+        if (PastAxisVals[axis].Count > 3)
+        {
+            PastAxisVals[axis].RemoveAt(0);
+        }
+
+        if (PastAxisVals[axis].Count < 3)
+        {
+            return false;
+        }
+
+        return PastAxisVals[axis][0] >= PastAxisVals[axis][1] && PastAxisVals[axis][1] < PastAxisVals[axis][2];
+    }
 }
 
 public enum AxisDirection

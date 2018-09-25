@@ -20,4 +20,10 @@ public class PlayerManager : MonoBehaviour
         _instance = this;
         DontDestroyOnLoad(gameObject);
     }
+
+    public void AddPlayer(Player player)
+    {
+        Players.Add(player);
+        LevelManager.Instance.SpawnPlayer(player);
+    }
 }
