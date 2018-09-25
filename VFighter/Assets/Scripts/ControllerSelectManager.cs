@@ -1,18 +1,38 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ControllerSelectManager : MonoBehaviour {
+
+    private static ControllerSelectManager _instance;
+    public static ControllerSelectManager Instance { get { return _instance; } }
 
     [SerializeField]
     private List<Material> _playerMaterials = new List<Material>();
 
     [SerializeField]
     private List<InputDevice> _usedDevices = new List<InputDevice>();
+    [SerializeField]
+    private bool _isWaitingForReady = true;
 
     private Dictionary<InputDevice, bool> readyControllers = new Dictionary<InputDevice, bool>();
-    
-	void Update () {
+
+
+
+    private void Awake()
+    {
+        if(_instance)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        _instance = this;
+        DontDestroyOnLoad(gameObject);
+    }
+
+    void Update () {
         
 		foreach(var inputDevice in MappedInput.InputDevices)
         {
@@ -32,12 +52,31 @@ public class ControllerSelectManager : MonoBehaviour {
             }  
         }
 
+        if (CheckForPlayerReady())
+        {
+            _isWaitingForReady = false;
+            foreach (var usedInput in _usedDevices)
+            {
+                readyControllers[usedInput] = false;
+            }
+
+            GameManager.Instance.StartGame("SpringLevel", 10);
+        }
+    }
+
+    public void Init()
+    {
+        _isWaitingForReady = true;
+    }
+
+    private bool CheckForPlayerReady()
+    {
         bool allplayersReady = _usedDevices.Count > 1;
 
-        foreach(var usedInput in _usedDevices)
+        foreach (var usedInput in _usedDevices)
         {
             var readyPressed = usedInput.GetButtonDown(MappedButton.Ready);
-            if(readyPressed)
+            if (readyPressed)
             {
                 readyControllers[usedInput] = !readyControllers[usedInput];
             }
@@ -45,11 +84,6 @@ public class ControllerSelectManager : MonoBehaviour {
             allplayersReady &= readyControllers[usedInput];
         }
 
-        if(allplayersReady)
-        {
-            Debug.Log("ready");
-        }
-
-        //Debug.Log(MappedInput.ActiveDevice.name);
-	}
+        return allplayersReady;
+    }
 }

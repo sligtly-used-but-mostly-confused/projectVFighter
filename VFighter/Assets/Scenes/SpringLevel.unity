@@ -1037,6 +1037,18 @@ Prefab:
       propertyPath: m_RootOrder
       value: 12
       objectReference: {fileID: 0}
+    - target: {fileID: 114657139503209278, guid: 0c9a1517dd2ebba4cbbed10d6a04200c,
+        type: 2}
+      propertyPath: _keyboardPlayerControllerPrefab
+      value: 
+      objectReference: {fileID: 1865601022989246, guid: 58fb49fb4a9055343934f6f995dac95a,
+        type: 2}
+    - target: {fileID: 114657139503209278, guid: 0c9a1517dd2ebba4cbbed10d6a04200c,
+        type: 2}
+      propertyPath: _gamepadPlayerControllerPrefab
+      value: 
+      objectReference: {fileID: 1503121510406556, guid: 9807f3b1172b88243a7ae3da48d1d3a4,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0c9a1517dd2ebba4cbbed10d6a04200c, type: 2}
   m_IsPrefabAsset: 0

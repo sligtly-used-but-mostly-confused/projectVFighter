@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour {
     public int StageNum = 0;
     public int MaxStageNum { get { return StageSceneNames.Count; } }
 
-    private const string LevelSelect = "LevelSelect";
+    private const string LevelSelect = "ControllerSelect";
 
     void Awake () {
         if(_instance)
@@ -25,11 +25,22 @@ public class GameManager : MonoBehaviour {
         DontDestroyOnLoad(this);
 	}
 
+    public void StartGame(string levelName, int numStages)
+    {
+        for(int i = 0; i < numStages; i++)
+        {
+            StageSceneNames.Add(levelName);
+        }
+
+        SceneManager.LoadScene(levelName);
+    }
+
     public void LoadNextStage()
     {
         StageNum++;
         if(StageNum > StageSceneNames.Count)
         {
+            ControllerSelectManager.Instance.Init();
             SceneManager.LoadScene(LevelSelect);
             return;
         }
