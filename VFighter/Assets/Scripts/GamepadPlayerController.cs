@@ -18,7 +18,6 @@ public class GamepadPlayerController : PlayerController {
         float rightSitckY = inputDevice.GetAxisRaw(MappedAxis.AimY);
 
         Vector2 aimDir = new Vector2(rightSitckX, rightSitckY);
-        //Debug.Log(aimDir + " pre");
         AimReticle(aimDir);
         
         if(IsAxisTapped(MappedAxis.ChangeGrav) && inputDevice.GetAxis(MappedAxis.ChangeGrav) > 0)
@@ -28,7 +27,6 @@ public class GamepadPlayerController : PlayerController {
         
         if (IsAxisTapped(MappedAxis.ShootGravGun) && aimDir.magnitude > 0)
         {
-            Debug.Log(aimDir);
             ShootGravityGun(aimDir);
         }
 

@@ -23,7 +23,6 @@ public class TeleportZoneController : MonoBehaviour {
                 StartCoolDown();
                 TeleportTo.StartCoolDown();
             }
-
         }
     }
 

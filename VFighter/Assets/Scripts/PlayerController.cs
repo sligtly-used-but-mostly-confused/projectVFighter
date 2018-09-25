@@ -107,22 +107,18 @@ public abstract class PlayerController : MonoBehaviour {
     {
         var aimParent = AimingReticle.transform.parent;
         var normalizedDir = dir.normalized;
-        //Debug.Log("aim " + normalizedDir + " " + dir);
         AimingReticle.transform.position = aimParent.position + new Vector3(normalizedDir.x, normalizedDir.y, 0);
-        //AimingReticle.transform.localPosition = dir.normalized * 2;
     }
 
     public void ShootGravityGun(Vector2 dir)
     {
         dir = dir.normalized;
-        //Debug.Log(dir);
         if (!IsCoolingDown)
         {
             if(AttachedObject == null)
             {
                 GameObject projectileClone = (GameObject)Instantiate(Projectile, AimingReticle.transform.position, AimingReticle.transform.rotation);
                 projectileClone.GetComponent<GravityGunProjectileController>().Owner = this;
-                //projectileClone.GetComponent<Rigidbody2D>().velocity = dir * ShootSpeed;
                 projectileClone.GetComponent<GravityObjectRigidBody>().UpdateVelocity(VelocityType.OtherPhysics, dir * ShootSpeed);
                 projectileClone.GetComponent<Renderer>().material = ControlledPlayer.PlayerMaterial;
                 StartGravGunCoolDown();

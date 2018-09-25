@@ -98,8 +98,6 @@ public class GravityObjectRigidBody : MonoBehaviour {
 
         foreach (var velocity in _velocities)
         {
-            //if(velocity.Key == VelocityType.OtherPhysics)
-            //    Debug.Log(velocity.Key + " : " + velocity.Value);
             _rB.velocity += velocity.Value;
         }
     }
@@ -143,9 +141,6 @@ public class GravityObjectRigidBody : MonoBehaviour {
         }
 
         _velocities[id] = vel;
-
-        //if (VelocityType.OtherPhysics == id)
-        //    Debug.Log(_velocities[id]);
     }
 
     public Vector2 GetMaxComponentVelocity(VelocityType type)
@@ -166,8 +161,6 @@ public class GravityObjectRigidBody : MonoBehaviour {
         var xVel = Mathf.Clamp(tempVel.x, -maxComponentSpeed.x, maxComponentSpeed.x);
         var yVel = Mathf.Clamp(tempVel.y, -maxComponentSpeed.y, maxComponentSpeed.y);
         _velocities[id] = new Vector2(xVel, yVel);
-        if (VelocityType.OtherPhysics == id)
-            Debug.Log(_velocities[id]);
     }
 
     public void AddLinearAcceleration(VelocityType id, Vector2 AccelerationVector)
