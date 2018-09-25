@@ -1,8 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using MLAgents;
 
-public class AIAcademy : Academy {
-
+public class PlayerSpawnPosition : SpawnPosition {
 }

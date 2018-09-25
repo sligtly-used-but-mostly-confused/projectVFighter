@@ -1,6 +1,18 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
+
+
+[Serializable]
+public struct VelocityTypePair
+{
+    [SerializeField]
+    public VelocityType type;
+    [SerializeField]
+    public Vector2 Velocity;
+}
 
 public enum VelocityType
 {
@@ -22,7 +34,9 @@ public class GravityObjectRigidBody : MonoBehaviour {
     [SerializeField]
     private Vector2 _gravityDirection = Vector2.down;
     [SerializeField]
-    private Vector2 _maxComponentSpeed = new Vector2(10f, 10f);
+    private Vector2 _maxDefaultComponentSpeed = new Vector2(10f, 10f);
+    [SerializeField]
+    private List<VelocityTypePair> _maxComponentSpeeds;
     [SerializeField]
     private bool _stopObjectOnCollide = true;
     [SerializeField]
@@ -37,6 +51,7 @@ public class GravityObjectRigidBody : MonoBehaviour {
 
     public PlayerController Owner;
 
+    private Dictionary<VelocityType, Vector2> _maxComponentVelocities = new Dictionary<VelocityType, Vector2>();
     private Dictionary<VelocityType, Vector2> _velocities = new Dictionary<VelocityType, Vector2>();
 
     private Rigidbody2D _rB;
@@ -59,16 +74,11 @@ public class GravityObjectRigidBody : MonoBehaviour {
         private set { _id = value; }
     }
 
-    public Vector2 MaxComponentSpeed
-    {
-        get{return _maxComponentSpeed;}
-        set{_maxComponentSpeed = value;}
-    }
-
     private void Awake()
     {
         _id = _idCnt++;
         _rB = GetComponent<Rigidbody2D>();
+        _maxComponentSpeeds.ForEach(x => _maxComponentVelocities.Add(x.type, x.Velocity));
     }
 
     void Start () {
@@ -110,7 +120,7 @@ public class GravityObjectRigidBody : MonoBehaviour {
     private void DoGravity()
     {
         GetComponent<Rigidbody2D>().gravityScale = 0;
-        AddLinearAcceleration(VelocityType.Gravity, GravityDirection * GravityScale * 9.81f);
+        AddVelocity(VelocityType.Gravity, GravityDirection * GravityScale * 9.81f);
     }
 
     public Vector2 GetVelocity(VelocityType id)
@@ -133,12 +143,23 @@ public class GravityObjectRigidBody : MonoBehaviour {
         _velocities[id] = vel;
     }
 
+    public Vector2 GetMaxComponentVelocity(VelocityType type)
+    {
+        if(!_maxComponentVelocities.ContainsKey(type))
+        {
+            _maxComponentVelocities.Add(type, _maxDefaultComponentSpeed);
+        }
+
+        return _maxComponentVelocities[type];
+    }
+
     public void AddVelocity(VelocityType id, Vector2 velocityVector)
     {
         var velocityDelta = velocityVector;
         var tempVel = GetVelocity(id) + velocityDelta;
-        var xVel = Mathf.Clamp(tempVel.x, -MaxComponentSpeed.x, MaxComponentSpeed.x);
-        var yVel = Mathf.Clamp(tempVel.y, -MaxComponentSpeed.y, MaxComponentSpeed.y);
+        var maxComponentSpeed = GetMaxComponentVelocity(id);
+        var xVel = Mathf.Clamp(tempVel.x, -maxComponentSpeed.x, maxComponentSpeed.x);
+        var yVel = Mathf.Clamp(tempVel.y, -maxComponentSpeed.y, maxComponentSpeed.y);
         _velocities[id] = new Vector2(xVel, yVel);
     }
 
@@ -174,11 +195,11 @@ public class GravityObjectRigidBody : MonoBehaviour {
             }
 
             vel = Vector2.Reflect(vel, normal.normalized);
-            Debug.Log(name +" " + vel * collision.gameObject.GetComponent<GravityObjectRigidBody>().Bounciness);
+            //Debug.Log(name +" " + vel * collision.gameObject.GetComponent<GravityObjectRigidBody>().Bounciness);
             var thisMass = _rB.mass;
             var otherMass = collision.rigidbody.mass;
-            Debug.Log(thisMass + " " + otherMass);
-            Debug.Log(1 - (thisMass / (thisMass + otherMass)));
+            //Debug.Log(thisMass + " " + otherMass);
+            //Debug.Log(1 - (thisMass / (thisMass + otherMass)));
             var reflectionCoef = collision.gameObject.GetComponent<GravityObjectRigidBody>().Bounciness * (1 - (thisMass / (thisMass + otherMass)));
             var reflectionVec = vel * reflectionCoef;
             UpdateVelocity(VelocityType.OtherPhysics, reflectionVec);

@@ -8,34 +8,32 @@ public class GameManager : MonoBehaviour {
     private static GameManager _instance;
     public static GameManager Instance { get { return _instance; } }
 
-    public List<PlayerController> players;
+    public List<string> StageSceneNames = new List<string>();
 
-	void Awake () {
+    public int StageNum = 0;
+    public int MaxStageNum { get { return StageSceneNames.Count; } }
+
+    private const string LevelSelect = "LevelSelect";
+
+    void Awake () {
+        if(_instance)
+        {
+            Destroy(gameObject);
+            return;
+        }
         _instance = this;
+        DontDestroyOnLoad(this);
 	}
 
-    private void Start()
+    public void LoadNextStage()
     {
-        Init();
-    }
-
-    private void Update()
-    {
-        var alive = players.Where(x => !x.IsDead);
-        if (alive.Count() <= 1)
+        StageNum++;
+        if(StageNum > StageSceneNames.Count)
         {
-            //Debug.Log(alive.First()?.name + " won");
-            ResetLevel();
+            SceneManager.LoadScene(LevelSelect);
+            return;
         }
+        SceneManager.LoadScene(StageSceneNames[StageNum]);
     }
 
-    private void Init()
-    {
-        players = new List<PlayerController>(GameObject.FindObjectsOfType<PlayerController>());
-    }
-
-    public void ResetLevel()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-    }
 }

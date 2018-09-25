@@ -258,10 +258,16 @@ MonoBehaviour:
   _id: 0
   _gravityScale: 10
   _gravityDirection: {x: 0, y: -1}
-  _maxComponentSpeed: {x: 10, y: 10}
+  _maxDefaultComponentSpeed: {x: 10, y: 10}
+  _maxComponentSpeeds:
+  - type: 3
+    Velocity: {x: 30, y: 30}
   _stopObjectOnCollide: 0
   _dashDecay: 2
-  _drag: 1
+  _drag: 0.5
+  Bounciness: 0
+  CanBeSelected: 1
+  KillsPlayer: 1
   Owner: {fileID: 114105182756240840}
 --- !u!114 &114105182756240840
 MonoBehaviour:
@@ -284,13 +290,17 @@ MonoBehaviour:
   ImpulseToKill: 0
   Projectile: {fileID: 1553312605624202, guid: 7b549a10b0a7a4de4843efb95d3176eb, type: 2}
   AimingReticle: {fileID: 1816439501200690}
-  ObjectMaterial: {fileID: 2100000, guid: 9deecdb4676371249b7f95020c639f94, type: 2}
   DashSpeed: 15
-  IsDead: 0
+  ControlledPlayer:
+    InputDeviceIndex: 0
+    PlayerMaterial: {fileID: 0}
+    IsKeyboardPlayer: 0
+    NumWins: 0
+    NumDeaths: 0
   IsCoolingDown: 0
   IsChangeGravityCoolingDown: 0
   IsDashCoolingDown: 0
-  _inputDevice: 3
+  IsDead: 0
 --- !u!135 &135684991341674584
 SphereCollider:
   m_ObjectHideFlags: 1

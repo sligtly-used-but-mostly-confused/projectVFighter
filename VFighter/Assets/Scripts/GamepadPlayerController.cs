@@ -3,20 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class GamepadPlayerController : PlayerController {
-    [SerializeField]
-    private int _inputDevice = 2;
-
     InputDevice inputDevice;
     private float _triggerDeadZone;
     Dictionary<MappedAxis,List<float>> TriggerPastVals = new Dictionary<MappedAxis, List<float>>();
 
-    private void Start()
-    {
-        inputDevice = MappedInput.InputDevices[_inputDevice];
-    }
-
     void Update()
     {
+        inputDevice = MappedInput.InputDevices[ControlledPlayer.InputDeviceIndex];
+
         float leftStickX = inputDevice.GetAxis(MappedAxis.Horizontal);
         Move(leftStickX);
 
