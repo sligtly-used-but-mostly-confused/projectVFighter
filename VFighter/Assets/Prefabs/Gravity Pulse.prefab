@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 58287978842296966}
   - component: {fileID: 23482721982424950}
   - component: {fileID: 33787588076467418}
+  - component: {fileID: 114963179985704802}
   m_Layer: 0
   m_Name: Gravity Pulse
   m_TagString: Untagged
@@ -38,7 +39,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1553312605624202}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.3474276, y: -1.4299546, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -133,4 +134,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _secondsUntilDestory: 2
+  Owner: {fileID: 0}
+--- !u!114 &114963179985704802
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1553312605624202}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72e227611bd16ec43923854f771b221f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _id: 0
+  _gravityScale: 1
+  _gravityDirection: {x: 0, y: 0}
+  _maxDefaultComponentSpeed: {x: 10, y: 10}
+  _maxComponentSpeeds: []
+  _stopObjectOnCollide: 0
+  _dashDecay: 1
+  _drag: 0
+  Bounciness: 0
+  CanBeSelected: 0
+  KillsPlayer: 0
   Owner: {fileID: 0}
