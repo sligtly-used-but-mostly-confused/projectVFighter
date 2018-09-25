@@ -29,12 +29,11 @@ public abstract class PlayerController : MonoBehaviour {
     protected GameObject AimingReticle;
     [SerializeField]
     protected float DashSpeed = 10f;
-    [SerializeField]
-    protected Player ControlledPlayer;
-    
 
     protected readonly Vector2[] _gravChangeDirections = {Vector2.up, Vector2.down };
     protected readonly Vector2[] _gravChangeDirectionsForThrownObject = { Vector2.up, Vector2.down, Vector2.left, Vector2.right };
+
+    public Player ControlledPlayer;
 
     public bool IsCoolingDown = false;
     public bool IsChangeGravityCoolingDown = false;
@@ -42,7 +41,6 @@ public abstract class PlayerController : MonoBehaviour {
     public bool IsDead;
 
     private List<GameObject> GravityGunProjectiles = new List<GameObject>();
-
     private Coroutine GravGunCoolDownCoroutine;
 
     public virtual void Init(Player player, SpawnPosition spawnPosition)

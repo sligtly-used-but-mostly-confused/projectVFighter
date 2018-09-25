@@ -32,7 +32,15 @@ public class LevelManager : MonoBehaviour
         if (alive.Count() <= 1)
         {
             //Debug.Log(alive.First()?.name + " won");
-            ResetLevel();
+            if(alive.Count() > 0)
+            {
+                alive.First().ControlledPlayer.NumWins++;
+            }
+
+            Players.Where(x => x.IsDead).ToList().ForEach(x => x.ControlledPlayer.NumDeaths++);
+            
+            //ResetLevel();
+            GameManager.Instance.LoadNextStage();
         }
     }
 
@@ -49,6 +57,15 @@ public class LevelManager : MonoBehaviour
             playerObj.GetComponent<PlayerController>().Init(player, position);
 
             Players.Add(playerObj.GetComponent<PlayerController>());
+        }
+
+        float chanceToSpawn = .5f;
+
+        var objectSpawns = new List<SpawnPosition>(FindObjectsOfType<ObjectSpawnPosition>());
+
+        foreach(var objectSpawn in objectSpawns)
+        {
+            objectSpawn.Spawn();
         }
     }
 

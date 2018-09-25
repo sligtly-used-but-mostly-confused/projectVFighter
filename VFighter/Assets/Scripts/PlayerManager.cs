@@ -11,6 +11,12 @@ public class PlayerManager : MonoBehaviour
 
     void Awake()
     {
+        if(_instance)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
         _instance = this;
         DontDestroyOnLoad(gameObject);
     }

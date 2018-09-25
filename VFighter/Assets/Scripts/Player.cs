@@ -10,7 +10,11 @@ public class Player {
     [SerializeField]
     public Material PlayerMaterial;
     [SerializeField]
-    public bool IsKeyboardPlayer;
+    public bool IsKeyboardPlayer = false;
+    [SerializeField]
+    public int NumWins = 0;
+    [SerializeField]
+    public int NumDeaths = 0;
 
 
     public Player(int inputDeviceIndex)
