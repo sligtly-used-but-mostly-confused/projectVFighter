@@ -32,13 +32,19 @@ public class GravityGunProjectileController : MonoBehaviour {
 
             if(gravityObjectRB.Owner != Owner && gravityObjectRB.CanBeSelected)
             {
+                var condPlat = gravityObjectRB.GetComponentInParent<ConductivePlatformController>();
+                if (condPlat){
+
+                    condPlat.charge();
+                }
+
                 if(gravityObjectRB is ControllableGravityObjectRigidBody)
                 {
                     (gravityObjectRB as ControllableGravityObjectRigidBody).StepMultiplier();
+                    gravityObjectRB.Owner = Owner;
+                    Owner.AttachGORB(gravityObjectRB);
                 }
 
-                gravityObjectRB.Owner = Owner;
-                Owner.AttachGORB(gravityObjectRB);
                 Owner.IsCoolingDown = true;
                 Owner.StartGravGunCoolDown();
                 Owner.DestroyAllGravGunProjectiles();
