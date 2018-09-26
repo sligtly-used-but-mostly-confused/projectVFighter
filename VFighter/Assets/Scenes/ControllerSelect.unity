@@ -635,6 +635,8 @@ MonoBehaviour:
   - {fileID: 2100000, guid: c15c4b8059261441fa6ac72c71454e30, type: 2}
   - {fileID: 2100000, guid: d1a34e5e47473784cbc28a97a06f2299, type: 2}
   _usedDevices: []
+  _isWaitingForReady: 1
+  numLivesPerPlayer: 5
 --- !u!4 &636215035
 Transform:
   m_ObjectHideFlags: 0
