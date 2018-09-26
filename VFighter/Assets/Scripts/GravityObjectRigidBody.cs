@@ -40,7 +40,7 @@ public class GravityObjectRigidBody : MonoBehaviour {
     [SerializeField]
     private bool _stopObjectOnCollide = true;
     [SerializeField]
-    private float _dashDecay = 1f;
+    private float _timeToDashStop = 1f;
     [SerializeField]
     private float _drag = 1f;
 
@@ -87,7 +87,6 @@ public class GravityObjectRigidBody : MonoBehaviour {
 	
 	void FixedUpdate () {
         DoGravity();
-        DashDecay();
         DoDrag();
         ProcessVelocity();
 	}
@@ -107,14 +106,6 @@ public class GravityObjectRigidBody : MonoBehaviour {
         Vector2 vel = GetVelocity(VelocityType.OtherPhysics);
         vel *= 1 - _drag;
         UpdateVelocity(VelocityType.OtherPhysics, vel);
-    }
-
-    private void DashDecay()
-    {
-        Vector2 dashVel = GetVelocity(VelocityType.Dash);
-        var deltaPerSecond = dashVel * _dashDecay;
-        var deltaPerTick = deltaPerSecond * Time.fixedDeltaTime;
-        UpdateVelocity(VelocityType.Dash, dashVel - deltaPerTick);
     }
 
     private void DoGravity()
@@ -183,6 +174,28 @@ public class GravityObjectRigidBody : MonoBehaviour {
     public void ChangeGravityScale(float newGravityScale)
     {
         GravityScale = newGravityScale;
+    }
+
+    public void Dash(Vector2 dashVec)
+    {
+        StartCoroutine(StartDash(dashVec));
+    }
+
+    private IEnumerator StartDash(Vector2 dashVec)
+    {
+        ClearAllVelocities();
+        UpdateVelocity(VelocityType.Dash, dashVec);
+        yield return new WaitForSeconds(_timeToDashStop);
+        ClearAllVelocities();
+    }
+
+    private void ClearAllVelocities()
+    {
+        var velKeys = _velocities.Keys.ToList();
+        for(int i = 0; i < velKeys.Count; i++)
+        {
+            UpdateVelocity(velKeys[i], Vector2.zero);
+        }
     }
 
     void OnCollisionEnter2D(Collision2D collision)

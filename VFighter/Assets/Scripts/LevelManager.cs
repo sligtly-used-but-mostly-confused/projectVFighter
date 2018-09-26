@@ -10,7 +10,7 @@ public class LevelManager : MonoBehaviour
     public static LevelManager Instance { get { return _instance; } }
 
     public List<PlayerController> Players;
-
+    public bool PlayersCanDieInThisLevel = true;
     [SerializeField]
     private List<SpawnPosition> _spawnPositions;
     [SerializeField]
@@ -19,7 +19,7 @@ public class LevelManager : MonoBehaviour
     private GameObject _keyboardPlayerControllerPrefab;
     [SerializeField]
     private bool _startNextLevelWinCondition = true;
-
+    
     void Awake()
     {
         if(_instance)

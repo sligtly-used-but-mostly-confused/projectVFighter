@@ -263,7 +263,7 @@ MonoBehaviour:
   - type: 3
     Velocity: {x: 30, y: 30}
   _stopObjectOnCollide: 0
-  _dashDecay: 2
+  _timeToDashStop: 0.125
   _drag: 0.5
   Bounciness: 0
   CanBeSelected: 1
@@ -283,20 +283,21 @@ MonoBehaviour:
   AttachedObject: {fileID: 0}
   RechargeTime: 0.4
   ChangeGravityRechargeTime: 0
-  DashCoolDownTime: 1
+  DashCoolDownTime: 0.5
   MoveSpeed: 10
   ShootSpeed: 10
   JumpForce: 10
   ImpulseToKill: 0
   Projectile: {fileID: 1553312605624202, guid: 7b549a10b0a7a4de4843efb95d3176eb, type: 2}
   AimingReticle: {fileID: 1816439501200690}
-  DashSpeed: 15
+  DashSpeed: 30
   ControlledPlayer:
-    InputDeviceIndex: 0
+    PairedInputDevice: {fileID: 0}
     PlayerMaterial: {fileID: 0}
     IsKeyboardPlayer: 0
     NumWins: 0
     NumDeaths: 0
+    NumLives: 0
   IsCoolingDown: 0
   IsChangeGravityCoolingDown: 0
   IsDashCoolingDown: 0
