@@ -23,7 +23,7 @@ public class GravityGunProjectileController : MonoBehaviour {
         {
             if(collision.GetComponent<PlayerController>())
             {
-                gravityObjectRB.ChangeGravityDirection(Vector2.zero);
+                collision.GetComponent<PlayerController>().FlipGravity();
                 Owner.IsCoolingDown = true;
                 Owner.StartGravGunCoolDown();
                 Owner.DestroyAllGravGunProjectiles();
