@@ -678,6 +678,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Players: []
+  PlayersCanDieInThisLevel: 0
   _spawnPositions:
   - {fileID: 36417628}
   - {fileID: 1055669993}
