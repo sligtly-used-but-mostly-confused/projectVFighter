@@ -197,12 +197,15 @@ public abstract class PlayerController : MonoBehaviour {
         {
             if(collision.collider.GetComponent<PlayerController>())
             {
-                Debug.Log("double kill");
                 if(IsDashCoolingDown)
                 {
-                    //dont kil because we dashed into this
+                    //kill the other player
+                    collision.collider.GetComponent<PlayerController>().Kill();
                     return;
                 }
+
+                //dont kill if we run into another player
+                return;
             }
             Kill();
         }
