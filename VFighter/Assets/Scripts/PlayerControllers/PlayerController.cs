@@ -45,11 +45,26 @@ public abstract class PlayerController : MonoBehaviour {
 
     public virtual void Init(Player player, Transform spawnPosition)
     {
-        GetComponent<GravityObjectRigidBody>().ChangeGravityDirection(Vector2.zero);
         ControlledPlayer = player;
         transform.position = spawnPosition.transform.position;
         GetComponent<Renderer>().material = ControlledPlayer.PlayerMaterial;
         AimingReticle.GetComponent<Renderer>().material = ControlledPlayer.PlayerMaterial;
+        GetComponent<GravityObjectRigidBody>().ChangeGravityDirection(FindDirToClosestWall());
+    }
+
+    public Vector2 FindDirToClosestWall()
+    {
+        int layerMask = LayerMask.GetMask("Wall");
+        var upHit = Physics2D.Raycast(transform.position, Vector2.up, layerMask);
+        var downHit = Physics2D.Raycast(transform.position, Vector2.down, layerMask);
+        if(upHit.distance < downHit.distance)
+        {
+            return Vector2.up;
+        }
+        else
+        {
+            return Vector2.down;
+        }
     }
 
     protected virtual void Awake()

@@ -125,7 +125,7 @@ GameObject:
   - component: {fileID: 19129048}
   - component: {fileID: 19129047}
   - component: {fileID: 19129046}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: New Sprite (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -713,7 +713,7 @@ GameObject:
   - component: {fileID: 813629748}
   - component: {fileID: 813629747}
   - component: {fileID: 813629746}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: whiteBoxx (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -832,7 +832,7 @@ GameObject:
   - component: {fileID: 996231376}
   - component: {fileID: 996231375}
   - component: {fileID: 996231374}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: whiteBoxx (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1137,7 +1137,7 @@ GameObject:
   - component: {fileID: 1937113427}
   - component: {fileID: 1937113426}
   - component: {fileID: 1937113425}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: New Sprite (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
