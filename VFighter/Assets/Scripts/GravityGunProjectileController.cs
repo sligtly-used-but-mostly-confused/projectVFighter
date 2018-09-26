@@ -21,17 +21,33 @@ public class GravityGunProjectileController : MonoBehaviour {
         var gravityObjectRB = collision.GetComponent<GravityObjectRigidBody>();
         if (gravityObjectRB)
         {
-            if(gravityObjectRB.Owner != Owner)
+            if(collision.GetComponent<PlayerController>())
             {
+                gravityObjectRB.ChangeGravityDirection(Vector2.zero);
+                Owner.IsCoolingDown = true;
+                Owner.StartGravGunCoolDown();
+                Owner.DestroyAllGravGunProjectiles();
+                return;
+            }
+
+            if(gravityObjectRB.Owner != Owner && gravityObjectRB.CanBeSelected)
+            {
+                if(gravityObjectRB is ControllableGravityObjectRigidBody)
+                {
+                    (gravityObjectRB as ControllableGravityObjectRigidBody).StepMultiplier();
+                }
+
                 gravityObjectRB.Owner = Owner;
                 Owner.AttachGORB(gravityObjectRB);
                 Owner.IsCoolingDown = true;
                 Owner.StartGravGunCoolDown();
                 Owner.DestroyAllGravGunProjectiles();
+                return;
             }
             else
             {
                 Destroy(gameObject);
+                return;
             }
         }
     }

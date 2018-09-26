@@ -3,58 +3,60 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class GamepadPlayerController : PlayerController {
-    [SerializeField]
-    private int _inputDevice = 2;
-
     InputDevice inputDevice;
     private float _triggerDeadZone;
-    List<float> TriggerPastVals = new List<float>();
-
-    private void Start()
-    {
-        inputDevice = MappedInput.InputDevices[_inputDevice];
-    }
+    Dictionary<MappedAxis,List<float>> TriggerPastVals = new Dictionary<MappedAxis, List<float>>();
 
     void Update()
     {
-        inputDevice.Center = transform.position;
+        inputDevice = MappedInput.InputDevices[ControlledPlayer.InputDeviceIndex];
+
+        float leftStickX = inputDevice.GetAxis(MappedAxis.Horizontal);
+        Move(leftStickX);
 
         float rightSitckX = inputDevice.GetAxisRaw(MappedAxis.AimX);
         float rightSitckY = inputDevice.GetAxisRaw(MappedAxis.AimY);
-
-        float leftStickX = inputDevice.GetAxis(MappedAxis.Horizontal);
-
-        Move(leftStickX);
-        Vector2 aimDir = new Vector2(rightSitckX, rightSitckY);
         
+        Vector2 aimDir = new Vector2(rightSitckX, rightSitckY);
         AimReticle(aimDir);
         
-        if(inputDevice.GetButtonDown(MappedButton.ChangeGrav))
+        if(IsAxisTapped(MappedAxis.ChangeGrav) && inputDevice.GetAxis(MappedAxis.ChangeGrav) > 0)
         {
             FlipGravity();
         }
-
-        if (IsTriggerTapped(MappedAxis.ShootGravGun) && aimDir.magnitude > 0)
+        
+        if (IsAxisTapped(MappedAxis.ShootGravGun) && aimDir.magnitude > 0)
         {
             ShootGravityGun(aimDir);
         }
+
+        if(inputDevice.GetButtonDown(MappedButton.Dash))
+        {
+            Dash(aimDir);
+        }
     }
 
-    bool IsTriggerTapped(MappedAxis axis)
+    bool IsAxisTapped(MappedAxis axis)
     {
         float val = inputDevice.GetAxis(axis);
-        TriggerPastVals.Add(val);
-
-        if (TriggerPastVals.Count > 3)
+        
+        if(!TriggerPastVals.ContainsKey(axis))
         {
-            TriggerPastVals.RemoveAt(0);
+            TriggerPastVals.Add(axis, new List<float>());
         }
 
-        if(TriggerPastVals.Count < 3)
+        TriggerPastVals[axis].Add(val);
+
+        if (TriggerPastVals[axis].Count > 3)
+        {
+            TriggerPastVals[axis].RemoveAt(0);
+        }
+
+        if(TriggerPastVals[axis].Count < 3)
         {
             return false;
         }
 
-        return TriggerPastVals[0] >= TriggerPastVals[1] && TriggerPastVals[1] < TriggerPastVals[2];
+        return TriggerPastVals[axis][0] >= TriggerPastVals[axis][1] && TriggerPastVals[axis][1] < TriggerPastVals[axis][2];
     }
 }
