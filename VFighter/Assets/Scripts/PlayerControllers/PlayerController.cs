@@ -29,7 +29,7 @@ public abstract class PlayerController : MonoBehaviour {
     protected GameObject AimingReticle;
     [SerializeField]
     protected float DashSpeed = 10f;
-
+    
     protected readonly Vector2[] _gravChangeDirections = {Vector2.up, Vector2.down };
     protected readonly Vector2[] _gravChangeDirectionsForThrownObject = { Vector2.up, Vector2.down, Vector2.left, Vector2.right };
 
@@ -109,8 +109,8 @@ public abstract class PlayerController : MonoBehaviour {
         if(!IsDashCoolingDown)
         {
             //need to account for gravity
-            var dashVec = -GetComponent<GravityObjectRigidBody>().GravityDirection.normalized * DashSpeed + dir * DashSpeed;
-            GetComponent<GravityObjectRigidBody>().AddVelocity(VelocityType.Dash, dashVec);
+            var dashVec =  dir.normalized * DashSpeed;
+            GetComponent<GravityObjectRigidBody>().Dash(dashVec);
 
             IsDashCoolingDown = true;
             StartCoroutine(DashCoolDown());
@@ -233,7 +233,7 @@ public abstract class PlayerController : MonoBehaviour {
     {
         IsDead = true;
         ControlledPlayer.NumDeaths++;
-        gameObject.SetActive(false);
+        gameObject.SetActive(!LevelManager.Instance.PlayersCanDieInThisLevel);
     }
 
     public void DestroyAllGravGunProjectiles()
