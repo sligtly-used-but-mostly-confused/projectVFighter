@@ -87,7 +87,6 @@ public class GravityObjectRigidBody : MonoBehaviour {
 	
 	void FixedUpdate () {
         DoGravity();
-        //DashDecay();
         DoDrag();
         ProcessVelocity();
 	}
@@ -107,16 +106,6 @@ public class GravityObjectRigidBody : MonoBehaviour {
         Vector2 vel = GetVelocity(VelocityType.OtherPhysics);
         vel *= 1 - _drag;
         UpdateVelocity(VelocityType.OtherPhysics, vel);
-    }
-
-    private void DashDecay()
-    {
-        /*
-        Vector2 dashVel = GetVelocity(VelocityType.Dash);
-        var deltaPerSecond = dashVel * _dashDecay;
-        var deltaPerTick = deltaPerSecond * Time.fixedDeltaTime;
-        UpdateVelocity(VelocityType.Dash, dashVel - deltaPerTick);
-        */
     }
 
     private void DoGravity()
@@ -198,7 +187,6 @@ public class GravityObjectRigidBody : MonoBehaviour {
         UpdateVelocity(VelocityType.Dash, dashVec);
         yield return new WaitForSeconds(_timeToDashStop);
         ClearAllVelocities();
-        Debug.Log("stop");
     }
 
     private void ClearAllVelocities()
