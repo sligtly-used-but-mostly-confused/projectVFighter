@@ -19,6 +19,7 @@ public class LevelManager : MonoBehaviour
     private GameObject _keyboardPlayerControllerPrefab;
     [SerializeField]
     private bool _startNextLevelWinCondition = true;
+
     void Awake()
     {
         if(_instance)
@@ -43,8 +44,7 @@ public class LevelManager : MonoBehaviour
             {
                 alive.First().ControlledPlayer.NumWins++;
             }
-
-            //Players.Where(x => x.IsDead).ToList().ForEach(x => x.ControlledPlayer.NumDeaths++);
+            
             GameManager.Instance.LoadNextStage();
         }
     }
