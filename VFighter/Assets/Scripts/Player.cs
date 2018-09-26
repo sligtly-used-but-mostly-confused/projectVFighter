@@ -15,13 +15,16 @@ public class Player {
     public int NumWins = 0;
     [SerializeField]
     public int NumDeaths = 0;
+    [SerializeField]
+    public int NumLives = 0;
 
-    public Player(InputDevice pairedInputDevice, Material playerMaterial, bool isKeyboardPlayer = false, int numWins = 0, int numDeaths = 0)
+    public Player(InputDevice pairedInputDevice, Material playerMaterial, int numLives, bool isKeyboardPlayer = false, int numWins = 0, int numDeaths = 0)
     {
         PairedInputDevice = pairedInputDevice;
         PlayerMaterial = playerMaterial;
         IsKeyboardPlayer = isKeyboardPlayer;
         NumWins = numWins;
         NumDeaths = numDeaths;
+        NumLives = numLives;
     }
 }

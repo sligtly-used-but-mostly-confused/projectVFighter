@@ -26,4 +26,9 @@ public class PlayerManager : MonoBehaviour
         Players.Add(player);
         LevelManager.Instance.SpawnPlayer(player);
     }
+
+    public void ResetPlayers()
+    {
+        Players.ForEach(x => { x.NumDeaths = 0; x.NumWins = 0; });
+    }
 }

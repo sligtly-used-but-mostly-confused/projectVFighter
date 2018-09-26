@@ -18,7 +18,7 @@ public class ControllerSelectManager : MonoBehaviour {
 
     private Dictionary<InputDevice, bool> readyControllers = new Dictionary<InputDevice, bool>();
 
-
+    public int numLivesPerPlayer;
 
     private void Awake()
     {
@@ -33,34 +33,41 @@ public class ControllerSelectManager : MonoBehaviour {
     }
 
     void Update () {
-        
-		foreach(var inputDevice in MappedInput.InputDevices)
+        if(_isWaitingForReady)
         {
-            if(!_usedDevices.Contains(inputDevice) && 
+            CheckForNewControllers();
+
+            if (CheckForPlayerReady())
+            {
+                _isWaitingForReady = false;
+                foreach (var usedInput in _usedDevices)
+                {
+                    readyControllers[usedInput] = false;
+                }
+
+                GameManager.Instance.StartGame("SpringLevel", 10);
+            }
+        }
+    }
+
+    private void CheckForNewControllers()
+    {
+        foreach (var inputDevice in MappedInput.InputDevices)
+        {
+            if (!_usedDevices.Contains(inputDevice) &&
                 (inputDevice.GetIsAxisTapped(MappedAxis.ShootGravGun) || inputDevice.GetButton(MappedButton.ShootGravGun)) &&
-                !(inputDevice is KeyboardInputDevice || inputDevice is MouseInputDevice) )
+                !(inputDevice is KeyboardInputDevice || inputDevice is MouseInputDevice))
             {
                 _usedDevices.Add(inputDevice);
                 int matIndex = (int)(Random.value * (_playerMaterials.Count - 1));
                 Material mat = _playerMaterials[matIndex];
                 _playerMaterials.RemoveAt(matIndex);
                 bool isKeyboard = inputDevice is KeyboardMouseInputDevice;
-                Player player = new Player(inputDevice, mat, isKeyboard);
+                Player player = new Player(inputDevice, mat, numLivesPerPlayer, isKeyboard);
 
                 PlayerManager.Instance.AddPlayer(player);
                 readyControllers.Add(inputDevice, false);
-            }  
-        }
-
-        if (CheckForPlayerReady())
-        {
-            _isWaitingForReady = false;
-            foreach (var usedInput in _usedDevices)
-            {
-                readyControllers[usedInput] = false;
             }
-
-            GameManager.Instance.StartGame("SpringLevel", 10);
         }
     }
 

@@ -214,6 +214,8 @@ public abstract class PlayerController : MonoBehaviour {
     public virtual void Kill()
     {
         IsDead = true;
+        ControlledPlayer.NumDeaths++;
+        gameObject.SetActive(false);
     }
 
     public void DestroyAllGravGunProjectiles()

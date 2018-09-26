@@ -44,7 +44,7 @@ public class LevelManager : MonoBehaviour
                 alive.First().ControlledPlayer.NumWins++;
             }
 
-            Players.Where(x => x.IsDead).ToList().ForEach(x => x.ControlledPlayer.NumDeaths++);
+            //Players.Where(x => x.IsDead).ToList().ForEach(x => x.ControlledPlayer.NumDeaths++);
             GameManager.Instance.LoadNextStage();
         }
     }
