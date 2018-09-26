@@ -8,12 +8,10 @@ public class GameManager : MonoBehaviour {
     private static GameManager _instance;
     public static GameManager Instance { get { return _instance; } }
 
-    public List<string> StageSceneNames = new List<string>();
+    public float ProgressionThroughGame = 1;
 
-    public int StageNum = 0;
-    public int MaxStageNum { get { return StageSceneNames.Count; } }
-
-    private const string LevelSelect = "LevelSelect";
+    private string _levelName;
+    private const string LevelSelect = "ControllerSelect";
 
     void Awake () {
         if(_instance)
@@ -21,19 +19,32 @@ public class GameManager : MonoBehaviour {
             Destroy(gameObject);
             return;
         }
+
         _instance = this;
         DontDestroyOnLoad(this);
 	}
 
+    public void StartGame(string levelName, int numStages)
+    {
+        _levelName = levelName;
+        ProgressionThroughGame = (float)PlayerManager.Instance.Players.Max(x => x.NumDeaths) / (float)PlayerManager.Instance.Players.First().NumLives;
+        SceneManager.LoadScene(levelName);
+    }
+
     public void LoadNextStage()
     {
-        StageNum++;
-        if(StageNum > StageSceneNames.Count)
+        var alive = PlayerManager.Instance.Players.Where(x => { return (x.NumLives - x.NumDeaths) > 0; });
+
+        if(alive.Count() <= 1)
         {
+            ControllerSelectManager.Instance.Init();
             SceneManager.LoadScene(LevelSelect);
+            PlayerManager.Instance.ResetPlayers();
             return;
         }
-        SceneManager.LoadScene(StageSceneNames[StageNum]);
+
+        ProgressionThroughGame = (float)PlayerManager.Instance.Players.Max(x => x.NumDeaths) / (float) PlayerManager.Instance.Players.First().NumLives;
+        SceneManager.LoadScene(_levelName);
     }
 
 }

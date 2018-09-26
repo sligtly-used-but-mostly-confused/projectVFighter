@@ -43,7 +43,7 @@ public abstract class PlayerController : MonoBehaviour {
     private List<GameObject> GravityGunProjectiles = new List<GameObject>();
     private Coroutine GravGunCoolDownCoroutine;
 
-    public virtual void Init(Player player, SpawnPosition spawnPosition)
+    public virtual void Init(Player player, Transform spawnPosition)
     {
         GetComponent<GravityObjectRigidBody>().ChangeGravityDirection(Vector2.zero);
         ControlledPlayer = player;
@@ -214,6 +214,8 @@ public abstract class PlayerController : MonoBehaviour {
     public virtual void Kill()
     {
         IsDead = true;
+        ControlledPlayer.NumDeaths++;
+        gameObject.SetActive(false);
     }
 
     public void DestroyAllGravGunProjectiles()

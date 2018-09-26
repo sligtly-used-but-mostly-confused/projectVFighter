@@ -14,10 +14,19 @@ public class LevelManager : MonoBehaviour
     [SerializeField]
     private List<SpawnPosition> _spawnPositions;
     [SerializeField]
-    private GameObject GamepadPlayerControllerPrefab;
+    private GameObject _gamepadPlayerControllerPrefab;
+    [SerializeField]
+    private GameObject _keyboardPlayerControllerPrefab;
+    [SerializeField]
+    private bool _startNextLevelWinCondition = true;
 
     void Awake()
     {
+        if(_instance)
+        {
+            Destroy(_instance.gameObject);
+        }
+
         _instance = this;
     }
 
@@ -29,16 +38,37 @@ public class LevelManager : MonoBehaviour
     private void Update()
     {
         var alive = Players.Where(x => !x.IsDead);
-        if (alive.Count() <= 1)
+        if (_startNextLevelWinCondition && alive.Count() <= 1)
         {
             if(alive.Count() > 0)
             {
                 alive.First().ControlledPlayer.NumWins++;
             }
-
-            Players.Where(x => x.IsDead).ToList().ForEach(x => x.ControlledPlayer.NumDeaths++);
+            
             GameManager.Instance.LoadNextStage();
         }
+    }
+
+    public void SpawnPlayer(Player player)
+    {
+        int index = (int)(Random.value * (_spawnPositions.Count - 1));
+        SpawnPosition position = _spawnPositions[index];
+        _spawnPositions.RemoveAt(index);
+
+        GameObject playerObj = null;
+
+        if(player.IsKeyboardPlayer)
+        {
+            playerObj = Instantiate(_keyboardPlayerControllerPrefab);
+        }
+        else
+        {
+            playerObj = Instantiate(_gamepadPlayerControllerPrefab);
+        }
+            
+
+        playerObj.GetComponent<PlayerController>().Init(player, position.transform);
+        Players.Add(playerObj.GetComponent<PlayerController>());
     }
 
     private void Init()
@@ -47,13 +77,7 @@ public class LevelManager : MonoBehaviour
 
         foreach (var player in PlayerManager.Instance.Players)
         {
-            int index = (int)(Random.value * (_spawnPositions.Count - 1));
-            SpawnPosition position = _spawnPositions[index];
-            _spawnPositions.RemoveAt(index);
-            var playerObj = Instantiate(GamepadPlayerControllerPrefab);
-            playerObj.GetComponent<PlayerController>().Init(player, position);
-
-            Players.Add(playerObj.GetComponent<PlayerController>());
+            SpawnPlayer(player);
         }
 
         var objectSpawns = new List<SpawnPosition>(FindObjectsOfType<ObjectSpawnPosition>());
