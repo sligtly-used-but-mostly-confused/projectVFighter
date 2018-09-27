@@ -6,5 +6,4 @@ https://waffle.io/sligtly-used-but-mostly-confused/projectVFighter
 
 
 link to 470 project chkstong yibbibi
-
-https://12r455.wixsite.com/ryanchomistekblog/chkstong-yibbibi
+https://www.chkstongyibbibi.net/
