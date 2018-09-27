@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour {
 
     public float ProgressionThroughGame = 1;
 
+    [SerializeField]
     private string _levelName;
     private const string LevelSelect = "ControllerSelect";
 

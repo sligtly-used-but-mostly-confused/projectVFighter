@@ -7,7 +7,15 @@ public class GamepadPlayerController : PlayerController {
 
     void Update()
     {
-        inputDevice = ControlledPlayer.PairedInputDevice;
+        if(ControlledPlayer.ForceSelectInputDeviceByIndex)
+        {
+            inputDevice = MappedInput.InputDevices[ControlledPlayer.InputDeviceIndex];
+        }
+        else
+        {
+            inputDevice = ControlledPlayer.PairedInputDevice;
+        }
+        
 
         float leftStickX = inputDevice.GetAxis(MappedAxis.Horizontal);
         Move(leftStickX);

@@ -4,9 +4,18 @@ using UnityEngine;
 
 public class KeyboardPlayerController : PlayerController
 {
+    InputDevice inputDevice;
+
     void Update()
-    { 
-        var inputDevice = ControlledPlayer.PairedInputDevice;
+    {        
+        if (ControlledPlayer.ForceSelectInputDeviceByIndex)
+        {
+            inputDevice = MappedInput.InputDevices[ControlledPlayer.InputDeviceIndex];
+        }
+        else
+        {
+            inputDevice = ControlledPlayer.PairedInputDevice;
+        }
 
         float mouseX = inputDevice.GetAxisRaw(MappedAxis.AimX);
         float mouseY = inputDevice.GetAxisRaw(MappedAxis.AimY);
