@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 [RequireComponent(typeof(GravityObjectRigidBody))]
 [RequireComponent(typeof(BoxCollider2D))]
@@ -15,7 +16,7 @@ public class TronBlock : MonoBehaviour {
     private float _tailSize = 0f;
     [SerializeField]
     private float _secondsForTailToSurvive = 1f;
-	// Use this for initialization
+
 	void Start () {
         _gORB = GetComponent<GravityObjectRigidBody>();
     }
@@ -39,8 +40,12 @@ public class TronBlock : MonoBehaviour {
             var min = _lastTailPlaced.GetComponent<BoxCollider2D>().bounds.min;
             var max = _lastTailPlaced.GetComponent<BoxCollider2D>().bounds.max;
             _tailSize = (max - min).sqrMagnitude;
-            if (_lastTailPlaced.GetComponent<BoxCollider2D>().bounds.SqrDistance(transform.position) > _tailSize / 8)
+            if ((_lastTailPlaced.transform.position - transform.position).magnitude > _tailSize / 8)
+            {
+                Debug.Log(_lastTailPlaced.GetComponent<BoxCollider2D>().bounds.SqrDistance(transform.position));
                 SpawnNewTail();
+            }
+                
         }
     }
 
@@ -51,7 +56,7 @@ public class TronBlock : MonoBehaviour {
         {
             _lastTailPlaced = null;
         }
-
+       
         Destroy(tailBlock);
     }
 }
