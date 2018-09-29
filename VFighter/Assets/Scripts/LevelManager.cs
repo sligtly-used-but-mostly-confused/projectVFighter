@@ -19,7 +19,15 @@ public class LevelManager : MonoBehaviour
     private GameObject _keyboardPlayerControllerPrefab;
     [SerializeField]
     private bool _startNextLevelWinCondition = true;
-    
+    [SerializeField]
+    private float _gravityScaleGradientStart = .5f;
+    [SerializeField]
+    private float _gravityScaleGradientEnd = 1f;
+    [SerializeField]
+    private float _gravityScaleGradientRate = .1f;
+    [SerializeField]
+    private bool _hasGameStarted = false;
+
     void Awake()
     {
         if(_instance)
@@ -47,6 +55,21 @@ public class LevelManager : MonoBehaviour
             
             GameManager.Instance.LoadNextStage();
         }
+    }
+
+    private void FixedUpdate()
+    {
+        if(_hasGameStarted)
+        {
+            GravityObjectRigidBody.TimeScale += _gravityScaleGradientRate * Time.fixedDeltaTime;
+            GravityObjectRigidBody.TimeScale = Mathf.Clamp(GravityObjectRigidBody.TimeScale, _gravityScaleGradientStart, _gravityScaleGradientEnd);
+        }
+    }
+
+    public void StartGame()
+    {
+        GravityObjectRigidBody.TimeScale = _gravityScaleGradientStart;
+        _hasGameStarted = true;
     }
 
     public void SpawnPlayer(Player player)

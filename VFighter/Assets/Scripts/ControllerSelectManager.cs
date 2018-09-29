@@ -20,6 +20,9 @@ public class ControllerSelectManager : MonoBehaviour {
 
     public int numLivesPerPlayer;
 
+    //todo remove once level select is done
+    public string LevelToStart;
+
     private void Awake()
     {
         if(_instance)
