@@ -109,8 +109,6 @@ public class LevelManager : MonoBehaviour
         {
             objectSpawn.Spawn();
         }
-
-        GravityObjectRigidBody.TimeScale = _gravityScaleGradientStart;
     }
 
     public void ResetLevel()

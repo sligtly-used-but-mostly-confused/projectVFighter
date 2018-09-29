@@ -844,7 +844,22 @@ Prefab:
     - target: {fileID: 114657139503209278, guid: 0c9a1517dd2ebba4cbbed10d6a04200c,
         type: 2}
       propertyPath: PlayersCanDieInThisLevel
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114657139503209278, guid: 0c9a1517dd2ebba4cbbed10d6a04200c,
+        type: 2}
+      propertyPath: _gravityScaleGradientEnd
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114657139503209278, guid: 0c9a1517dd2ebba4cbbed10d6a04200c,
+        type: 2}
+      propertyPath: _gravityScaleGradientStart
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 114657139503209278, guid: 0c9a1517dd2ebba4cbbed10d6a04200c,
+        type: 2}
+      propertyPath: _gravityScaleGradientRate
+      value: 0.0125
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0c9a1517dd2ebba4cbbed10d6a04200c, type: 2}
