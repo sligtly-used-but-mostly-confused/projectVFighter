@@ -23,7 +23,6 @@ public class CountDownTimer : MonoBehaviour {
         _countDownText.text = "1";
         yield return new WaitForSeconds(_timePerTick);
 
-        //GravityObjectRigidBody.TimeScale = 1;
         LevelManager.Instance.StartGame();
         Destroy(gameObject);
     }
