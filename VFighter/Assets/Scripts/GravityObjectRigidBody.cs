@@ -26,6 +26,7 @@ public enum VelocityType
 [RequireComponent(typeof(Collider2D))]
 public class GravityObjectRigidBody : MonoBehaviour {
     private static int _idCnt = 0;
+    public static float TimeScale = 1;
 
     [SerializeField]
     private int _id;
@@ -97,7 +98,7 @@ public class GravityObjectRigidBody : MonoBehaviour {
 
         foreach (var velocity in _velocities)
         {
-            _rB.velocity += velocity.Value;
+            _rB.velocity += velocity.Value * TimeScale;
         }
     }
 
