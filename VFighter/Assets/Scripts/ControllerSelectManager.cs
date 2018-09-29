@@ -45,7 +45,7 @@ public class ControllerSelectManager : MonoBehaviour {
                     readyControllers[usedInput] = false;
                 }
 
-                GameManager.Instance.StartGame("SpringLevel", 10);
+                GameManager.Instance.StartGame("EasyLevel", 10);
             }
         }
     }
