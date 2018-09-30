@@ -79,7 +79,7 @@ public class ControllerSelectManager : NetworkBehaviour {
                 Material mat = _playerMaterials[matIndex];
                 _playerMaterials.RemoveAt(matIndex);
                 bool isKeyboard = inputDevice is KeyboardMouseInputDevice;
-                Player player = new Player(mat, numLivesPerPlayer, isKeyboard);
+                Player player = new Player(numLivesPerPlayer, isKeyboard);
                 player.NetworkControllerId = 1;
                 PlayerManager.Instance.AddPlayer(player);
                 SpawnPlayer(player);

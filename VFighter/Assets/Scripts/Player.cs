@@ -11,7 +11,7 @@ public struct Player {
 
     //public InputDevice PairedInputDevice;
     //[SerializeField]
-    public Material PlayerMaterial;
+    //public Material PlayerMaterial;
     [SerializeField]
     public bool IsKeyboardPlayer;
     [SerializeField]
@@ -27,10 +27,10 @@ public struct Player {
     [SerializeField]
     public int InputDeviceIndex;
 
-    public Player(Material playerMaterial, int numLives, bool isKeyboardPlayer = false, int numWins = 0, int numDeaths = 0)
+    public Player(int numLives, bool isKeyboardPlayer = false, int numWins = 0, int numDeaths = 0)
     {
         //PairedInputDevice = pairedInputDevice;
-        PlayerMaterial = playerMaterial;
+        //PlayerMaterial = playerMaterial;
         IsKeyboardPlayer = isKeyboardPlayer;
         NumWins = numWins;
         NumDeaths = numDeaths;

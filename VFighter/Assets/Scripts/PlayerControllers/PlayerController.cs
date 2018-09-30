@@ -48,8 +48,8 @@ public abstract class PlayerController : NetworkBehaviour {
     {
         ControlledPlayer = player;
         transform.position = spawnPosition.transform.position;
-        GetComponent<Renderer>().material = ControlledPlayer.PlayerMaterial;
-        AimingReticle.GetComponent<Renderer>().material = ControlledPlayer.PlayerMaterial;
+        //GetComponent<Renderer>().material = ControlledPlayer.PlayerMaterial;
+        //AimingReticle.GetComponent<Renderer>().material = ControlledPlayer.PlayerMaterial;
         GetComponent<GravityObjectRigidBody>().ChangeGravityDirection(FindDirToClosestWall());
     }
 
@@ -136,7 +136,7 @@ public abstract class PlayerController : NetworkBehaviour {
                 GameObject projectileClone = (GameObject)Instantiate(Projectile, AimingReticle.transform.position, AimingReticle.transform.rotation);
                 projectileClone.GetComponent<GravityGunProjectileController>().Owner = this;
                 projectileClone.GetComponent<GravityObjectRigidBody>().UpdateVelocity(VelocityType.OtherPhysics, dir * ShootSpeed);
-                projectileClone.GetComponent<Renderer>().material = ControlledPlayer.PlayerMaterial;
+                //projectileClone.GetComponent<Renderer>().material = ControlledPlayer.PlayerMaterial;
                 StartGravGunCoolDown();
                 GravityGunProjectiles.Add(projectileClone);
             }
