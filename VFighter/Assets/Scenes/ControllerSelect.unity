@@ -714,7 +714,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 726304297}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -822479833, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Script: {fileID: 11500000, guid: df3134a80aa3fe14b9591ac7736ad4e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_NetworkPort: 7777
@@ -1168,6 +1168,43 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71fb76e20eec14949b76de3ff5bf5a9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1637957534 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1891273123663404, guid: 755eb457dbf744f40a626126e5f90904,
+    type: 2}
+  m_PrefabInternal: {fileID: 25664367}
+--- !u!114 &1637957535
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1637957534}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 117
+    i1: 94
+    i2: 180
+    i3: 87
+    i4: 219
+    i5: 247
+    i6: 68
+    i7: 244
+    i8: 10
+    i9: 98
+    i10: 97
+    i11: 38
+    i12: 229
+    i13: 249
+    i14: 9
+    i15: 4
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0
 --- !u!1 &1672618671
 GameObject:
   m_ObjectHideFlags: 0

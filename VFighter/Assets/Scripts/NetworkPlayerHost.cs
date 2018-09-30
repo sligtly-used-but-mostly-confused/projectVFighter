@@ -15,10 +15,35 @@ public class NetworkPlayerHost : NetworkBehaviour{
     public override void OnStartLocalPlayer()
     {
         //GetComponent<NetworkIdentity>().playerControllerId
-        var players = PlayerManager.Instance.Players.FindAll(x => x.NetworkControllerId == GetComponent<NetworkIdentity>().playerControllerId);
-        if (players.Count > 0)
+        StartCoroutine(TryToStart());
+    }
+
+    IEnumerator TryToStart()
+    {
+        var players = PlayerManager.Instance.ConnectedPlayerControllers;
+        Player foundPlayer = new Player();
+        bool isFound = false;
+
+        foreach(var player in PlayerManager.Instance.ConnectedPlayerControllers)
         {
-            CmdSpawnPlayer(players[0]);
+            if(GetComponent<NetworkIdentity>().playerControllerId == player.NetworkControllerId)
+            {
+                isFound = true;
+                foundPlayer = player;
+                break;
+            }
+        }
+
+        Debug.Log(isFound);
+
+        if (isFound)
+        {
+            CmdSpawnPlayer(foundPlayer);
+        }
+        else
+        {
+            yield return new WaitForSeconds(.1f);
+            yield return TryToStart();
         }
     }
 
@@ -37,6 +62,7 @@ public class NetworkPlayerHost : NetworkBehaviour{
 
         playerObj.GetComponent<PlayerController>().Init(player, transform);
         NetworkServer.Spawn(playerObj);
+        //PlayerManager.Instance.ConnectedPlayerControllers.Add(player);
     }
 
     public void SpawnPlayer(Player player)

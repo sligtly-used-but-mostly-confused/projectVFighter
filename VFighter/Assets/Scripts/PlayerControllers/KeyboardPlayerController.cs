@@ -8,13 +8,12 @@ public class KeyboardPlayerController : PlayerController
 
     void Update()
     {        
-        if (ControlledPlayer.ForceSelectInputDeviceByIndex)
+        inputDevice = ControllerSelectManager.Instance.GetPairedInputDevice(ControlledPlayer.NetworkControllerId);
+        //Debug.Log(inputDevice);
+
+        if(inputDevice == null)
         {
-            inputDevice = MappedInput.InputDevices[ControlledPlayer.InputDeviceIndex];
-        }
-        else
-        {
-            //inputDevice = ControlledPlayer.PairedInputDevice;
+            return;
         }
 
         float mouseX = inputDevice.GetAxisRaw(MappedAxis.AimX);

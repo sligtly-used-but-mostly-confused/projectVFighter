@@ -19,6 +19,9 @@ public class ControllerSelectManager : NetworkBehaviour {
     private bool _isWaitingForReady = true;
 
     private Dictionary<InputDevice, bool> readyControllers = new Dictionary<InputDevice, bool>();
+    private Dictionary<short, InputDevice> _controllerIdToInputDevice = new Dictionary<short, InputDevice>();
+    //[SerializeField]
+    //private List<short> _localControllerIds = new List<short>();
 
     [SerializeField]
     private GameObject NetworkPlayerPrefab;
@@ -55,12 +58,12 @@ public class ControllerSelectManager : NetworkBehaviour {
         }
     }
 
-    private void SpawnPlayer(Player player)
+    private void SpawnPlayer(ref Player player)
     {
         if(!ClientScene.AddPlayer(player.NetworkControllerId))
         {
             player.NetworkControllerId = ++Player.IdCnt;
-            SpawnPlayer(player);
+            SpawnPlayer(ref player);
         }
     }
 
@@ -79,16 +82,33 @@ public class ControllerSelectManager : NetworkBehaviour {
                 Material mat = _playerMaterials[matIndex];
                 _playerMaterials.RemoveAt(matIndex);
                 bool isKeyboard = inputDevice is KeyboardMouseInputDevice;
-                Player player = new Player(numLivesPerPlayer, isKeyboard);
+
+                var player = new Player(numLivesPerPlayer, isKeyboard);
                 player.NetworkControllerId = 1;
-                PlayerManager.Instance.AddPlayer(player);
-                SpawnPlayer(player);
+
                 
+                SpawnPlayer(ref player);
+
+                PlayerManager.Instance.AddPlayer(player);
+
+                _controllerIdToInputDevice.Add(player.NetworkControllerId, inputDevice);
+
                 readyControllers.Add(inputDevice, false);
             }
         }
         
         
+    }
+
+    public InputDevice GetPairedInputDevice(short controllerId)
+    {
+        InputDevice device = null;
+        if (_controllerIdToInputDevice.TryGetValue(controllerId, out device))
+        {
+            return device;
+        }
+
+        return null;
     }
 
     public void Init()

@@ -29,14 +29,15 @@ public class GameManager : MonoBehaviour {
     {
         _levelName = levelName;
         PlayerManager.Instance.ResetPlayers();
-        ProgressionThroughGame = (float)PlayerManager.Instance.Players.Max(x => x.NumDeaths) / (float)PlayerManager.Instance.Players.First().NumLives;
+        //ProgressionThroughGame = (float)PlayerManager.Instance.Players.Max(x => x.NumDeaths) / (float)PlayerManager.Instance.Players.First().NumLives;
         SceneManager.LoadScene(levelName);
     }
 
     public void LoadNextStage()
     {
+        /*
         var alive = PlayerManager.Instance.Players.Where(x => { return (x.NumLives - x.NumDeaths) > 0; });
-
+        
         if(alive.Count() <= 1)
         {
             ControllerSelectManager.Instance.Init();
@@ -47,6 +48,7 @@ public class GameManager : MonoBehaviour {
 
         ProgressionThroughGame = (float)PlayerManager.Instance.Players.Max(x => x.NumDeaths) / (float) PlayerManager.Instance.Players.First().NumLives;
         SceneManager.LoadScene(_levelName);
+        */
     }
 
 }

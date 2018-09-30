@@ -1,15 +1,24 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 using System.Linq;
 
-public class PlayerManager : MonoBehaviour
+[System.Serializable]
+public class PlayerSyncList : SyncListStruct<Player>
+{
+}
+
+
+public class PlayerManager : NetworkBehaviour
 {
     private static PlayerManager _instance;
     public static PlayerManager Instance { get { return _instance; } }
 
-    public List<Player> Players = new List<Player>();
+    //public List<PlayerWrapper> Players = new List<PlayerWrapper>();
 
+    public PlayerSyncList ConnectedPlayerControllers = new PlayerSyncList();
+    
     void Awake()
     {
         if(_instance)
@@ -22,15 +31,24 @@ public class PlayerManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
+    private void Update()
+    {
+
+        foreach(var player in ConnectedPlayerControllers)
+        {
+            Debug.Log(player.NetworkControllerId + " " + player.NumLives);
+        }
+        
+    }
+
     public void AddPlayer(Player player)
     {
-        Players.Add(player);
+        ConnectedPlayerControllers.Add(player);
         //LevelManager.Instance.SpawnPlayer(player);
     }
 
-
     public void ResetPlayers()
     {
-        Players.ForEach(x => x.Reset());
+        //Players.ForEach(x => x.Player.Reset());
     }
 }

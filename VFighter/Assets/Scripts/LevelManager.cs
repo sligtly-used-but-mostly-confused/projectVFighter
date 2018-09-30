@@ -97,12 +97,12 @@ public class LevelManager : MonoBehaviour
     private void Init()
     {
         _spawnPositions = new List<SpawnPosition>(FindObjectsOfType<PlayerSpawnPosition>());
-
+        /*
         foreach (var player in PlayerManager.Instance.Players)
         {
             SpawnPlayer(player);
         }
-
+        */
         var objectSpawns = new List<SpawnPosition>(FindObjectsOfType<ObjectSpawnPosition>());
 
         foreach(var objectSpawn in objectSpawns)
