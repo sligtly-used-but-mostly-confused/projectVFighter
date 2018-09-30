@@ -27,20 +27,20 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &1531950347110578
+--- !u!1 &1826422210356002
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4114175507939238}
-  - component: {fileID: 50214023848283598}
-  - component: {fileID: 61450099962507082}
-  - component: {fileID: 23378970542397524}
-  - component: {fileID: 33562272082480552}
-  - component: {fileID: 114041951554836062}
-  - component: {fileID: 114128126185758162}
+  - component: {fileID: 4819074901834100}
+  - component: {fileID: 50822053651246434}
+  - component: {fileID: 61488366920634042}
+  - component: {fileID: 23186929152009470}
+  - component: {fileID: 33505038193722000}
+  - component: {fileID: 114164142575405588}
+  - component: {fileID: 114938712578166398}
   m_Layer: 9
   m_Name: TronBlock
   m_TagString: Untagged
@@ -48,19 +48,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4114175507939238
-Transform:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1531950347110578}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.92, y: 2.09, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.1}
-  m_Children: []
-  m_Father: {fileID: 4714561377024288}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4714561377024288
 Transform:
   m_ObjectHideFlags: 1
@@ -71,16 +58,29 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 4114175507939238}
+  - {fileID: 4819074901834100}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!23 &23378970542397524
+--- !u!4 &4819074901834100
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1826422210356002}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.92, y: 2.09, z: 0}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.1}
+  m_Children: []
+  m_Father: {fileID: 4714561377024288}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!23 &23186929152009470
 MeshRenderer:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1531950347110578}
+  m_GameObject: {fileID: 1826422210356002}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -110,20 +110,20 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!33 &33562272082480552
+--- !u!33 &33505038193722000
 MeshFilter:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1531950347110578}
+  m_GameObject: {fileID: 1826422210356002}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!50 &50214023848283598
+--- !u!50 &50822053651246434
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1531950347110578}
+  m_GameObject: {fileID: 1826422210356002}
   m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
@@ -131,18 +131,18 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 0
+  m_GravityScale: 1
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!61 &61450099962507082
+--- !u!61 &61488366920634042
 BoxCollider2D:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1531950347110578}
+  m_GameObject: {fileID: 1826422210356002}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -162,12 +162,12 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &114041951554836062
+--- !u!114 &114164142575405588
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1531950347110578}
+  m_GameObject: {fileID: 1826422210356002}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5fe5127cac07ef246881a2cfa011f2cc, type: 3}
@@ -176,30 +176,7 @@ MonoBehaviour:
   _tronBlockTailPrefab: {fileID: 1436249748655522, guid: 0a2d1dd16d8627f49bcec221e91e19d3,
     type: 2}
   _tailSize: 0
-  _secondsForTailToSurvive: 2
---- !u!114 &114128126185758162
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1531950347110578}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 72e227611bd16ec43923854f771b221f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _id: 0
-  _gravityScale: 1
-  _gravityDirection: {x: 0, y: 0}
-  _maxDefaultComponentSpeed: {x: 10, y: 10}
-  _maxComponentSpeeds: []
-  _stopObjectOnCollide: 1
-  _timeToDashStop: 1
-  _drag: 1
-  Bounciness: 0
-  CanBeSelected: 1
-  KillsPlayer: 1
-  Owner: {fileID: 0}
+  _secondsForTailToSurvive: 1
 --- !u!114 &114233438590654352
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -212,3 +189,39 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   chanceToSpawn: 1
+--- !u!114 &114938712578166398
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1826422210356002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df933582de62f80448bf544823d107ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _id: 0
+  _gravityScale: 1
+  _gravityDirection: {x: 0, y: -1}
+  _maxDefaultComponentSpeed: {x: 10, y: 10}
+  _maxComponentSpeeds: []
+  _stopObjectOnCollide: 1
+  _timeToDashStop: 1
+  _drag: 1
+  Bounciness: 0
+  CanBeSelected: 1
+  KillsPlayer: 1
+  Owner: {fileID: 0}
+  _speedMultiplier: 0
+  _speedMultiplierStep: 0
+  _maxSpeedMultiplier: 0
+  LastShotBy:
+    PairedInputDevice: {fileID: 0}
+    PlayerMaterial: {fileID: 0}
+    IsKeyboardPlayer: 0
+    NumWins: 0
+    NumDeaths: 0
+    NumLives: 0
+    NumKills: 0
+    ForceSelectInputDeviceByIndex: 0
+    InputDeviceIndex: 0

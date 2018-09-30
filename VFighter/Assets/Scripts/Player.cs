@@ -18,6 +18,8 @@ public class Player {
     [SerializeField]
     public int NumLives = 0;
     [SerializeField]
+    public int NumKills = 0;
+    [SerializeField]
     public bool ForceSelectInputDeviceByIndex = false;
     [SerializeField]
     public int InputDeviceIndex = 2;
@@ -30,5 +32,13 @@ public class Player {
         NumWins = numWins;
         NumDeaths = numDeaths;
         NumLives = numLives;
+        NumKills = 0;
+    }
+
+    public void Reset()
+    {
+        NumWins = 0;
+        NumDeaths = 0;
+        NumKills = 0;
     }
 }

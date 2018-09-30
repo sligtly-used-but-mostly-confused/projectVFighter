@@ -11,6 +11,7 @@ public class ForceZoneController : MonoBehaviour
         if (collision.GetComponent<GravityObjectRigidBody>())
         {
             collision.GetComponent<GravityObjectRigidBody>().AddVelocity(VelocityType.OtherPhysics, gravityForce);
+            collision.GetComponent<GravityObjectRigidBody>().ChangeGravityDirection(gravityForce.normalized);
         }
     }
 }

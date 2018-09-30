@@ -10,10 +10,7 @@ public class TronBlock : MonoBehaviour {
 
     [SerializeField]
     private GameObject _tronBlockTailPrefab;
-
     private GameObject _lastTailPlaced;
-    [SerializeField]
-    private float _tailSize = 0f;
     [SerializeField]
     private float _secondsForTailToSurvive = 1f;
 
@@ -26,6 +23,7 @@ public class TronBlock : MonoBehaviour {
         var newTail = Instantiate(_tronBlockTailPrefab);
         _lastTailPlaced = newTail;
         _lastTailPlaced.transform.localPosition = transform.position;
+        _lastTailPlaced.GetComponent<ControllableGravityObjectRigidBody>().LastShotBy = GetComponent<ControllableGravityObjectRigidBody>().LastShotBy;
         StartCoroutine(DestoryTailCoroutine(newTail));
     }
 
@@ -39,7 +37,7 @@ public class TronBlock : MonoBehaviour {
         {
             var min = _lastTailPlaced.GetComponent<BoxCollider2D>().bounds.min;
             var max = _lastTailPlaced.GetComponent<BoxCollider2D>().bounds.max;
-            _tailSize = (max - min).sqrMagnitude;
+            float _tailSize = (max - min).sqrMagnitude;
             if ((_lastTailPlaced.transform.position - transform.position).magnitude > _tailSize / 8)
             {
                 Debug.Log(_lastTailPlaced.GetComponent<BoxCollider2D>().bounds.SqrDistance(transform.position));

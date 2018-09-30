@@ -121,7 +121,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 19129045}
-  - component: {fileID: 19129049}
   - component: {fileID: 19129048}
   - component: {fileID: 19129047}
   - component: {fileID: 19129046}
@@ -212,26 +211,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 19129044}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!50 &19129049
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 19129044}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 0
-  m_Material: {fileID: 6200000, guid: 4a8863e44862f7e4bb2601455731f304, type: 2}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 7
 --- !u!1001 &25664367
 Prefab:
   m_ObjectHideFlags: 0
@@ -397,7 +376,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   xGamepadLayout: {fileID: 11400000, guid: 7ba91af300bf5406ea907aed341630fb, type: 2}
-  unGamepadConfigs: []
+  unGamepadConfigs:
+  - {fileID: 11400000, guid: 4c3e27c94731342928a6f76efde0bacf, type: 2}
 --- !u!4 &143034103
 Transform:
   m_ObjectHideFlags: 0
@@ -634,9 +614,11 @@ MonoBehaviour:
   - {fileID: 2100000, guid: b2a8a02c59a65284d9aae1c3dd996a45, type: 2}
   - {fileID: 2100000, guid: c15c4b8059261441fa6ac72c71454e30, type: 2}
   - {fileID: 2100000, guid: d1a34e5e47473784cbc28a97a06f2299, type: 2}
+  - {fileID: 2100000, guid: f1a6e1fc3730df442be9feffac8c07c2, type: 2}
   _usedDevices: []
   _isWaitingForReady: 1
   numLivesPerPlayer: 5
+  LevelToStart: 
 --- !u!4 &636215035
 Transform:
   m_ObjectHideFlags: 0
@@ -689,6 +671,10 @@ MonoBehaviour:
   _keyboardPlayerControllerPrefab: {fileID: 1865601022989246, guid: 58fb49fb4a9055343934f6f995dac95a,
     type: 2}
   _startNextLevelWinCondition: 0
+  _gravityScaleGradientStart: 0.5
+  _gravityScaleGradientEnd: 1
+  _gravityScaleGradientRate: 0.1
+  _hasGameStarted: 0
 --- !u!4 &707236919
 Transform:
   m_ObjectHideFlags: 0
@@ -710,7 +696,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 813629745}
-  - component: {fileID: 813629749}
   - component: {fileID: 813629748}
   - component: {fileID: 813629747}
   - component: {fileID: 813629746}
@@ -801,26 +786,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 813629744}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!50 &813629749
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 813629744}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 0
-  m_Material: {fileID: 6200000, guid: 4a8863e44862f7e4bb2601455731f304, type: 2}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 7
 --- !u!1 &996231372
 GameObject:
   m_ObjectHideFlags: 0
@@ -829,7 +794,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 996231373}
-  - component: {fileID: 996231377}
   - component: {fileID: 996231376}
   - component: {fileID: 996231375}
   - component: {fileID: 996231374}
@@ -920,26 +884,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 996231372}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!50 &996231377
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 996231372}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 0
-  m_Material: {fileID: 6200000, guid: 4a8863e44862f7e4bb2601455731f304, type: 2}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 7
 --- !u!1 &1055669991
 GameObject:
   m_ObjectHideFlags: 0
@@ -1134,7 +1078,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1937113424}
-  - component: {fileID: 1937113428}
   - component: {fileID: 1937113427}
   - component: {fileID: 1937113426}
   - component: {fileID: 1937113425}
@@ -1225,26 +1168,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1937113423}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!50 &1937113428
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1937113423}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 0
-  m_Material: {fileID: 6200000, guid: 4a8863e44862f7e4bb2601455731f304, type: 2}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 7
 --- !u!1 &2075442565
 GameObject:
   m_ObjectHideFlags: 0

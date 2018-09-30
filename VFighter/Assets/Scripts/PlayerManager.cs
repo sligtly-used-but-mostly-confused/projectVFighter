@@ -29,6 +29,6 @@ public class PlayerManager : MonoBehaviour
 
     public void ResetPlayers()
     {
-        Players.ForEach(x => { x.NumDeaths = 0; x.NumWins = 0; });
+        Players.ForEach(x => x.Reset());
     }
 }
