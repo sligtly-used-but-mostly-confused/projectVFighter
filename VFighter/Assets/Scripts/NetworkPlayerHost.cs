@@ -20,6 +20,7 @@ public class NetworkPlayerHost : NetworkBehaviour{
 
     IEnumerator TryToStart()
     {
+        some how this isnt picking up the right controller
         var players = PlayerManager.Instance.ConnectedPlayerControllers;
         Player foundPlayer = new Player();
         bool isFound = false;
