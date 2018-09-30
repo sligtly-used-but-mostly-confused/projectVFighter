@@ -79,6 +79,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TeleportTo: {fileID: 0}
+  _waitingForCooldown: 0
+  _teleportCoolDownTime: 0.25
 --- !u!212 &212664063133129500
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -94,7 +96,7 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a53f736afdaa243469f8015e25e684a5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
