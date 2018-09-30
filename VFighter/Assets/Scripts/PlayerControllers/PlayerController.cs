@@ -1,11 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 using System.Linq;
 
 [RequireComponent(typeof(GravityObjectRigidBody))]
 
-public abstract class PlayerController : MonoBehaviour {
+public abstract class PlayerController : NetworkBehaviour {
 
     public GravityObjectRigidBody AttachedObject;
     
@@ -217,7 +218,7 @@ public abstract class PlayerController : MonoBehaviour {
 
             Debug.Log("player killed " + GORB.Owner);
 
-            if(GORB is ControllableGravityObjectRigidBody && (GORB as ControllableGravityObjectRigidBody).LastShotBy != null)
+            if(GORB is ControllableGravityObjectRigidBody && (GORB as ControllableGravityObjectRigidBody).LastShotBy.NetworkControllerId != 0)
             {
                 (GORB as ControllableGravityObjectRigidBody).LastShotBy.NumKills++;
             }

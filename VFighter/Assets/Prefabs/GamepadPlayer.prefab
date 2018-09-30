@@ -26,6 +26,8 @@ GameObject:
   - component: {fileID: 23321131834757868}
   - component: {fileID: 33756766857751174}
   - component: {fileID: 108674846225015388}
+  - component: {fileID: 114242315428703572}
+  - component: {fileID: 114135470943987506}
   m_Layer: 0
   m_Name: GamepadPlayer
   m_TagString: Untagged
@@ -292,18 +294,73 @@ MonoBehaviour:
   AimingReticle: {fileID: 1816439501200690}
   DashSpeed: 30
   ControlledPlayer:
+    NetowrkControllerId: 0
     PairedInputDevice: {fileID: 0}
     PlayerMaterial: {fileID: 0}
     IsKeyboardPlayer: 0
     NumWins: 0
     NumDeaths: 0
     NumLives: 0
+    NumKills: 0
     ForceSelectInputDeviceByIndex: 0
     InputDeviceIndex: 0
   IsCoolingDown: 0
   IsChangeGravityCoolingDown: 0
   IsDashCoolingDown: 0
   IsDead: 0
+--- !u!114 &114135470943987506
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1503121510406556}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1768714887, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TransformSyncMode: 2
+  m_SendInterval: 0.1
+  m_SyncRotationAxis: 3
+  m_RotationSyncCompression: 0
+  m_SyncSpin: 0
+  m_MovementTheshold: 0.001
+  m_VelocityThreshold: 0.0001
+  m_SnapThreshold: 5
+  m_InterpolateRotation: 1
+  m_InterpolateMovement: 1
+--- !u!114 &114242315428703572
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1503121510406556}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 152
+    i1: 7
+    i2: 243
+    i3: 177
+    i4: 23
+    i5: 43
+    i6: 136
+    i7: 36
+    i8: 58
+    i9: 122
+    i10: 227
+    i11: 218
+    i12: 72
+    i13: 209
+    i14: 211
+    i15: 164
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0
 --- !u!135 &135684991341674584
 SphereCollider:
   m_ObjectHideFlags: 1

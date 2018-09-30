@@ -14,7 +14,7 @@ public class KeyboardPlayerController : PlayerController
         }
         else
         {
-            inputDevice = ControlledPlayer.PairedInputDevice;
+            //inputDevice = ControlledPlayer.PairedInputDevice;
         }
 
         float mouseX = inputDevice.GetAxisRaw(MappedAxis.AimX);

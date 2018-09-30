@@ -10,7 +10,7 @@ public class ControllableGravityObjectRigidBody : GravityObjectRigidBody {
     [SerializeField]
     private float _maxSpeedMultiplier;
 
-    public Player LastShotBy = null;
+    public Player LastShotBy;
 
     public void StepMultiplier()
     {

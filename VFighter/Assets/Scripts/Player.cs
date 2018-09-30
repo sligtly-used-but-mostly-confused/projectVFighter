@@ -3,36 +3,43 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class Player {
+public struct Player {
+    [SerializeField]
+    public static short IdCnt;
+    [SerializeField]
+    public short NetworkControllerId;
 
-    [SerializeField]
-    public InputDevice PairedInputDevice;
-    [SerializeField]
+    //public InputDevice PairedInputDevice;
+    //[SerializeField]
     public Material PlayerMaterial;
     [SerializeField]
-    public bool IsKeyboardPlayer = false;
+    public bool IsKeyboardPlayer;
     [SerializeField]
-    public int NumWins = 0;
+    public int NumWins;
     [SerializeField]
-    public int NumDeaths = 0;
+    public int NumDeaths;
     [SerializeField]
-    public int NumLives = 0;
+    public int NumLives;
     [SerializeField]
-    public int NumKills = 0;
+    public int NumKills;
     [SerializeField]
-    public bool ForceSelectInputDeviceByIndex = false;
+    public bool ForceSelectInputDeviceByIndex;
     [SerializeField]
-    public int InputDeviceIndex = 2;
+    public int InputDeviceIndex;
 
-    public Player(InputDevice pairedInputDevice, Material playerMaterial, int numLives, bool isKeyboardPlayer = false, int numWins = 0, int numDeaths = 0)
+    public Player(Material playerMaterial, int numLives, bool isKeyboardPlayer = false, int numWins = 0, int numDeaths = 0)
     {
-        PairedInputDevice = pairedInputDevice;
+        //PairedInputDevice = pairedInputDevice;
         PlayerMaterial = playerMaterial;
         IsKeyboardPlayer = isKeyboardPlayer;
         NumWins = numWins;
         NumDeaths = numDeaths;
         NumLives = numLives;
         NumKills = 0;
+        NetworkControllerId = 0;
+        ForceSelectInputDeviceByIndex = false;
+        InputDeviceIndex = 2;
+
     }
 
     public void Reset()

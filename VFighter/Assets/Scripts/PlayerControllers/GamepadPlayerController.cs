@@ -13,7 +13,7 @@ public class GamepadPlayerController : PlayerController {
         }
         else
         {
-            inputDevice = ControlledPlayer.PairedInputDevice;
+            //inputDevice = ControlledPlayer.PairedInputDevice;
         }
         
 

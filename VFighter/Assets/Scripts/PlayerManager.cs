@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -24,8 +25,9 @@ public class PlayerManager : MonoBehaviour
     public void AddPlayer(Player player)
     {
         Players.Add(player);
-        LevelManager.Instance.SpawnPlayer(player);
+        //LevelManager.Instance.SpawnPlayer(player);
     }
+
 
     public void ResetPlayers()
     {

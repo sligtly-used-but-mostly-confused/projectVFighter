@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Networking;
+using System;
 
-public class ControllerSelectManager : MonoBehaviour {
+public class ControllerSelectManager : NetworkBehaviour {
 
     private static ControllerSelectManager _instance;
     public static ControllerSelectManager Instance { get { return _instance; } }
@@ -17,6 +19,9 @@ public class ControllerSelectManager : MonoBehaviour {
     private bool _isWaitingForReady = true;
 
     private Dictionary<InputDevice, bool> readyControllers = new Dictionary<InputDevice, bool>();
+
+    [SerializeField]
+    private GameObject NetworkPlayerPrefab;
 
     public int numLivesPerPlayer;
 
@@ -50,25 +55,40 @@ public class ControllerSelectManager : MonoBehaviour {
         }
     }
 
+    private void SpawnPlayer(Player player)
+    {
+        if(!ClientScene.AddPlayer(player.NetworkControllerId))
+        {
+            player.NetworkControllerId = ++Player.IdCnt;
+            SpawnPlayer(player);
+        }
+    }
+
     private void CheckForNewControllers()
     {
+        
         foreach (var inputDevice in MappedInput.InputDevices)
         {
             if (!_usedDevices.Contains(inputDevice) &&
                 (inputDevice.GetIsAxisTapped(MappedAxis.ShootGravGun) || inputDevice.GetButton(MappedButton.ShootGravGun)) &&
-                !(inputDevice is KeyboardInputDevice || inputDevice is MouseInputDevice))
+                !(inputDevice is KeyboardInputDevice || inputDevice is MouseInputDevice) &&
+                ClientScene.readyConnection != null)
             {
                 _usedDevices.Add(inputDevice);
-                int matIndex = (int)(Random.value * (_playerMaterials.Count - 1));
+                int matIndex = (int)(UnityEngine.Random.value * (_playerMaterials.Count - 1));
                 Material mat = _playerMaterials[matIndex];
                 _playerMaterials.RemoveAt(matIndex);
                 bool isKeyboard = inputDevice is KeyboardMouseInputDevice;
-                Player player = new Player(inputDevice, mat, numLivesPerPlayer, isKeyboard);
-
+                Player player = new Player(mat, numLivesPerPlayer, isKeyboard);
+                player.NetworkControllerId = 1;
                 PlayerManager.Instance.AddPlayer(player);
+                SpawnPlayer(player);
+                
                 readyControllers.Add(inputDevice, false);
             }
         }
+        
+        
     }
 
     public void Init()
