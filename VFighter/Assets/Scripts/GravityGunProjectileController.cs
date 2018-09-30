@@ -35,6 +35,7 @@ public class GravityGunProjectileController : MonoBehaviour {
                 if(gravityObjectRB is ControllableGravityObjectRigidBody)
                 {
                     (gravityObjectRB as ControllableGravityObjectRigidBody).StepMultiplier();
+                    (gravityObjectRB as ControllableGravityObjectRigidBody).LastShotBy = Owner.ControlledPlayer;
                 }
 
                 gravityObjectRB.Owner = Owner;

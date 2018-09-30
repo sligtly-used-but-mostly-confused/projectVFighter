@@ -28,6 +28,7 @@ public class GameManager : MonoBehaviour {
     public void StartGame(string levelName, int numStages)
     {
         _levelName = levelName;
+        PlayerManager.Instance.ResetPlayers();
         ProgressionThroughGame = (float)PlayerManager.Instance.Players.Max(x => x.NumDeaths) / (float)PlayerManager.Instance.Players.First().NumLives;
         SceneManager.LoadScene(levelName);
     }

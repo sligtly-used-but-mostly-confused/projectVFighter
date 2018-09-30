@@ -20,10 +20,10 @@ GameObject:
   m_Component:
   - component: {fileID: 4410707044762386}
   - component: {fileID: 50376385175709922}
-  - component: {fileID: 114320310068648108}
   - component: {fileID: 61900442577213664}
   - component: {fileID: 23393360681103954}
   - component: {fileID: 33211921384807202}
+  - component: {fileID: 114227078285474836}
   m_Layer: 0
   m_Name: GravityObject
   m_TagString: Untagged
@@ -38,7 +38,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1167609975392520}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.02, y: 2.09, z: 0}
+  m_LocalPosition: {x: 8.73, y: -0.07, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -59,7 +59,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 299ff133e045ed74f8047107c1dad46e, type: 2}
+  - {fileID: 2100000, guid: 04d126ba1f0d0478f801292308bbc946, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -131,7 +131,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &114320310068648108
+--- !u!114 &114227078285474836
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -139,13 +139,31 @@ MonoBehaviour:
   m_GameObject: {fileID: 1167609975392520}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 72e227611bd16ec43923854f771b221f, type: 3}
+  m_Script: {fileID: 11500000, guid: df933582de62f80448bf544823d107ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _id: 0
-  _gravityScale: 5
-  _gravityDirection: {x: 0, y: -1}
-  _maxComponentSpeed: {x: 10, y: 10}
+  _gravityScale: 1
+  _gravityDirection: {x: 0, y: 0}
+  _maxDefaultComponentSpeed: {x: 10, y: 10}
+  _maxComponentSpeeds: []
   _stopObjectOnCollide: 1
-  _dashDecay: 1
+  _timeToDashStop: 1
+  _drag: 1
+  Bounciness: 0
+  CanBeSelected: 1
+  KillsPlayer: 1
   Owner: {fileID: 0}
+  _speedMultiplier: 1
+  _speedMultiplierStep: 0.1
+  _maxSpeedMultiplier: 2
+  LastShotBy:
+    PairedInputDevice: {fileID: 0}
+    PlayerMaterial: {fileID: 0}
+    IsKeyboardPlayer: 0
+    NumWins: 0
+    NumDeaths: 0
+    NumLives: 0
+    NumKills: 0
+    ForceSelectInputDeviceByIndex: 0
+    InputDeviceIndex: 0

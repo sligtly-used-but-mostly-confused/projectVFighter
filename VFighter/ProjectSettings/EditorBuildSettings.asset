@@ -26,4 +26,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/AdvancedLevels/EasyLevel.unity
     guid: 0f8683b1efac012418beb328c1813f19
+  - enabled: 1
+    path: Assets/Scenes/AdvancedLevels/LongLevel.unity
+    guid: 5344fa49714963d4fb7984cfeae34942
   m_configObjects: {}

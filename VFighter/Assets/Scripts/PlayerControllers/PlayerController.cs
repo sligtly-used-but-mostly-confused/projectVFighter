@@ -191,7 +191,13 @@ public abstract class PlayerController : MonoBehaviour {
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        var impulse = (collision.relativeVelocity * collision.rigidbody.mass).magnitude;
+        float otherMass = 1;
+        if (collision.rigidbody)
+        {
+            otherMass = collision.rigidbody.mass;
+        }
+
+        var impulse = (collision.relativeVelocity * otherMass).magnitude;
         var GORB = collision.collider.GetComponent<GravityObjectRigidBody>();
         if (impulse > ImpulseToKill && GORB && GORB.KillsPlayer)
         {
@@ -199,6 +205,7 @@ public abstract class PlayerController : MonoBehaviour {
             {
                 if(IsDashCoolingDown)
                 {
+                    ControlledPlayer.NumKills++;
                     //kill the other player
                     collision.collider.GetComponent<PlayerController>().Kill();
                     return;
@@ -207,6 +214,14 @@ public abstract class PlayerController : MonoBehaviour {
                 //dont kill if we run into another player
                 return;
             }
+
+            Debug.Log("player killed " + GORB.Owner);
+
+            if(GORB is ControllableGravityObjectRigidBody && (GORB as ControllableGravityObjectRigidBody).LastShotBy != null)
+            {
+                (GORB as ControllableGravityObjectRigidBody).LastShotBy.NumKills++;
+            }
+
             Kill();
         }
     }

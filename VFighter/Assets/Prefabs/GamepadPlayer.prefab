@@ -180,7 +180,7 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!61 &61020088342662242
 BoxCollider2D:
@@ -298,6 +298,8 @@ MonoBehaviour:
     NumWins: 0
     NumDeaths: 0
     NumLives: 0
+    ForceSelectInputDeviceByIndex: 0
+    InputDeviceIndex: 0
   IsCoolingDown: 0
   IsChangeGravityCoolingDown: 0
   IsDashCoolingDown: 0

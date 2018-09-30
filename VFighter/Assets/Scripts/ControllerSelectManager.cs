@@ -20,9 +20,6 @@ public class ControllerSelectManager : MonoBehaviour {
 
     public int numLivesPerPlayer;
 
-    //todo remove once level select is done
-    public string LevelToStart;
-
     private void Awake()
     {
         if(_instance)
@@ -48,7 +45,7 @@ public class ControllerSelectManager : MonoBehaviour {
                     readyControllers[usedInput] = false;
                 }
 
-                GameManager.Instance.StartGame("SpringLevel", 10);
+                GameManager.Instance.StartGame("LongLevel", 10);
             }
         }
     }
