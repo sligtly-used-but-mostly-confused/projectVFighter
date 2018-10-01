@@ -36,6 +36,9 @@ public abstract class PlayerController : NetworkBehaviour {
 
     public Player ControlledPlayer;
 
+    [SyncVar]
+    public short PlayerId;
+
     public bool IsCoolingDown = false;
     public bool IsChangeGravityCoolingDown = false;
     public bool IsDashCoolingDown = false;
@@ -43,7 +46,43 @@ public abstract class PlayerController : NetworkBehaviour {
 
     private List<GameObject> GravityGunProjectiles = new List<GameObject>();
     private Coroutine GravGunCoolDownCoroutine;
+    [SerializeField]
+    protected InputDevice InputDevice;
+    /*
+    public override void OnStartClient()
+    {
+        StartCoroutine(AttachToPlayer());
+    }
 
+    IEnumerator AttachToPlayer()
+    {
+        var player = FindObjectsOfType<NetworkPlayerHost>().ToList().Find(x => x.playerId == PlayerId);
+        if(player)
+        {
+            GetComponent<GravityObjectRigidBody>().IsSimulatedOnThisConnection = player.isLocalPlayer;
+
+            if(!player.isLocalPlayer)
+            {
+
+            }
+            else if(ControllerSelectManager.Instance.DevicesWaitingForPlayer.Count > 0)
+            {
+                InputDevice = ControllerSelectManager.Instance.DevicesWaitingForPlayer[0];
+                ControllerSelectManager.Instance.DevicesWaitingForPlayer.RemoveAt(0);
+            }
+            else
+            {
+                yield return new WaitForEndOfFrame();
+                yield return AttachToPlayer();
+            }
+        }
+        else
+        {
+            yield return new WaitForEndOfFrame();
+            yield return AttachToPlayer();
+        }
+    }
+    */
     public virtual void Init(Player player, Transform spawnPosition)
     {
         ControlledPlayer = player;
@@ -78,7 +117,14 @@ public abstract class PlayerController : NetworkBehaviour {
 
     public void Move(float dir)
     {
-        GetComponent<GravityObjectRigidBody>().UpdateVelocity(VelocityType.Movement, new Vector2(dir * MoveSpeed, 0));
+        //GetComponent<GravityObjectRigidBody>().UpdateVelocity(VelocityType.Movement, new Vector2(dir * MoveSpeed, 0));
+        //Debug.Log(name + " " + PlayerManager.Instance.LocalPlayerControllers.Contains(PlayerId));
+        if(GetComponent<GravityObjectRigidBody>().IsSimulatedOnThisConnection)
+        {
+            Debug.Log("asdasd");
+            GetComponent<Rigidbody2D>().velocity += new Vector2(dir, 0);
+        }
+            
     }
 
     public void FlipGravity()

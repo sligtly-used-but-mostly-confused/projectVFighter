@@ -19,7 +19,9 @@ public class ControllerSelectManager : NetworkBehaviour {
     private bool _isWaitingForReady = true;
 
     private Dictionary<InputDevice, bool> readyControllers = new Dictionary<InputDevice, bool>();
-    private Dictionary<short, InputDevice> _controllerIdToInputDevice = new Dictionary<short, InputDevice>();
+    //private Dictionary<short, InputDevice> _controllerIdToInputDevice = new Dictionary<short, InputDevice>();
+
+    public List<InputDevice> DevicesWaitingForPlayer = new List<InputDevice>();
     //[SerializeField]
     //private List<short> _localControllerIds = new List<short>();
 
@@ -58,18 +60,18 @@ public class ControllerSelectManager : NetworkBehaviour {
         }
     }
 
-    private void SpawnPlayer(ref Player player)
+    private short SpawnPlayer(short id)
     {
-        if(!ClientScene.AddPlayer(player.NetworkControllerId))
+        if(!ClientScene.AddPlayer(id))
         {
-            player.NetworkControllerId = ++Player.IdCnt;
-            SpawnPlayer(ref player);
+           return SpawnPlayer((short)(id + 1));
         }
+
+        return id;
     }
 
     private void CheckForNewControllers()
     {
-        
         foreach (var inputDevice in MappedInput.InputDevices)
         {
             if (!_usedDevices.Contains(inputDevice) &&
@@ -87,19 +89,22 @@ public class ControllerSelectManager : NetworkBehaviour {
                 player.NetworkControllerId = 1;
 
                 
-                SpawnPlayer(ref player);
+                Debug.Log(SpawnPlayer(0));
 
                 PlayerManager.Instance.AddPlayer(player);
 
-                _controllerIdToInputDevice.Add(player.NetworkControllerId, inputDevice);
+                //_controllerIdToInputDevice.Add(player.NetworkControllerId, inputDevice);
 
                 readyControllers.Add(inputDevice, false);
+
+                DevicesWaitingForPlayer.Add(inputDevice);
             }
         }
         
         
     }
 
+    /*
     public InputDevice GetPairedInputDevice(short controllerId)
     {
         InputDevice device = null;
@@ -110,6 +115,7 @@ public class ControllerSelectManager : NetworkBehaviour {
 
         return null;
     }
+    */
 
     public void Init()
     {
@@ -128,9 +134,10 @@ public class ControllerSelectManager : NetworkBehaviour {
                 readyControllers[usedInput] = !readyControllers[usedInput];
             }
 
-            allplayersReady &= readyControllers[usedInput];
+            //allplayersReady &= readyControllers[usedInput];
         }
 
-        return allplayersReady;
+        //return allplayersReady;
+        return false;
     }
 }

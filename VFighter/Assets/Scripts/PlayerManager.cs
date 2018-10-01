@@ -18,7 +18,7 @@ public class PlayerManager : NetworkBehaviour
     //public List<PlayerWrapper> Players = new List<PlayerWrapper>();
 
     public PlayerSyncList ConnectedPlayerControllers = new PlayerSyncList();
-    
+    public List<short> LocalPlayerControllers = new List<short>();
     void Awake()
     {
         if(_instance)
@@ -33,17 +33,18 @@ public class PlayerManager : NetworkBehaviour
 
     private void Update()
     {
-
+        /*
         foreach(var player in ConnectedPlayerControllers)
         {
             Debug.Log(player.NetworkControllerId + " " + player.NumLives);
         }
-        
+        */
     }
 
     public void AddPlayer(Player player)
     {
         ConnectedPlayerControllers.Add(player);
+        //LocalPlayerControllers.Add(player.NetworkControllerId);
         //LevelManager.Instance.SpawnPlayer(player);
     }
 

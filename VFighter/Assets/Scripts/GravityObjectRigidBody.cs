@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 using System.Linq;
 
 
@@ -24,7 +25,7 @@ public enum VelocityType
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Collider2D))]
-public class GravityObjectRigidBody : MonoBehaviour {
+public class GravityObjectRigidBody : NetworkBehaviour {
     private static int _idCnt = 0;
     public static float TimeScale = 1;
 
@@ -56,6 +57,7 @@ public class GravityObjectRigidBody : MonoBehaviour {
     protected Dictionary<VelocityType, Vector2> _velocities = new Dictionary<VelocityType, Vector2>();
 
     private Rigidbody2D _rB;
+    public bool IsSimulatedOnThisConnection = true;
 
     public float GravityScale
     {
@@ -94,12 +96,13 @@ public class GravityObjectRigidBody : MonoBehaviour {
 
     private void ProcessVelocity()
     {
-        _rB.velocity = Vector2.zero;
+        //_rB.velocity = Vector2.zero;
 
         foreach (var velocity in _velocities)
         {
-            _rB.velocity += velocity.Value * TimeScale;
+            //_rB.velocity += velocity.Value * TimeScale;
         }
+        //Debug.Log(_rB.velocity);
     }
 
     private void DoDrag()

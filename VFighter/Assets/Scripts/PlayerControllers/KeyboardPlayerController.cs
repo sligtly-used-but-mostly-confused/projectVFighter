@@ -4,25 +4,22 @@ using UnityEngine;
 
 public class KeyboardPlayerController : PlayerController
 {
-    InputDevice inputDevice;
-
     void Update()
     {        
-        inputDevice = ControllerSelectManager.Instance.GetPairedInputDevice(ControlledPlayer.NetworkControllerId);
-        //Debug.Log(inputDevice);
+        //inputDevice = ControllerSelectManager.Instance.GetPairedInputDevice(PlayerId);
 
-        if(inputDevice == null)
+        if(InputDevice == null)
         {
             return;
         }
 
-        float mouseX = inputDevice.GetAxisRaw(MappedAxis.AimX);
-        float mouseY = inputDevice.GetAxisRaw(MappedAxis.AimY);
+        float mouseX = InputDevice.GetAxisRaw(MappedAxis.AimX);
+        float mouseY = InputDevice.GetAxisRaw(MappedAxis.AimY);
 
         //Debug.Log(inputDevice.GetAxis2DCircleClamp(MappedAxis.AimX, MappedAxis.AimY));
 
-        float Horz = inputDevice.GetAxis(MappedAxis.Horizontal);
-        float Vert = inputDevice.GetAxis(MappedAxis.Vertical);
+        float Horz = InputDevice.GetAxis(MappedAxis.Horizontal);
+        float Vert = InputDevice.GetAxis(MappedAxis.Vertical);
         Move(Horz);
         //Vector2 changeGravDir = new Vector2(ChangeGravX, ChangeGravY);
         //Debug.Log(changeGravDir);
@@ -40,12 +37,12 @@ public class KeyboardPlayerController : PlayerController
         
         AimReticle(aimVector);
 
-        if (inputDevice.GetButtonDown(MappedButton.ChangeGrav))
+        if (InputDevice.GetButtonDown(MappedButton.ChangeGrav))
         {
             FlipGravity();
         }
 
-        if (inputDevice.GetButtonDown(MappedButton.ShootGravGun))
+        if (InputDevice.GetButtonDown(MappedButton.ShootGravGun))
         {
             ShootGravityGun(aimVector);
         }

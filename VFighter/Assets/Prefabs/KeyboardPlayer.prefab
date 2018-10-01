@@ -42,10 +42,9 @@ GameObject:
   - component: {fileID: 114730022364382558}
   - component: {fileID: 23672511711457686}
   - component: {fileID: 33479548286814250}
-  - component: {fileID: 108904030680179406}
   - component: {fileID: 114155156425097820}
-  - component: {fileID: 114662783024654882}
   - component: {fileID: 114885467398405816}
+  - component: {fileID: 114662783024654882}
   m_Layer: 0
   m_Name: KeyboardPlayer
   m_TagString: Untagged
@@ -209,43 +208,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!108 &108904030680179406
-Light:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1865601022989246}
-  m_Enabled: 1
-  serializedVersion: 8
-  m_Type: 2
-  m_Color: {r: 1, g: 0.5330188, b: 0.5330188, a: 1}
-  m_Intensity: 1
-  m_Range: 3
-  m_SpotAngle: 30
-  m_CookieSize: 10
-  m_Shadows:
-    m_Type: 0
-    m_Resolution: -1
-    m_CustomResolution: -1
-    m_Strength: 1
-    m_Bias: 0.05
-    m_NormalBias: 0.4
-    m_NearPlane: 0.2
-  m_Cookie: {fileID: 0}
-  m_DrawHalo: 0
-  m_Flare: {fileID: 0}
-  m_RenderMode: 0
-  m_CullingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_Lightmapping: 4
-  m_LightShadowCasterMode: 0
-  m_AreaSize: {x: 1, y: 1}
-  m_BounceIntensity: 1
-  m_ColorTemperature: 6570
-  m_UseColorTemperature: 0
-  m_ShadowRadius: 0
-  m_ShadowAngle: 0
 --- !u!114 &114155156425097820
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -269,9 +231,7 @@ MonoBehaviour:
   AimingReticle: {fileID: 1458403467112502}
   DashSpeed: 15
   ControlledPlayer:
-    NetowrkControllerId: 0
-    PairedInputDevice: {fileID: 0}
-    PlayerMaterial: {fileID: 0}
+    NetworkControllerId: 0
     IsKeyboardPlayer: 0
     NumWins: 0
     NumDeaths: 0
@@ -279,10 +239,12 @@ MonoBehaviour:
     NumKills: 0
     ForceSelectInputDeviceByIndex: 0
     InputDeviceIndex: 0
+  PlayerId: 0
   IsCoolingDown: 0
   IsChangeGravityCoolingDown: 0
   IsDashCoolingDown: 0
   IsDead: 0
+  InputDevice: {fileID: 0}
 --- !u!114 &114662783024654882
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -314,7 +276,7 @@ MonoBehaviour:
     i14: 201
     i15: 90
   m_ServerOnly: 0
-  m_LocalPlayerAuthority: 0
+  m_LocalPlayerAuthority: 1
 --- !u!114 &114730022364382558
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -340,6 +302,7 @@ MonoBehaviour:
   CanBeSelected: 1
   KillsPlayer: 1
   Owner: {fileID: 0}
+  IsSimulatedOnThisConnection: 1
 --- !u!114 &114885467398405816
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -351,7 +314,7 @@ MonoBehaviour:
   m_Script: {fileID: -1768714887, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_TransformSyncMode: 2
+  m_TransformSyncMode: 1
   m_SendInterval: 0.1
   m_SyncRotationAxis: 3
   m_RotationSyncCompression: 0
