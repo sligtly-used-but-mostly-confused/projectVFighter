@@ -48,33 +48,29 @@ public abstract class PlayerController : NetworkBehaviour {
     private Coroutine GravGunCoolDownCoroutine;
     [SerializeField]
     protected InputDevice InputDevice;
-    /*
-    public override void OnStartClient()
+
+    private void Start()
+    {
+        DontDestroyOnLoad(gameObject);
+    }
+
+    public override void OnStartLocalPlayer()
     {
         StartCoroutine(AttachToPlayer());
     }
 
     IEnumerator AttachToPlayer()
     {
-        var player = FindObjectsOfType<NetworkPlayerHost>().ToList().Find(x => x.playerId == PlayerId);
-        if(player)
+        GetComponent<GravityObjectRigidBody>().IsSimulatedOnThisConnection = isLocalPlayer;
+
+        if(!isLocalPlayer)
         {
-            GetComponent<GravityObjectRigidBody>().IsSimulatedOnThisConnection = player.isLocalPlayer;
 
-            if(!player.isLocalPlayer)
-            {
-
-            }
-            else if(ControllerSelectManager.Instance.DevicesWaitingForPlayer.Count > 0)
-            {
-                InputDevice = ControllerSelectManager.Instance.DevicesWaitingForPlayer[0];
-                ControllerSelectManager.Instance.DevicesWaitingForPlayer.RemoveAt(0);
-            }
-            else
-            {
-                yield return new WaitForEndOfFrame();
-                yield return AttachToPlayer();
-            }
+        }
+        else if(ControllerSelectManager.Instance.DevicesWaitingForPlayer.Count > 0)
+        {
+            InputDevice = ControllerSelectManager.Instance.DevicesWaitingForPlayer[0];
+            ControllerSelectManager.Instance.DevicesWaitingForPlayer.RemoveAt(0);
         }
         else
         {
@@ -82,7 +78,7 @@ public abstract class PlayerController : NetworkBehaviour {
             yield return AttachToPlayer();
         }
     }
-    */
+    
     public virtual void Init(Player player, Transform spawnPosition)
     {
         ControlledPlayer = player;
@@ -117,14 +113,7 @@ public abstract class PlayerController : NetworkBehaviour {
 
     public void Move(float dir)
     {
-        //GetComponent<GravityObjectRigidBody>().UpdateVelocity(VelocityType.Movement, new Vector2(dir * MoveSpeed, 0));
-        //Debug.Log(name + " " + PlayerManager.Instance.LocalPlayerControllers.Contains(PlayerId));
-        if(GetComponent<GravityObjectRigidBody>().IsSimulatedOnThisConnection)
-        {
-            Debug.Log("asdasd");
-            GetComponent<Rigidbody2D>().velocity += new Vector2(dir, 0);
-        }
-            
+        GetComponent<GravityObjectRigidBody>().UpdateVelocity(VelocityType.Movement, new Vector2(dir * MoveSpeed, 0));
     }
 
     public void FlipGravity()
@@ -179,12 +168,12 @@ public abstract class PlayerController : NetworkBehaviour {
         {
             if(AttachedObject == null)
             {
-                GameObject projectileClone = (GameObject)Instantiate(Projectile, AimingReticle.transform.position, AimingReticle.transform.rotation);
-                projectileClone.GetComponent<GravityGunProjectileController>().Owner = this;
-                projectileClone.GetComponent<GravityObjectRigidBody>().UpdateVelocity(VelocityType.OtherPhysics, dir * ShootSpeed);
+
+
+                CmdSpawnProjectile(dir);
                 //projectileClone.GetComponent<Renderer>().material = ControlledPlayer.PlayerMaterial;
                 StartGravGunCoolDown();
-                GravityGunProjectiles.Add(projectileClone);
+                //GravityGunProjectiles.Add(projectileClone);
             }
             else
             { 
@@ -192,6 +181,15 @@ public abstract class PlayerController : NetworkBehaviour {
                 DetachGORB();
             }
         }
+    }
+
+    [Command]
+    public void CmdSpawnProjectile(Vector2 dir)
+    {
+        GameObject projectileClone = Instantiate(Projectile, AimingReticle.transform.position, AimingReticle.transform.rotation);
+        projectileClone.GetComponent<GravityGunProjectileController>().Owner = this;
+        projectileClone.GetComponent<GravityObjectRigidBody>().UpdateVelocity(VelocityType.OtherPhysics, dir * ShootSpeed);
+        NetworkServer.Spawn(projectileClone);
     }
 
     public void AttachGORB(GravityObjectRigidBody gravityObjectRB)

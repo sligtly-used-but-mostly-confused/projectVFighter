@@ -96,7 +96,6 @@ public class ControllerSelectManager : NetworkBehaviour {
                 //_controllerIdToInputDevice.Add(player.NetworkControllerId, inputDevice);
 
                 readyControllers.Add(inputDevice, false);
-
                 DevicesWaitingForPlayer.Add(inputDevice);
             }
         }

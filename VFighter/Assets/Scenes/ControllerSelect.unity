@@ -617,6 +617,7 @@ MonoBehaviour:
   - {fileID: 2100000, guid: f1a6e1fc3730df442be9feffac8c07c2, type: 2}
   _usedDevices: []
   _isWaitingForReady: 1
+  DevicesWaitingForPlayer: []
   NetworkPlayerPrefab: {fileID: 1596458492531264, guid: 23a394dfea771d24c8c02502a01bf446,
     type: 2}
   numLivesPerPlayer: 5
@@ -726,15 +727,14 @@ MonoBehaviour:
   m_ScriptCRCCheck: 1
   m_MaxDelay: 0.01
   m_LogLevel: 2
-  m_PlayerPrefab: {fileID: 1596458492531264, guid: 23a394dfea771d24c8c02502a01bf446,
+  m_PlayerPrefab: {fileID: 1865601022989246, guid: 58fb49fb4a9055343934f6f995dac95a,
     type: 2}
   m_AutoCreatePlayer: 0
   m_PlayerSpawnMethod: 0
   m_OfflineScene: 
   m_OnlineScene: 
   m_SpawnPrefabs:
-  - {fileID: 1503121510406556, guid: 9807f3b1172b88243a7ae3da48d1d3a4, type: 2}
-  - {fileID: 1865601022989246, guid: 58fb49fb4a9055343934f6f995dac95a, type: 2}
+  - {fileID: 1553312605624202, guid: 7b549a10b0a7a4de4843efb95d3176eb, type: 2}
   m_CustomConfig: 0
   m_MaxConnections: 4
   m_ConnectionConfig:
@@ -777,7 +777,7 @@ MonoBehaviour:
     m_MaxTimerTimeout: 12000
     m_MinNetSimulatorTimeout: 1
     m_MaxNetSimulatorTimeout: 12000
-  m_Channels: 
+  m_Channels: 0500000000000000
   m_UseWebSockets: 0
   m_UseSimulator: 0
   m_SimulatedLatency: 1

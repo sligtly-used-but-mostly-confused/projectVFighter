@@ -96,13 +96,15 @@ public class GravityObjectRigidBody : NetworkBehaviour {
 
     private void ProcessVelocity()
     {
-        //_rB.velocity = Vector2.zero;
-
-        foreach (var velocity in _velocities)
+        if (GetComponent<GravityObjectRigidBody>().IsSimulatedOnThisConnection)
         {
-            //_rB.velocity += velocity.Value * TimeScale;
+            _rB.velocity = Vector2.zero;
+
+            foreach (var velocity in _velocities)
+            {
+                _rB.velocity += velocity.Value * TimeScale;
+            }
         }
-        //Debug.Log(_rB.velocity);
     }
 
     private void DoDrag()

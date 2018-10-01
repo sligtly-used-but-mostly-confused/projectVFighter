@@ -1,20 +1,28 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
 [RequireComponent(typeof(Collider2D))]
-public class GravityGunProjectileController : MonoBehaviour {
+public class GravityGunProjectileController : NetworkBehaviour {
 
     [SerializeField]
     private float _secondsUntilDestory = 1;
 
     public PlayerController Owner;
 
-	// Use this for initialization
-	IEnumerator Start () {
+    public override void OnStartServer()
+    {
+        base.OnStartServer();
+        StartCoroutine(Onstart());
+    }
+
+    // Use this for initialization
+    IEnumerator Onstart () {
         yield return new WaitForSeconds(_secondsUntilDestory);
-        Destroy(gameObject);
+        NetworkServer.Destroy(gameObject);
 	}
+    
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -26,7 +34,7 @@ public class GravityGunProjectileController : MonoBehaviour {
                 collision.GetComponent<PlayerController>().FlipGravity();
                 Owner.IsCoolingDown = true;
                 Owner.StartGravGunCoolDown();
-                Owner.DestroyAllGravGunProjectiles();
+                NetworkServer.Destroy(gameObject);
                 return;
             }
 
@@ -42,12 +50,12 @@ public class GravityGunProjectileController : MonoBehaviour {
                 Owner.AttachGORB(gravityObjectRB);
                 Owner.IsCoolingDown = true;
                 Owner.StartGravGunCoolDown();
-                Owner.DestroyAllGravGunProjectiles();
+                NetworkServer.Destroy(gameObject);
                 return;
             }
             else
             {
-                Destroy(gameObject);
+                NetworkServer.Destroy(gameObject);
                 return;
             }
         }
