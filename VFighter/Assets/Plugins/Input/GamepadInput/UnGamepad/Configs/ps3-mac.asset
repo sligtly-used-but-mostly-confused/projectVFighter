@@ -3,7 +3,7 @@
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
@@ -17,41 +17,41 @@ MonoBehaviour:
   - sony
   displayName: Playstation 3 Controller
   layout: {fileID: 11400000, guid: 1bda56c6fdb3f4da1818fe763fcbd6ae, type: 2}
-  deadZone: .150000006
+  deadZone: 0.15
   inputMappings:
   - target: 0
     type: 1
-    inputId: 14
+    inputId: 1
     inputMin: 0
     inputMax: 1
   - target: 1
     type: 1
-    inputId: 13
+    inputId: 2
     inputMin: 0
     inputMax: 1
   - target: 2
     type: 1
-    inputId: 15
+    inputId: 3
     inputMin: 0
     inputMax: 1
   - target: 3
     type: 1
-    inputId: 12
+    inputId: 0
     inputMin: 0
     inputMax: 1
   - target: 4
     type: 1
-    inputId: 16
+    inputId: 13
     inputMin: 0
     inputMax: 1
   - target: 5
     type: 1
-    inputId: 3
+    inputId: 9
     inputMin: 0
     inputMax: 1
   - target: 6
     type: 1
-    inputId: 0
+    inputId: 8
     inputMin: 0
     inputMax: 1
   - target: 7
@@ -76,22 +76,22 @@ MonoBehaviour:
     inputMax: 1
   - target: 11
     type: 1
-    inputId: 10
+    inputId: 4
     inputMin: 0
     inputMax: 1
   - target: 12
     type: 1
-    inputId: 11
+    inputId: 5
     inputMin: 0
     inputMax: 1
   - target: 13
     type: 1
-    inputId: 1
+    inputId: 10
     inputMin: 0
     inputMax: 1
   - target: 14
     type: 1
-    inputId: 2
+    inputId: 11
     inputMin: 0
     inputMax: 1
   - target: 15
