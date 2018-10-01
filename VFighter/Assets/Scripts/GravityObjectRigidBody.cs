@@ -26,6 +26,7 @@ public enum VelocityType
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Collider2D))]
 public class GravityObjectRigidBody : NetworkBehaviour {
+    #region vars
     private static int _idCnt = 0;
     public static float TimeScale = 1;
 
@@ -57,8 +58,9 @@ public class GravityObjectRigidBody : NetworkBehaviour {
     protected Dictionary<VelocityType, Vector2> _velocities = new Dictionary<VelocityType, Vector2>();
 
     private Rigidbody2D _rB;
-    public bool IsSimulatedOnThisConnection = true;
+    public bool IsSimulatedOnThisConnection = false;
 
+    
     public float GravityScale
     {
         get { return _gravityScale; }
@@ -76,6 +78,7 @@ public class GravityObjectRigidBody : NetworkBehaviour {
         get { return _id; }
         private set { _id = value; }
     }
+    #endregion
 
     private void Awake()
     {

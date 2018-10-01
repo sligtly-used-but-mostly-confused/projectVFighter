@@ -47,7 +47,7 @@ public class GravityGunProjectileController : NetworkBehaviour {
                 }
 
                 gravityObjectRB.Owner = Owner;
-                Owner.AttachGORB(gravityObjectRB);
+                Owner.AttachReticle(gravityObjectRB);
                 Owner.IsCoolingDown = true;
                 Owner.StartGravGunCoolDown();
                 NetworkServer.Destroy(gameObject);

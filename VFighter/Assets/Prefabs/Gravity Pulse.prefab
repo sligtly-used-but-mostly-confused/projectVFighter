@@ -27,7 +27,6 @@ GameObject:
   - component: {fileID: 114963179985704802}
   - component: {fileID: 114048110001761918}
   - component: {fileID: 114424392763076066}
-  - component: {fileID: 114779315394549572}
   m_Layer: 0
   m_Name: Gravity Pulse
   m_TagString: Untagged
@@ -191,19 +190,6 @@ MonoBehaviour:
   m_SnapThreshold: 5
   m_InterpolateRotation: 1
   m_InterpolateMovement: 2
---- !u!114 &114779315394549572
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1553312605624202}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -837897634, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_VisualizerPrefab: {fileID: 1126136442948038, guid: 7392a1a33488a85499e364bb87e51321,
-    type: 2}
 --- !u!114 &114963179985704802
 MonoBehaviour:
   m_ObjectHideFlags: 1

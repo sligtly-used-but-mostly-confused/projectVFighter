@@ -24,6 +24,8 @@ GameObject:
   - component: {fileID: 23393360681103954}
   - component: {fileID: 33211921384807202}
   - component: {fileID: 114227078285474836}
+  - component: {fileID: 114251008964941468}
+  - component: {fileID: 114336607378335190}
   m_Layer: 0
   m_Name: GravityObject
   m_TagString: Untagged
@@ -38,7 +40,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1167609975392520}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8.73, y: -0.07, z: 0}
+  m_LocalPosition: {x: -0.041158527, y: -0.064121544, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -154,12 +156,12 @@ MonoBehaviour:
   CanBeSelected: 1
   KillsPlayer: 1
   Owner: {fileID: 0}
+  IsSimulatedOnThisConnection: 1
   _speedMultiplier: 1
   _speedMultiplierStep: 0.1
   _maxSpeedMultiplier: 2
   LastShotBy:
-    PairedInputDevice: {fileID: 0}
-    PlayerMaterial: {fileID: 0}
+    NetworkControllerId: 0
     IsKeyboardPlayer: 0
     NumWins: 0
     NumDeaths: 0
@@ -167,3 +169,56 @@ MonoBehaviour:
     NumKills: 0
     ForceSelectInputDeviceByIndex: 0
     InputDeviceIndex: 0
+--- !u!114 &114251008964941468
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1167609975392520}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 85
+    i1: 254
+    i2: 147
+    i3: 96
+    i4: 35
+    i5: 108
+    i6: 224
+    i7: 148
+    i8: 184
+    i9: 121
+    i10: 24
+    i11: 55
+    i12: 53
+    i13: 108
+    i14: 77
+    i15: 137
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 1
+--- !u!114 &114336607378335190
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1167609975392520}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1768714887, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TransformSyncMode: 2
+  m_SendInterval: 0.1
+  m_SyncRotationAxis: 3
+  m_RotationSyncCompression: 0
+  m_SyncSpin: 0
+  m_MovementTheshold: 0.001
+  m_VelocityThreshold: 0.0001
+  m_SnapThreshold: 5
+  m_InterpolateRotation: 1
+  m_InterpolateMovement: 1
