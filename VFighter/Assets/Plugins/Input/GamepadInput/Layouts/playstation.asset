@@ -3,7 +3,7 @@
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
@@ -13,19 +13,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp-firstpass::GamepadLayout2
   buttonNames:
   - button: 0
-    name: X
+    name: PS4_X
   - button: 1
-    name: CIRCLE
+    name: PS4_O
   - button: 2
-    name: SQUARE
+    name: PS4_Square
   - button: 3
-    name: TRIANGLE
+    name: PS4_Triangle
   - button: 4
-    name: Menu
+    name: PS4_Touch
   - button: 5
-    name: Start
+    name: PS4_Options
   - button: 6
-    name: Select
+    name: PS4_Share
   - button: 7
     name: D-Pad Left
   - button: 9
@@ -35,23 +35,23 @@ MonoBehaviour:
   - button: 10
     name: D-Pad Down
   - button: 11
-    name: L1
+    name: PS4_L1
   - button: 12
-    name: R1
+    name: PS4_R1
   - button: 13
-    name: L3
+    name: PS4_L3
   - button: 14
-    name: R3
+    name: PS4_R3
   axisNames:
   - axis: 0
     name: Left Stick Horizontal
   - axis: 1
     name: Left Stick Vertical
   - axis: 2
-    name: Right Stick Horizontal
+    name: PS4_RightStickHorizontal
   - axis: 3
-    name: Right Stick Vertical
+    name: PS4_RightStickVertical
   - axis: 4
-    name: R2
+    name: PS4_L2
   - axis: 5
-    name: R2
+    name: PS4_R2
