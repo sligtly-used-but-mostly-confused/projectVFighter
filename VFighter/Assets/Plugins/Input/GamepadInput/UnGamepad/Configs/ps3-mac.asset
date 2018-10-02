@@ -55,25 +55,25 @@ MonoBehaviour:
     inputMin: 0
     inputMax: 1
   - target: 7
-    type: 1
+    type: 0
     inputId: 7
     inputMin: 0
-    inputMax: 1
+    inputMax: -1
   - target: 8
-    type: 1
-    inputId: 4
+    type: 0
+    inputId: 8
     inputMin: 0
     inputMax: 1
   - target: 9
-    type: 1
-    inputId: 5
+    type: 0
+    inputId: 7
     inputMin: 0
     inputMax: 1
   - target: 10
-    type: 1
-    inputId: 6
+    type: 0
+    inputId: 8
     inputMin: 0
-    inputMax: 1
+    inputMax: -1
   - target: 11
     type: 1
     inputId: 4
@@ -111,16 +111,16 @@ MonoBehaviour:
     inputMax: 1
   - target: 18
     type: 0
-    inputId: 4
+    inputId: 6
     inputMin: 1
     inputMax: -1
   - target: 19
-    type: 1
-    inputId: 8
+    type: 0
+    inputId: 4
     inputMin: 0
     inputMax: 1
   - target: 20
-    type: 1
-    inputId: 9
+    type: 0
+    inputId: 5
     inputMin: 0
     inputMax: 1

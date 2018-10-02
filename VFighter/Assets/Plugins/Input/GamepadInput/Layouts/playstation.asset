@@ -52,6 +52,6 @@ MonoBehaviour:
   - axis: 3
     name: Right Stick Vertical
   - axis: 4
-    name: R2
+    name: L2
   - axis: 5
     name: R2
