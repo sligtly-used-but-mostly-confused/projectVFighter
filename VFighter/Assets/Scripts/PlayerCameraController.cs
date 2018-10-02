@@ -18,10 +18,13 @@ public class PlayerCameraController : MonoBehaviour
     [SerializeField]
     private Vector3 _targetCenter = Vector3.zero;
 
+    List<PlayerController> _playerTransforms;
+
     void Start()
     {
         //_player = GameManager.Instance.Player;
         _rB = GetComponent<Rigidbody2D>();
+        _playerTransforms = FindObjectsOfType<PlayerController>().ToList();
     }
 
     void FixedUpdate()
@@ -38,7 +41,7 @@ public class PlayerCameraController : MonoBehaviour
 
     private void UpdateTargets()
     {
-        var alivePlayers = LevelManager.Instance.Players.Where(x => !x.IsDead);
+        var alivePlayers = _playerTransforms.Where(x => !x.IsDead);
 
         float minX = alivePlayers.Min(x => x.transform.position.x);
         float maxX = alivePlayers.Max(x => x.transform.position.x);

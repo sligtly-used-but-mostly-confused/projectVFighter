@@ -28,7 +28,6 @@ public enum VelocityType
 public class GravityObjectRigidBody : NetworkBehaviour {
     #region vars
     private static int _idCnt = 0;
-    public static float TimeScale = 1;
 
     [SerializeField]
     private int _id;
@@ -115,7 +114,7 @@ public class GravityObjectRigidBody : NetworkBehaviour {
 
             foreach (var velocity in _velocities)
             {
-                _rB.velocity += velocity.Value * TimeScale;
+                _rB.velocity += velocity.Value * GameManager.Instance.TimeScale;
             }
         }
     }

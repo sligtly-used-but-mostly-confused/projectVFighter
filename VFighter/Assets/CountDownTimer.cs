@@ -10,7 +10,7 @@ public class CountDownTimer : MonoBehaviour {
     private float _timePerTick = 1;
 
 	void Start () {
-        GravityObjectRigidBody.TimeScale = 0;
+        GameManager.Instance.TimeScale = 0;
         StartCoroutine(CountDown());
 	}
 	

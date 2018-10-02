@@ -334,12 +334,12 @@ MonoBehaviour:
   CanBeSelected: 1
   KillsPlayer: 1
   Owner: {fileID: 0}
+  IsSimulatedOnThisConnection: 0
   _speedMultiplier: 1
   _speedMultiplierStep: 0.1
   _maxSpeedMultiplier: 2
   LastShotBy:
-    PairedInputDevice: {fileID: 0}
-    PlayerMaterial: {fileID: 0}
+    NetworkControllerId: 0
     IsKeyboardPlayer: 0
     NumWins: 0
     NumDeaths: 0
@@ -612,12 +612,12 @@ MonoBehaviour:
   CanBeSelected: 1
   KillsPlayer: 1
   Owner: {fileID: 0}
+  IsSimulatedOnThisConnection: 0
   _speedMultiplier: 1
   _speedMultiplierStep: 0.1
   _maxSpeedMultiplier: 2
   LastShotBy:
-    PairedInputDevice: {fileID: 0}
-    PlayerMaterial: {fileID: 0}
+    NetworkControllerId: 0
     IsKeyboardPlayer: 0
     NumWins: 0
     NumDeaths: 0
@@ -3222,6 +3222,43 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0c9a1517dd2ebba4cbbed10d6a04200c, type: 2}
   m_IsPrefabAsset: 0
+--- !u!1 &1324017318 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1409041787040200, guid: 0c9a1517dd2ebba4cbbed10d6a04200c,
+    type: 2}
+  m_PrefabInternal: {fileID: 1324017317}
+--- !u!114 &1324017319
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1324017318}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 12
+    i1: 154
+    i2: 21
+    i3: 23
+    i4: 221
+    i5: 46
+    i6: 187
+    i7: 164
+    i8: 203
+    i9: 190
+    i10: 209
+    i11: 13
+    i12: 106
+    i13: 4
+    i14: 32
+    i15: 12
+  m_ServerOnly: 1
+  m_LocalPlayerAuthority: 0
 --- !u!1 &1352130555
 GameObject:
   m_ObjectHideFlags: 0
@@ -3531,12 +3568,12 @@ MonoBehaviour:
   CanBeSelected: 1
   KillsPlayer: 1
   Owner: {fileID: 0}
+  IsSimulatedOnThisConnection: 0
   _speedMultiplier: 0
   _speedMultiplierStep: 0
   _maxSpeedMultiplier: 0
   LastShotBy:
-    PairedInputDevice: {fileID: 0}
-    PlayerMaterial: {fileID: 0}
+    NetworkControllerId: 0
     IsKeyboardPlayer: 0
     NumWins: 0
     NumDeaths: 0
@@ -4133,12 +4170,12 @@ MonoBehaviour:
   CanBeSelected: 1
   KillsPlayer: 1
   Owner: {fileID: 0}
+  IsSimulatedOnThisConnection: 0
   _speedMultiplier: 1
   _speedMultiplierStep: 0.1
   _maxSpeedMultiplier: 2
   LastShotBy:
-    PairedInputDevice: {fileID: 0}
-    PlayerMaterial: {fileID: 0}
+    NetworkControllerId: 0
     IsKeyboardPlayer: 0
     NumWins: 0
     NumDeaths: 0

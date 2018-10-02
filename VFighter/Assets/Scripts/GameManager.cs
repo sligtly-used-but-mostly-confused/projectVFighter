@@ -26,6 +26,9 @@ public class GameManager : NetworkBehaviour {
         DontDestroyOnLoad(this);
 	}
 
+    [SyncVar]
+    public float TimeScale = 1;
+
     public void StartGame(string levelName, int numStages)
     {
         _levelName = levelName;

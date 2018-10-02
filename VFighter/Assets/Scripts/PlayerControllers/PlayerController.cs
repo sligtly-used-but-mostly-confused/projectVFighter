@@ -41,7 +41,7 @@ public abstract class PlayerController : NetworkBehaviour {
     protected readonly Vector2[] _gravChangeDirections = { Vector2.up, Vector2.down };
     protected readonly Vector2[] _gravChangeDirectionsForThrownObject = { Vector2.up, Vector2.down, Vector2.left, Vector2.right };
 
-    public Player ControlledPlayer;
+    
 
     public bool IsCoolingDown = false;
     public bool IsChangeGravityCoolingDown = false;
@@ -59,6 +59,8 @@ public abstract class PlayerController : NetworkBehaviour {
     public short MaterialId = -1;
     [SyncVar]
     public bool IsReady = false;
+    [SyncVar]
+    public Player ControlledPlayer;
 
     private void Start()
     {
@@ -85,6 +87,8 @@ public abstract class PlayerController : NetworkBehaviour {
 
         NetworkServer.SpawnWithClientAuthority(aimingReticle, connectionToClient);
         ReticleParent = gameObject;
+
+        ControlledPlayer.NumLives = ControllerSelectManager.Instance.numLivesPerPlayer;
     }
 
     public override void OnStartLocalPlayer()
@@ -466,5 +470,10 @@ public abstract class PlayerController : NetworkBehaviour {
         {
             GORB.GetComponent<GravityObjectRigidBody>().ChangeGravityDirectionInternal(dir);
         }
+    }
+
+    public void InitializeForStartLevel(GameObject spawnPoint)
+    {
+        //
     }
 }
