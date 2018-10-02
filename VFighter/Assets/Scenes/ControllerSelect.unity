@@ -375,7 +375,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4bc7ca6c9568401aa02f1429913a90e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  xGamepadLayout: {fileID: 11400000, guid: 7ba91af300bf5406ea907aed341630fb, type: 2}
+  xGamepadLayout: {fileID: 0}
   unGamepadConfigs:
   - {fileID: 11400000, guid: 4c3e27c94731342928a6f76efde0bacf, type: 2}
 --- !u!4 &143034103
@@ -618,7 +618,6 @@ MonoBehaviour:
   _usedDevices: []
   _isWaitingForReady: 1
   numLivesPerPlayer: 5
-  LevelToStart: 
 --- !u!4 &636215035
 Transform:
   m_ObjectHideFlags: 0

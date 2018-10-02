@@ -111,16 +111,16 @@ MonoBehaviour:
     inputMax: 1
   - target: 18
     type: 0
-    inputId: 6
+    inputId: 4
     inputMin: 1
     inputMax: -1
   - target: 19
     type: 0
-    inputId: 4
+    inputId: 5
     inputMin: 0
     inputMax: 1
   - target: 20
     type: 0
-    inputId: 5
+    inputId: 6
     inputMin: 0
     inputMax: 1
