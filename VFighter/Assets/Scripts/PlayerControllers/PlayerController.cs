@@ -59,6 +59,7 @@ public abstract class PlayerController : NetworkBehaviour {
     public short MaterialId = -1;
     [SyncVar]
     public bool IsReady = false;
+
     private void Start()
     {
         DontDestroyOnLoad(gameObject);
