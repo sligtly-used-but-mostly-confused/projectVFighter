@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Networking;
 using System;
+using System.Linq;
 
 public class ControllerSelectManager : NetworkBehaviour {
 
@@ -46,15 +47,10 @@ public class ControllerSelectManager : NetworkBehaviour {
         if(_isWaitingForReady)
         {
             CheckForNewControllers();
-
-            if (CheckForPlayerReady())
+            if (CheckForAllPlayersReady())
             {
                 _isWaitingForReady = false;
-                foreach (var usedInput in _usedDevices)
-                {
-                    readyControllers[usedInput] = false;
-                }
-
+                FindObjectsOfType<PlayerController>().ToList().ForEach(x => x.IsReady = false);
                 GameManager.Instance.StartGame("LongLevel", 10);
             }
         }
@@ -80,16 +76,14 @@ public class ControllerSelectManager : NetworkBehaviour {
                 ClientScene.readyConnection != null)
             {
                 _usedDevices.Add(inputDevice);
-                int matIndex = (int)(UnityEngine.Random.value * (_playerMaterials.Count - 1));
-                Material mat = _playerMaterials[matIndex];
-                _playerMaterials.RemoveAt(matIndex);
+
                 bool isKeyboard = inputDevice is KeyboardMouseInputDevice;
 
                 var player = new Player(numLivesPerPlayer, isKeyboard);
                 player.NetworkControllerId = 1;
 
                 
-                Debug.Log(SpawnPlayer(0));
+                SpawnPlayer(0);
 
                 PlayerManager.Instance.AddPlayer(player);
 
@@ -121,22 +115,15 @@ public class ControllerSelectManager : NetworkBehaviour {
         _isWaitingForReady = true;
     }
 
-    private bool CheckForPlayerReady()
+    private bool CheckForAllPlayersReady()
     {
-        bool allplayersReady = _usedDevices.Count > 1;
+        bool allplayersReady = _usedDevices.Count > 0;
 
-        foreach (var usedInput in _usedDevices)
+        if (isServer)
         {
-            var readyPressed = usedInput.GetButtonDown(MappedButton.Ready);
-            if (readyPressed)
-            {
-                readyControllers[usedInput] = !readyControllers[usedInput];
-            }
-
-            //allplayersReady &= readyControllers[usedInput];
+            return allplayersReady && FindObjectsOfType<PlayerController>().All(x => x.IsReady);
         }
 
-        //return allplayersReady;
         return false;
     }
 }

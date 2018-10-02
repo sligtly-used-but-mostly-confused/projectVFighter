@@ -1,10 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 using System.Linq;
 
-public class GameManager : MonoBehaviour {
+public class GameManager : NetworkBehaviour {
     private static GameManager _instance;
     public static GameManager Instance { get { return _instance; } }
 
@@ -28,9 +29,10 @@ public class GameManager : MonoBehaviour {
     public void StartGame(string levelName, int numStages)
     {
         _levelName = levelName;
-        PlayerManager.Instance.ResetPlayers();
+        //PlayerManager.Instance.ResetPlayers();
         //ProgressionThroughGame = (float)PlayerManager.Instance.Players.Max(x => x.NumDeaths) / (float)PlayerManager.Instance.Players.First().NumLives;
-        SceneManager.LoadScene(levelName);
+        NetworkManager.singleton.ServerChangeScene(levelName);
+        //SceneManager.LoadScene(levelName);
     }
 
     public void LoadNextStage()

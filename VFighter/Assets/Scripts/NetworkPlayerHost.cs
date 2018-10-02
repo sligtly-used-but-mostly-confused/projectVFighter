@@ -31,22 +31,10 @@ public class NetworkPlayerHost : NetworkBehaviour{
     {
         playerId = _idCnt++;
         GameObject playerObj;
-        //if (player.IsKeyboardPlayer)
-        //{
-            playerObj = Instantiate(_keyboardPlayerControllerPrefab);
-        //}
-        //else
-        //{
-            //playerObj = Instantiate(_gamepadPlayerControllerPrefab);
-        //}
-        
-        //playerObj.GetComponent<PlayerController>().Init(player, transform);
-        playerObj.GetComponent<PlayerController>().PlayerId = playerId;
+        playerObj = Instantiate(_keyboardPlayerControllerPrefab);
         playerObj.name = "controller "+GetComponent<NetworkIdentity>().playerControllerId;
         controllerId = GetComponent<NetworkIdentity>().playerControllerId;
         NetworkServer.Spawn(playerObj);
-
-        //PlayerManager.Instance.ConnectedPlayerControllers.Add(player);
     }
 
     public void SpawnPlayer(Player player)

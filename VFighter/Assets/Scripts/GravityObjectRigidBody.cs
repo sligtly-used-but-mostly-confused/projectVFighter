@@ -87,6 +87,16 @@ public class GravityObjectRigidBody : NetworkBehaviour {
         _maxComponentSpeeds.ForEach(x => _maxComponentVelocities.Add(x.type, x.Velocity));
     }
 
+    public override void OnStartServer()
+    {
+        Debug.Log("start " + isServer + " " + GetComponent<PlayerController>());
+        if (!GetComponent<PlayerController>())
+        {
+            Debug.Log("end " + isServer + " " + isLocalPlayer);
+            IsSimulatedOnThisConnection = isServer;
+        }
+    }
+
     void Start () {
         _rB.gravityScale = 0;
 	}
@@ -173,6 +183,48 @@ public class GravityObjectRigidBody : NetworkBehaviour {
 
     public void ChangeGravityDirection(Vector2 dir)
     {
+        /*
+        if(IsSimulatedOnThisConnection)
+        {
+            ChangeGravityDirectionInternal(dir);
+        }
+        else
+        {
+            //find a player object
+            //FindObjectOfType<PlayerController>().PassThough(CmdBroadcastChangeGravityDirection, dir);
+            //CmdBroadcastChangeGravityDirection(dir);
+        }
+        */
+    }
+
+    /*
+    [Command]
+    public void CmdBroadcastChangeGravityDirection(Vector2 dir)
+    {
+        Debug.Log("cmd change grav");
+        if (IsSimulatedOnThisConnection)
+        {
+            ChangeGravityDirectionInternal(dir);
+        }
+        else
+        {
+            FindObjectOfType<PlayerController>().PassThough(RpcBroadcastChangeGravityDirection, dir);
+        }
+    }
+
+    [ClientRpc]
+    public void RpcBroadcastChangeGravityDirection(Vector2 dir)
+    {
+        Debug.Log("rpc change grav");
+        if (IsSimulatedOnThisConnection)
+        {
+            ChangeGravityDirection(dir);
+        }
+    }
+    */
+
+    public void ChangeGravityDirectionInternal(Vector2 dir)
+    {
         if (dir != GravityDirection)
         {
             UpdateVelocity(VelocityType.Gravity, Vector2.zero);
@@ -230,9 +282,10 @@ public class GravityObjectRigidBody : NetworkBehaviour {
             UpdateVelocity(VelocityType.OtherPhysics, reflectionVec);
         }
 
-        if (_stopObjectOnCollide)
+        if (_stopObjectOnCollide && IsSimulatedOnThisConnection)
         {
-            ChangeGravityDirection(Vector2.zero);
+            //ChangeGravityDirection(Vector2.zero);
+            FindObjectOfType<PlayerController>().ChangeGORBGravityDirection(this, Vector2.zero);
         }
     }
 }

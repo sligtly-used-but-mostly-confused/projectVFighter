@@ -5,15 +5,20 @@ using UnityEngine;
 public class KeyboardPlayerController : PlayerController
 {
     void Update()
-    {        
+    {
         //inputDevice = ControllerSelectManager.Instance.GetPairedInputDevice(PlayerId);
-
-        if(InputDevice == null)
+        
+        if (InputDevice == null)
         {
             return;
         }
 
-        if(InputDevice is KeyboardMouseInputDevice)
+        if(InputDevice.GetButtonDown(MappedButton.Ready))
+        {
+            Ready();
+        }
+
+        if (InputDevice is KeyboardMouseInputDevice)
         {
             Keyboard();
         }

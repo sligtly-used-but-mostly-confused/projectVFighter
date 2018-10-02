@@ -178,8 +178,8 @@ MonoBehaviour:
   DashSpeed: 15
   AimingReticlePrefab: {fileID: 1904020002216382, guid: fee8c362ea81b684890d6767eaf66389,
     type: 2}
-  AimingReticle: {fileID: 0}
-  AimingReticleParent: {fileID: 0}
+  Reticle: {fileID: 0}
+  ReticleParent: {fileID: 0}
   ControlledPlayer:
     NetworkControllerId: 0
     IsKeyboardPlayer: 0
@@ -189,12 +189,13 @@ MonoBehaviour:
     NumKills: 0
     ForceSelectInputDeviceByIndex: 0
     InputDeviceIndex: 0
-  PlayerId: 0
   IsCoolingDown: 0
   IsChangeGravityCoolingDown: 0
   IsDashCoolingDown: 0
   IsDead: 0
   InputDevice: {fileID: 0}
+  ReticleId: -1
+  MaterialId: -1
 --- !u!114 &114662783024654882
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -252,4 +253,4 @@ MonoBehaviour:
   CanBeSelected: 1
   KillsPlayer: 1
   Owner: {fileID: 0}
-  IsSimulatedOnThisConnection: 1
+  IsSimulatedOnThisConnection: 0
