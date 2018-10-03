@@ -12,7 +12,8 @@ public class ObjectSpawnPosition : SpawnPosition {
         {
             for(int i = 0; i < transform.childCount; i++)
             {
-                Destroy(transform.GetChild(i).gameObject);
+                NetworkServer.Destroy(transform.GetChild(i).gameObject);
+                //Destroy(transform.GetChild(i).gameObject);
             }
         }
     }

@@ -310,6 +310,7 @@ GameObject:
   m_Component:
   - component: {fileID: 182592087}
   - component: {fileID: 182592088}
+  - component: {fileID: 182592089}
   m_Layer: 0
   m_Name: SpringPlatform
   m_TagString: Untagged
@@ -353,6 +354,38 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 7
+--- !u!114 &182592089
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 182592086}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 0
+    i1: 0
+    i2: 0
+    i3: 0
+    i4: 0
+    i5: 0
+    i6: 0
+    i7: 0
+    i8: 0
+    i9: 0
+    i10: 0
+    i11: 0
+    i12: 0
+    i13: 0
+    i14: 0
+    i15: 0
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0
 --- !u!1 &204630057
 GameObject:
   m_ObjectHideFlags: 0
@@ -671,7 +704,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d4c8852ec315cf4da7c36f7feb5ae70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chanceToSpawn: 1
+  chanceToSpawn: 0.25
 --- !u!1001 &337438417
 Prefab:
   m_ObjectHideFlags: 0
@@ -916,7 +949,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d4c8852ec315cf4da7c36f7feb5ae70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chanceToSpawn: 1
+  chanceToSpawn: 0.25
 --- !u!1 &412612282
 GameObject:
   m_ObjectHideFlags: 0
@@ -927,6 +960,7 @@ GameObject:
   m_Component:
   - component: {fileID: 412612283}
   - component: {fileID: 412612284}
+  - component: {fileID: 412612285}
   m_Layer: 0
   m_Name: SpringPlatform
   m_TagString: Untagged
@@ -970,6 +1004,38 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 7
+--- !u!114 &412612285
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 412612282}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 0
+    i1: 0
+    i2: 0
+    i3: 0
+    i4: 0
+    i5: 0
+    i6: 0
+    i7: 0
+    i8: 0
+    i9: 0
+    i10: 0
+    i11: 0
+    i12: 0
+    i13: 0
+    i14: 0
+    i15: 0
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0
 --- !u!1 &470154798
 GameObject:
   m_ObjectHideFlags: 0
@@ -1446,6 +1512,7 @@ GameObject:
   m_Component:
   - component: {fileID: 536418133}
   - component: {fileID: 536418134}
+  - component: {fileID: 536418135}
   m_Layer: 0
   m_Name: SpringPlatform
   m_TagString: Untagged
@@ -1489,6 +1556,38 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 7
+--- !u!114 &536418135
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 536418132}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 0
+    i1: 0
+    i2: 0
+    i3: 0
+    i4: 0
+    i5: 0
+    i6: 0
+    i7: 0
+    i8: 0
+    i9: 0
+    i10: 0
+    i11: 0
+    i12: 0
+    i13: 0
+    i14: 0
+    i15: 0
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0
 --- !u!1 &559016638
 GameObject:
   m_ObjectHideFlags: 0
@@ -1771,7 +1870,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d4c8852ec315cf4da7c36f7feb5ae70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chanceToSpawn: 1
+  chanceToSpawn: 0.25
 --- !u!1 &610375545
 GameObject:
   m_ObjectHideFlags: 0
@@ -2386,6 +2485,7 @@ GameObject:
   m_Component:
   - component: {fileID: 971528980}
   - component: {fileID: 971528981}
+  - component: {fileID: 971528982}
   m_Layer: 0
   m_Name: SpringPlatform
   m_TagString: Untagged
@@ -2429,6 +2529,38 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 7
+--- !u!114 &971528982
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 971528979}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 0
+    i1: 0
+    i2: 0
+    i3: 0
+    i4: 0
+    i5: 0
+    i6: 0
+    i7: 0
+    i8: 0
+    i9: 0
+    i10: 0
+    i11: 0
+    i12: 0
+    i13: 0
+    i14: 0
+    i15: 0
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0
 --- !u!1 &1032787610
 GameObject:
   m_ObjectHideFlags: 0
@@ -2458,7 +2590,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d4c8852ec315cf4da7c36f7feb5ae70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chanceToSpawn: 1
+  chanceToSpawn: 0.25
 --- !u!1 &1041885688
 GameObject:
   m_ObjectHideFlags: 0
@@ -3462,7 +3594,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d4c8852ec315cf4da7c36f7feb5ae70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chanceToSpawn: 1.5
+  chanceToSpawn: 0.25
 --- !u!1 &1504603183
 GameObject:
   m_ObjectHideFlags: 0
@@ -4001,6 +4133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1569235634}
   - component: {fileID: 1569235635}
+  - component: {fileID: 1569235636}
   m_Layer: 0
   m_Name: SpringPlatform
   m_TagString: Untagged
@@ -4044,6 +4177,38 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 7
+--- !u!114 &1569235636
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1569235633}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 0
+    i1: 0
+    i2: 0
+    i3: 0
+    i4: 0
+    i5: 0
+    i6: 0
+    i7: 0
+    i8: 0
+    i9: 0
+    i10: 0
+    i11: 0
+    i12: 0
+    i13: 0
+    i14: 0
+    i15: 0
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0
 --- !u!1 &1597939430
 GameObject:
   m_ObjectHideFlags: 0
@@ -5069,7 +5234,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d4c8852ec315cf4da7c36f7feb5ae70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chanceToSpawn: 1
+  chanceToSpawn: 0.25
 --- !u!1 &2002568003
 GameObject:
   m_ObjectHideFlags: 0
@@ -5080,6 +5245,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2002568004}
   - component: {fileID: 2002568005}
+  - component: {fileID: 2002568006}
   m_Layer: 0
   m_Name: SpringPlatform
   m_TagString: Untagged
@@ -5123,6 +5289,38 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 7
+--- !u!114 &2002568006
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2002568003}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 0
+    i1: 0
+    i2: 0
+    i3: 0
+    i4: 0
+    i5: 0
+    i6: 0
+    i7: 0
+    i8: 0
+    i9: 0
+    i10: 0
+    i11: 0
+    i12: 0
+    i13: 0
+    i14: 0
+    i15: 0
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0
 --- !u!1 &2044523843
 GameObject:
   m_ObjectHideFlags: 0

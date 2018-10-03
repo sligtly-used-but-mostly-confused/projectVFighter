@@ -22,7 +22,6 @@ public class GravityGunProjectileController : NetworkBehaviour {
         yield return new WaitForSeconds(_secondsUntilDestory);
         NetworkServer.Destroy(gameObject);
 	}
-    
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
