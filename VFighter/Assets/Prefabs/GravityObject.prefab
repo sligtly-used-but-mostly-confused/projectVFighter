@@ -40,7 +40,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1167609975392520}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.041158527, y: -0.064121544, z: 0}
+  m_LocalPosition: {x: 4.4, y: 0.042435944, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -156,7 +156,7 @@ MonoBehaviour:
   CanBeSelected: 1
   KillsPlayer: 1
   Owner: {fileID: 0}
-  IsSimulatedOnThisConnection: 1
+  IsSimulatedOnThisConnection: 0
   _speedMultiplier: 1
   _speedMultiplierStep: 0.1
   _maxSpeedMultiplier: 2

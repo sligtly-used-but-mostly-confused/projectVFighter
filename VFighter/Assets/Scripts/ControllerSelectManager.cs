@@ -16,8 +16,7 @@ public class ControllerSelectManager : NetworkBehaviour {
 
     [SerializeField]
     private List<InputDevice> _usedDevices = new List<InputDevice>();
-    [SerializeField]
-    private bool _isWaitingForReady = true;
+    
 
     private Dictionary<InputDevice, bool> readyControllers = new Dictionary<InputDevice, bool>();
     //private Dictionary<short, InputDevice> _controllerIdToInputDevice = new Dictionary<short, InputDevice>();
@@ -29,6 +28,10 @@ public class ControllerSelectManager : NetworkBehaviour {
     [SerializeField]
     private GameObject NetworkPlayerPrefab;
 
+    [SerializeField, SyncVar]
+    private bool _isWaitingForReady = true;
+
+    public string LevelToLoad = "LongLevel";
     public int numLivesPerPlayer;
 
     private void Awake()
@@ -47,11 +50,12 @@ public class ControllerSelectManager : NetworkBehaviour {
         if(_isWaitingForReady)
         {
             CheckForNewControllers();
-            if (CheckForAllPlayersReady())
+
+            if (isServer && CheckForAllPlayersReady())
             {
                 _isWaitingForReady = false;
                 FindObjectsOfType<PlayerController>().ToList().ForEach(x => x.IsReady = false);
-                GameManager.Instance.StartGame("LongLevel", 10);
+                GameManager.Instance.StartGame(LevelToLoad, 10);
             }
         }
     }

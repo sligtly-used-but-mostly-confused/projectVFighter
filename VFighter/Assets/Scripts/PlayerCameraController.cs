@@ -18,13 +18,10 @@ public class PlayerCameraController : MonoBehaviour
     [SerializeField]
     private Vector3 _targetCenter = Vector3.zero;
 
-    List<PlayerController> _playerTransforms;
-
     void Start()
     {
         //_player = GameManager.Instance.Player;
         _rB = GetComponent<Rigidbody2D>();
-        _playerTransforms = FindObjectsOfType<PlayerController>().ToList();
     }
 
     void FixedUpdate()
@@ -35,13 +32,13 @@ public class PlayerCameraController : MonoBehaviour
         _rB.velocity = displacement.normalized * Mathf.Pow(displacement.magnitude, 2f);
 
         var deltaSize = _targetCameraSize - GetComponent<Camera>().orthographicSize;
-        Debug.Log(Mathf.Pow(Mathf.Abs(-.123123f), 2f));
+        //Debug.Log(Mathf.Pow(Mathf.Abs(-.123123f), 2f));
         GetComponent<Camera>().orthographicSize += deltaSize * Mathf.Pow(Mathf.Abs(deltaSize), 2f) * Time.fixedDeltaTime;
     }
 
     private void UpdateTargets()
     {
-        var alivePlayers = _playerTransforms.Where(x => !x.IsDead);
+        var alivePlayers = FindObjectsOfType<PlayerController>().ToList().Where(x => !x.IsDead);
 
         float minX = alivePlayers.Min(x => x.transform.position.x);
         float maxX = alivePlayers.Max(x => x.transform.position.x);
@@ -64,11 +61,11 @@ public class PlayerCameraController : MonoBehaviour
         if (yRatio.magnitude > xRatio.magnitude)
         {
             _targetCameraSize = yRatio.y * 1.2f;
-            Debug.Log("y");
+            //Debug.Log("y");
         }
         else
         {
-            Debug.Log("x");
+            //Debug.Log("x");
             _targetCameraSize = xRatio.y * 1.2f;
         }
 

@@ -46,7 +46,7 @@ public abstract class PlayerController : NetworkBehaviour {
     public bool IsCoolingDown = false;
     public bool IsChangeGravityCoolingDown = false;
     public bool IsDashCoolingDown = false;
-    public bool IsDead;
+    
 
     private List<GameObject> GravityGunProjectiles = new List<GameObject>();
     private Coroutine GravGunCoolDownCoroutine;
@@ -61,6 +61,8 @@ public abstract class PlayerController : NetworkBehaviour {
     public bool IsReady = false;
     [SyncVar]
     public Player ControlledPlayer;
+    [SyncVar]
+    public bool IsDead;
 
     private void Start()
     {
@@ -240,7 +242,7 @@ public abstract class PlayerController : NetworkBehaviour {
 
     public void AimReticle(Vector2 dir)
     {
-        if (GetComponent<GravityObjectRigidBody>().IsSimulatedOnThisConnection)
+        if (isLocalPlayer)
         {
             if (Reticle)
             {
@@ -250,13 +252,11 @@ public abstract class PlayerController : NetworkBehaviour {
                 Reticle.transform.position = ReticleParent.transform.position + new Vector3(normalizedDir.x, normalizedDir.y, 0);
             }
         }
-
-
     }
 
     public void ShootGravityGun(Vector2 dir)
     {
-        if (GetComponent<GravityObjectRigidBody>().IsSimulatedOnThisConnection)
+        if (isLocalPlayer && !IsDead)
         {
             dir = dir.normalized;
             if (!IsCoolingDown)
@@ -420,9 +420,31 @@ public abstract class PlayerController : NetworkBehaviour {
 
     public virtual void Kill()
     {
+        CmdKill();
+        //gameObject.SetActive(!LevelManager.Instance.PlayersCanDieInThisLevel);
+    }
+
+    public void CmdKill()
+    {
         IsDead = true;
         ControlledPlayer.NumDeaths++;
-        gameObject.SetActive(!LevelManager.Instance.PlayersCanDieInThisLevel);
+        if (isLocalPlayer)
+        {
+            transform.position = LevelManager.Instance.JailTransform.position;
+        }
+        else
+        {
+            RpcKill();
+        }
+    }
+
+    [ClientRpc]
+    public void RpcKill()
+    {
+        if(isLocalPlayer)
+        {
+            transform.position = LevelManager.Instance.JailTransform.position;
+        }
     }
 
     public void DestroyAllGravGunProjectiles()
@@ -432,6 +454,12 @@ public abstract class PlayerController : NetworkBehaviour {
     }
 
     public void Ready()
+    {
+        CmdReady();
+    }
+
+    [Command]
+    public void CmdReady()
     {
         IsReady = true;
     }
@@ -474,6 +502,42 @@ public abstract class PlayerController : NetworkBehaviour {
 
     public void InitializeForStartLevel(GameObject spawnPoint)
     {
-        //
+        if (isLocalPlayer)
+        {
+            InitializeForStartLevelInternal(spawnPoint);
+        }
+        else
+        {
+            CmdInitializeForStartLevel(spawnPoint);
+        }
+    }
+
+    public void InitializeForStartLevelInternal(GameObject spawnPoint)
+    {
+        transform.position = spawnPoint.transform.position;
+        GetComponent<GravityObjectRigidBody>().ClearAllVelocities();
+        IsDead = false;
+    }
+
+    [Command]
+    public void CmdInitializeForStartLevel(GameObject spawnPoint)
+    {
+        if (isLocalPlayer)
+        {
+            InitializeForStartLevelInternal(spawnPoint);
+        }
+        else
+        {
+            RpcInitializeForStartLevel(spawnPoint);
+        }
+    }
+
+    [ClientRpc]
+    public void RpcInitializeForStartLevel(GameObject spawnPoint)
+    {
+        if (isLocalPlayer)
+        {
+            InitializeForStartLevelInternal(spawnPoint);
+        }
     }
 }

@@ -617,10 +617,11 @@ MonoBehaviour:
   - {fileID: 2100000, guid: d1a34e5e47473784cbc28a97a06f2299, type: 2}
   - {fileID: 2100000, guid: f1a6e1fc3730df442be9feffac8c07c2, type: 2}
   _usedDevices: []
-  _isWaitingForReady: 1
   DevicesWaitingForPlayer: []
   NetworkPlayerPrefab: {fileID: 1596458492531264, guid: 23a394dfea771d24c8c02502a01bf446,
     type: 2}
+  _isWaitingForReady: 1
+  LevelToLoad: LongLevel
   numLivesPerPlayer: 5
 --- !u!4 &636215035
 Transform:
@@ -696,7 +697,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Players: []
-  PlayersCanDieInThisLevel: 0
+  PlayersCanDieInThisLevel: 1
   _spawnPositions:
   - {fileID: 36417628}
   - {fileID: 1055669993}
@@ -707,6 +708,7 @@ MonoBehaviour:
   _gravityScaleGradientEnd: 1
   _gravityScaleGradientRate: 0.1
   _hasGameStarted: 0
+  JailTransform: {fileID: 1807448646}
 --- !u!4 &707236919
 Transform:
   m_ObjectHideFlags: 0
@@ -1235,11 +1237,6 @@ Prefab:
       propertyPath: m_Name
       value: GravityObject (1)
       objectReference: {fileID: 0}
-    - target: {fileID: 114227078285474836, guid: 55fe9360236ce094b8791837356c4d89,
-        type: 2}
-      propertyPath: IsSimulatedOnThisConnection
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 55fe9360236ce094b8791837356c4d89, type: 2}
   m_IsPrefabAsset: 0
@@ -1351,6 +1348,34 @@ Transform:
   - {fileID: 813629745}
   m_Father: {fileID: 0}
   m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1807448645
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1807448646}
+  m_Layer: 0
+  m_Name: Jail
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1807448646
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1807448645}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.01, y: 2.39, z: -0.2109375}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1937113423
 GameObject:

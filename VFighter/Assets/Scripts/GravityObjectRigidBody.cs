@@ -249,7 +249,7 @@ public class GravityObjectRigidBody : NetworkBehaviour {
         ClearAllVelocities();
     }
 
-    private void ClearAllVelocities()
+    public void ClearAllVelocities()
     {
         var velKeys = _velocities.Keys.ToList();
         for(int i = 0; i < velKeys.Count; i++)

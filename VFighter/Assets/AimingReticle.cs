@@ -6,4 +6,9 @@ using UnityEngine.Networking;
 public class AimingReticle : NetworkBehaviour {
     [SyncVar]
     public short Id;
+
+    private void Start()
+    {
+        DontDestroyOnLoad(gameObject);
+    }
 }

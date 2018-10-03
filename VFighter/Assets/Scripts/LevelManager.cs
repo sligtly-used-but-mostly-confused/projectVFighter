@@ -25,6 +25,9 @@ public class LevelManager : NetworkBehaviour
     [SerializeField]
     private bool _hasGameStarted = false;
 
+    [SerializeField]
+    public Transform JailTransform;
+
     void Awake()
     {
         if(_instance)
@@ -77,7 +80,7 @@ public class LevelManager : NetworkBehaviour
         int index = (int)(Random.value * (_spawnPositions.Count - 1));
         SpawnPosition position = _spawnPositions[index];
         _spawnPositions.RemoveAt(index);
-        
+        player.InitializeForStartLevel(position.gameObject);
         //move player and zero out his velocity
     }
 
