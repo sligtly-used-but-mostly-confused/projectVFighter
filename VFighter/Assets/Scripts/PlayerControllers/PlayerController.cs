@@ -383,9 +383,9 @@ public abstract class PlayerController : NetworkBehaviour {
             
             if(GORB is ControllableGravityObjectRigidBody && (GORB as ControllableGravityObjectRigidBody).LastShotBy != NetworkInstanceId.Invalid)
             {
-                //(GORB as ControllableGravityObjectRigidBody).LastShotBy.NumKills++;
-                NetworkServer.FindLocalObject((GORB as ControllableGravityObjectRigidBody).LastShotBy).GetComponent<PlayerController>().ControlledPlayer.NumKills++;
-                SetDirtyBit(0xFFFFFFFF);
+                var otherPlayer = NetworkServer.FindLocalObject((GORB as ControllableGravityObjectRigidBody).LastShotBy).GetComponent<PlayerController>();
+                otherPlayer.ControlledPlayer.NumKills++;
+                otherPlayer.SetDirtyBit(0xFFFFFFFF);
             }
 
             Kill();
