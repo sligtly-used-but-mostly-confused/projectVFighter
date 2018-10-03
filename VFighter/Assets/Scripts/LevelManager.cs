@@ -100,10 +100,7 @@ public class LevelManager : NetworkBehaviour
             objectSpawn.Spawn();
         }
     }
-    private void OnLevelWasLoaded(int level)
-    {
-        Debug.Log("level loaded");
-    }
+
     public void ResetLevel()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
