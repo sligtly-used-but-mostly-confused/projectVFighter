@@ -23,14 +23,18 @@ public class CountDownTimer : MonoBehaviour {
 	
 	public IEnumerator CountDown()
     {
-        _countDownText.text = "3";
+        if(_countDownText)
+            _countDownText.text = "3";
         yield return new WaitForSeconds(_timePerTick);
-        _countDownText.text = "2";
+        if (_countDownText)
+            _countDownText.text = "2";
         yield return new WaitForSeconds(_timePerTick);
-        _countDownText.text = "1";
+        if (_countDownText)
+            _countDownText.text = "1";
         yield return new WaitForSeconds(_timePerTick);
         if(FindObjectOfType<PlayerController>().isServer)
             LevelManager.Instance.StartGame();
-        Destroy(gameObject);
+        if(gameObject)
+            Destroy(gameObject);
     }
 }

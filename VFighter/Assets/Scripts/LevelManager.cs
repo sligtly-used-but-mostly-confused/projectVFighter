@@ -41,6 +41,7 @@ public class LevelManager : NetworkBehaviour
     public override void OnStartServer()
     {
         StartCoroutine(Init());
+        Players = FindObjectsOfType<PlayerController>().ToList();
     }
 
     private void Update()
@@ -54,7 +55,7 @@ public class LevelManager : NetworkBehaviour
                 {
                     alive.First().ControlledPlayer.NumWins++;
                 }
-
+                Debug.Log("level manager change scene");
                 GameManager.Instance.LoadNextStage();
             }
         }
@@ -87,7 +88,7 @@ public class LevelManager : NetworkBehaviour
 
     private IEnumerator Init()
     {
-        yield return new WaitForSeconds(.25f);
+        yield return new WaitForSeconds(1f);
         _spawnPositions = new List<SpawnPosition>(FindObjectsOfType<PlayerSpawnPosition>());
 
         var players = FindObjectsOfType<PlayerController>().ToList();

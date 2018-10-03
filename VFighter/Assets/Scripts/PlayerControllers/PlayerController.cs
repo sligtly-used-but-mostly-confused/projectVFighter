@@ -471,6 +471,7 @@ public abstract class PlayerController : NetworkBehaviour {
         IsReady = true;
     }
 
+    #region changGORB gravity dir
     public void ChangeGORBGravityDirection(GravityObjectRigidBody GORB, Vector2 dir)
     {
         if (GORB.IsSimulatedOnThisConnection)
@@ -506,6 +507,7 @@ public abstract class PlayerController : NetworkBehaviour {
             GORB.GetComponent<GravityObjectRigidBody>().ChangeGravityDirectionInternal(dir);
         }
     }
+    #endregion
 
     public void InitializeForStartLevel(GameObject spawnPoint)
     {
@@ -521,11 +523,11 @@ public abstract class PlayerController : NetworkBehaviour {
 
     public void InitializeForStartLevelInternal(GameObject spawnPoint)
     {
-        Debug.Log(name + " " + spawnPoint);
         transform.position = spawnPoint.transform.position;
         GetComponent<GravityObjectRigidBody>().ClearAllVelocities();
         IsDead = false;
-        StartCoroutine(CountDownTimer.Instance.CountDown());
+        if(CountDownTimer.Instance)
+            StartCoroutine(CountDownTimer.Instance.CountDown());
     }
 
     [Command]
