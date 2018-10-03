@@ -16,7 +16,7 @@ public class CustomNetworkManager : NetworkManager {
     {
         if(Instance != null)
         {
-            //Destroy(gameObject);
+            Destroy(gameObject);
         }
 
         Instance = this;
@@ -25,13 +25,12 @@ public class CustomNetworkManager : NetworkManager {
             _playerMaterialIndexes.Add(i);
         }
     }
-    
 
     public override void OnServerAddPlayer(NetworkConnection conn, short playerControllerId)
     {
-        GameObject player = (GameObject)Instantiate(playerPrefab, Vector3.zero, Quaternion.identity);
+        GameObject player = Instantiate(playerPrefab, Vector3.zero, Quaternion.identity);
 
-        int matIndexIndex = (int)(UnityEngine.Random.value * (_playerMaterialIndexes.Count - 1));
+        int matIndexIndex = (int)(Random.value * (_playerMaterialIndexes.Count - 1));
         short matIndex = _playerMaterialIndexes[matIndexIndex];
         _playerMaterialIndexes.RemoveAt(matIndexIndex);
         player.GetComponent<PlayerController>().MaterialId = matIndex;

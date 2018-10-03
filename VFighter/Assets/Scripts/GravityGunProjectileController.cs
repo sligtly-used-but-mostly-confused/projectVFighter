@@ -16,8 +16,7 @@ public class GravityGunProjectileController : NetworkBehaviour {
         base.OnStartServer();
         StartCoroutine(Onstart());
     }
-
-    // Use this for initialization
+    
     IEnumerator Onstart () {
         yield return new WaitForSeconds(_secondsUntilDestory);
         NetworkServer.Destroy(gameObject);
@@ -44,8 +43,6 @@ public class GravityGunProjectileController : NetworkBehaviour {
                     (gravityObjectRB as ControllableGravityObjectRigidBody).StepMultiplier();
                     (gravityObjectRB as ControllableGravityObjectRigidBody).LastShotBy = Owner.ControlledPlayer;
                 }
-                Debug.Log(gravityObjectRB);
-                //gravityObjectRB.Owner = Owner;
                 Owner.AttachReticle(gravityObjectRB);
                 Owner.IsCoolingDown = true;
                 Owner.StartGravGunCoolDown();

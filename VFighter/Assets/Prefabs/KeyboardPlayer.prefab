@@ -174,28 +174,27 @@ MonoBehaviour:
   ShootSpeed: 10
   JumpForce: 10
   ImpulseToKill: 0
-  Projectile: {fileID: 1553312605624202, guid: 7b549a10b0a7a4de4843efb95d3176eb, type: 2}
   DashSpeed: 15
+  ProjectilePrefab: {fileID: 1553312605624202, guid: 7b549a10b0a7a4de4843efb95d3176eb,
+    type: 2}
   AimingReticlePrefab: {fileID: 1904020002216382, guid: fee8c362ea81b684890d6767eaf66389,
     type: 2}
   Reticle: {fileID: 0}
   ReticleParent: {fileID: 0}
+  InputDevice: {fileID: 0}
+  IsCoolingDown: 0
+  IsChangeGravityCoolingDown: 0
+  IsDashCoolingDown: 0
+  ReticleId: -1
+  MaterialId: -1
+  IsReady: 0
   ControlledPlayer:
     NetworkControllerId: 0
-    IsKeyboardPlayer: 0
     NumWins: 0
     NumDeaths: 0
     NumLives: 0
     NumKills: 0
-    ForceSelectInputDeviceByIndex: 0
-    InputDeviceIndex: 0
-  IsCoolingDown: 0
-  IsChangeGravityCoolingDown: 0
-  IsDashCoolingDown: 0
   IsDead: 0
-  InputDevice: {fileID: 0}
-  ReticleId: -1
-  MaterialId: -1
 --- !u!114 &114662783024654882
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -252,5 +251,5 @@ MonoBehaviour:
   Bounciness: 0
   CanBeSelected: 1
   KillsPlayer: 1
-  Owner: {fileID: 0}
   IsSimulatedOnThisConnection: 0
+  Owner: {fileID: 0}

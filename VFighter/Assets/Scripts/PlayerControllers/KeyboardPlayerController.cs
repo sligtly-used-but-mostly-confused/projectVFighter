@@ -6,8 +6,6 @@ public class KeyboardPlayerController : PlayerController
 {
     void Update()
     {
-        //inputDevice = ControllerSelectManager.Instance.GetPairedInputDevice(PlayerId);
-        
         if (InputDevice == null)
         {
             return;
@@ -32,14 +30,11 @@ public class KeyboardPlayerController : PlayerController
     {
         float mouseX = InputDevice.GetAxisRaw(MappedAxis.AimX);
         float mouseY = InputDevice.GetAxisRaw(MappedAxis.AimY);
-
-        //Debug.Log(inputDevice.GetAxis2DCircleClamp(MappedAxis.AimX, MappedAxis.AimY));
-
+        
         float Horz = InputDevice.GetAxis(MappedAxis.Horizontal);
         float Vert = InputDevice.GetAxis(MappedAxis.Vertical);
         Move(Horz);
-        //Vector2 changeGravDir = new Vector2(ChangeGravX, ChangeGravY);
-        //Debug.Log(changeGravDir);
+
         var mousePos = Camera.main.ScreenToWorldPoint(new Vector2(mouseX, mouseY));
         var aimVector = Vector2.zero;
 
@@ -63,6 +58,8 @@ public class KeyboardPlayerController : PlayerController
         {
             ShootGravityGun(aimVector);
         }
+
+        //todo add in dash
     }
 
     private void Gamepad()

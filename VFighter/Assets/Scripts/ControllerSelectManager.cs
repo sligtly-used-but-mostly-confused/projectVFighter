@@ -11,20 +11,12 @@ public class ControllerSelectManager : NetworkBehaviour {
     private static ControllerSelectManager _instance;
     public static ControllerSelectManager Instance { get { return _instance; } }
 
+    private Dictionary<InputDevice, bool> readyControllers = new Dictionary<InputDevice, bool>();
+
     [SerializeField]
     private List<Material> _playerMaterials = new List<Material>();
-
     [SerializeField]
     private List<InputDevice> _usedDevices = new List<InputDevice>();
-    
-
-    private Dictionary<InputDevice, bool> readyControllers = new Dictionary<InputDevice, bool>();
-    //private Dictionary<short, InputDevice> _controllerIdToInputDevice = new Dictionary<short, InputDevice>();
-
-    public List<InputDevice> DevicesWaitingForPlayer = new List<InputDevice>();
-    //[SerializeField]
-    //private List<short> _localControllerIds = new List<short>();
-
     [SerializeField]
     private GameObject NetworkPlayerPrefab;
 
@@ -33,6 +25,7 @@ public class ControllerSelectManager : NetworkBehaviour {
 
     public string LevelToLoad = "LongLevel";
     public int numLivesPerPlayer;
+    public List<InputDevice> DevicesWaitingForPlayer = new List<InputDevice>();
 
     private void Awake()
     {
@@ -81,38 +74,16 @@ public class ControllerSelectManager : NetworkBehaviour {
             {
                 _usedDevices.Add(inputDevice);
 
-                bool isKeyboard = inputDevice is KeyboardMouseInputDevice;
-
-                var player = new Player(numLivesPerPlayer, isKeyboard);
+                var player = new Player(numLivesPerPlayer);
                 player.NetworkControllerId = 1;
-
                 
                 SpawnPlayer(0);
-
-                PlayerManager.Instance.AddPlayer(player);
-
-                //_controllerIdToInputDevice.Add(player.NetworkControllerId, inputDevice);
-
+                
                 readyControllers.Add(inputDevice, false);
                 DevicesWaitingForPlayer.Add(inputDevice);
             }
-        }
-        
-        
+        }  
     }
-
-    /*
-    public InputDevice GetPairedInputDevice(short controllerId)
-    {
-        InputDevice device = null;
-        if (_controllerIdToInputDevice.TryGetValue(controllerId, out device))
-        {
-            return device;
-        }
-
-        return null;
-    }
-    */
 
     public void Init()
     {
@@ -121,7 +92,7 @@ public class ControllerSelectManager : NetworkBehaviour {
 
     private bool CheckForAllPlayersReady()
     {
-        bool allplayersReady = _usedDevices.Count > 0;
+        bool allplayersReady = FindObjectsOfType<PlayerController>().Count() > 1;
 
         if (isServer)
         {

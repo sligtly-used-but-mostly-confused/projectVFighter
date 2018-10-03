@@ -1,20 +1,22 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Linq;
 using UnityEngine;
 using UnityEngine.Networking;
-using UnityEngine.SceneManagement;
-using System.Linq;
 
 public class GameManager : NetworkBehaviour {
     private static GameManager _instance;
     public static GameManager Instance { get { return _instance; } }
 
-    public float ProgressionThroughGame = 1;
+    private const string LevelSelect = "ControllerSelect";
 
     [SerializeField]
     private string _levelName;
-    private const string LevelSelect = "ControllerSelect";
+    
     public bool CurrentlyChangingScenes = false;
+    public float ProgressionThroughGame = 1;
+
+    [SyncVar]
+    public float TimeScale = 1;
+
     void Awake () {
         if(_instance)
         {
@@ -26,16 +28,10 @@ public class GameManager : NetworkBehaviour {
         DontDestroyOnLoad(this);
 	}
 
-    [SyncVar]
-    public float TimeScale = 1;
-
     public void StartGame(string levelName, int numStages)
     {
         _levelName = levelName;
-        //PlayerManager.Instance.ResetPlayers();
-        //ProgressionThroughGame = (float)PlayerManager.Instance.Players.Max(x => x.NumDeaths) / (float)PlayerManager.Instance.Players.First().NumLives;
         NetworkManager.singleton.ServerChangeScene(levelName);
-        //SceneManager.LoadScene(levelName);
     }
 
     public void LoadNextStage()
@@ -46,19 +42,13 @@ public class GameManager : NetworkBehaviour {
         if(alive.Count() <= 1)
         {
             ControllerSelectManager.Instance.Init();
-            //SceneManager.LoadScene(LevelSelect);
             players.ForEach(x => x.ControlledPlayer.Reset());
-            Debug.Log("change scene");
             CurrentlyChangingScenes = true;
             NetworkManager.singleton.ServerChangeScene(LevelSelect);
-            //CurrentlyChangingScenes = false;
             return;
         }
-        
 
-        //ProgressionThroughGame = (float)PlayerManager.Instance.Players.Max(x => x.NumDeaths) / (float) PlayerManager.Instance.Players.First().NumLives;
         ProgressionThroughGame = 1;
-        //SceneManager.LoadScene(_levelName);
         players.ForEach(x => x.IsDead = false);
         NetworkManager.singleton.ServerChangeScene(_levelName);
     }

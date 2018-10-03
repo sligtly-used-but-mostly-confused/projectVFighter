@@ -27,32 +27,27 @@ public abstract class PlayerController : NetworkBehaviour {
     [SerializeField]
     protected float ImpulseToKill = 10f;
     [SerializeField]
-    protected GameObject Projectile;
-
-    [SerializeField]
     protected float DashSpeed = 10f;
-
-    public GameObject AimingReticlePrefab;
+    [SerializeField]
+    protected GameObject ProjectilePrefab;
+    [SerializeField]
+    protected GameObject AimingReticlePrefab;
     [SerializeField]
     protected GameObject Reticle;
     [SerializeField]
     protected GameObject ReticleParent;
+    [SerializeField]
+    protected InputDevice InputDevice;
 
     protected readonly Vector2[] _gravChangeDirections = { Vector2.up, Vector2.down };
-    protected readonly Vector2[] _gravChangeDirectionsForThrownObject = { Vector2.up, Vector2.down, Vector2.left, Vector2.right };
-
-    
 
     public bool IsCoolingDown = false;
     public bool IsChangeGravityCoolingDown = false;
     public bool IsDashCoolingDown = false;
     
-
     private List<GameObject> GravityGunProjectiles = new List<GameObject>();
     private Coroutine GravGunCoolDownCoroutine;
-    [SerializeField]
-    protected InputDevice InputDevice;
-
+    
     [SyncVar]
     public short ReticleId = -1;
     [SyncVar]
@@ -96,7 +91,6 @@ public abstract class PlayerController : NetworkBehaviour {
     public override void OnStartLocalPlayer()
     {
         StartCoroutine(AttachInputDeviceToPlayer());
-        
         GetComponent<Renderer>().material = CustomNetworkManager.Instance._playerMaterials[MaterialId];
     }
 
@@ -104,19 +98,18 @@ public abstract class PlayerController : NetworkBehaviour {
     {
         GetComponent<GravityObjectRigidBody>().IsSimulatedOnThisConnection = isLocalPlayer;
 
-        if (!isLocalPlayer)
+        if (isLocalPlayer)
         {
-
-        }
-        else if (ControllerSelectManager.Instance.DevicesWaitingForPlayer.Count > 0)
-        {
-            InputDevice = ControllerSelectManager.Instance.DevicesWaitingForPlayer[0];
-            ControllerSelectManager.Instance.DevicesWaitingForPlayer.RemoveAt(0);
-        }
-        else
-        {
-            yield return new WaitForEndOfFrame();
-            yield return AttachInputDeviceToPlayer();
+            if (ControllerSelectManager.Instance.DevicesWaitingForPlayer.Count > 0)
+            {
+                InputDevice = ControllerSelectManager.Instance.DevicesWaitingForPlayer[0];
+                ControllerSelectManager.Instance.DevicesWaitingForPlayer.RemoveAt(0);
+            }
+            else
+            {
+                yield return new WaitForEndOfFrame();
+                yield return AttachInputDeviceToPlayer();
+            }
         }
     }
 
@@ -124,8 +117,6 @@ public abstract class PlayerController : NetworkBehaviour {
     {
         ControlledPlayer = player;
         transform.position = spawnPosition.transform.position;
-        //GetComponent<Renderer>().material = ControlledPlayer.PlayerMaterial;
-        //AimingReticle.GetComponent<Renderer>().material = ControlledPlayer.PlayerMaterial;
         ChangeGORBGravityDirection(GetComponent<GravityObjectRigidBody>(), FindDirToClosestWall());
     }
 
@@ -159,7 +150,7 @@ public abstract class PlayerController : NetworkBehaviour {
 
     public void FlipGravity()
     {
-        if (GetComponent<GravityObjectRigidBody>().IsSimulatedOnThisConnection)
+        if (isLocalPlayer)
         {
             if (!IsChangeGravityCoolingDown)
             {
@@ -175,15 +166,13 @@ public abstract class PlayerController : NetworkBehaviour {
     [Command]
     public void CmdBroadcastFlipGravity()
     {
-        Debug.Log("cmd flip");
         RpcBroadcastFilpGravity();
     }
 
     [ClientRpc]
     public void RpcBroadcastFilpGravity()
     {
-        Debug.Log("rpc flip");
-        if (GetComponent<GravityObjectRigidBody>().IsSimulatedOnThisConnection)
+        if (isLocalPlayer)
         {
             FlipGravity();
         }
@@ -236,6 +225,7 @@ public abstract class PlayerController : NetworkBehaviour {
                 }
             }
         }
+
         yield return new WaitForEndOfFrame();
         yield return (FindReticle());
     }
@@ -251,8 +241,6 @@ public abstract class PlayerController : NetworkBehaviour {
 
             if (Reticle)
             {
-                //var aimParent = AimingReticle.transform.parent;
-
                 var normalizedDir = dir.normalized;
                 Reticle.transform.position = ReticleParent.transform.position + new Vector3(normalizedDir.x, normalizedDir.y, 0);
             }
@@ -269,13 +257,10 @@ public abstract class PlayerController : NetworkBehaviour {
                 if (AttachedObject == null)
                 {
                     CmdSpawnProjectile(dir);
-                    //projectileClone.GetComponent<Renderer>().material = ControlledPlayer.PlayerMaterial;
                     StartGravGunCoolDown();
-                    //GravityGunProjectiles.Add(projectileClone);
                 }
                 else
                 {
-                    //AttachedObject.ChangeGravityDirection(dir);
                     ChangeGORBGravityDirection(AttachedObject, dir);
                     DetachReticle();
                 }
@@ -286,7 +271,7 @@ public abstract class PlayerController : NetworkBehaviour {
     [Command]
     public void CmdSpawnProjectile(Vector2 dir)
     {
-        GameObject projectileClone = Instantiate(Projectile, Reticle.transform.position, Reticle.transform.rotation);
+        GameObject projectileClone = Instantiate(ProjectilePrefab, Reticle.transform.position, Reticle.transform.rotation);
         projectileClone.GetComponent<GravityGunProjectileController>().Owner = this;
         projectileClone.GetComponent<GravityObjectRigidBody>().UpdateVelocity(VelocityType.OtherPhysics, dir * ShootSpeed);
         NetworkServer.Spawn(projectileClone);
@@ -336,7 +321,6 @@ public abstract class PlayerController : NetworkBehaviour {
 
     public void DetachReticle()
     {
-        //AttachedObject.Owner = null;
         AttachedObject = null;
         ReticleParent = gameObject;
     }
@@ -395,9 +379,7 @@ public abstract class PlayerController : NetworkBehaviour {
                 //dont kill if we run into another player
                 return;
             }
-
-            //Debug.Log("player killed " + GORB.Owner);
-
+            
             if(GORB is ControllableGravityObjectRigidBody && (GORB as ControllableGravityObjectRigidBody).LastShotBy.NetworkControllerId != 0)
             {
                 (GORB as ControllableGravityObjectRigidBody).LastShotBy.NumKills++;
@@ -428,7 +410,6 @@ public abstract class PlayerController : NetworkBehaviour {
     public virtual void Kill()
     {
         CmdKill();
-        //gameObject.SetActive(!LevelManager.Instance.PlayersCanDieInThisLevel);
     }
 
     public void CmdKill()

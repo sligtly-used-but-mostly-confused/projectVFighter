@@ -56,7 +56,7 @@ public class LevelManager : NetworkBehaviour
                 {
                     alive.First().ControlledPlayer.NumWins++;
                 }
-                Debug.Log("level manager change scene");
+
                 GameManager.Instance.LoadNextStage();
             }
         }
@@ -79,12 +79,10 @@ public class LevelManager : NetworkBehaviour
 
     public void SpawnPlayer(PlayerController player)
     {
-        Debug.Log("spawning " + player);
         int index = (int)(Random.value * (_spawnPositions.Count - 1));
         SpawnPosition position = _spawnPositions[index];
         _spawnPositions.RemoveAt(index);
         player.InitializeForStartLevel(position.gameObject);
-        //move player and zero out his velocity
     }
 
     private IEnumerator Init()

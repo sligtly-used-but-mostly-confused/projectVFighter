@@ -13,12 +13,16 @@ public class CountDownTimer : MonoBehaviour {
 
     private void Awake()
     {
+        if(Instance)
+        {
+            Destroy(Instance.gameObject);
+        }
+
         Instance = this;
     }
 
     void Start () {
         GameManager.Instance.TimeScale = 0;
-        //StartCoroutine(CountDown());
 	}
 	
 	public IEnumerator CountDown()
