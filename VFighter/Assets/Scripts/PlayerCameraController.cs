@@ -11,7 +11,9 @@ public class PlayerCameraController : MonoBehaviour
     [SerializeField]
     private float _minCameraSize = 5;
     [SerializeField]
-    private float _maxCameraSize = 10;
+    private float _maxCameraSize = 15;
+    [SerializeField]
+    private float _cameraSizePadding = 1.3f;
 
     [SerializeField]
     private float _targetCameraSize = 5;
@@ -20,7 +22,6 @@ public class PlayerCameraController : MonoBehaviour
 
     void Start()
     {
-        //_player = GameManager.Instance.Player;
         _rB = GetComponent<Rigidbody2D>();
     }
 
@@ -32,13 +33,12 @@ public class PlayerCameraController : MonoBehaviour
         _rB.velocity = displacement.normalized * Mathf.Pow(displacement.magnitude, 2f);
 
         var deltaSize = _targetCameraSize - GetComponent<Camera>().orthographicSize;
-        Debug.Log(Mathf.Pow(Mathf.Abs(-.123123f), 2f));
-        GetComponent<Camera>().orthographicSize += deltaSize * Mathf.Pow(Mathf.Abs(deltaSize), 2f) * Time.fixedDeltaTime;
+        GetComponent<Camera>().orthographicSize += deltaSize * Mathf.Pow(Mathf.Abs(deltaSize), 2f) * Time.fixedDeltaTime * 2;
     }
 
     private void UpdateTargets()
     {
-        var alivePlayers = LevelManager.Instance.Players.Where(x => !x.IsDead);
+        var alivePlayers = FindObjectsOfType<PlayerController>().ToList().Where(x => !x.IsDead);
 
         float minX = alivePlayers.Min(x => x.transform.position.x);
         float maxX = alivePlayers.Max(x => x.transform.position.x);
@@ -60,13 +60,11 @@ public class PlayerCameraController : MonoBehaviour
 
         if (yRatio.magnitude > xRatio.magnitude)
         {
-            _targetCameraSize = yRatio.y * 1.2f;
-            Debug.Log("y");
+            _targetCameraSize = yRatio.y * _cameraSizePadding;
         }
         else
         {
-            Debug.Log("x");
-            _targetCameraSize = xRatio.y * 1.2f;
+            _targetCameraSize = xRatio.y * _cameraSizePadding;
         }
 
         _targetCameraSize = Mathf.Clamp(_targetCameraSize, _minCameraSize, _maxCameraSize);

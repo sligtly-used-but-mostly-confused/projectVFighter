@@ -1,53 +1,57 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
 [RequireComponent(typeof(Collider2D))]
-public class GravityGunProjectileController : MonoBehaviour {
+public class GravityGunProjectileController : NetworkBehaviour {
 
     [SerializeField]
     private float _secondsUntilDestory = 1;
 
     public PlayerController Owner;
 
-	// Use this for initialization
-	IEnumerator Start () {
+    public override void OnStartServer()
+    {
+        base.OnStartServer();
+        StartCoroutine(Onstart());
+    }
+    
+    IEnumerator Onstart () {
         yield return new WaitForSeconds(_secondsUntilDestory);
-        Destroy(gameObject);
+        NetworkServer.Destroy(gameObject);
 	}
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         var gravityObjectRB = collision.GetComponent<GravityObjectRigidBody>();
-        if (gravityObjectRB)
+        if (gravityObjectRB && isServer)
         {
             if(collision.GetComponent<PlayerController>())
             {
                 collision.GetComponent<PlayerController>().FlipGravity();
                 Owner.IsCoolingDown = true;
                 Owner.StartGravGunCoolDown();
-                Owner.DestroyAllGravGunProjectiles();
+                NetworkServer.Destroy(gameObject);
                 return;
             }
 
-            if(gravityObjectRB.Owner != Owner && gravityObjectRB.CanBeSelected)
+            if(gravityObjectRB.CanBeSelected)
             {
                 if(gravityObjectRB is ControllableGravityObjectRigidBody)
                 {
                     (gravityObjectRB as ControllableGravityObjectRigidBody).StepMultiplier();
-                    (gravityObjectRB as ControllableGravityObjectRigidBody).LastShotBy = Owner.ControlledPlayer;
+                    (gravityObjectRB as ControllableGravityObjectRigidBody).LastShotBy = Owner.netId;
                 }
-
-                gravityObjectRB.Owner = Owner;
-                Owner.AttachGORB(gravityObjectRB);
+                Owner.AttachReticle(gravityObjectRB);
                 Owner.IsCoolingDown = true;
                 Owner.StartGravGunCoolDown();
-                Owner.DestroyAllGravGunProjectiles();
+                NetworkServer.Destroy(gameObject);
                 return;
             }
             else
             {
-                Destroy(gameObject);
+                NetworkServer.Destroy(gameObject);
                 return;
             }
         }

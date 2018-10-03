@@ -2,23 +2,30 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Networking;
+using System;
+using System.Linq;
 
-public class ControllerSelectManager : MonoBehaviour {
+public class ControllerSelectManager : NetworkBehaviour {
 
     private static ControllerSelectManager _instance;
     public static ControllerSelectManager Instance { get { return _instance; } }
 
+    private Dictionary<InputDevice, bool> readyControllers = new Dictionary<InputDevice, bool>();
+
     [SerializeField]
     private List<Material> _playerMaterials = new List<Material>();
-
     [SerializeField]
     private List<InputDevice> _usedDevices = new List<InputDevice>();
     [SerializeField]
+    private GameObject NetworkPlayerPrefab;
+
+    [SerializeField, SyncVar]
     private bool _isWaitingForReady = true;
 
-    private Dictionary<InputDevice, bool> readyControllers = new Dictionary<InputDevice, bool>();
-
+    public string LevelToLoad = "LongLevel";
     public int numLivesPerPlayer;
+    public List<InputDevice> DevicesWaitingForPlayer = new List<InputDevice>();
 
     private void Awake()
     {
@@ -37,17 +44,23 @@ public class ControllerSelectManager : MonoBehaviour {
         {
             CheckForNewControllers();
 
-            if (CheckForPlayerReady())
+            if (isServer && CheckForAllPlayersReady())
             {
                 _isWaitingForReady = false;
-                foreach (var usedInput in _usedDevices)
-                {
-                    readyControllers[usedInput] = false;
-                }
-
-                GameManager.Instance.StartGame("LongLevel", 10);
+                FindObjectsOfType<PlayerController>().ToList().ForEach(x => x.IsReady = false);
+                GameManager.Instance.StartGame(LevelToLoad, 10);
             }
         }
+    }
+
+    private short SpawnPlayer(short id)
+    {
+        if(!ClientScene.AddPlayer(id))
+        {
+           return SpawnPlayer((short)(id + 1));
+        }
+
+        return id;
     }
 
     private void CheckForNewControllers()
@@ -56,19 +69,20 @@ public class ControllerSelectManager : MonoBehaviour {
         {
             if (!_usedDevices.Contains(inputDevice) &&
                 (inputDevice.GetIsAxisTapped(MappedAxis.ShootGravGun) || inputDevice.GetButton(MappedButton.ShootGravGun)) &&
-                !(inputDevice is KeyboardInputDevice || inputDevice is MouseInputDevice))
+                !(inputDevice is KeyboardInputDevice || inputDevice is MouseInputDevice) &&
+                ClientScene.readyConnection != null)
             {
                 _usedDevices.Add(inputDevice);
-                int matIndex = (int)(Random.value * (_playerMaterials.Count - 1));
-                Material mat = _playerMaterials[matIndex];
-                _playerMaterials.RemoveAt(matIndex);
-                bool isKeyboard = inputDevice is KeyboardMouseInputDevice;
-                Player player = new Player(inputDevice, mat, numLivesPerPlayer, isKeyboard);
 
-                PlayerManager.Instance.AddPlayer(player);
+                var player = new Player(numLivesPerPlayer);
+                player.NetworkControllerId = 1;
+                
+                SpawnPlayer(0);
+                
                 readyControllers.Add(inputDevice, false);
+                DevicesWaitingForPlayer.Add(inputDevice);
             }
-        }
+        }  
     }
 
     public void Init()
@@ -76,21 +90,15 @@ public class ControllerSelectManager : MonoBehaviour {
         _isWaitingForReady = true;
     }
 
-    private bool CheckForPlayerReady()
+    private bool CheckForAllPlayersReady()
     {
-        bool allplayersReady = _usedDevices.Count > 1;
+        bool allplayersReady = FindObjectsOfType<PlayerController>().Count() > 1;
 
-        foreach (var usedInput in _usedDevices)
+        if (isServer)
         {
-            var readyPressed = usedInput.GetButtonDown(MappedButton.Ready);
-            if (readyPressed)
-            {
-                readyControllers[usedInput] = !readyControllers[usedInput];
-            }
-
-            allplayersReady &= readyControllers[usedInput];
+            return allplayersReady && FindObjectsOfType<PlayerController>().All(x => x.IsReady);
         }
 
-        return allplayersReady;
+        return false;
     }
 }

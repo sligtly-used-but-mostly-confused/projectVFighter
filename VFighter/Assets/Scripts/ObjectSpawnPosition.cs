@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
 public class ObjectSpawnPosition : SpawnPosition {
     public float chanceToSpawn = .5f;
@@ -12,7 +13,7 @@ public class ObjectSpawnPosition : SpawnPosition {
         {
             for(int i = 0; i < transform.childCount; i++)
             {
-                Destroy(transform.GetChild(i).gameObject);
+                NetworkServer.Destroy(transform.GetChild(i).gameObject);
             }
         }
     }

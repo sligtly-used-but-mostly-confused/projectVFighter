@@ -4,26 +4,41 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class CountDownTimer : MonoBehaviour {
+    public static CountDownTimer Instance;
+
     [SerializeField]
     private Text _countDownText;
     [SerializeField]
     private float _timePerTick = 1;
 
-	void Start () {
-        GravityObjectRigidBody.TimeScale = 0;
-        StartCoroutine(CountDown());
+    private void Awake()
+    {
+        if(Instance)
+        {
+            Destroy(Instance.gameObject);
+        }
+
+        Instance = this;
+    }
+
+    void Start () {
+        GameManager.Instance.TimeScale = 0;
 	}
 	
-	private IEnumerator CountDown()
+	public IEnumerator CountDown()
     {
-        _countDownText.text = "3";
+        if(_countDownText)
+            _countDownText.text = "3";
         yield return new WaitForSeconds(_timePerTick);
-        _countDownText.text = "2";
+        if (_countDownText)
+            _countDownText.text = "2";
         yield return new WaitForSeconds(_timePerTick);
-        _countDownText.text = "1";
+        if (_countDownText)
+            _countDownText.text = "1";
         yield return new WaitForSeconds(_timePerTick);
-
-        LevelManager.Instance.StartGame();
-        Destroy(gameObject);
+        if(FindObjectOfType<PlayerController>().isServer)
+            LevelManager.Instance.StartGame();
+        if(gameObject)
+            Destroy(gameObject);
     }
 }

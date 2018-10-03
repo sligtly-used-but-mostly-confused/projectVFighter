@@ -4,51 +4,88 @@ using UnityEngine;
 
 public class KeyboardPlayerController : PlayerController
 {
-    InputDevice inputDevice;
-
     void Update()
-    {        
-        if (ControlledPlayer.ForceSelectInputDeviceByIndex)
+    {
+        if (InputDevice == null)
         {
-            inputDevice = MappedInput.InputDevices[ControlledPlayer.InputDeviceIndex];
+            return;
+        }
+
+        if(InputDevice.GetButtonDown(MappedButton.Ready))
+        {
+            Ready();
+        }
+
+        if (InputDevice is KeyboardMouseInputDevice)
+        {
+            Keyboard();
         }
         else
         {
-            inputDevice = ControlledPlayer.PairedInputDevice;
+            Gamepad();
         }
+    }
 
-        float mouseX = inputDevice.GetAxisRaw(MappedAxis.AimX);
-        float mouseY = inputDevice.GetAxisRaw(MappedAxis.AimY);
-
-        //Debug.Log(inputDevice.GetAxis2DCircleClamp(MappedAxis.AimX, MappedAxis.AimY));
-
-        float Horz = inputDevice.GetAxis(MappedAxis.Horizontal);
-        float Vert = inputDevice.GetAxis(MappedAxis.Vertical);
+    private void Keyboard()
+    {
+        float mouseX = InputDevice.GetAxisRaw(MappedAxis.AimX);
+        float mouseY = InputDevice.GetAxisRaw(MappedAxis.AimY);
+        
+        float Horz = InputDevice.GetAxis(MappedAxis.Horizontal);
+        float Vert = InputDevice.GetAxis(MappedAxis.Vertical);
         Move(Horz);
-        //Vector2 changeGravDir = new Vector2(ChangeGravX, ChangeGravY);
-        //Debug.Log(changeGravDir);
+
         var mousePos = Camera.main.ScreenToWorldPoint(new Vector2(mouseX, mouseY));
         var aimVector = Vector2.zero;
-            
-        if(AttachedObject == null)
-        { 
+
+        if (AttachedObject == null)
+        {
             aimVector = mousePos - transform.position;
         }
         else
         {
             aimVector = mousePos - AttachedObject.transform.position;
         }
-        
+
         AimReticle(aimVector);
 
-        if (inputDevice.GetButtonDown(MappedButton.ChangeGrav))
+        if (InputDevice.GetButtonDown(MappedButton.ChangeGrav))
         {
             FlipGravity();
         }
 
-        if (inputDevice.GetButtonDown(MappedButton.ShootGravGun))
+        if (InputDevice.GetButtonDown(MappedButton.ShootGravGun))
         {
             ShootGravityGun(aimVector);
+        }
+
+        //todo add in dash
+    }
+
+    private void Gamepad()
+    {
+        float leftStickX = InputDevice.GetAxis(MappedAxis.Horizontal);
+        Move(leftStickX);
+
+        float rightSitckX = InputDevice.GetAxisRaw(MappedAxis.AimX);
+        float rightSitckY = InputDevice.GetAxisRaw(MappedAxis.AimY);
+
+        Vector2 aimDir = new Vector2(rightSitckX, rightSitckY);
+        AimReticle(aimDir);
+
+        if (InputDevice.GetIsAxisTapped(MappedAxis.ChangeGrav) && InputDevice.GetAxis(MappedAxis.ChangeGrav) > 0)
+        {
+            FlipGravity();
+        }
+
+        if (InputDevice.GetIsAxisTapped(MappedAxis.ShootGravGun) && aimDir.magnitude > 0)
+        {
+            ShootGravityGun(aimDir);
+        }
+
+        if (InputDevice.GetButtonDown(MappedButton.Dash))
+        {
+            Dash(aimDir);
         }
     }
 }

@@ -1,10 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 using System.Linq;
 
-public class LevelManager : MonoBehaviour
+public class LevelManager : NetworkBehaviour
 {
     private static LevelManager _instance;
     public static LevelManager Instance { get { return _instance; } }
@@ -13,10 +14,6 @@ public class LevelManager : MonoBehaviour
     public bool PlayersCanDieInThisLevel = true;
     [SerializeField]
     private List<SpawnPosition> _spawnPositions;
-    [SerializeField]
-    private GameObject _gamepadPlayerControllerPrefab;
-    [SerializeField]
-    private GameObject _keyboardPlayerControllerPrefab;
     [SerializeField]
     private bool _startNextLevelWinCondition = true;
     [SerializeField]
@@ -28,6 +25,9 @@ public class LevelManager : MonoBehaviour
     [SerializeField]
     private bool _hasGameStarted = false;
 
+    [SerializeField]
+    public Transform JailTransform;
+
     void Awake()
     {
         if(_instance)
@@ -38,71 +38,61 @@ public class LevelManager : MonoBehaviour
         _instance = this;
     }
 
-    private void Start()
+    public override void OnStartServer()
     {
-        Init();
+        StartCoroutine(Init());
+        Players = FindObjectsOfType<PlayerController>().ToList();
+        GameManager.Instance.DoneChangingScenes();
     }
 
     private void Update()
     {
-        var alive = Players.Where(x => !x.IsDead);
-        if (_startNextLevelWinCondition && alive.Count() <= 1)
+        if(isServer && !GameManager.Instance.CurrentlyChangingScenes)
         {
-            if(alive.Count() > 0)
+            var alive = Players.Where(x => !x.IsDead);
+            if (_startNextLevelWinCondition && alive.Count() <= 1)
             {
-                alive.First().ControlledPlayer.NumWins++;
+                if (alive.Count() > 0)
+                {
+                    alive.First().ControlledPlayer.NumWins++;
+                    alive.First().SetDirtyBit(0xFFFFFFFF);
+                }
+
+                GameManager.Instance.LoadNextStage();
             }
-            
-            GameManager.Instance.LoadNextStage();
         }
     }
 
     private void FixedUpdate()
     {
-        if(_hasGameStarted)
+        if(_hasGameStarted && isServer)
         {
-            GravityObjectRigidBody.TimeScale += _gravityScaleGradientRate * Time.fixedDeltaTime;
-            GravityObjectRigidBody.TimeScale = Mathf.Clamp(GravityObjectRigidBody.TimeScale, _gravityScaleGradientStart, _gravityScaleGradientEnd);
+            GameManager.Instance.TimeScale += _gravityScaleGradientRate * Time.fixedDeltaTime;
+            GameManager.Instance.TimeScale = Mathf.Clamp(GameManager.Instance.TimeScale, _gravityScaleGradientStart, _gravityScaleGradientEnd);
         }
     }
 
     public void StartGame()
     {
-        GravityObjectRigidBody.TimeScale = _gravityScaleGradientStart;
+        GameManager.Instance.TimeScale = _gravityScaleGradientStart;
         _hasGameStarted = true;
     }
 
-    public void SpawnPlayer(Player player)
+    public void SpawnPlayer(PlayerController player)
     {
         int index = (int)(Random.value * (_spawnPositions.Count - 1));
         SpawnPosition position = _spawnPositions[index];
         _spawnPositions.RemoveAt(index);
-
-        GameObject playerObj = null;
-
-        if(player.IsKeyboardPlayer)
-        {
-            playerObj = Instantiate(_keyboardPlayerControllerPrefab);
-        }
-        else
-        {
-            playerObj = Instantiate(_gamepadPlayerControllerPrefab);
-        }
-            
-
-        playerObj.GetComponent<PlayerController>().Init(player, position.transform);
-        Players.Add(playerObj.GetComponent<PlayerController>());
+        player.InitializeForStartLevel(position.gameObject);
     }
 
-    private void Init()
+    private IEnumerator Init()
     {
+        yield return new WaitForSeconds(1f);
         _spawnPositions = new List<SpawnPosition>(FindObjectsOfType<PlayerSpawnPosition>());
 
-        foreach (var player in PlayerManager.Instance.Players)
-        {
-            SpawnPlayer(player);
-        }
-
+        var players = FindObjectsOfType<PlayerController>().ToList();
+        players.ForEach(x => SpawnPlayer(x));
         var objectSpawns = new List<SpawnPosition>(FindObjectsOfType<ObjectSpawnPosition>());
 
         foreach(var objectSpawn in objectSpawns)
