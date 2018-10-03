@@ -38,10 +38,9 @@ public class LevelManager : NetworkBehaviour
         _instance = this;
     }
 
-    private void Start()
+    public override void OnStartServer()
     {
-        if(isServer)
-            Init();
+        StartCoroutine(Init());
     }
 
     private void Update()
@@ -86,8 +85,9 @@ public class LevelManager : NetworkBehaviour
         //move player and zero out his velocity
     }
 
-    private void Init()
+    private IEnumerator Init()
     {
+        yield return new WaitForSeconds(.25f);
         _spawnPositions = new List<SpawnPosition>(FindObjectsOfType<PlayerSpawnPosition>());
 
         var players = FindObjectsOfType<PlayerController>().ToList();

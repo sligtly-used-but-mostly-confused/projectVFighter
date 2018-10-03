@@ -525,6 +525,7 @@ public abstract class PlayerController : NetworkBehaviour {
         transform.position = spawnPoint.transform.position;
         GetComponent<GravityObjectRigidBody>().ClearAllVelocities();
         IsDead = false;
+        StartCoroutine(CountDownTimer.Instance.CountDown());
     }
 
     [Command]
