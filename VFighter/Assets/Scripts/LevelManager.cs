@@ -42,11 +42,12 @@ public class LevelManager : NetworkBehaviour
     {
         StartCoroutine(Init());
         Players = FindObjectsOfType<PlayerController>().ToList();
+        GameManager.Instance.DoneChangingScenes();
     }
 
     private void Update()
     {
-        if(isServer)
+        if(isServer && !GameManager.Instance.CurrentlyChangingScenes)
         {
             var alive = Players.Where(x => !x.IsDead);
             if (_startNextLevelWinCondition && alive.Count() <= 1)
@@ -100,7 +101,10 @@ public class LevelManager : NetworkBehaviour
             objectSpawn.Spawn();
         }
     }
-
+    private void OnLevelWasLoaded(int level)
+    {
+        Debug.Log("level loaded");
+    }
     public void ResetLevel()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);

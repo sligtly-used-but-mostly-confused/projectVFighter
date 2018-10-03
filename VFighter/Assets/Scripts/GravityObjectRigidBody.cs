@@ -88,10 +88,10 @@ public class GravityObjectRigidBody : NetworkBehaviour {
 
     public override void OnStartServer()
     {
-        Debug.Log("start " + isServer + " " + GetComponent<PlayerController>());
+        //Debug.Log("start " + isServer + " " + GetComponent<PlayerController>());
         if (!GetComponent<PlayerController>())
         {
-            Debug.Log("end " + isServer + " " + isLocalPlayer);
+            //Debug.Log("end " + isServer + " " + isLocalPlayer);
             IsSimulatedOnThisConnection = isServer;
         }
     }

@@ -14,7 +14,7 @@ public class GameManager : NetworkBehaviour {
     [SerializeField]
     private string _levelName;
     private const string LevelSelect = "ControllerSelect";
-
+    public bool CurrentlyChangingScenes = false;
     void Awake () {
         if(_instance)
         {
@@ -49,7 +49,9 @@ public class GameManager : NetworkBehaviour {
             //SceneManager.LoadScene(LevelSelect);
             players.ForEach(x => x.ControlledPlayer.Reset());
             Debug.Log("change scene");
+            CurrentlyChangingScenes = true;
             NetworkManager.singleton.ServerChangeScene(LevelSelect);
+            //CurrentlyChangingScenes = false;
             return;
         }
         
@@ -61,4 +63,9 @@ public class GameManager : NetworkBehaviour {
         NetworkManager.singleton.ServerChangeScene(_levelName);
     }
 
+    public void DoneChangingScenes()
+    {
+        CurrentlyChangingScenes = false;
+    }
+    
 }
