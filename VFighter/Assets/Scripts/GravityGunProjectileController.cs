@@ -41,7 +41,7 @@ public class GravityGunProjectileController : NetworkBehaviour {
                 if(gravityObjectRB is ControllableGravityObjectRigidBody)
                 {
                     (gravityObjectRB as ControllableGravityObjectRigidBody).StepMultiplier();
-                    (gravityObjectRB as ControllableGravityObjectRigidBody).LastShotBy = Owner.ControlledPlayer;
+                    (gravityObjectRB as ControllableGravityObjectRigidBody).LastShotBy = Owner.netId;
                 }
                 Owner.AttachReticle(gravityObjectRB);
                 Owner.IsCoolingDown = true;

@@ -55,6 +55,7 @@ public class LevelManager : NetworkBehaviour
                 if (alive.Count() > 0)
                 {
                     alive.First().ControlledPlayer.NumWins++;
+                    alive.First().SetDirtyBit(0xFFFFFFFF);
                 }
 
                 GameManager.Instance.LoadNextStage();

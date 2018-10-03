@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
 public class ControllableGravityObjectRigidBody : GravityObjectRigidBody {
     [SerializeField]
@@ -10,7 +11,7 @@ public class ControllableGravityObjectRigidBody : GravityObjectRigidBody {
     [SerializeField]
     private float _maxSpeedMultiplier;
 
-    public Player LastShotBy;
+    public NetworkInstanceId LastShotBy;
 
     public void StepMultiplier()
     {

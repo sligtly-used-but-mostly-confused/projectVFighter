@@ -364,13 +364,14 @@ public abstract class PlayerController : NetworkBehaviour {
 
         var impulse = (collision.relativeVelocity * otherMass).magnitude;
         var GORB = collision.collider.GetComponent<GravityObjectRigidBody>();
-        if (impulse > ImpulseToKill && GORB && GORB.KillsPlayer)
+        if (impulse > ImpulseToKill && GORB && GORB.KillsPlayer && isServer)
         {
             if(collision.collider.GetComponent<PlayerController>())
             {
                 if(IsDashCoolingDown)
                 {
                     ControlledPlayer.NumKills++;
+                    SetDirtyBit(0xFFFFFFFF);
                     //kill the other player
                     collision.collider.GetComponent<PlayerController>().Kill();
                     return;
@@ -380,9 +381,11 @@ public abstract class PlayerController : NetworkBehaviour {
                 return;
             }
             
-            if(GORB is ControllableGravityObjectRigidBody && (GORB as ControllableGravityObjectRigidBody).LastShotBy.NetworkControllerId != 0)
+            if(GORB is ControllableGravityObjectRigidBody && (GORB as ControllableGravityObjectRigidBody).LastShotBy != NetworkInstanceId.Invalid)
             {
-                (GORB as ControllableGravityObjectRigidBody).LastShotBy.NumKills++;
+                //(GORB as ControllableGravityObjectRigidBody).LastShotBy.NumKills++;
+                NetworkServer.FindLocalObject((GORB as ControllableGravityObjectRigidBody).LastShotBy).GetComponent<PlayerController>().ControlledPlayer.NumKills++;
+                SetDirtyBit(0xFFFFFFFF);
             }
 
             Kill();
@@ -416,6 +419,7 @@ public abstract class PlayerController : NetworkBehaviour {
     {
         IsDead = true;
         ControlledPlayer.NumDeaths++;
+        SetDirtyBit(0xFFFFFFFF);
         if (isLocalPlayer)
         {
             transform.position = LevelManager.Instance.JailTransform.position;
