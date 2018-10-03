@@ -244,6 +244,11 @@ public abstract class PlayerController : NetworkBehaviour {
     {
         if (isLocalPlayer)
         {
+            if(!ReticleParent)
+            {
+                ReticleParent = gameObject;
+            }
+
             if (Reticle)
             {
                 //var aimParent = AimingReticle.transform.parent;
@@ -287,6 +292,7 @@ public abstract class PlayerController : NetworkBehaviour {
         NetworkServer.Spawn(projectileClone);
     }
 
+    #region attach reticle
     public void AttachReticle(GravityObjectRigidBody gravityObjectRB)
     {
         if (isLocalPlayer)
@@ -326,10 +332,11 @@ public abstract class PlayerController : NetworkBehaviour {
         AttachedObject = gravityObjectRB;
         ReticleParent = AttachedObject.gameObject;
     }
+    #endregion
 
     public void DetachReticle()
     {
-        AttachedObject.Owner = null;
+        //AttachedObject.Owner = null;
         AttachedObject = null;
         ReticleParent = gameObject;
     }
@@ -389,7 +396,7 @@ public abstract class PlayerController : NetworkBehaviour {
                 return;
             }
 
-            Debug.Log("player killed " + GORB.Owner);
+            //Debug.Log("player killed " + GORB.Owner);
 
             if(GORB is ControllableGravityObjectRigidBody && (GORB as ControllableGravityObjectRigidBody).LastShotBy.NetworkControllerId != 0)
             {
@@ -514,6 +521,7 @@ public abstract class PlayerController : NetworkBehaviour {
 
     public void InitializeForStartLevelInternal(GameObject spawnPoint)
     {
+        Debug.Log(name + " " + spawnPoint);
         transform.position = spawnPoint.transform.position;
         GetComponent<GravityObjectRigidBody>().ClearAllVelocities();
         IsDead = false;

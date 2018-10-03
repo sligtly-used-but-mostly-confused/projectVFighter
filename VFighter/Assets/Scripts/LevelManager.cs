@@ -40,7 +40,8 @@ public class LevelManager : NetworkBehaviour
 
     private void Start()
     {
-        Init();
+        if(isServer)
+            Init();
     }
 
     private void Update()
@@ -77,6 +78,7 @@ public class LevelManager : NetworkBehaviour
 
     public void SpawnPlayer(PlayerController player)
     {
+        Debug.Log("spawning " + player);
         int index = (int)(Random.value * (_spawnPositions.Count - 1));
         SpawnPosition position = _spawnPositions[index];
         _spawnPositions.RemoveAt(index);

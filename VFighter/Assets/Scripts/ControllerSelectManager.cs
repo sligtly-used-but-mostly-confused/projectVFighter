@@ -43,7 +43,7 @@ public class ControllerSelectManager : NetworkBehaviour {
         }
 
         _instance = this;
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
     }
 
     void Update () {

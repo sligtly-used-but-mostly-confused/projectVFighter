@@ -22,8 +22,8 @@ public class CountDownTimer : MonoBehaviour {
         yield return new WaitForSeconds(_timePerTick);
         _countDownText.text = "1";
         yield return new WaitForSeconds(_timePerTick);
-
-        LevelManager.Instance.StartGame();
+        if(FindObjectOfType<PlayerController>().isServer)
+            LevelManager.Instance.StartGame();
         Destroy(gameObject);
     }
 }

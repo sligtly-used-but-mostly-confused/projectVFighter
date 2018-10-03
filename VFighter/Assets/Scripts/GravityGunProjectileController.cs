@@ -26,7 +26,7 @@ public class GravityGunProjectileController : NetworkBehaviour {
     private void OnTriggerEnter2D(Collider2D collision)
     {
         var gravityObjectRB = collision.GetComponent<GravityObjectRigidBody>();
-        if (gravityObjectRB)
+        if (gravityObjectRB && isServer)
         {
             if(collision.GetComponent<PlayerController>())
             {
@@ -37,7 +37,7 @@ public class GravityGunProjectileController : NetworkBehaviour {
                 return;
             }
 
-            if(gravityObjectRB.Owner != Owner && gravityObjectRB.CanBeSelected)
+            if(gravityObjectRB.CanBeSelected)
             {
                 if(gravityObjectRB is ControllableGravityObjectRigidBody)
                 {
@@ -45,7 +45,7 @@ public class GravityGunProjectileController : NetworkBehaviour {
                     (gravityObjectRB as ControllableGravityObjectRigidBody).LastShotBy = Owner.ControlledPlayer;
                 }
                 Debug.Log(gravityObjectRB);
-                gravityObjectRB.Owner = Owner;
+                //gravityObjectRB.Owner = Owner;
                 Owner.AttachReticle(gravityObjectRB);
                 Owner.IsCoolingDown = true;
                 Owner.StartGravGunCoolDown();
