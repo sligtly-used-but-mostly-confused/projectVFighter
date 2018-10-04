@@ -43,7 +43,6 @@ public class LevelManager : NetworkBehaviour
         //StartCoroutine(Init());
         GameManager.Instance.CheckHeartBeatThenCallback(() => 
         {
-            Debug.Log("finished changing scenes");
             _spawnPositions = new List<SpawnPosition>(FindObjectsOfType<PlayerSpawnPosition>());
 
             var players = FindObjectsOfType<PlayerController>().ToList();

@@ -20,8 +20,6 @@ public class GameManager : NetworkBehaviour {
     [SyncVar]
     public float TimeScale = 1;
 
-    private Coroutine StartNewLevelCoroutine;
-
     void Awake () {
         if(_instance)
         {
@@ -36,7 +34,6 @@ public class GameManager : NetworkBehaviour {
     public void StartGame(string levelName, int numStages)
     {
         _levelName = levelName;
-        //NetworkManager.singleton.ServerChangeScene(levelName);
         LoadNextStage();
     }
 
@@ -49,18 +46,16 @@ public class GameManager : NetworkBehaviour {
         {
             CheckHeartBeatThenCallback(() =>
             {
-                Debug.Log("starting to change");
                 ControllerSelectManager.Instance.Init();
                 players.ForEach(x => x.ControlledPlayer.Reset());
                 CurrentlyChangingScenes = true;
                 NetworkManager.singleton.ServerChangeScene(LevelSelect);
             });
-            return;
         }
-
-        
-        CheckHeartBeatThenCallback(StartNewLevel);
-        
+        else
+        {
+            CheckHeartBeatThenCallback(StartNewLevel);
+        }
     }
 
     private void StartNewLevel()
@@ -85,7 +80,6 @@ public class GameManager : NetworkBehaviour {
     private IEnumerator CheckHeartBeatThenCallbackInternal(Action callback)
     {
         var players = FindObjectsOfType<PlayerController>().ToList();
-        Debug.Log("starting heart beat");
         List<Tuple<PlayerController, int>> heartBeatIds = new List<Tuple<PlayerController, int>>();
         foreach(var player in players)
         {
@@ -97,9 +91,8 @@ public class GameManager : NetworkBehaviour {
         while(!heartBeatIds.All(x => x.Item1.HeartBeats[x.Item2]))
         {
             time += Time.deltaTime;
-            Debug.Log(time);
 
-            //if the heat beat hangs retry it
+            //if the heart beat hangs retry it
             if(time > 1)
             {
                 yield return CheckHeartBeatThenCallbackInternal(callback);
@@ -108,8 +101,7 @@ public class GameManager : NetworkBehaviour {
 
             yield return new WaitForEndOfFrame();
         }
-        Debug.Log("ending heart beat");
-        //players.ForEach(x => x.HeartBeat = false);
+
         callback();
     }
 }
