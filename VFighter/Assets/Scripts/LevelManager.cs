@@ -99,6 +99,8 @@ public class LevelManager : NetworkBehaviour
         {
             objectSpawn.Spawn();
         }
+        
+        //GameManager.Instance.ProgressionThroughGame = players.Max(x => x.ControlledPlayer.NumDeaths) / players[0].ControlledPlayer.NumLives;
     }
 
     public void ResetLevel()

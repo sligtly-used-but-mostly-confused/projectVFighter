@@ -31,7 +31,8 @@ public class GameManager : NetworkBehaviour {
     public void StartGame(string levelName, int numStages)
     {
         _levelName = levelName;
-        NetworkManager.singleton.ServerChangeScene(levelName);
+        //NetworkManager.singleton.ServerChangeScene(levelName);
+        LoadNextStage();
     }
 
     public void LoadNextStage()
@@ -48,7 +49,7 @@ public class GameManager : NetworkBehaviour {
             return;
         }
 
-        ProgressionThroughGame = 1;
+        ProgressionThroughGame = players.Max(x => x.ControlledPlayer.NumDeaths) / (float) players[0].ControlledPlayer.NumLives;
         players.ForEach(x => x.IsDead = false);
         NetworkManager.singleton.ServerChangeScene(_levelName);
     }
