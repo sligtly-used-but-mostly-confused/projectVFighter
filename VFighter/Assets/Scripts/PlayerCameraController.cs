@@ -13,8 +13,7 @@ public class PlayerCameraController : MonoBehaviour
     [SerializeField]
     private float _maxCameraSize = 15;
     [SerializeField]
-    private float _cameraSizePadding = 1.3f;
-
+    private float _cameraSizePadding = 1.5f;
     [SerializeField]
     private float _targetCameraSize = 5;
     [SerializeField]
@@ -31,9 +30,16 @@ public class PlayerCameraController : MonoBehaviour
 
         var displacement = _targetCenter - transform.position;
         _rB.velocity = displacement.normalized * Mathf.Pow(displacement.magnitude, 2f);
-
         var deltaSize = _targetCameraSize - GetComponent<Camera>().orthographicSize;
-        GetComponent<Camera>().orthographicSize += deltaSize * Mathf.Pow(Mathf.Abs(deltaSize), 2f) * Time.fixedDeltaTime * 2;
+        deltaSize = deltaSize * Mathf.Pow(Mathf.Abs(deltaSize), 4f) * Time.fixedDeltaTime * 4;
+        deltaSize = Mathf.Clamp(deltaSize, -5, 5);
+        if (float.IsNaN(GetComponent<Camera>().orthographicSize))
+        {
+            //just incase the camera gets weird fix it
+            GetComponent<Camera>().orthographicSize = _targetCameraSize;
+        }
+        
+        GetComponent<Camera>().orthographicSize += deltaSize;
     }
 
     private void UpdateTargets()
