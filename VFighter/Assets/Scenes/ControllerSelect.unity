@@ -650,12 +650,12 @@ MonoBehaviour:
   - {fileID: 2100000, guid: d1a34e5e47473784cbc28a97a06f2299, type: 2}
   - {fileID: 2100000, guid: f1a6e1fc3730df442be9feffac8c07c2, type: 2}
   _usedDevices: []
-  DevicesWaitingForPlayer: []
   NetworkPlayerPrefab: {fileID: 1596458492531264, guid: 23a394dfea771d24c8c02502a01bf446,
     type: 2}
   _isWaitingForReady: 1
   LevelToLoad: LongLevel
-  numLivesPerPlayer: 1
+  numLivesPerPlayer: 5
+  DevicesWaitingForPlayer: []
 --- !u!4 &636215035
 Transform:
   m_ObjectHideFlags: 0
