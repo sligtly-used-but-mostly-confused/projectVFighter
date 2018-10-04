@@ -3607,7 +3607,7 @@ MonoBehaviour:
     i13: 4
     i14: 32
     i15: 12
-  m_ServerOnly: 1
+  m_ServerOnly: 0
   m_LocalPlayerAuthority: 0
 --- !u!1 &1352130555
 GameObject:
@@ -3951,20 +3951,11 @@ MonoBehaviour:
   Bounciness: 0
   CanBeSelected: 1
   KillsPlayer: 1
-  Owner: {fileID: 0}
   IsSimulatedOnThisConnection: 0
+  Owner: {fileID: 0}
   _speedMultiplier: 0
   _speedMultiplierStep: 0
   _maxSpeedMultiplier: 0
-  LastShotBy:
-    NetworkControllerId: 0
-    IsKeyboardPlayer: 0
-    NumWins: 0
-    NumDeaths: 0
-    NumLives: 0
-    NumKills: 0
-    ForceSelectInputDeviceByIndex: 0
-    InputDeviceIndex: 0
 --- !u!114 &1506392250
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5963,6 +5954,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _minCameraSize: 5
   _maxCameraSize: 100
+  _cameraSizePadding: 1.5
   _targetCameraSize: 5
   _targetCenter: {x: 0, y: 0, z: 0}
 --- !u!50 &2044523849

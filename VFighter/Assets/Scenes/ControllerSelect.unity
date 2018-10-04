@@ -654,7 +654,7 @@ MonoBehaviour:
     type: 2}
   _isWaitingForReady: 1
   LevelToLoad: LongLevel
-  numLivesPerPlayer: 5
+  numLivesPerPlayer: 1
   DevicesWaitingForPlayer: []
 --- !u!4 &636215035
 Transform:
@@ -730,7 +730,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Players: []
-  PlayersCanDieInThisLevel: 1
+  PlayersCanDieInThisLevel: 0
   _spawnPositions:
   - {fileID: 36417628}
   - {fileID: 1055669993}
@@ -785,7 +785,7 @@ MonoBehaviour:
     i13: 0
     i14: 0
     i15: 0
-  m_ServerOnly: 1
+  m_ServerOnly: 0
   m_LocalPlayerAuthority: 0
 --- !u!1 &813629744
 GameObject:

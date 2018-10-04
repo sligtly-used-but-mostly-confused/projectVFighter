@@ -40,9 +40,35 @@ public class LevelManager : NetworkBehaviour
 
     public override void OnStartServer()
     {
-        StartCoroutine(Init());
-        Players = FindObjectsOfType<PlayerController>().ToList();
-        GameManager.Instance.DoneChangingScenes();
+        //StartCoroutine(Init());
+        GameManager.Instance.CheckHeartBeatThenCallback(() => 
+        {
+            Debug.Log("finished changing scenes");
+            _spawnPositions = new List<SpawnPosition>(FindObjectsOfType<PlayerSpawnPosition>());
+
+            var players = FindObjectsOfType<PlayerController>().ToList();
+            players.ForEach(x => SpawnPlayer(x));
+            var objectSpawns = new List<SpawnPosition>(FindObjectsOfType<ObjectSpawnPosition>());
+
+            foreach (var objectSpawn in objectSpawns)
+            {
+                objectSpawn.Spawn();
+            }
+
+            Players = FindObjectsOfType<PlayerController>().ToList();
+            GameManager.Instance.DoneChangingScenes();
+
+            if (CountDownTimer.Instance)
+                StartCoroutine(CountDownTimer.Instance.CountDown());
+        });
+    }
+
+    public override void OnStartClient()
+    {
+        if (CountDownTimer.Instance)
+        {
+            StartCoroutine(CountDownTimer.Instance.CountDown());
+        }
     }
 
     private void Update()
@@ -84,23 +110,6 @@ public class LevelManager : NetworkBehaviour
         SpawnPosition position = _spawnPositions[index];
         _spawnPositions.RemoveAt(index);
         player.InitializeForStartLevel(position.gameObject);
-    }
-
-    private IEnumerator Init()
-    {
-        yield return new WaitForSeconds(1f);
-        _spawnPositions = new List<SpawnPosition>(FindObjectsOfType<PlayerSpawnPosition>());
-
-        var players = FindObjectsOfType<PlayerController>().ToList();
-        players.ForEach(x => SpawnPlayer(x));
-        var objectSpawns = new List<SpawnPosition>(FindObjectsOfType<ObjectSpawnPosition>());
-
-        foreach(var objectSpawn in objectSpawns)
-        {
-            objectSpawn.Spawn();
-        }
-        
-        //GameManager.Instance.ProgressionThroughGame = players.Max(x => x.ControlledPlayer.NumDeaths) / players[0].ControlledPlayer.NumLives;
     }
 
     public void ResetLevel()
