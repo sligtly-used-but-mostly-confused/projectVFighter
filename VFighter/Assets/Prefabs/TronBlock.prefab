@@ -9,22 +9,24 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1430809441636046}
+  m_RootGameObject: {fileID: 1844762346393596}
   m_IsPrefabAsset: 1
---- !u!1 &1430809441636046
+--- !u!1 &1844762346393596
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4641340361275466}
-  - component: {fileID: 50959634389436232}
-  - component: {fileID: 61913241219114924}
-  - component: {fileID: 23124043839508342}
-  - component: {fileID: 33114363245096408}
-  - component: {fileID: 114166481022971424}
-  - component: {fileID: 114473196765456970}
+  - component: {fileID: 4199778867374464}
+  - component: {fileID: 50065140906508228}
+  - component: {fileID: 61812172671953428}
+  - component: {fileID: 23659528077647868}
+  - component: {fileID: 33606344499528984}
+  - component: {fileID: 114986693633491420}
+  - component: {fileID: 114518410800354810}
+  - component: {fileID: 114694900390513130}
+  - component: {fileID: 114702252443559322}
   m_Layer: 9
   m_Name: TronBlock
   m_TagString: Untagged
@@ -32,25 +34,25 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4641340361275466
+--- !u!4 &4199778867374464
 Transform:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1430809441636046}
+  m_GameObject: {fileID: 1844762346393596}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.92, y: 2.09, z: 0}
+  m_LocalPosition: {x: -1.99, y: -0.07, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!23 &23124043839508342
+--- !u!23 &23659528077647868
 MeshRenderer:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1430809441636046}
+  m_GameObject: {fileID: 1844762346393596}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -80,20 +82,20 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!33 &33114363245096408
+--- !u!33 &33606344499528984
 MeshFilter:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1430809441636046}
+  m_GameObject: {fileID: 1844762346393596}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!50 &50959634389436232
+--- !u!50 &50065140906508228
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1430809441636046}
+  m_GameObject: {fileID: 1844762346393596}
   m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
@@ -107,12 +109,12 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!61 &61913241219114924
+--- !u!61 &61812172671953428
 BoxCollider2D:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1430809441636046}
+  m_GameObject: {fileID: 1844762346393596}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -132,12 +134,65 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &114166481022971424
+--- !u!114 &114518410800354810
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1430809441636046}
+  m_GameObject: {fileID: 1844762346393596}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 96
+    i1: 28
+    i2: 77
+    i3: 39
+    i4: 225
+    i5: 213
+    i6: 187
+    i7: 20
+    i8: 251
+    i9: 254
+    i10: 31
+    i11: 137
+    i12: 128
+    i13: 102
+    i14: 114
+    i15: 162
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0
+--- !u!114 &114694900390513130
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1844762346393596}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1768714887, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TransformSyncMode: 2
+  m_SendInterval: 0.1
+  m_SyncRotationAxis: 3
+  m_RotationSyncCompression: 0
+  m_SyncSpin: 0
+  m_MovementTheshold: 0.001
+  m_VelocityThreshold: 0.0001
+  m_SnapThreshold: 2
+  m_InterpolateRotation: 1
+  m_InterpolateMovement: 3
+--- !u!114 &114702252443559322
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1844762346393596}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5fe5127cac07ef246881a2cfa011f2cc, type: 3}
@@ -145,14 +200,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _tronBlockTailPrefab: {fileID: 1436249748655522, guid: 0a2d1dd16d8627f49bcec221e91e19d3,
     type: 2}
-  _tailSize: 0
   _secondsForTailToSurvive: 1
---- !u!114 &114473196765456970
+--- !u!114 &114986693633491420
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1430809441636046}
+  m_GameObject: {fileID: 1844762346393596}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: df933582de62f80448bf544823d107ae, type: 3}
@@ -160,7 +214,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _id: 0
   _gravityScale: 1
-  _gravityDirection: {x: 0, y: -1}
+  _gravityDirection: {x: 0, y: 0}
   _maxDefaultComponentSpeed: {x: 10, y: 10}
   _maxComponentSpeeds: []
   _stopObjectOnCollide: 1
@@ -169,17 +223,8 @@ MonoBehaviour:
   Bounciness: 0
   CanBeSelected: 1
   KillsPlayer: 1
+  IsSimulatedOnThisConnection: 0
   Owner: {fileID: 0}
-  _speedMultiplier: 0
-  _speedMultiplierStep: 0
-  _maxSpeedMultiplier: 0
-  LastShotBy:
-    PairedInputDevice: {fileID: 0}
-    PlayerMaterial: {fileID: 0}
-    IsKeyboardPlayer: 0
-    NumWins: 0
-    NumDeaths: 0
-    NumLives: 0
-    NumKills: 0
-    ForceSelectInputDeviceByIndex: 0
-    InputDeviceIndex: 0
+  _speedMultiplier: 1
+  _speedMultiplierStep: 0.1
+  _maxSpeedMultiplier: 2
