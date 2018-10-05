@@ -530,6 +530,7 @@ public abstract class PlayerController : NetworkBehaviour {
     {
         transform.position = spawnPoint.transform.position;
         GetComponent<GravityObjectRigidBody>().ClearAllVelocities();
+        ChangeGORBGravityDirection(GetComponent<GravityObjectRigidBody>(), FindDirToClosestWall());
         IsDead = false;
     }
 

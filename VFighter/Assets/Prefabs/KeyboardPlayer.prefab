@@ -169,7 +169,7 @@ MonoBehaviour:
   AttachedObject: {fileID: 0}
   RechargeTime: 0.4
   ChangeGravityRechargeTime: 0
-  DashCoolDownTime: 5
+  DashCoolDownTime: 0.5
   MoveSpeed: 10
   ShootSpeed: 10
   JumpForce: 10
