@@ -27,7 +27,7 @@ GameObject:
   - component: {fileID: 114963179985704802}
   - component: {fileID: 114048110001761918}
   - component: {fileID: 114424392763076066}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Gravity Pulse
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -212,5 +212,5 @@ MonoBehaviour:
   Bounciness: 0
   CanBeSelected: 0
   KillsPlayer: 0
-  Owner: {fileID: 0}
   IsSimulatedOnThisConnection: 1
+  Owner: {fileID: 0}

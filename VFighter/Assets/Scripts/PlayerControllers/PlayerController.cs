@@ -19,6 +19,10 @@ public abstract class PlayerController : NetworkBehaviour {
     [SerializeField]
     protected float DashCoolDownTime = .1f;
     [SerializeField]
+    protected float DurationOfNormalGravityProjectile = 1;
+    [SerializeField]
+    protected float DurationOfShotgunGravityProjectile = .25f;
+    [SerializeField]
     protected float MoveSpeed = 1f;
     [SerializeField]
     protected float ShootSpeed = 1f;
@@ -38,7 +42,7 @@ public abstract class PlayerController : NetworkBehaviour {
     protected GameObject ReticleParent;
     [SerializeField]
     protected InputDevice InputDevice;
-
+    
     protected readonly Vector2[] _gravChangeDirections = { Vector2.up, Vector2.down };
 
     public bool IsCoolingDown = false;
@@ -262,7 +266,32 @@ public abstract class PlayerController : NetworkBehaviour {
             {
                 if (AttachedObject == null)
                 {
-                    CmdSpawnProjectile(dir);
+                    CmdSpawnProjectile(dir, DurationOfNormalGravityProjectile, false);
+                    StartGravGunCoolDown();
+                }
+                else
+                {
+                    ChangeGORBGravityDirection(AttachedObject, dir);
+                    DetachReticle();
+                }
+            }
+        }
+    }
+
+    public void ShotGunBlast(Vector2 dir)
+    {
+        if (isLocalPlayer && !IsDead)
+        {
+            dir = dir.normalized;
+            if (!IsCoolingDown)
+            {
+                if (AttachedObject == null)
+                {
+                    CmdSpawnProjectile(dir, DurationOfShotgunGravityProjectile, true);
+                    CmdSpawnProjectile(Quaternion.Euler(0, 0, 30) * new Vector3(dir.x, dir.y, 0), DurationOfShotgunGravityProjectile, true);
+                    CmdSpawnProjectile(Quaternion.Euler(0, 0, -30) * new Vector3(dir.x, dir.y, 0), DurationOfShotgunGravityProjectile, true);
+                    CmdSpawnProjectile(Quaternion.Euler(0, 0, 15) * new Vector3(dir.x, dir.y, 0), DurationOfShotgunGravityProjectile, true);
+                    CmdSpawnProjectile(Quaternion.Euler(0, 0, -15) * new Vector3(dir.x, dir.y, 0), DurationOfShotgunGravityProjectile, true);
                     StartGravGunCoolDown();
                 }
                 else
@@ -275,10 +304,12 @@ public abstract class PlayerController : NetworkBehaviour {
     }
 
     [Command]
-    public void CmdSpawnProjectile(Vector2 dir)
+    public void CmdSpawnProjectile(Vector2 dir, float secondsUntilDestroy, bool isFromShotgun)
     {
         GameObject projectileClone = Instantiate(ProjectilePrefab, Reticle.transform.position, Reticle.transform.rotation);
         projectileClone.GetComponent<GravityGunProjectileController>().Owner = this;
+        projectileClone.GetComponent<GravityGunProjectileController>().SecondsUntilDestroy = secondsUntilDestroy;
+        projectileClone.GetComponent<GravityGunProjectileController>().IsShotgunProjectile = isFromShotgun;
         projectileClone.GetComponent<GravityObjectRigidBody>().UpdateVelocity(VelocityType.OtherPhysics, dir * ShootSpeed);
         NetworkServer.Spawn(projectileClone);
     }
@@ -530,6 +561,7 @@ public abstract class PlayerController : NetworkBehaviour {
     {
         transform.position = spawnPoint.transform.position;
         GetComponent<GravityObjectRigidBody>().ClearAllVelocities();
+        ChangeGORBGravityDirection(GetComponent<GravityObjectRigidBody>(), FindDirToClosestWall());
         IsDead = false;
     }
 

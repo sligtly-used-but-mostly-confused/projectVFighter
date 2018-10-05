@@ -731,20 +731,11 @@ MonoBehaviour:
   Bounciness: 0
   CanBeSelected: 1
   KillsPlayer: 1
+  IsSimulatedOnThisConnection: 0
   Owner: {fileID: 0}
   _speedMultiplier: 1
   _speedMultiplierStep: 0.1
   _maxSpeedMultiplier: 2
-  LastShotBy:
-    PairedInputDevice: {fileID: 0}
-    PlayerMaterial: {fileID: 0}
-    IsKeyboardPlayer: 0
-    NumWins: 0
-    NumDeaths: 0
-    NumLives: 0
-    NumKills: 0
-    ForceSelectInputDeviceByIndex: 0
-    InputDeviceIndex: 0
 --- !u!1 &415183477
 GameObject:
   m_ObjectHideFlags: 0
@@ -1322,20 +1313,11 @@ MonoBehaviour:
   Bounciness: 0
   CanBeSelected: 1
   KillsPlayer: 1
+  IsSimulatedOnThisConnection: 0
   Owner: {fileID: 0}
   _speedMultiplier: 0
   _speedMultiplierStep: 0
   _maxSpeedMultiplier: 0
-  LastShotBy:
-    PairedInputDevice: {fileID: 0}
-    PlayerMaterial: {fileID: 0}
-    IsKeyboardPlayer: 0
-    NumWins: 0
-    NumDeaths: 0
-    NumLives: 0
-    NumKills: 0
-    ForceSelectInputDeviceByIndex: 0
-    InputDeviceIndex: 0
 --- !u!114 &600587547
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2490,20 +2472,11 @@ MonoBehaviour:
   Bounciness: 0
   CanBeSelected: 1
   KillsPlayer: 1
+  IsSimulatedOnThisConnection: 0
   Owner: {fileID: 0}
   _speedMultiplier: 1
   _speedMultiplierStep: 0.1
   _maxSpeedMultiplier: 2
-  LastShotBy:
-    PairedInputDevice: {fileID: 0}
-    PlayerMaterial: {fileID: 0}
-    IsKeyboardPlayer: 0
-    NumWins: 0
-    NumDeaths: 0
-    NumLives: 0
-    NumKills: 0
-    ForceSelectInputDeviceByIndex: 0
-    InputDeviceIndex: 0
 --- !u!1 &943899354
 GameObject:
   m_ObjectHideFlags: 0
@@ -2621,20 +2594,11 @@ MonoBehaviour:
   Bounciness: 0
   CanBeSelected: 1
   KillsPlayer: 1
+  IsSimulatedOnThisConnection: 0
   Owner: {fileID: 0}
   _speedMultiplier: 1
   _speedMultiplierStep: 0.1
   _maxSpeedMultiplier: 2
-  LastShotBy:
-    PairedInputDevice: {fileID: 0}
-    PlayerMaterial: {fileID: 0}
-    IsKeyboardPlayer: 0
-    NumWins: 0
-    NumDeaths: 0
-    NumLives: 0
-    NumKills: 0
-    ForceSelectInputDeviceByIndex: 0
-    InputDeviceIndex: 0
 --- !u!1 &1119656864
 GameObject:
   m_ObjectHideFlags: 0
@@ -3482,11 +3446,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4823256419756302, guid: ffa730ff0af7042b5b73ba504a249dd5, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 0.81
+      value: 3.24
       objectReference: {fileID: 0}
     - target: {fileID: 4823256419756302, guid: ffa730ff0af7042b5b73ba504a249dd5, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 2.09
+      value: 0.47
       objectReference: {fileID: 0}
     - target: {fileID: 4823256419756302, guid: ffa730ff0af7042b5b73ba504a249dd5, type: 2}
       propertyPath: m_LocalPosition.z
@@ -3566,11 +3530,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4806537058332284, guid: 06bb8b4b6448d453a959c7e3248b9b11, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 7.79
+      value: 7.06
       objectReference: {fileID: 0}
     - target: {fileID: 4806537058332284, guid: 06bb8b4b6448d453a959c7e3248b9b11, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0.74
+      value: 3.51
       objectReference: {fileID: 0}
     - target: {fileID: 4806537058332284, guid: 06bb8b4b6448d453a959c7e3248b9b11, type: 2}
       propertyPath: m_LocalPosition.z
@@ -3698,11 +3662,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4823256419756302, guid: ffa730ff0af7042b5b73ba504a249dd5, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -5.3379574
+      value: -4.87
       objectReference: {fileID: 0}
     - target: {fileID: 4823256419756302, guid: ffa730ff0af7042b5b73ba504a249dd5, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -0.7133205
+      value: -1.84
       objectReference: {fileID: 0}
     - target: {fileID: 4823256419756302, guid: ffa730ff0af7042b5b73ba504a249dd5, type: 2}
       propertyPath: m_LocalPosition.z
@@ -4016,6 +3980,7 @@ GameObject:
   - component: {fileID: 1641211853}
   - component: {fileID: 1641211852}
   - component: {fileID: 1641211851}
+  - component: {fileID: 1641211857}
   m_Layer: 0
   m_Name: Main Camera (3)
   m_TagString: MainCamera
@@ -4056,6 +4021,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _minCameraSize: 5
   _maxCameraSize: 100
+  _cameraSizePadding: 1.5
   _targetCameraSize: 5
   _targetCenter: {x: 0, y: 0, z: 0}
 --- !u!114 &1641211853
@@ -4135,6 +4101,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1641211857
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1641211850}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a021c9069073d4a8398e3745d9a35c85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  effectMaterial: {fileID: 2100000, guid: 3564815c9596744b38c7ae1331f3f130, type: 2}
 --- !u!1 &1659398335
 GameObject:
   m_ObjectHideFlags: 0
@@ -4309,11 +4287,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4480089187773104, guid: d79e3cc5cc2914c94a05bbee86ea3cf1, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -4.077824
+      value: -4.89
       objectReference: {fileID: 0}
     - target: {fileID: 4480089187773104, guid: d79e3cc5cc2914c94a05bbee86ea3cf1, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 2.20462
+      value: 2.47
       objectReference: {fileID: 0}
     - target: {fileID: 4480089187773104, guid: d79e3cc5cc2914c94a05bbee86ea3cf1, type: 2}
       propertyPath: m_LocalPosition.z
@@ -4337,6 +4315,29 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4480089187773104, guid: d79e3cc5cc2914c94a05bbee86ea3cf1, type: 2}
       propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198922743410726492, guid: d79e3cc5cc2914c94a05bbee86ea3cf1,
+        type: 2}
+      propertyPath: EmissionModule.rateOverTime.scalar
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4399944287493524, guid: d79e3cc5cc2914c94a05bbee86ea3cf1, type: 2}
+      propertyPath: m_LocalScale.x
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4399944287493524, guid: d79e3cc5cc2914c94a05bbee86ea3cf1, type: 2}
+      propertyPath: m_LocalScale.z
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 198922743410726492, guid: d79e3cc5cc2914c94a05bbee86ea3cf1,
+        type: 2}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 199928531819980818, guid: d79e3cc5cc2914c94a05bbee86ea3cf1,
+        type: 2}
+      propertyPath: m_MaxParticleSize
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
