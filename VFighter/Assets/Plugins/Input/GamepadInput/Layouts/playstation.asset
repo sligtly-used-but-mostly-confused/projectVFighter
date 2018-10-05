@@ -3,7 +3,7 @@
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
@@ -21,11 +21,11 @@ MonoBehaviour:
   - button: 3
     name: TRIANGLE
   - button: 4
-    name: Menu
+    name: TouchPad
   - button: 5
-    name: Start
+    name: Options
   - button: 6
-    name: Select
+    name: Share
   - button: 7
     name: D-Pad Left
   - button: 9
@@ -52,6 +52,6 @@ MonoBehaviour:
   - axis: 3
     name: Right Stick Vertical
   - axis: 4
-    name: R2
+    name: L2
   - axis: 5
     name: R2
