@@ -1,11 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 using System.Linq;
 
 [RequireComponent(typeof(GravityObjectRigidBody))]
 [RequireComponent(typeof(BoxCollider2D))]
-public class TronBlock : MonoBehaviour {
+public class TronBlock : NetworkBehaviour {
     private GravityObjectRigidBody _gORB;
 
     [SerializeField]
@@ -25,25 +26,28 @@ public class TronBlock : MonoBehaviour {
         _lastTailPlaced.transform.localPosition = transform.position;
         _lastTailPlaced.GetComponent<ControllableGravityObjectRigidBody>().LastShotBy = GetComponent<ControllableGravityObjectRigidBody>().LastShotBy;
         StartCoroutine(DestoryTailCoroutine(newTail));
+        NetworkServer.Spawn(newTail);
     }
 
     private void Update()
     {
-        if(_lastTailPlaced == null)
+        if(isServer)
         {
-            SpawnNewTail();
-        }
-        else 
-        {
-            var min = _lastTailPlaced.GetComponent<BoxCollider2D>().bounds.min;
-            var max = _lastTailPlaced.GetComponent<BoxCollider2D>().bounds.max;
-            float _tailSize = (max - min).sqrMagnitude;
-            if ((_lastTailPlaced.transform.position - transform.position).magnitude > _tailSize / 8)
+            if (_lastTailPlaced == null)
             {
-                Debug.Log(_lastTailPlaced.GetComponent<BoxCollider2D>().bounds.SqrDistance(transform.position));
                 SpawnNewTail();
             }
-                
+            else
+            {
+                var min = _lastTailPlaced.GetComponent<BoxCollider2D>().bounds.min;
+                var max = _lastTailPlaced.GetComponent<BoxCollider2D>().bounds.max;
+                float _tailSize = (max - min).sqrMagnitude;
+                if ((_lastTailPlaced.transform.position - transform.position).magnitude > _tailSize / 8)
+                {
+                    SpawnNewTail();
+                }
+
+            }
         }
     }
 

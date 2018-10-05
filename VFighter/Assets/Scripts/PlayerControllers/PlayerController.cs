@@ -44,7 +44,11 @@ public abstract class PlayerController : NetworkBehaviour {
     public bool IsCoolingDown = false;
     public bool IsChangeGravityCoolingDown = false;
     public bool IsDashCoolingDown = false;
-    
+
+    private static int _heartBeatId = 0;
+    //THIS SHOULD ONLY BE USED FROM HEART BEAT FUNCTION
+    public Dictionary<int, bool> HeartBeats = new Dictionary<int, bool>();
+
     private List<GameObject> GravityGunProjectiles = new List<GameObject>();
     private Coroutine GravGunCoolDownCoroutine;
     
@@ -200,6 +204,8 @@ public abstract class PlayerController : NetworkBehaviour {
         {
             //need to account for gravity
             var dashVec = dir.normalized * DashSpeed;
+            var closestDir = ClosestDirection(dir, _gravChangeDirections);
+            ChangeGORBGravityDirection(GetComponent<GravityObjectRigidBody>(), closestDir);
             GetComponent<GravityObjectRigidBody>().Dash(dashVec);
 
             IsDashCoolingDown = true;
@@ -350,8 +356,17 @@ public abstract class PlayerController : NetworkBehaviour {
     IEnumerator DashCoolDown()
     {
         IsDashCoolingDown = true;
+        CmdSetDashCoolDown(true);
         yield return new WaitForSeconds(DashCoolDownTime);
         IsDashCoolingDown = false;
+        CmdSetDashCoolDown(false);
+    }
+
+    [Command]
+    private void CmdSetDashCoolDown(bool isCoolingDown)
+    {
+        //need to set dash cool down on server so that they player collision counts as a kill
+        IsDashCoolingDown = isCoolingDown;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -383,6 +398,7 @@ public abstract class PlayerController : NetworkBehaviour {
             
             if(GORB is ControllableGravityObjectRigidBody && (GORB as ControllableGravityObjectRigidBody).LastShotBy != NetworkInstanceId.Invalid)
             {
+                Debug.Log((GORB as ControllableGravityObjectRigidBody).LastShotBy);
                 var otherPlayer = NetworkServer.FindLocalObject((GORB as ControllableGravityObjectRigidBody).LastShotBy).GetComponent<PlayerController>();
                 otherPlayer.ControlledPlayer.NumKills++;
                 otherPlayer.SetDirtyBit(0xFFFFFFFF);
@@ -417,8 +433,12 @@ public abstract class PlayerController : NetworkBehaviour {
 
     public void CmdKill()
     {
-        IsDead = true;
-        ControlledPlayer.NumDeaths++;
+        if(LevelManager.Instance.PlayersCanDieInThisLevel)
+        {
+            IsDead = true;
+            ControlledPlayer.NumDeaths++;
+        }
+        
         SetDirtyBit(0xFFFFFFFF);
         if (isLocalPlayer)
         {
@@ -511,8 +531,6 @@ public abstract class PlayerController : NetworkBehaviour {
         transform.position = spawnPoint.transform.position;
         GetComponent<GravityObjectRigidBody>().ClearAllVelocities();
         IsDead = false;
-        if(CountDownTimer.Instance)
-            StartCoroutine(CountDownTimer.Instance.CountDown());
     }
 
     [Command]
@@ -535,5 +553,35 @@ public abstract class PlayerController : NetworkBehaviour {
         {
             InitializeForStartLevelInternal(spawnPoint);
         }
+    }
+
+    //call this to make sure that a command is synced up
+    //MUST BE CALLED FROM SERVER
+    public int GetHeartBeat()
+    {
+        int heartBeatId = _heartBeatId++;
+        if(isLocalPlayer)
+        {
+            HeartBeats[heartBeatId] = true;
+        }
+        else
+        {
+            HeartBeats[heartBeatId] = false;
+            RpcHeartBeat(heartBeatId);
+        }
+
+        return heartBeatId;
+    }
+
+    [Command]
+    public void CmdHeartBeat(int heartBeatId)
+    {
+        HeartBeats[heartBeatId] = true;
+    }
+
+    [ClientRpc]
+    public void RpcHeartBeat(int heartBeatId)
+    {
+        CmdHeartBeat(heartBeatId);
     }
 }
