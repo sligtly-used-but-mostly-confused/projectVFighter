@@ -64,7 +64,7 @@ public class PlayerCameraController : MonoBehaviour
         //assume that the y axis was bigger
         var xRatio = (new Vector2(deltaX, deltaX * (1 / aspectRatio))) / 2;
 
-        if (yRatio.magnitude > xRatio.magnitude)
+        if (yRatio.magnitude > xRatio.magnitude || Mathf.Approximately(yRatio.magnitude, xRatio.magnitude))
         {
             _targetCameraSize = yRatio.y * _cameraSizePadding;
         }

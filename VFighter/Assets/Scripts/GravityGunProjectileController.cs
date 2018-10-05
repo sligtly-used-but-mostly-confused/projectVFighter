@@ -7,8 +7,8 @@ using UnityEngine.Networking;
 public class GravityGunProjectileController : NetworkBehaviour {
 
     [SerializeField]
-    private float _secondsUntilDestory = 1;
-
+    public float SecondsUntilDestroy = 1;
+    public bool IsShotgunProjectile = false;
     public PlayerController Owner;
 
     public override void OnStartServer()
@@ -18,7 +18,7 @@ public class GravityGunProjectileController : NetworkBehaviour {
     }
     
     IEnumerator Onstart () {
-        yield return new WaitForSeconds(_secondsUntilDestory);
+        yield return new WaitForSeconds(SecondsUntilDestroy);
         NetworkServer.Destroy(gameObject);
 	}
 
@@ -43,7 +43,18 @@ public class GravityGunProjectileController : NetworkBehaviour {
                     (gravityObjectRB as ControllableGravityObjectRigidBody).StepMultiplier();
                     (gravityObjectRB as ControllableGravityObjectRigidBody).LastShotBy = Owner.netId;
                 }
-                Owner.AttachReticle(gravityObjectRB);
+
+                if(IsShotgunProjectile)
+                {
+                    Debug.Log(GetComponent<GravityObjectRigidBody>().GetVelocity(VelocityType.OtherPhysics));
+                    gravityObjectRB.ChangeGravityDirectionInternal(GetComponent<GravityObjectRigidBody>().GetVelocity(VelocityType.OtherPhysics));
+                    //Owner.ChangeGORBGravityDirection(gravityObjectRB, GetComponent<GravityObjectRigidBody>().GravityDirection);
+                }
+                else
+                {
+                    Owner.AttachReticle(gravityObjectRB);
+                }
+                
                 Owner.IsCoolingDown = true;
                 Owner.StartGravGunCoolDown();
                 NetworkServer.Destroy(gameObject);

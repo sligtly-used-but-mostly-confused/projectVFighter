@@ -170,8 +170,10 @@ MonoBehaviour:
   RechargeTime: 0.4
   ChangeGravityRechargeTime: 0
   DashCoolDownTime: 0.5
+  DurationOfNormalGravityProjectile: 1
+  DurationOfShotgunGravityProjectile: 0.3
   MoveSpeed: 10
-  ShootSpeed: 10
+  ShootSpeed: 15
   JumpForce: 10
   ImpulseToKill: 0
   DashSpeed: 20
