@@ -274,6 +274,29 @@ public abstract class PlayerController : NetworkBehaviour {
         }
     }
 
+    public void ShotGunBlast(Vector2 dir)
+    {
+        if (isLocalPlayer && !IsDead)
+        {
+            dir = dir.normalized;
+            if (!IsCoolingDown)
+            {
+                if (AttachedObject == null)
+                {
+                    CmdSpawnProjectile(dir);
+                    CmdSpawnProjectile(Quaternion.Euler(0, 0, 30) * new Vector3(dir.x, dir.y, 0));
+                    CmdSpawnProjectile(Quaternion.Euler(0, 0, -30) * new Vector3(dir.x, dir.y, 0));
+                    StartGravGunCoolDown();
+                }
+                else
+                {
+                    ChangeGORBGravityDirection(AttachedObject, dir);
+                    DetachReticle();
+                }
+            }
+        }
+    }
+
     [Command]
     public void CmdSpawnProjectile(Vector2 dir)
     {

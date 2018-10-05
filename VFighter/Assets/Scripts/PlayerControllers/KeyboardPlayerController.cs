@@ -90,5 +90,10 @@ public class KeyboardPlayerController : PlayerController
         {
             Dash(aimDir);
         }
+
+        if (InputDevice.GetButtonDown(MappedButton.ShotgunBlast))
+        {
+            ShotGunBlast(aimDir);
+        }
     }
 }
