@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 212347187784131090}
   - component: {fileID: 61922334053193370}
   - component: {fileID: 114793071234716122}
+  - component: {fileID: 114304411628681498}
   m_Layer: 0
   m_Name: Spikes
   m_TagString: Untagged
@@ -35,8 +36,8 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1838914947977982}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.0923378, y: -3.499622, z: -0.28350127}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 1, y: 1, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -67,6 +68,38 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.5, y: 0.5}
   m_EdgeRadius: 0
+--- !u!114 &114304411628681498
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1838914947977982}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 184
+    i1: 107
+    i2: 166
+    i3: 11
+    i4: 196
+    i5: 82
+    i6: 68
+    i7: 80
+    i8: 248
+    i9: 229
+    i10: 22
+    i11: 151
+    i12: 47
+    i13: 119
+    i14: 164
+    i15: 204
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0
 --- !u!114 &114793071234716122
 MonoBehaviour:
   m_ObjectHideFlags: 1
