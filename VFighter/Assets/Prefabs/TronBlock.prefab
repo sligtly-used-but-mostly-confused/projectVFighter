@@ -173,7 +173,7 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Time: 1
+  m_Time: 3
   m_Parameters:
     serializedVersion: 2
     widthMultiplier: 1
@@ -295,7 +295,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _tronBlockTailPrefab: {fileID: 1436249748655522, guid: 0a2d1dd16d8627f49bcec221e91e19d3,
     type: 2}
-  _secondsForTailToSurvive: 1
+  _secondsForTailToSurvive: 3
 --- !u!114 &114986693633491420
 MonoBehaviour:
   m_ObjectHideFlags: 1

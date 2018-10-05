@@ -17,5 +17,6 @@ public enum MappedButton
     Jump,
     ChangeGrav,
     Dash,
-    Ready
+    Ready,
+    ShotgunBlast
 }

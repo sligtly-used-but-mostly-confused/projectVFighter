@@ -63,6 +63,11 @@ public class KeyboardPlayerController : PlayerController
         {
             Dash(aimVector);
         }
+
+        if (InputDevice.GetButtonDown(MappedButton.ShotgunBlast))
+        {
+            ShotGunBlast(aimVector);
+        }
     }
 
     private void Gamepad()
@@ -89,6 +94,11 @@ public class KeyboardPlayerController : PlayerController
         if (InputDevice.GetButtonDown(MappedButton.Dash))
         {
             Dash(aimDir);
+        }
+
+        if (InputDevice.GetButtonDown(MappedButton.ShotgunBlast))
+        {
+            ShotGunBlast(aimDir);
         }
     }
 }
