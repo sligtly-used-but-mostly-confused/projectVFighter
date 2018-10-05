@@ -306,7 +306,6 @@ public abstract class PlayerController : NetworkBehaviour {
     [Command]
     public void CmdSpawnProjectile(Vector2 dir, float secondsUntilDestroy, bool isFromShotgun)
     {
-        Debug.Log(secondsUntilDestroy);
         GameObject projectileClone = Instantiate(ProjectilePrefab, Reticle.transform.position, Reticle.transform.rotation);
         projectileClone.GetComponent<GravityGunProjectileController>().Owner = this;
         projectileClone.GetComponent<GravityGunProjectileController>().SecondsUntilDestroy = secondsUntilDestroy;

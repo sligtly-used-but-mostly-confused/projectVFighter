@@ -46,9 +46,7 @@ public class GravityGunProjectileController : NetworkBehaviour {
 
                 if(IsShotgunProjectile)
                 {
-                    Debug.Log(GetComponent<GravityObjectRigidBody>().GetVelocity(VelocityType.OtherPhysics));
                     gravityObjectRB.ChangeGravityDirectionInternal(GetComponent<GravityObjectRigidBody>().GetVelocity(VelocityType.OtherPhysics));
-                    //Owner.ChangeGORBGravityDirection(gravityObjectRB, GetComponent<GravityObjectRigidBody>().GravityDirection);
                 }
                 else
                 {
