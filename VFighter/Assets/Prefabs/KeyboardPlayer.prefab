@@ -169,12 +169,12 @@ MonoBehaviour:
   AttachedObject: {fileID: 0}
   RechargeTime: 0.4
   ChangeGravityRechargeTime: 0
-  DashCoolDownTime: 0.1
+  DashCoolDownTime: 5
   MoveSpeed: 10
   ShootSpeed: 10
   JumpForce: 10
   ImpulseToKill: 0
-  DashSpeed: 15
+  DashSpeed: 20
   ProjectilePrefab: {fileID: 1553312605624202, guid: 7b549a10b0a7a4de4843efb95d3176eb,
     type: 2}
   AimingReticlePrefab: {fileID: 1904020002216382, guid: fee8c362ea81b684890d6767eaf66389,
@@ -245,8 +245,10 @@ MonoBehaviour:
   _maxComponentSpeeds:
   - type: 3
     Velocity: {x: 30, y: 30}
+  - type: 2
+    Velocity: {x: 30, y: 30}
   _stopObjectOnCollide: 0
-  _timeToDashStop: 1
+  _timeToDashStop: 0.25
   _drag: 0.5
   Bounciness: 0
   CanBeSelected: 1

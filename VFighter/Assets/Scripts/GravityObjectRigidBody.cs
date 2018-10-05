@@ -202,8 +202,10 @@ public class GravityObjectRigidBody : NetworkBehaviour {
     private IEnumerator StartDash(Vector2 dashVec)
     {
         ClearAllVelocities();
+        GravityScale = 0;
         UpdateVelocity(VelocityType.Dash, dashVec);
         yield return new WaitForSeconds(_timeToDashStop);
+        GravityScale = 1;
         ClearAllVelocities();
     }
 

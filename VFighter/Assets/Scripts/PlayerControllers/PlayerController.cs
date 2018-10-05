@@ -204,6 +204,8 @@ public abstract class PlayerController : NetworkBehaviour {
         {
             //need to account for gravity
             var dashVec = dir.normalized * DashSpeed;
+            var closestDir = ClosestDirection(dir, _gravChangeDirections);
+            ChangeGORBGravityDirection(GetComponent<GravityObjectRigidBody>(), closestDir);
             GetComponent<GravityObjectRigidBody>().Dash(dashVec);
 
             IsDashCoolingDown = true;
@@ -354,8 +356,17 @@ public abstract class PlayerController : NetworkBehaviour {
     IEnumerator DashCoolDown()
     {
         IsDashCoolingDown = true;
+        CmdSetDashCoolDown(true);
         yield return new WaitForSeconds(DashCoolDownTime);
         IsDashCoolingDown = false;
+        CmdSetDashCoolDown(false);
+    }
+
+    [Command]
+    private void CmdSetDashCoolDown(bool isCoolingDown)
+    {
+        //need to set dash cool down on server so that they player collision counts as a kill
+        IsDashCoolingDown = isCoolingDown;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
