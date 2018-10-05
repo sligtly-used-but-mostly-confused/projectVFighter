@@ -59,7 +59,10 @@ public class KeyboardPlayerController : PlayerController
             ShootGravityGun(aimVector);
         }
 
-        //todo add in dash
+        if (InputDevice.GetButtonDown(MappedButton.Dash))
+        {
+            Dash(aimVector);
+        }
     }
 
     private void Gamepad()
