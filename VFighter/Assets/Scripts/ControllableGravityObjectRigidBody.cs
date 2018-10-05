@@ -13,6 +13,11 @@ public class ControllableGravityObjectRigidBody : GravityObjectRigidBody {
 
     public NetworkInstanceId LastShotBy;
 
+    public void Start()
+    {
+        LastShotBy = NetworkInstanceId.Invalid;
+    }
+
     public void StepMultiplier()
     {
         _speedMultiplier *= 1 + _speedMultiplierStep;
