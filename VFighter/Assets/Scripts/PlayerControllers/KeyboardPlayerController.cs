@@ -68,6 +68,11 @@ public class KeyboardPlayerController : PlayerController
         {
             ShotGunBlast(aimVector);
         }
+
+        if (InputDevice.GetButtonDown(MappedButton.OpenMenu))
+        {
+            InGameMenuUIManager.Instance.ToggleMenu();
+        }
     }
 
     private void Gamepad()
