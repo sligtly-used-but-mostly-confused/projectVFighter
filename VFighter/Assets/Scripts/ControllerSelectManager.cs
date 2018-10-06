@@ -11,8 +11,6 @@ public class ControllerSelectManager : NetworkBehaviour {
     private static ControllerSelectManager _instance;
     public static ControllerSelectManager Instance { get { return _instance; } }
 
-    private Dictionary<InputDevice, bool> readyControllers = new Dictionary<InputDevice, bool>();
-
     [SerializeField]
     private List<Material> _playerMaterials = new List<Material>();
     [SerializeField]
@@ -53,6 +51,17 @@ public class ControllerSelectManager : NetworkBehaviour {
         }
     }
 
+    public void Init()
+    {
+        _isWaitingForReady = true;
+    }
+
+    public void ClearUsedInputDevices()
+    {
+        _usedDevices.Clear();
+        DevicesWaitingForPlayer.Clear();
+    }
+
     private short SpawnPlayer(short id)
     {
         if(!ClientScene.AddPlayer(id))
@@ -79,15 +88,9 @@ public class ControllerSelectManager : NetworkBehaviour {
                 
                 SpawnPlayer(0);
                 
-                readyControllers.Add(inputDevice, false);
                 DevicesWaitingForPlayer.Add(inputDevice);
             }
         }  
-    }
-
-    public void Init()
-    {
-        _isWaitingForReady = true;
     }
 
     private bool CheckForAllPlayersReady()
