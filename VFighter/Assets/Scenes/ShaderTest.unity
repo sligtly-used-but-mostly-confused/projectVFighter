@@ -136,7 +136,7 @@ AudioListener:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 189483666}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!20 &189483668
 Camera:
   m_ObjectHideFlags: 0
@@ -161,20 +161,20 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 2.4943643
+  orthographic size: 2.478426
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_RenderingPath: -1
+  m_RenderingPath: 1
   m_TargetTexture: {fileID: 8400000, guid: 6db19627ed0894cf593674198c405820, type: 2}
   m_TargetDisplay: 0
   m_TargetEye: 3
-  m_HDR: 1
-  m_AllowMSAA: 1
+  m_HDR: 0
+  m_AllowMSAA: 0
   m_AllowDynamicResolution: 0
   m_ForceIntoRT: 0
-  m_OcclusionCulling: 1
+  m_OcclusionCulling: 0
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
 --- !u!4 &189483669
@@ -184,7 +184,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 189483666}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.66491, y: -26.5, z: 14.9}
+  m_LocalPosition: {x: 0.56, y: -26.48, z: 14.9}
   m_LocalScale: {x: 0.44619, y: 0.44619, z: 0.44619}
   m_Children: []
   m_Father: {fileID: 0}
@@ -328,7 +328,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5.8796415
+  orthographic size: 5.523191
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
@@ -652,7 +652,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 04d126ba1f0d0478f801292308bbc946, type: 2}
+  - {fileID: 2100000, guid: 83b627bbd8c134f9f9f7443dbd1e4f40, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -966,7 +966,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 04d126ba1f0d0478f801292308bbc946, type: 2}
+  - {fileID: 2100000, guid: 83b627bbd8c134f9f9f7443dbd1e4f40, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

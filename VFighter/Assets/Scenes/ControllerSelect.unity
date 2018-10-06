@@ -653,7 +653,7 @@ MonoBehaviour:
   NetworkPlayerPrefab: {fileID: 1596458492531264, guid: 23a394dfea771d24c8c02502a01bf446,
     type: 2}
   _isWaitingForReady: 1
-  LevelToLoad: TEST_longLevel2
+  LevelToLoad: forceZoneTest
   numLivesPerPlayer: 5
   DevicesWaitingForPlayer: []
 --- !u!4 &636215035

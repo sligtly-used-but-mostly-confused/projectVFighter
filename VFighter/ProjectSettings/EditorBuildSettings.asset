@@ -41,4 +41,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/AdvancedLevels/TEST_longLevel2.unity
     guid: d95222cf0c7674c9db500f180b9eb122
+  - enabled: 1
+    path: Assets/Scenes/AdvancedLevels/forceZoneTest.unity
+    guid: bf5f4a50a8b1a45978a34c0db677029a
   m_configObjects: {}
