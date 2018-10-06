@@ -47,15 +47,16 @@
 				float2 uv = i.uv;
 				uv.x *= _Columns;
 				uv.y *= _Rows;
-				uv.x = round(uv.x);
-				uv.y = round(uv.y);
+				uv.x = floor(uv.x);
+				uv.y = floor(uv.y);
 				uv.x /= _Columns;
 				uv.y /= _Rows;
 				fixed4 col = tex2D(_MainTex, uv);
 					
 				// just invert the colors
 				//col.rgb = fixed4(col.rgb;
-		
+
+                //uv.x = (float)(uv.x - (int)(uv.x*_Columns)%_Columns);
 				return col;
 			}
 			ENDCG
