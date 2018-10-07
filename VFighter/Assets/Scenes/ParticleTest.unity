@@ -816,7 +816,7 @@ Transform:
   - {fileID: 1749238504}
   - {fileID: 1679732259}
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &440685905
 GameObject:
@@ -1296,6 +1296,10 @@ Prefab:
     - target: {fileID: 1266312036200190, guid: 8feb7bff09b2062429be2363b9a14dbf, type: 2}
       propertyPath: m_Name
       value: AudioManager (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1266312036200190, guid: 8feb7bff09b2062429be2363b9a14dbf, type: 2}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8feb7bff09b2062429be2363b9a14dbf, type: 2}
@@ -3013,7 +3017,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4410707044762386, guid: 55fe9360236ce094b8791837356c4d89, type: 2}
       propertyPath: m_RootOrder
-      value: 12
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1167609975392520, guid: 55fe9360236ce094b8791837356c4d89, type: 2}
       propertyPath: m_Name
@@ -3567,7 +3571,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4823256419756302, guid: ffa730ff0af7042b5b73ba504a249dd5, type: 2}
       propertyPath: m_RootOrder
-      value: 14
+      value: 13
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ffa730ff0af7042b5b73ba504a249dd5, type: 2}
@@ -3898,7 +3902,7 @@ Transform:
   - {fileID: 502539246}
   - {fileID: 1710472921}
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1611462515
 GameObject:
