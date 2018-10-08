@@ -32,7 +32,7 @@ public class LevelSelectManager : MonoBehaviour
         int count = levels.Count;
         int levelsRemaining = count;
         int levelIndex = 0;
-        int platforms = (int)Mathf.Floor(((float)count) / 2);
+        int platforms = (int)Mathf.Ceil(((float)count) / 2);
         float gap = areaWidth / (platforms + 1);
         float xValue = transform.position.x - areaWidth / 2;
 
