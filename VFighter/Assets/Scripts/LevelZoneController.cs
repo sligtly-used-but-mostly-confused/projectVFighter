@@ -8,6 +8,15 @@ using UnityEngine;
 public class LevelZoneController : MonoBehaviour {
 
     public string levelName;
-    public int playersInside;
+    public int playersInside = 0;
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.gameObject.GetComponent<PlayerController>()) ++playersInside;
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.GetComponent<PlayerController>()) --playersInside;
+    }
 }

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 
@@ -11,6 +12,8 @@ public class LevelSelectManager : MonoBehaviour
     public GameObject platform;
     public GameObject levelZone;
     public float areaWidth;
+    public Text timer;
+    public int selectTime;
 
     private List<LevelZoneController> zones = new List<LevelZoneController>();
 
