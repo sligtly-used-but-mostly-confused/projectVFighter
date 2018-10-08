@@ -18,5 +18,6 @@ public enum MappedButton
     ChangeGrav,
     Dash,
     Ready,
-    ShotgunBlast
+    ShotgunBlast,
+    OpenMenu
 }

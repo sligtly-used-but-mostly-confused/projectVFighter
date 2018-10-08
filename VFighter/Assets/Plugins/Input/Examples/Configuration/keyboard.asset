@@ -16,6 +16,8 @@ MonoBehaviour:
     buttons: 20000000
   - target: 5
     buttons: 0d000000
+  - target: 7
+    buttons: 1b000000
   keyboardAxisMapping:
   - target: 0
     buttonsPositive: 64000000
