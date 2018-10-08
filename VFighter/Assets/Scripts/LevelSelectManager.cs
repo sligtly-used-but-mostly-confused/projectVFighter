@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using UnityEngine.SceneManagement;
 
 
 public class LevelSelectManager : MonoBehaviour
@@ -16,17 +16,42 @@ public class LevelSelectManager : MonoBehaviour
     public int selectTime;
 
     private List<LevelZoneController> zones = new List<LevelZoneController>();
+    private int timeRemaining;
 
     // Use this for initialization
     void Start()
     {
         SpawnLevelPlatforms();
+        timeRemaining = selectTime;
+        StartCoroutine(CountDown());
     }
 
     // Update is called once per frame
     void Update()
     {
+        timer.text = timeRemaining.ToString();
+    }
 
+    string LeadingLevel(){
+        LevelZoneController leader = zones[0];
+        int mostVotes = 0;
+        foreach(LevelZoneController zone in zones){
+            if (zone.playersInside > mostVotes){
+                leader = zone;
+                mostVotes = zone.playersInside;
+            }
+        }
+        return leader.levelName;
+    }
+
+    public IEnumerator CountDown()
+    {
+        while(timeRemaining > 0){
+            yield return new WaitForSeconds(1);
+            --timeRemaining;
+        }
+        yield return new WaitForSeconds(1);
+        SceneManager.LoadScene(LeadingLevel());
     }
 
     void SpawnLevelPlatforms()
