@@ -11,8 +11,9 @@ public class PlayerCameraController : MonoBehaviour
     [SerializeField]
     private float _minCameraSize = 5;
     [SerializeField]
-    private float _maxCameraSize = 10;
-
+    private float _maxCameraSize = 15;
+    [SerializeField]
+    private float _cameraSizePadding = 1.5f;
     [SerializeField]
     private float _targetCameraSize = 5;
     [SerializeField]
@@ -20,7 +21,6 @@ public class PlayerCameraController : MonoBehaviour
 
     void Start()
     {
-        //_player = GameManager.Instance.Player;
         _rB = GetComponent<Rigidbody2D>();
     }
 
@@ -30,15 +30,21 @@ public class PlayerCameraController : MonoBehaviour
 
         var displacement = _targetCenter - transform.position;
         _rB.velocity = displacement.normalized * Mathf.Pow(displacement.magnitude, 2f);
-
         var deltaSize = _targetCameraSize - GetComponent<Camera>().orthographicSize;
-        Debug.Log(Mathf.Pow(Mathf.Abs(-.123123f), 2f));
-        GetComponent<Camera>().orthographicSize += deltaSize * Mathf.Pow(Mathf.Abs(deltaSize), 2f) * Time.fixedDeltaTime;
+        deltaSize = deltaSize * Mathf.Pow(Mathf.Abs(deltaSize), 4f) * Time.fixedDeltaTime * 4;
+        deltaSize = Mathf.Clamp(deltaSize, -5, 5);
+        if (float.IsNaN(GetComponent<Camera>().orthographicSize))
+        {
+            //just incase the camera gets weird fix it
+            GetComponent<Camera>().orthographicSize = _targetCameraSize;
+        }
+        
+        GetComponent<Camera>().orthographicSize += deltaSize;
     }
 
     private void UpdateTargets()
     {
-        var alivePlayers = LevelManager.Instance.Players.Where(x => !x.IsDead);
+        var alivePlayers = FindObjectsOfType<PlayerController>().ToList().Where(x => !x.IsDead);
 
         float minX = alivePlayers.Min(x => x.transform.position.x);
         float maxX = alivePlayers.Max(x => x.transform.position.x);
@@ -58,15 +64,13 @@ public class PlayerCameraController : MonoBehaviour
         //assume that the y axis was bigger
         var xRatio = (new Vector2(deltaX, deltaX * (1 / aspectRatio))) / 2;
 
-        if (yRatio.magnitude > xRatio.magnitude)
+        if (yRatio.magnitude > xRatio.magnitude || Mathf.Approximately(yRatio.magnitude, xRatio.magnitude))
         {
-            _targetCameraSize = yRatio.y * 1.2f;
-            Debug.Log("y");
+            _targetCameraSize = yRatio.y * _cameraSizePadding;
         }
         else
         {
-            Debug.Log("x");
-            _targetCameraSize = xRatio.y * 1.2f;
+            _targetCameraSize = xRatio.y * _cameraSizePadding;
         }
 
         _targetCameraSize = Mathf.Clamp(_targetCameraSize, _minCameraSize, _maxCameraSize);

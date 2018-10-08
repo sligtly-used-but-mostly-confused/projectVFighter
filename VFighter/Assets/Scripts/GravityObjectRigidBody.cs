@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 using System.Linq;
 
 
@@ -24,9 +25,9 @@ public enum VelocityType
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Collider2D))]
-public class GravityObjectRigidBody : MonoBehaviour {
+public class GravityObjectRigidBody : NetworkBehaviour {
+    #region vars
     private static int _idCnt = 0;
-    public static float TimeScale = 1;
 
     [SerializeField]
     private int _id;
@@ -45,17 +46,16 @@ public class GravityObjectRigidBody : MonoBehaviour {
     [SerializeField]
     private float _drag = 1f;
 
-    public float Bounciness = 0f;
+    private Rigidbody2D _rB;
 
+    public float Bounciness = 0f;
     public bool CanBeSelected = true;
     public bool KillsPlayer = true;
-
+    public bool IsSimulatedOnThisConnection = false;
     public PlayerController Owner;
 
     protected Dictionary<VelocityType, Vector2> _maxComponentVelocities = new Dictionary<VelocityType, Vector2>();
     protected Dictionary<VelocityType, Vector2> _velocities = new Dictionary<VelocityType, Vector2>();
-
-    private Rigidbody2D _rB;
 
     public float GravityScale
     {
@@ -74,12 +74,21 @@ public class GravityObjectRigidBody : MonoBehaviour {
         get { return _id; }
         private set { _id = value; }
     }
+    #endregion
 
     private void Awake()
     {
         _id = _idCnt++;
         _rB = GetComponent<Rigidbody2D>();
         _maxComponentSpeeds.ForEach(x => _maxComponentVelocities.Add(x.type, x.Velocity));
+    }
+
+    public override void OnStartServer()
+    {
+        if (!GetComponent<PlayerController>())
+        {
+            IsSimulatedOnThisConnection = isServer;
+        }
     }
 
     void Start () {
@@ -94,11 +103,14 @@ public class GravityObjectRigidBody : MonoBehaviour {
 
     private void ProcessVelocity()
     {
-        _rB.velocity = Vector2.zero;
-
-        foreach (var velocity in _velocities)
+        if (GetComponent<GravityObjectRigidBody>().IsSimulatedOnThisConnection)
         {
-            _rB.velocity += velocity.Value * TimeScale;
+            _rB.velocity = Vector2.zero;
+
+            foreach (var velocity in _velocities)
+            {
+                _rB.velocity += velocity.Value * GameManager.Instance.TimeScale;
+            }
         }
     }
 
@@ -165,6 +177,11 @@ public class GravityObjectRigidBody : MonoBehaviour {
 
     public void ChangeGravityDirection(Vector2 dir)
     {
+        
+    }
+
+    public void ChangeGravityDirectionInternal(Vector2 dir)
+    {
         if (dir != GravityDirection)
         {
             UpdateVelocity(VelocityType.Gravity, Vector2.zero);
@@ -185,12 +202,14 @@ public class GravityObjectRigidBody : MonoBehaviour {
     private IEnumerator StartDash(Vector2 dashVec)
     {
         ClearAllVelocities();
+        GravityScale = 0;
         UpdateVelocity(VelocityType.Dash, dashVec);
         yield return new WaitForSeconds(_timeToDashStop);
+        GravityScale = 1;
         ClearAllVelocities();
     }
 
-    private void ClearAllVelocities()
+    public void ClearAllVelocities()
     {
         var velKeys = _velocities.Keys.ToList();
         for(int i = 0; i < velKeys.Count; i++)
@@ -212,19 +231,16 @@ public class GravityObjectRigidBody : MonoBehaviour {
             }
 
             vel = Vector2.Reflect(vel, normal.normalized);
-            //Debug.Log(name +" " + vel * collision.gameObject.GetComponent<GravityObjectRigidBody>().Bounciness);
             var thisMass = _rB.mass;
             var otherMass = collision.rigidbody.mass;
-            //Debug.Log(thisMass + " " + otherMass);
-            //Debug.Log(1 - (thisMass / (thisMass + otherMass)));
             var reflectionCoef = collision.gameObject.GetComponent<GravityObjectRigidBody>().Bounciness * (1 - (thisMass / (thisMass + otherMass)));
             var reflectionVec = vel * reflectionCoef;
             UpdateVelocity(VelocityType.OtherPhysics, reflectionVec);
         }
 
-        if (_stopObjectOnCollide)
+        if (_stopObjectOnCollide && IsSimulatedOnThisConnection)
         {
-            ChangeGravityDirection(Vector2.zero);
+            FindObjectOfType<PlayerController>().ChangeGORBGravityDirection(this, Vector2.zero);
         }
     }
 }

@@ -5,28 +5,31 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
   - enabled: 1
-    path: Assets/Scenes/AITraining.unity
-    guid: 498c59a3c848622469bdffd108b57be4
-  - enabled: 1
-    path: Assets/Scenes/Main.unity
-    guid: 78b633aafa4c2704abec99aa89515703
-  - enabled: 1
-    path: Assets/Scenes/AdvancedLevels/SpringLevel.unity
-    guid: 7b3d67703854b174d82bc187f671885b
-  - enabled: 1
-    path: Assets/Scenes/LevelSelect.unity
-    guid: 7f4bf6e3685d16540a1b7136fde23f3e
+    path: Assets/Scenes/NetworkLobby.unity
+    guid: 6bf2896a60e11834fb414798849d042d
   - enabled: 1
     path: Assets/Scenes/ControllerSelect.unity
     guid: 7bcb612a309ed9a428fc512de59f66d4
   - enabled: 1
-    path: Assets/Scenes/AdvancedLevels/EasyLevel.unity
-    guid: 0f8683b1efac012418beb328c1813f19
-  - enabled: 1
     path: Assets/Scenes/AdvancedLevels/LongLevel.unity
     guid: 5344fa49714963d4fb7984cfeae34942
+  - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: 1ff683f5d89d24e06ad137e40550dbb2
+  - enabled: 0
+    path: Assets/Scenes/AITraining.unity
+    guid: 498c59a3c848622469bdffd108b57be4
+  - enabled: 0
+    path: Assets/Scenes/Main.unity
+    guid: 78b633aafa4c2704abec99aa89515703
+  - enabled: 0
+    path: Assets/Scenes/AdvancedLevels/SpringLevel.unity
+    guid: 7b3d67703854b174d82bc187f671885b
+  - enabled: 0
+    path: Assets/Scenes/LevelSelect.unity
+    guid: 7f4bf6e3685d16540a1b7136fde23f3e
+  - enabled: 0
+    path: Assets/Scenes/AdvancedLevels/EasyLevel.unity
+    guid: 0f8683b1efac012418beb328c1813f19
   m_configObjects: {}

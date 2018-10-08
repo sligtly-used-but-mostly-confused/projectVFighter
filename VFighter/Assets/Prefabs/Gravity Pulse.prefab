@@ -25,7 +25,9 @@ GameObject:
   - component: {fileID: 23482721982424950}
   - component: {fileID: 33787588076467418}
   - component: {fileID: 114963179985704802}
-  m_Layer: 0
+  - component: {fileID: 114048110001761918}
+  - component: {fileID: 114424392763076066}
+  m_Layer: 10
   m_Name: Gravity Pulse
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -122,6 +124,38 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!114 &114048110001761918
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1553312605624202}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 123
+    i1: 84
+    i2: 154
+    i3: 16
+    i4: 176
+    i5: 167
+    i6: 164
+    i7: 222
+    i8: 72
+    i9: 67
+    i10: 239
+    i11: 185
+    i12: 93
+    i13: 49
+    i14: 118
+    i15: 235
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0
 --- !u!114 &114123464920120220
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -135,6 +169,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _secondsUntilDestory: 2
   Owner: {fileID: 0}
+--- !u!114 &114424392763076066
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1553312605624202}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1768714887, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TransformSyncMode: 2
+  m_SendInterval: 0.1
+  m_SyncRotationAxis: 3
+  m_RotationSyncCompression: 0
+  m_SyncSpin: 0
+  m_MovementTheshold: 0.001
+  m_VelocityThreshold: 0.0001
+  m_SnapThreshold: 5
+  m_InterpolateRotation: 1
+  m_InterpolateMovement: 2
 --- !u!114 &114963179985704802
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -152,9 +207,10 @@ MonoBehaviour:
   _maxDefaultComponentSpeed: {x: 10, y: 10}
   _maxComponentSpeeds: []
   _stopObjectOnCollide: 0
-  _dashDecay: 1
+  _timeToDashStop: 1
   _drag: 0
   Bounciness: 0
   CanBeSelected: 0
   KillsPlayer: 0
+  IsSimulatedOnThisConnection: 1
   Owner: {fileID: 0}

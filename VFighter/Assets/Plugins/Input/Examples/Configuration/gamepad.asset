@@ -17,9 +17,11 @@ MonoBehaviour:
   - target: 1
     buttons: 01000000
   - target: 4
-    buttons: 0c000000
+    buttons: 0b000000
   - target: 5
     buttons: 05000000
+  - target: 6
+    buttons: 0c000000
   axisMappings:
   - target: 0
     axes: 00000000
@@ -48,6 +50,6 @@ MonoBehaviour:
     inverted: 0
   - target: 5
     axes: 04000000
-    buttonsPositive: 0b000000
+    buttonsPositive: 
     buttonsNegative: 
     inverted: 0

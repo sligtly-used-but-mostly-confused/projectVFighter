@@ -1,1 +1,4 @@
+<<<<<<< HEAD
 m_EditorVersion: 2018.2.10f1
+=======
+>>>>>>> master
