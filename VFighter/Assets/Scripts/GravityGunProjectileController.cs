@@ -27,7 +27,7 @@ public class GravityGunProjectileController : NetworkBehaviour {
         var gravityObjectRB = collision.GetComponent<GravityObjectRigidBody>();
         if (gravityObjectRB && isServer)
         {
-            if(collision.GetComponent<PlayerController>())
+            if(collision.GetComponent<PlayerController>() && Owner != collision.GetComponent<PlayerController>())
             {
                 collision.GetComponent<PlayerController>().FlipGravity();
                 Owner.IsCoolingDown = true;
