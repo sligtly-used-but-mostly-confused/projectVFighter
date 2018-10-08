@@ -177,7 +177,7 @@ MonoBehaviour:
   JumpForce: 10
   ImpulseToKill: 0
   DashSpeed: 20
-  ProjectilePrefab: {fileID: 1553312605624202, guid: 7b549a10b0a7a4de4843efb95d3176eb,
+  ProjectilePrefab: {fileID: 1347426059260626, guid: 6ca0b4a9ec546c34fa79b16abd020063,
     type: 2}
   AimingReticlePrefab: {fileID: 1904020002216382, guid: fee8c362ea81b684890d6767eaf66389,
     type: 2}

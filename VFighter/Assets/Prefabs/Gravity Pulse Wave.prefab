@@ -214,7 +214,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57e2574cae4774e41bc033a2a627af30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _secondsUntilDestory: 2
+  SecondsUntilDestroy: 1
+  IsShotgunProjectile: 0
   Owner: {fileID: 0}
 --- !u!198 &198673511970630702
 ParticleSystem:
@@ -227,7 +228,7 @@ ParticleSystem:
   simulationSpeed: 1
   stopAction: 0
   looping: 1
-  prewarm: 0
+  prewarm: 1
   playOnAwake: 1
   useUnscaledTime: 0
   autoRandomSeed: 1
