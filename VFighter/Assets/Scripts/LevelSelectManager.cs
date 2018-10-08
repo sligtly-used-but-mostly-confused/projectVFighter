@@ -50,7 +50,7 @@ public class LevelSelectManager : MonoBehaviour
                 //instantiate the levels
 
 
-                for (int y = -1; y < 2; y += 2)
+                for (int y = 1; y > -2; y -= 2)
                 {
                     Vector3 zonePos = pos;
                     zonePos += new Vector3(0, y * 1.25f, 0);
