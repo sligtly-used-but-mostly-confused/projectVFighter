@@ -177,13 +177,15 @@ MonoBehaviour:
   JumpForce: 10
   ImpulseToKill: 0
   DashSpeed: 20
-  ProjectilePrefab: {fileID: 1347426059260626, guid: 6ca0b4a9ec546c34fa79b16abd020063,
+  ProjectilePrefab: {fileID: 1553312605624202, guid: 7b549a10b0a7a4de4843efb95d3176eb,
     type: 2}
   AimingReticlePrefab: {fileID: 1904020002216382, guid: fee8c362ea81b684890d6767eaf66389,
     type: 2}
   Reticle: {fileID: 0}
   ReticleParent: {fileID: 0}
   InputDevice: {fileID: 0}
+  PlayerReadyIndicatorPrefab: {fileID: 1574300143994424, guid: 50239be1e91c0ce48b9f24ef90027d08,
+    type: 2}
   IsCoolingDown: 0
   IsChangeGravityCoolingDown: 0
   IsDashCoolingDown: 0

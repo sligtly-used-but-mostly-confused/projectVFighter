@@ -589,6 +589,8 @@ MonoBehaviour:
   areaWidth: 16
   timer: {fileID: 2048904424}
   selectTime: 5
+  _playerReadyIndicatorPrefab: {fileID: 1574300143994424, guid: 50239be1e91c0ce48b9f24ef90027d08,
+    type: 2}
   timeRemaining: 0
 --- !u!114 &559351040
 MonoBehaviour:
@@ -678,7 +680,7 @@ MonoBehaviour:
     type: 2}
   _isWaitingForReady: 1
   LevelToLoad: LongLevel
-  numLivesPerPlayer: 5
+  numLivesPerPlayer: 2
   DevicesWaitingForPlayer: []
 --- !u!4 &636215035
 Transform:
@@ -1649,7 +1651,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: New Text
+  m_Text: 
 --- !u!222 &2048904425
 CanvasRenderer:
   m_ObjectHideFlags: 0

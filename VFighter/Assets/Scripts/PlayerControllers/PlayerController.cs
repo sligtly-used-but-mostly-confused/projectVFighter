@@ -42,7 +42,9 @@ public abstract class PlayerController : NetworkBehaviour {
     protected GameObject ReticleParent;
     [SerializeField]
     protected InputDevice InputDevice;
-    
+    [SerializeField]
+    protected GameObject PlayerReadyIndicatorPrefab;
+
     protected readonly Vector2[] _gravChangeDirections = { Vector2.up, Vector2.down };
 
     public bool IsCoolingDown = false;
@@ -71,6 +73,8 @@ public abstract class PlayerController : NetworkBehaviour {
     {
         DontDestroyOnLoad(gameObject);
         StartCoroutine(FindReticle());
+        var indicator = Instantiate(PlayerReadyIndicatorPrefab);
+        indicator.GetComponent<PlayerReadyIndicatorController>().AttachedPlayer = this;
     }
 
     private void Update()

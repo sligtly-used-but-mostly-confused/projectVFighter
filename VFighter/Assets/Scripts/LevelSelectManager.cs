@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.Networking;
-
+using System.Linq;
 
 public class LevelSelectManager : NetworkBehaviour
 {
@@ -20,6 +20,9 @@ public class LevelSelectManager : NetworkBehaviour
 
     private List<LevelZoneController> zones = new List<LevelZoneController>();
     private Coroutine _timerCoroutine;
+
+    [SerializeField]
+    private GameObject _playerReadyIndicatorPrefab;
 
     [SerializeField, SyncVar]
     private int timeRemaining;
@@ -38,6 +41,15 @@ public class LevelSelectManager : NetworkBehaviour
     {
         SpawnLevelPlatforms();
         timeRemaining = selectTime;
+
+        //the first time we load the game this list will be empty, but after that it will have players
+        FindObjectsOfType<PlayerController>().ToList().ForEach(x =>
+        {
+            var indicator = Instantiate(_playerReadyIndicatorPrefab);
+            indicator.GetComponent<PlayerReadyIndicatorController>().AttachedPlayer = x;
+
+            x.IsReady = false;
+        });
     }
 
     private void Update()
@@ -54,6 +66,7 @@ public class LevelSelectManager : NetworkBehaviour
                 mostVotes = zone.playersInside;
             }
         }
+
         return leader.levelName;
     }
 
@@ -88,7 +101,6 @@ public class LevelSelectManager : NetworkBehaviour
 
     private void SpawnLevelPlatforms()
     {
-
         int count = levels.Count;
         int levelsRemaining = count;
         int levelIndex = 0;
@@ -105,8 +117,6 @@ public class LevelSelectManager : NetworkBehaviour
             if (levelsRemaining > 1)
             {
                 //instantiate the levels
-
-
                 for (int y = 1; y > -2; y -= 2)
                 {
                     Vector3 zonePos = pos;
