@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.Networking;
 
 
-public class LevelSelectManager : MonoBehaviour
+public class LevelSelectManager : NetworkBehaviour
 {
+    public static LevelSelectManager Instance;
 
     public List<string> levels;
     public GameObject platform;
@@ -14,25 +16,36 @@ public class LevelSelectManager : MonoBehaviour
     public float areaWidth;
     public Text timer;
     public int selectTime;
+    public bool IsTimerStarted { get { return _timerCoroutine != null; } }
 
     private List<LevelZoneController> zones = new List<LevelZoneController>();
+    private Coroutine _timerCoroutine;
+
+    [SerializeField, SyncVar]
     private int timeRemaining;
 
-    // Use this for initialization
+    private void Awake()
+    {
+        if(Instance)
+        {
+            Destroy(gameObject);
+        }
+
+        Instance = this;
+    }
+
     void Start()
     {
         SpawnLevelPlatforms();
         timeRemaining = selectTime;
-        StartCoroutine(CountDown());
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
         timer.text = timeRemaining.ToString();
     }
 
-    string LeadingLevel(){
+    private string LeadingLevel(){
         LevelZoneController leader = zones[0];
         int mostVotes = 0;
         foreach(LevelZoneController zone in zones){
@@ -44,17 +57,36 @@ public class LevelSelectManager : MonoBehaviour
         return leader.levelName;
     }
 
-    public IEnumerator CountDown()
+    public void StartTimer()
     {
-        while(timeRemaining > 0){
+        StopTimer();
+        timeRemaining = selectTime;
+        _timerCoroutine = StartCoroutine(CountDown());
+    }
+
+    public void StopTimer()
+    {
+        if(_timerCoroutine != null)
+        {
+            StopCoroutine(_timerCoroutine);
+        }
+
+        _timerCoroutine = null;
+    }
+
+    private IEnumerator CountDown()
+    {
+        timer.text = timeRemaining.ToString();
+        while (timeRemaining > 0){
             yield return new WaitForSeconds(1);
             --timeRemaining;
         }
+
         yield return new WaitForSeconds(1);
-        SceneManager.LoadScene(LeadingLevel());
+        GameManager.Instance.StartGame(LeadingLevel(), 10);
     }
 
-    void SpawnLevelPlatforms()
+    private void SpawnLevelPlatforms()
     {
 
         int count = levels.Count;

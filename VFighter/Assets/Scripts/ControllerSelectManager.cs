@@ -42,11 +42,16 @@ public class ControllerSelectManager : NetworkBehaviour {
         {
             CheckForNewControllers();
 
-            if (isServer && CheckForAllPlayersReady())
+            //if all players are ready start the timer
+            if (isServer && CheckForAllPlayersReady() && !LevelSelectManager.Instance.IsTimerStarted)
             {
-                _isWaitingForReady = false;
-                FindObjectsOfType<PlayerController>().ToList().ForEach(x => x.IsReady = false);
-                GameManager.Instance.StartGame(LevelToLoad, 10);
+                LevelSelectManager.Instance.StartTimer();
+            }
+
+            //if all players are not ready stop timer
+            if(isServer && !CheckForAllPlayersReady() && LevelSelectManager.Instance.IsTimerStarted)
+            {
+                LevelSelectManager.Instance.StopTimer();
             }
         }
     }

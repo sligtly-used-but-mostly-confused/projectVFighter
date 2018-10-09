@@ -496,15 +496,15 @@ public abstract class PlayerController : NetworkBehaviour {
         GravityGunProjectiles.Clear();
     }
 
-    public void Ready()
+    public void ToggleReady()
     {
-        CmdReady();
+        CmdToggleReady();
     }
 
     [Command]
-    public void CmdReady()
+    public void CmdToggleReady()
     {
-        IsReady = true;
+        IsReady = !IsReady;
     }
 
     #region changGORB gravity dir
