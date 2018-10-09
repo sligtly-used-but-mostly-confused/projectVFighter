@@ -124,7 +124,7 @@ public class LevelSelectManager : NetworkBehaviour
         }
 
         yield return new WaitForSeconds(1);
-        GameManager.Instance.StartGame(LeadingLevel(), 10);
+        GameManager.Instance.StartGame(LeadingLevel());
     }
 
     private void SpawnLevelPlatforms()

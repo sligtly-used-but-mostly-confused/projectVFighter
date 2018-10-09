@@ -31,7 +31,7 @@ public class GameManager : NetworkBehaviour {
         DontDestroyOnLoad(this);
 	}
 
-    public void StartGame(string levelName, int numStages)
+    public void StartGame(string levelName)
     {
         _levelName = levelName;
         LoadNextStage();
