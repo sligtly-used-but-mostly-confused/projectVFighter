@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class ForceZoneController : MonoBehaviour
 {
@@ -10,7 +11,12 @@ public class ForceZoneController : MonoBehaviour
         if (collision.GetComponent<GravityObjectRigidBody>())
         {
             collision.GetComponent<GravityObjectRigidBody>().AddVelocity(VelocityType.OtherPhysics, gravityForce);
-            collision.GetComponent<GravityObjectRigidBody>().ChangeGravityDirection(gravityForce.normalized);
+
+            var players = FindObjectsOfType<PlayerController>().Where(x => x.isLocalPlayer);
+            if(players.Count() > 0)
+            {
+                players.First().ChangeGORBGravityDirection(collision.GetComponent<GravityObjectRigidBody>(), gravityForce.normalized);
+            }
         }
     }
 
