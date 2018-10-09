@@ -41,9 +41,11 @@ public abstract class PlayerController : NetworkBehaviour {
     [SerializeField]
     protected GameObject ReticleParent;
     [SerializeField]
-    protected InputDevice InputDevice;
-    
+    protected GameObject PlayerReadyIndicatorPrefab;
+
     protected readonly Vector2[] _gravChangeDirections = { Vector2.up, Vector2.down };
+
+    public InputDevice InputDevice;
 
     public bool IsCoolingDown = false;
     public bool IsChangeGravityCoolingDown = false;
@@ -71,6 +73,8 @@ public abstract class PlayerController : NetworkBehaviour {
     {
         DontDestroyOnLoad(gameObject);
         StartCoroutine(FindReticle());
+        var indicator = Instantiate(PlayerReadyIndicatorPrefab);
+        indicator.GetComponent<PlayerReadyIndicatorController>().AttachedPlayer = this;
     }
 
     private void Update()
@@ -93,7 +97,7 @@ public abstract class PlayerController : NetworkBehaviour {
         NetworkServer.SpawnWithClientAuthority(aimingReticle, connectionToClient);
         ReticleParent = gameObject;
 
-        ControlledPlayer.NumLives = ControllerSelectManager.Instance.numLivesPerPlayer;
+        ControlledPlayer.NumLives = LevelSelectManager.Instance.numLivesPerPlayer;
     }
 
     public override void OnStartLocalPlayer()
@@ -496,15 +500,15 @@ public abstract class PlayerController : NetworkBehaviour {
         GravityGunProjectiles.Clear();
     }
 
-    public void Ready()
+    public void ToggleReady()
     {
-        CmdReady();
+        CmdToggleReady();
     }
 
     [Command]
-    public void CmdReady()
+    public void CmdToggleReady()
     {
-        IsReady = true;
+        IsReady = !IsReady;
     }
 
     #region changGORB gravity dir

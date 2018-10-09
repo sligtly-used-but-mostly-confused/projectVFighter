@@ -31,7 +31,7 @@ public class GameManager : NetworkBehaviour {
         DontDestroyOnLoad(this);
 	}
 
-    public void StartGame(string levelName, int numStages)
+    public void StartGame(string levelName)
     {
         _levelName = levelName;
         LoadNextStage();
@@ -46,7 +46,7 @@ public class GameManager : NetworkBehaviour {
         {
             CheckHeartBeatThenCallback(() =>
             {
-                ControllerSelectManager.Instance.Init();
+                //ControllerSelectManager.Instance.Init();
                 players.ForEach(x => x.ControlledPlayer.Reset());
                 CurrentlyChangingScenes = true;
                 NetworkManager.singleton.ServerChangeScene(LevelSelect);
