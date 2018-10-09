@@ -17,12 +17,7 @@ public class ControllerSelectManager : NetworkBehaviour {
     private List<InputDevice> _usedDevices = new List<InputDevice>();
     [SerializeField]
     private GameObject NetworkPlayerPrefab;
-
-    [SerializeField, SyncVar]
-    private bool _isWaitingForReady = true;
-
-    public string LevelToLoad = "LongLevel";
-    public int numLivesPerPlayer;
+    
     public List<InputDevice> DevicesWaitingForPlayer = new List<InputDevice>();
 
     private void Awake()
@@ -34,31 +29,18 @@ public class ControllerSelectManager : NetworkBehaviour {
         }
 
         _instance = this;
-        DontDestroyOnLoad(gameObject);
+
+        FindObjectsOfType<PlayerController>().ToList().ForEach(x =>
+        {
+            if (x.InputDevice)
+            {
+                _usedDevices.Add(x.InputDevice);
+            }
+        });
     }
 
     void Update () {
-        if(_isWaitingForReady)
-        {
-            CheckForNewControllers();
-
-            //if all players are ready start the timer
-            if (isServer && CheckForAllPlayersReady() && !LevelSelectManager.Instance.IsTimerStarted)
-            {
-                LevelSelectManager.Instance.StartTimer();
-            }
-
-            //if all players are not ready stop timer
-            if(isServer && !CheckForAllPlayersReady() && LevelSelectManager.Instance.IsTimerStarted)
-            {
-                LevelSelectManager.Instance.StopTimer();
-            }
-        }
-    }
-
-    public void Init()
-    {
-        _isWaitingForReady = true;
+        CheckForNewControllers();
     }
 
     public void ClearUsedInputDevices()
@@ -88,7 +70,7 @@ public class ControllerSelectManager : NetworkBehaviour {
             {
                 _usedDevices.Add(inputDevice);
 
-                var player = new Player(numLivesPerPlayer);
+                var player = new Player(LevelSelectManager.Instance.numLivesPerPlayer);
                 player.NetworkControllerId = 1;
                 
                 SpawnPlayer(0);
@@ -96,17 +78,5 @@ public class ControllerSelectManager : NetworkBehaviour {
                 DevicesWaitingForPlayer.Add(inputDevice);
             }
         }  
-    }
-
-    private bool CheckForAllPlayersReady()
-    {
-        bool allplayersReady = FindObjectsOfType<PlayerController>().Count() > 1;
-
-        if (isServer)
-        {
-            return allplayersReady && FindObjectsOfType<PlayerController>().All(x => x.IsReady);
-        }
-
-        return false;
     }
 }

@@ -46,7 +46,7 @@ public class GameManager : NetworkBehaviour {
         {
             CheckHeartBeatThenCallback(() =>
             {
-                ControllerSelectManager.Instance.Init();
+                //ControllerSelectManager.Instance.Init();
                 players.ForEach(x => x.ControlledPlayer.Reset());
                 CurrentlyChangingScenes = true;
                 NetworkManager.singleton.ServerChangeScene(LevelSelect);

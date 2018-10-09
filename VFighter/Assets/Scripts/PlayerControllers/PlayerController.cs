@@ -41,11 +41,11 @@ public abstract class PlayerController : NetworkBehaviour {
     [SerializeField]
     protected GameObject ReticleParent;
     [SerializeField]
-    protected InputDevice InputDevice;
-    [SerializeField]
     protected GameObject PlayerReadyIndicatorPrefab;
 
     protected readonly Vector2[] _gravChangeDirections = { Vector2.up, Vector2.down };
+
+    public InputDevice InputDevice;
 
     public bool IsCoolingDown = false;
     public bool IsChangeGravityCoolingDown = false;
@@ -97,7 +97,7 @@ public abstract class PlayerController : NetworkBehaviour {
         NetworkServer.SpawnWithClientAuthority(aimingReticle, connectionToClient);
         ReticleParent = gameObject;
 
-        ControlledPlayer.NumLives = ControllerSelectManager.Instance.numLivesPerPlayer;
+        ControlledPlayer.NumLives = LevelSelectManager.Instance.numLivesPerPlayer;
     }
 
     public override void OnStartLocalPlayer()

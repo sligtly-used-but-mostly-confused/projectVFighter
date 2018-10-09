@@ -589,8 +589,10 @@ MonoBehaviour:
   areaWidth: 16
   timer: {fileID: 2048904424}
   selectTime: 5
+  numLivesPerPlayer: 5
   _playerReadyIndicatorPrefab: {fileID: 1574300143994424, guid: 50239be1e91c0ce48b9f24ef90027d08,
     type: 2}
+  _isWaitingForReady: 1
   timeRemaining: 0
 --- !u!114 &559351040
 MonoBehaviour:
@@ -678,9 +680,6 @@ MonoBehaviour:
   _usedDevices: []
   NetworkPlayerPrefab: {fileID: 1596458492531264, guid: 23a394dfea771d24c8c02502a01bf446,
     type: 2}
-  _isWaitingForReady: 1
-  LevelToLoad: LongLevel
-  numLivesPerPlayer: 2
   DevicesWaitingForPlayer: []
 --- !u!4 &636215035
 Transform:

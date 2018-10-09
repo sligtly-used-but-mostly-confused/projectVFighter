@@ -17,6 +17,7 @@ public class LevelSelectManager : NetworkBehaviour
     public Text timer;
     public int selectTime;
     public bool IsTimerStarted { get { return _timerCoroutine != null; } }
+    public int numLivesPerPlayer;
 
     private List<LevelZoneController> zones = new List<LevelZoneController>();
     private Coroutine _timerCoroutine;
@@ -24,6 +25,9 @@ public class LevelSelectManager : NetworkBehaviour
     [SerializeField]
     private GameObject _playerReadyIndicatorPrefab;
 
+
+    [SerializeField, SyncVar]
+    private bool _isWaitingForReady = true;
     [SerializeField, SyncVar]
     private int timeRemaining;
 
@@ -55,6 +59,18 @@ public class LevelSelectManager : NetworkBehaviour
     private void Update()
     {
         timer.text = timeRemaining.ToString();
+
+        //if all players are ready start the timer
+        if (isServer && CheckForAllPlayersReady() && !Instance.IsTimerStarted)
+        {
+            Instance.StartTimer();
+        }
+
+        //if all players are not ready stop timer
+        if (isServer && !CheckForAllPlayersReady() && Instance.IsTimerStarted)
+        {
+            Instance.StopTimer();
+        }
     }
 
     private string LeadingLevel(){
@@ -85,6 +101,18 @@ public class LevelSelectManager : NetworkBehaviour
         }
 
         _timerCoroutine = null;
+    }
+    
+    private bool CheckForAllPlayersReady()
+    {
+        bool allplayersReady = FindObjectsOfType<PlayerController>().Count() > 1;
+
+        if (isServer)
+        {
+            return allplayersReady && FindObjectsOfType<PlayerController>().All(x => x.IsReady);
+        }
+
+        return false;
     }
 
     private IEnumerator CountDown()
