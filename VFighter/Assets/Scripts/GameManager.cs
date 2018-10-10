@@ -13,7 +13,8 @@ public class GameManager : NetworkBehaviour {
 
     [SerializeField]
     private string _levelName;
-    
+    public bool DebugScene = false;
+
     public bool CurrentlyChangingScenes = false;
     public float ProgressionThroughGame = 1;
 
@@ -41,16 +42,16 @@ public class GameManager : NetworkBehaviour {
     {
         var players = FindObjectsOfType<PlayerController>().ToList();
         var alive = players.Where(x => { return (x.ControlledPlayer.NumLives - x.ControlledPlayer.NumDeaths) > 0; }).ToList();
-        
-        if(alive.Count() <= 1)
+
+        if (alive.Count() <= 1 && !DebugScene)
         {
             CheckHeartBeatThenCallback(() =>
             {
-                //ControllerSelectManager.Instance.Init();
                 players.ForEach(x => x.ControlledPlayer.Reset());
                 CurrentlyChangingScenes = true;
                 NetworkManager.singleton.ServerChangeScene(LevelSelect);
             });
+
         }
         else
         {
