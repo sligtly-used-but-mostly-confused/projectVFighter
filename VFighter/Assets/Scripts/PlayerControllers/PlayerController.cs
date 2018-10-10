@@ -323,7 +323,8 @@ public abstract class PlayerController : NetworkBehaviour {
         projectileClone.GetComponent<GravityGunProjectileController>().Owner = this;
         projectileClone.GetComponent<GravityGunProjectileController>().SecondsUntilDestroy = secondsUntilDestroy;
         projectileClone.GetComponent<GravityGunProjectileController>().IsShotgunProjectile = isFromShotgun;
-        projectileClone.GetComponent<GravityObjectRigidBody>().UpdateVelocity(VelocityType.OtherPhysics, dir * ShootSpeed);
+        ChangeGORBGravityDirection(projectileClone.GetComponent<GravityObjectRigidBody>(), dir);
+        projectileClone.GetComponent<GravityObjectRigidBody>().ChangeGravityScale(ShootSpeed);
         NetworkServer.Spawn(projectileClone);
     }
 
