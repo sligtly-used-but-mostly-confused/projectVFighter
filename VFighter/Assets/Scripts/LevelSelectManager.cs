@@ -29,6 +29,8 @@ public class LevelSelectManager : NetworkBehaviour
     private bool _isWaitingForReady = true;
     [SerializeField, SyncVar]
     private int timeRemaining;
+    [SerializeField]
+    private int _minPlayers = 2;
 
     private void Awake()
     {
@@ -104,7 +106,7 @@ public class LevelSelectManager : NetworkBehaviour
     
     private bool CheckForAllPlayersReady()
     {
-        bool allplayersReady = FindObjectsOfType<PlayerController>().Count() > 1;
+        bool allplayersReady = FindObjectsOfType<PlayerController>().Count() >= _minPlayers;
 
         if (isServer)
         {
