@@ -27,6 +27,7 @@ GameObject:
   - component: {fileID: 114155156425097820}
   - component: {fileID: 114662783024654882}
   - component: {fileID: 114133254777048290}
+  - component: {fileID: 114313954095473740}
   m_Layer: 0
   m_Name: KeyboardPlayer
   m_TagString: Untagged
@@ -183,9 +184,9 @@ MonoBehaviour:
     type: 2}
   Reticle: {fileID: 0}
   ReticleParent: {fileID: 0}
-  InputDevice: {fileID: 0}
   PlayerReadyIndicatorPrefab: {fileID: 1574300143994424, guid: 50239be1e91c0ce48b9f24ef90027d08,
     type: 2}
+  InputDevice: {fileID: 0}
   IsCoolingDown: 0
   IsChangeGravityCoolingDown: 0
   IsDashCoolingDown: 0
@@ -199,6 +200,23 @@ MonoBehaviour:
     NumLives: 0
     NumKills: 0
   IsDead: 0
+  CharacterType: 1
+--- !u!114 &114313954095473740
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1865601022989246}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3c210d5e286a2f428e8d854e1ed1813, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CharacterTypeMaterialMappingsInternal:
+  - Material: {fileID: 2100000, guid: c15c4b8059261441fa6ac72c71454e30, type: 2}
+    CharacterType: 0
+  - Material: {fileID: 2100000, guid: f1a6e1fc3730df442be9feffac8c07c2, type: 2}
+    CharacterType: 1
 --- !u!114 &114662783024654882
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -258,4 +276,5 @@ MonoBehaviour:
   CanBeSelected: 1
   KillsPlayer: 1
   IsSimulatedOnThisConnection: 0
+  CanMove: 1
   Owner: {fileID: 0}

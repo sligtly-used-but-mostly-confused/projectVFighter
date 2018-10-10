@@ -52,6 +52,7 @@ public class GravityObjectRigidBody : NetworkBehaviour {
     public bool CanBeSelected = true;
     public bool KillsPlayer = true;
     public bool IsSimulatedOnThisConnection = false;
+    public bool CanMove = true;
     public PlayerController Owner;
 
     protected Dictionary<VelocityType, Vector2> _maxComponentVelocities = new Dictionary<VelocityType, Vector2>();
@@ -103,7 +104,7 @@ public class GravityObjectRigidBody : NetworkBehaviour {
 
     private void ProcessVelocity()
     {
-        if (GetComponent<GravityObjectRigidBody>().IsSimulatedOnThisConnection)
+        if (GetComponent<GravityObjectRigidBody>().IsSimulatedOnThisConnection && CanMove)
         {
             _rB.velocity = Vector2.zero;
 

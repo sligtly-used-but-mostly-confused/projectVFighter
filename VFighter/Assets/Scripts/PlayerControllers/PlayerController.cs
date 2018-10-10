@@ -5,8 +5,14 @@ using UnityEngine.Networking;
 using System.Linq;
 using System;
 
-[RequireComponent(typeof(GravityObjectRigidBody))]
+public enum PlayerCharacterType
+{
+    ShotGun,
+    Dash
+}
 
+
+[RequireComponent(typeof(GravityObjectRigidBody))]
 public abstract class PlayerController : NetworkBehaviour {
     private static short _aimingReticleIdCnt = 0;
 
@@ -37,12 +43,12 @@ public abstract class PlayerController : NetworkBehaviour {
     [SerializeField]
     protected GameObject AimingReticlePrefab;
     [SerializeField]
-    protected GameObject Reticle;
+    public GameObject Reticle;
     [SerializeField]
     protected GameObject ReticleParent;
     [SerializeField]
     protected GameObject PlayerReadyIndicatorPrefab;
-
+    
     protected readonly Vector2[] _gravChangeDirections = { Vector2.up, Vector2.down };
 
     public InputDevice InputDevice;
@@ -68,6 +74,16 @@ public abstract class PlayerController : NetworkBehaviour {
     public Player ControlledPlayer;
     [SyncVar]
     public bool IsDead;
+    [SyncVar(hook = "ChangeMaterial")]
+    public PlayerCharacterType CharacterType;
+
+    protected virtual void Awake()
+    {
+        IsCoolingDown = false;
+        IsChangeGravityCoolingDown = false;
+        IsDashCoolingDown = false;
+        IsDead = false;
+    }
 
     private void Start()
     {
@@ -75,6 +91,8 @@ public abstract class PlayerController : NetworkBehaviour {
         StartCoroutine(FindReticle());
         var indicator = Instantiate(PlayerReadyIndicatorPrefab);
         indicator.GetComponent<PlayerReadyIndicatorController>().AttachedPlayer = this;
+
+        GetComponent<Renderer>().material = GetComponent< CharacterSelectController>().CharacterTypeMaterialMappings[CharacterType];
     }
 
     private void Update()
@@ -86,13 +104,12 @@ public abstract class PlayerController : NetworkBehaviour {
     {
         base.OnStartServer();
         GameObject aimingReticle = Instantiate(AimingReticlePrefab);
-        aimingReticle.GetComponent<Renderer>().material = GetComponent<Renderer>().material;
         _aimingReticleIdCnt++;
         aimingReticle.GetComponent<AimingReticle>().Id = _aimingReticleIdCnt;
         ReticleId = _aimingReticleIdCnt;
 
-        GetComponent<Renderer>().material = CustomNetworkManager.Instance._playerMaterials[MaterialId];
-        aimingReticle.GetComponent<Renderer>().material = CustomNetworkManager.Instance._playerMaterials[MaterialId];
+        GetComponent<Renderer>().material = GetComponent<CharacterSelectController>().CharacterTypeMaterialMappings[CharacterType];
+        aimingReticle.GetComponent<Renderer>().material = GetComponent<CharacterSelectController>().CharacterTypeMaterialMappings[CharacterType];
 
         NetworkServer.SpawnWithClientAuthority(aimingReticle, connectionToClient);
         ReticleParent = gameObject;
@@ -103,7 +120,8 @@ public abstract class PlayerController : NetworkBehaviour {
     public override void OnStartLocalPlayer()
     {
         StartCoroutine(AttachInputDeviceToPlayer());
-        GetComponent<Renderer>().material = CustomNetworkManager.Instance._playerMaterials[MaterialId];
+        LevelManager.Instance.SpawnPlayer(this);
+        GetComponent<GravityObjectRigidBody>().CanMove = false;
     }
 
     IEnumerator AttachInputDeviceToPlayer()
@@ -145,14 +163,6 @@ public abstract class PlayerController : NetworkBehaviour {
         {
             return Vector2.down;
         }
-    }
-
-    protected virtual void Awake()
-    {
-        IsCoolingDown = false;
-        IsChangeGravityCoolingDown = false;
-        IsDashCoolingDown = false;
-        IsDead = false;
     }
 
     public void Move(float dir)
@@ -231,8 +241,7 @@ public abstract class PlayerController : NetworkBehaviour {
             if (tempReticle)
             {
                 Reticle = tempReticle.gameObject;
-                Reticle.GetComponent<Renderer>().material = CustomNetworkManager.Instance._playerMaterials[MaterialId];
-                GetComponent<Renderer>().material = CustomNetworkManager.Instance._playerMaterials[MaterialId];
+
                 if (!ReticleParent)
                 {
                     ReticleParent = gameObject;
@@ -433,7 +442,6 @@ public abstract class PlayerController : NetworkBehaviour {
             
             if(GORB is ControllableGravityObjectRigidBody && (GORB as ControllableGravityObjectRigidBody).LastShotBy != NetworkInstanceId.Invalid)
             {
-                Debug.Log((GORB as ControllableGravityObjectRigidBody).LastShotBy);
                 var otherPlayer = NetworkServer.FindLocalObject((GORB as ControllableGravityObjectRigidBody).LastShotBy).GetComponent<PlayerController>();
                 otherPlayer.ControlledPlayer.NumKills++;
                 otherPlayer.SetDirtyBit(0xFFFFFFFF);
@@ -619,5 +627,24 @@ public abstract class PlayerController : NetworkBehaviour {
     public void RpcHeartBeat(int heartBeatId)
     {
         CmdHeartBeat(heartBeatId);
+    }
+
+    protected void DoSpecial(Vector2 aimVector)
+    {
+        switch (CharacterType)
+        {
+            case PlayerCharacterType.ShotGun:
+                ShotGunBlast(aimVector);
+                break;
+            case PlayerCharacterType.Dash:
+                Dash(aimVector);
+                break;
+        }
+    }
+
+    public void ChangeMaterial(PlayerCharacterType characterType)
+    {
+        GetComponent<Renderer>().material = GetComponent<CharacterSelectController>().CharacterTypeMaterialMappings[characterType];
+        Reticle.GetComponent<Renderer>().material = GetComponent<CharacterSelectController>().CharacterTypeMaterialMappings[characterType];
     }
 }
