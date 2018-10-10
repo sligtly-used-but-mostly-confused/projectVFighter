@@ -27,9 +27,12 @@ EditorBuildSettings:
     path: Assets/Scenes/AdvancedLevels/SpringLevel.unity
     guid: 7b3d67703854b174d82bc187f671885b
   - enabled: 0
-    path: Assets/Scenes/LevelSelect.unity
+    path: 
     guid: 7f4bf6e3685d16540a1b7136fde23f3e
   - enabled: 0
     path: Assets/Scenes/AdvancedLevels/EasyLevel.unity
     guid: 0f8683b1efac012418beb328c1813f19
+  - enabled: 1
+    path: Assets/Scenes/AdvancedLevels/VortexLevel.unity
+    guid: d7dea5c101429d345a56944b552a2077
   m_configObjects: {}
