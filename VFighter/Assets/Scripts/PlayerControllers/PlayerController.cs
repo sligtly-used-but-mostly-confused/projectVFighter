@@ -558,7 +558,7 @@ public abstract class PlayerController : NetworkBehaviour {
     }
     #endregion
 
-    public void InitializeForStartLevel(GameObject spawnPoint)
+    public void InitializeForStartLevel(Vector3 spawnPoint)
     {
         if (isLocalPlayer)
         {
@@ -570,16 +570,16 @@ public abstract class PlayerController : NetworkBehaviour {
         }
     }
 
-    public void InitializeForStartLevelInternal(GameObject spawnPoint)
+    public void InitializeForStartLevelInternal(Vector3 spawnPoint)
     {
-        transform.position = spawnPoint.transform.position;
+        transform.position = spawnPoint;
         GetComponent<GravityObjectRigidBody>().ClearAllVelocities();
         ChangeGORBGravityDirection(GetComponent<GravityObjectRigidBody>(), FindDirToClosestWall());
         IsDead = false;
     }
 
     [Command]
-    public void CmdInitializeForStartLevel(GameObject spawnPoint)
+    public void CmdInitializeForStartLevel(Vector3 spawnPoint)
     {
         if (isLocalPlayer)
         {
@@ -592,7 +592,7 @@ public abstract class PlayerController : NetworkBehaviour {
     }
 
     [ClientRpc]
-    public void RpcInitializeForStartLevel(GameObject spawnPoint)
+    public void RpcInitializeForStartLevel(Vector3 spawnPoint)
     {
         if (isLocalPlayer)
         {
@@ -645,7 +645,10 @@ public abstract class PlayerController : NetworkBehaviour {
 
     public void ChangeMaterial(PlayerCharacterType characterType)
     {
-        GetComponent<Renderer>().material = GetComponent<CharacterSelectController>().CharacterTypeMaterialMappings[characterType];
-        Reticle.GetComponent<Renderer>().material = GetComponent<CharacterSelectController>().CharacterTypeMaterialMappings[characterType];
+        if(GetComponent<CharacterSelectController>())
+        {
+            GetComponent<Renderer>().material = GetComponent<CharacterSelectController>().CharacterTypeMaterialMappings[characterType];
+            Reticle.GetComponent<Renderer>().material = GetComponent<CharacterSelectController>().CharacterTypeMaterialMappings[characterType];
+        }
     }
 }
