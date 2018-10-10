@@ -11,11 +11,14 @@ public class KeyboardPlayerController : PlayerController
             return;
         }
 
-        if(InputDevice.GetButtonDown(MappedButton.Ready))
+        float leftStickX = InputDevice.GetAxis(MappedAxis.Horizontal);
+        Move(leftStickX);
+
+        if (InputDevice.GetButtonDown(MappedButton.Ready))
         {
             ToggleReady();
         }
-
+        
         if (InputDevice is KeyboardMouseInputDevice)
         {
             Keyboard();
@@ -30,10 +33,6 @@ public class KeyboardPlayerController : PlayerController
     {
         float mouseX = InputDevice.GetAxisRaw(MappedAxis.AimX);
         float mouseY = InputDevice.GetAxisRaw(MappedAxis.AimY);
-        
-        float Horz = InputDevice.GetAxis(MappedAxis.Horizontal);
-        float Vert = InputDevice.GetAxis(MappedAxis.Vertical);
-        Move(Horz);
 
         var mousePos = Camera.main.ScreenToWorldPoint(new Vector2(mouseX, mouseY));
         var aimVector = Vector2.zero;
@@ -59,27 +58,19 @@ public class KeyboardPlayerController : PlayerController
             ShootGravityGun(aimVector);
         }
 
-        if (InputDevice.GetButtonDown(MappedButton.Dash))
-        {
-            Dash(aimVector);
-        }
-
-        if (InputDevice.GetButtonDown(MappedButton.ShotgunBlast))
-        {
-            ShotGunBlast(aimVector);
-        }
-
         if (InputDevice.GetButtonDown(MappedButton.OpenMenu))
         {
             InGameMenuUIManager.Instance.ToggleMenu();
+        }
+
+        if (InputDevice.GetButtonDown(MappedButton.Special))
+        {
+            DoSpecial(aimVector);
         }
     }
 
     private void Gamepad()
     {
-        float leftStickX = InputDevice.GetAxis(MappedAxis.Horizontal);
-        Move(leftStickX);
-
         float rightSitckX = InputDevice.GetAxisRaw(MappedAxis.AimX);
         float rightSitckY = InputDevice.GetAxisRaw(MappedAxis.AimY);
 
@@ -96,14 +87,9 @@ public class KeyboardPlayerController : PlayerController
             ShootGravityGun(aimDir);
         }
 
-        if (InputDevice.GetButtonDown(MappedButton.Dash))
+        if (InputDevice.GetButtonDown(MappedButton.Special))
         {
-            Dash(aimDir);
-        }
-
-        if (InputDevice.GetButtonDown(MappedButton.ShotgunBlast))
-        {
-            ShotGunBlast(aimDir);
+            DoSpecial(aimDir);
         }
     }
 }

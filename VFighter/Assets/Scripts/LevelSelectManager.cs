@@ -24,8 +24,7 @@ public class LevelSelectManager : NetworkBehaviour
 
     [SerializeField]
     private GameObject _playerReadyIndicatorPrefab;
-
-
+    
     [SerializeField, SyncVar]
     private bool _isWaitingForReady = true;
     [SerializeField, SyncVar]
