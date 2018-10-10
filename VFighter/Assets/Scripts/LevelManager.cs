@@ -110,9 +110,4 @@ public class LevelManager : NetworkBehaviour
         _spawnPositions.RemoveAt(index);
         player.InitializeForStartLevel(position.gameObject);
     }
-
-    public void ResetLevel()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-    }
 }

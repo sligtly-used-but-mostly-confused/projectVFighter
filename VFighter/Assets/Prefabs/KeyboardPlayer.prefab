@@ -212,11 +212,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3c210d5e286a2f428e8d854e1ed1813, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  previewPrefab: {fileID: 1229535230974108, guid: 9c28717ae1c464a748c2444b7a36edea,
+    type: 2}
+  currentIconGameObject: {fileID: 1907451986065098, guid: 2c11be1a2e2b94211b9bc171f7cf366b,
+    type: 2}
   CharacterTypeMaterialMappingsInternal:
   - Material: {fileID: 2100000, guid: c15c4b8059261441fa6ac72c71454e30, type: 2}
     CharacterType: 0
   - Material: {fileID: 2100000, guid: f1a6e1fc3730df442be9feffac8c07c2, type: 2}
     CharacterType: 1
+  - Material: {fileID: 2100000, guid: 04d126ba1f0d0478f801292308bbc946, type: 2}
+    CharacterType: 2
+  CharacterTypeIconMappingsInternal:
+  - Material: {fileID: 2100000, guid: 1e01bbf040afb634ba0886e4aa75366d, type: 2}
+    CharacterType: 0
+  - Material: {fileID: 2100000, guid: f1a6e1fc3730df442be9feffac8c07c2, type: 2}
+    CharacterType: 1
+  - Material: {fileID: 2100000, guid: 299ff133e045ed74f8047107c1dad46e, type: 2}
+    CharacterType: 2
 --- !u!114 &114662783024654882
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -8,7 +8,8 @@ using System;
 public enum PlayerCharacterType
 {
     ShotGun,
-    Dash
+    Dash,
+    Rocket
 }
 
 
@@ -644,7 +645,9 @@ public abstract class PlayerController : NetworkBehaviour {
 
     public void ChangeMaterial(PlayerCharacterType characterType)
     {
+
         GetComponent<Renderer>().material = GetComponent<CharacterSelectController>().CharacterTypeMaterialMappings[characterType];
+        if (Reticle)
         Reticle.GetComponent<Renderer>().material = GetComponent<CharacterSelectController>().CharacterTypeMaterialMappings[characterType];
     }
 }
