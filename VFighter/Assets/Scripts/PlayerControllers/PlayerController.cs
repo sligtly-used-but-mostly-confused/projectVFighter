@@ -92,16 +92,7 @@ public abstract class PlayerController : NetworkBehaviour {
         var indicator = Instantiate(PlayerReadyIndicatorPrefab);
         indicator.GetComponent<PlayerReadyIndicatorController>().AttachedPlayer = this;
 
-        GetComponent<Renderer>().material = GetComponent< CharacterSelectController>().CharacterTypeMaterialMappings[CharacterType];
-    }
-
-    private void Update()
-    {
-        FindReticle();
-        if(Reticle)
-        {
-            Reticle.GetComponent<Renderer>().material = GetComponent<Renderer>().material;
-        }
+        GetComponent<Renderer>().material = GetComponent<CharacterSelectController>().CharacterTypeMaterialMappings[CharacterType];
     }
 
     public override void OnStartServer()
@@ -110,10 +101,10 @@ public abstract class PlayerController : NetworkBehaviour {
         GameObject aimingReticle = Instantiate(AimingReticlePrefab);
         _aimingReticleIdCnt++;
         aimingReticle.GetComponent<AimingReticle>().Id = _aimingReticleIdCnt;
+        aimingReticle.GetComponent<AimingReticle>().PlayerAttachedTo = netId;
         ReticleId = _aimingReticleIdCnt;
 
         GetComponent<Renderer>().material = GetComponent<CharacterSelectController>().CharacterTypeMaterialMappings[CharacterType];
-        aimingReticle.GetComponent<Renderer>().material = GetComponent<CharacterSelectController>().CharacterTypeMaterialMappings[CharacterType];
 
         NetworkServer.SpawnWithClientAuthority(aimingReticle, connectionToClient);
         ReticleParent = gameObject;
@@ -651,7 +642,6 @@ public abstract class PlayerController : NetworkBehaviour {
         if(GetComponent<CharacterSelectController>())
         {
             GetComponent<Renderer>().material = GetComponent<CharacterSelectController>().CharacterTypeMaterialMappings[characterType];
-            Reticle.GetComponent<Renderer>().material = GetComponent<CharacterSelectController>().CharacterTypeMaterialMappings[characterType];
         }
     }
 }
