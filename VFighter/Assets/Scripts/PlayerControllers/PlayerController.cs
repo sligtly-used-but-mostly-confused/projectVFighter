@@ -98,6 +98,10 @@ public abstract class PlayerController : NetworkBehaviour {
     private void Update()
     {
         FindReticle();
+        if(Reticle)
+        {
+            Reticle.GetComponent<Renderer>().material = GetComponent<Renderer>().material;
+        }
     }
 
     public override void OnStartServer()
@@ -241,7 +245,6 @@ public abstract class PlayerController : NetworkBehaviour {
             if (tempReticle)
             {
                 Reticle = tempReticle.gameObject;
-
                 if (!ReticleParent)
                 {
                     ReticleParent = gameObject;

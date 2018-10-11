@@ -66,12 +66,16 @@ public class PlayerCameraController : MonoBehaviour
 
         if (yRatio.magnitude > xRatio.magnitude || Mathf.Approximately(yRatio.magnitude, xRatio.magnitude))
         {
+            Debug.Log("y");
             _targetCameraSize = yRatio.y * _cameraSizePadding;
         }
         else
         {
-            _targetCameraSize = xRatio.y * _cameraSizePadding;
+            Debug.Log("x");
+           // _targetCameraSize = xRatio.y * _cameraSizePadding;
         }
+
+        Debug.Log(_targetCameraSize);
 
         _targetCameraSize = Mathf.Clamp(_targetCameraSize, _minCameraSize, _maxCameraSize);
     }
