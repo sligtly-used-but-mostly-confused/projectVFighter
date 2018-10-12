@@ -35,4 +35,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/AdvancedLevels/VortexLevel.unity
     guid: d7dea5c101429d345a56944b552a2077
+  - enabled: 1
+    path: Assets/Scenes/ParticleTest.unity
+    guid: c4b7b9325a1b74b2eb0e93d5b71d9355
   m_configObjects: {}

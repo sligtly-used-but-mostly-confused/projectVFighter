@@ -313,12 +313,16 @@ public abstract class PlayerController : NetworkBehaviour {
     [Command]
     public void CmdSpawnProjectile(Vector2 dir, float secondsUntilDestroy, bool isFromShotgun)
     {
+        float xValue = dir.x;
+        float yVlaue = dir.y;
+        float angle = Mathf.Rad2Deg * Mathf.Atan2(dir.y, dir.x);
         GameObject projectileClone = Instantiate(ProjectilePrefab, Reticle.transform.position, Reticle.transform.rotation);
         projectileClone.GetComponent<GravityGunProjectileController>().Owner = this;
         projectileClone.GetComponent<GravityGunProjectileController>().SecondsUntilDestroy = secondsUntilDestroy;
         projectileClone.GetComponent<GravityGunProjectileController>().IsShotgunProjectile = isFromShotgun;
         ChangeGORBGravityDirection(projectileClone.GetComponent<GravityObjectRigidBody>(), dir);
         projectileClone.GetComponent<GravityObjectRigidBody>().ChangeGravityScale(ShootSpeed);
+        projectileClone.transform.Rotate(0, 0, angle);
         NetworkServer.Spawn(projectileClone);
     }
 
