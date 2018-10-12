@@ -15,23 +15,31 @@ public class CharacterSelectController : NetworkBehaviour {
         public Material Material;
         public PlayerCharacterType CharacterType;
     }
+    
+    public Dictionary<PlayerCharacterType, Material> CharacterTypeMaterialMappings = new Dictionary<PlayerCharacterType, Material>();
 
     [SerializeField]
     private List<CaracterTypeMaterialMap> CharacterTypeMaterialMappingsInternal = new List<CaracterTypeMaterialMap>();
 
-    public Dictionary<PlayerCharacterType, Material> CharacterTypeMaterialMappings = new Dictionary<PlayerCharacterType, Material>();
+    private bool _hasFoundReticle = false;
 
     private void Awake()
     {
         CharacterTypeMaterialMappingsInternal.ForEach(x => CharacterTypeMaterialMappings.Add(x.CharacterType, x.Material));
     }
-    
+
     void Update() {
         if (GetComponent<PlayerController>().InputDevice == null)
         {
             return;
         }
         
+        if(!_hasFoundReticle && GetComponent<PlayerController>().Reticle)
+        {
+            _hasFoundReticle = true;
+            ChangeToNextCharacterType(1);
+        }
+
         if(GetComponent<PlayerController>().InputDevice.GetButtonDown(MappedButton.SubmitCharacterChoice))
         {
             GetComponent<GravityObjectRigidBody>().CanMove = true;

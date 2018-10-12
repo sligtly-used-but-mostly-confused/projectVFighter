@@ -92,12 +92,7 @@ public abstract class PlayerController : NetworkBehaviour {
         var indicator = Instantiate(PlayerReadyIndicatorPrefab);
         indicator.GetComponent<PlayerReadyIndicatorController>().AttachedPlayer = this;
 
-        GetComponent<Renderer>().material = GetComponent< CharacterSelectController>().CharacterTypeMaterialMappings[CharacterType];
-    }
-
-    private void Update()
-    {
-        FindReticle();
+        GetComponent<Renderer>().material = GetComponent<CharacterSelectController>().CharacterTypeMaterialMappings[CharacterType];
     }
 
     public override void OnStartServer()
@@ -106,10 +101,10 @@ public abstract class PlayerController : NetworkBehaviour {
         GameObject aimingReticle = Instantiate(AimingReticlePrefab);
         _aimingReticleIdCnt++;
         aimingReticle.GetComponent<AimingReticle>().Id = _aimingReticleIdCnt;
+        aimingReticle.GetComponent<AimingReticle>().PlayerAttachedTo = netId;
         ReticleId = _aimingReticleIdCnt;
 
         GetComponent<Renderer>().material = GetComponent<CharacterSelectController>().CharacterTypeMaterialMappings[CharacterType];
-        aimingReticle.GetComponent<Renderer>().material = GetComponent<CharacterSelectController>().CharacterTypeMaterialMappings[CharacterType];
 
         NetworkServer.SpawnWithClientAuthority(aimingReticle, connectionToClient);
         ReticleParent = gameObject;
@@ -241,7 +236,6 @@ public abstract class PlayerController : NetworkBehaviour {
             if (tempReticle)
             {
                 Reticle = tempReticle.gameObject;
-
                 if (!ReticleParent)
                 {
                     ReticleParent = gameObject;
@@ -326,7 +320,8 @@ public abstract class PlayerController : NetworkBehaviour {
         projectileClone.GetComponent<GravityGunProjectileController>().Owner = this;
         projectileClone.GetComponent<GravityGunProjectileController>().SecondsUntilDestroy = secondsUntilDestroy;
         projectileClone.GetComponent<GravityGunProjectileController>().IsShotgunProjectile = isFromShotgun;
-        projectileClone.GetComponent<GravityObjectRigidBody>().UpdateVelocity(VelocityType.OtherPhysics, dir * ShootSpeed);
+        ChangeGORBGravityDirection(projectileClone.GetComponent<GravityObjectRigidBody>(), dir);
+        projectileClone.GetComponent<GravityObjectRigidBody>().ChangeGravityScale(ShootSpeed);
         projectileClone.transform.Rotate(0, 0, angle);
         NetworkServer.Spawn(projectileClone);
     }
@@ -561,7 +556,7 @@ public abstract class PlayerController : NetworkBehaviour {
     }
     #endregion
 
-    public void InitializeForStartLevel(GameObject spawnPoint)
+    public void InitializeForStartLevel(Vector3 spawnPoint)
     {
         if (isLocalPlayer)
         {
@@ -573,16 +568,16 @@ public abstract class PlayerController : NetworkBehaviour {
         }
     }
 
-    public void InitializeForStartLevelInternal(GameObject spawnPoint)
+    public void InitializeForStartLevelInternal(Vector3 spawnPoint)
     {
-        transform.position = spawnPoint.transform.position;
+        transform.position = spawnPoint;
         GetComponent<GravityObjectRigidBody>().ClearAllVelocities();
         ChangeGORBGravityDirection(GetComponent<GravityObjectRigidBody>(), FindDirToClosestWall());
         IsDead = false;
     }
 
     [Command]
-    public void CmdInitializeForStartLevel(GameObject spawnPoint)
+    public void CmdInitializeForStartLevel(Vector3 spawnPoint)
     {
         if (isLocalPlayer)
         {
@@ -595,7 +590,7 @@ public abstract class PlayerController : NetworkBehaviour {
     }
 
     [ClientRpc]
-    public void RpcInitializeForStartLevel(GameObject spawnPoint)
+    public void RpcInitializeForStartLevel(Vector3 spawnPoint)
     {
         if (isLocalPlayer)
         {
@@ -648,7 +643,9 @@ public abstract class PlayerController : NetworkBehaviour {
 
     public void ChangeMaterial(PlayerCharacterType characterType)
     {
-        GetComponent<Renderer>().material = GetComponent<CharacterSelectController>().CharacterTypeMaterialMappings[characterType];
-        Reticle.GetComponent<Renderer>().material = GetComponent<CharacterSelectController>().CharacterTypeMaterialMappings[characterType];
+        if(GetComponent<CharacterSelectController>())
+        {
+            GetComponent<Renderer>().material = GetComponent<CharacterSelectController>().CharacterTypeMaterialMappings[characterType];
+        }
     }
 }

@@ -200,7 +200,7 @@ MonoBehaviour:
     NumLives: 0
     NumKills: 0
   IsDead: 0
-  CharacterType: 1
+  CharacterType: 0
 --- !u!114 &114313954095473740
 MonoBehaviour:
   m_ObjectHideFlags: 1
