@@ -160,9 +160,12 @@ public abstract class PlayerController : NetworkBehaviour {
         }
     }
 
-    public void Move(float dir)
+    public void Move(Vector2 dir)
     {
-        GetComponent<GravityObjectRigidBody>().UpdateVelocity(VelocityType.Movement, new Vector2(dir * MoveSpeed, 0));
+        var fixedDir = Vector2.Perpendicular(GetComponent<GravityObjectRigidBody>().GravityDirection);
+        fixedDir = new Vector2(Mathf.Abs(fixedDir.x), Mathf.Abs(fixedDir.y));
+       
+        GetComponent<GravityObjectRigidBody>().UpdateVelocity(VelocityType.Movement, Vector3.Project(dir, fixedDir) * MoveSpeed);
     }
 
     public void FlipGravity()
@@ -199,8 +202,8 @@ public abstract class PlayerController : NetworkBehaviour {
     {
         if (!IsChangeGravityCoolingDown)
         {
-            var closestDir = ClosestDirection(dir, _gravChangeDirections);
-            ChangeGORBGravityDirection(GetComponent<GravityObjectRigidBody>(), closestDir);
+            //var closestDir = ClosestDirection(dir, _gravChangeDirections);
+            ChangeGORBGravityDirection(GetComponent<GravityObjectRigidBody>(), dir);
             IsChangeGravityCoolingDown = true;
             StartCoroutine(ChangeGravityCoolDown());
         }

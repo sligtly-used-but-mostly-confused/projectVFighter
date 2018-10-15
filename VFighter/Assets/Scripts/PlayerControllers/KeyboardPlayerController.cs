@@ -10,9 +10,8 @@ public class KeyboardPlayerController : PlayerController
         {
             return;
         }
-
-        float leftStickX = InputDevice.GetAxis(MappedAxis.Horizontal);
-        Move(leftStickX);
+        
+        Move(this.InputDevice.GetAxis2DCircleClamp(MappedAxis.Horizontal, MappedAxis.Vertical));
 
         if (InputDevice.GetButtonDown(MappedButton.Ready))
         {
