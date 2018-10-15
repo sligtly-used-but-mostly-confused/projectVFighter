@@ -18,6 +18,8 @@ public class CharacterSelectController : NetworkBehaviour {
     private GameObject nextCharacterPreview;
     private GameObject currentIcon;
 
+    private PlayerController playerController;
+
     [System.Serializable]
     public struct CaracterTypeMaterialMap
     {
@@ -35,6 +37,8 @@ public class CharacterSelectController : NetworkBehaviour {
 
     private void Awake()
     {
+        playerController = GetComponent<PlayerController>();
+
         CharacterTypeMaterialMappingsInternal.ForEach(x => CharacterTypeMaterialMappings.Add(x.CharacterType, x.Material));
         CharacterTypeIconMappingsInternal.ForEach(x => CharacterTypeIconMappings.Add(x.CharacterType, x.Material));
 
@@ -52,8 +56,23 @@ public class CharacterSelectController : NetworkBehaviour {
 
         ChangeToNextCharacterTypeInternal(0);
     }
-    
+
     void Update() {
+
+        bool ready = playerController.IsReady;
+
+        nextCharacterPreview.SetActive(!ready);
+        previousCharacterPreview.SetActive(!ready);
+        currentIcon.SetActive(!ready);
+
+        GravityObjectRigidBody rb = GetComponent<GravityObjectRigidBody>();
+        rb.CanMove = ready;
+
+        if(!ready){
+            rb.ClearAllVelocities();
+            GetComponent<Rigidbody2D>().velocity = Vector3.zero;
+        }
+
         if (GetComponent<PlayerController>().InputDevice == null)
         {
             return;
@@ -69,11 +88,13 @@ public class CharacterSelectController : NetworkBehaviour {
             float ChangeCharacterDir = GetComponent<PlayerController>().InputDevice.GetAxis(MappedAxis.ChangeCharacter);
             ChangeToNextCharacterType(ChangeCharacterDir > 0 ? 1 : -1);
         }
+
+
     }
 
     public void ChangeToNextCharacterType(int dir)
     {
-        CmdChangeToNextCharacterType(dir);
+        if(!playerController.IsReady)CmdChangeToNextCharacterType(dir);
     }
 
     [Command]
