@@ -202,7 +202,6 @@ public abstract class PlayerController : NetworkBehaviour {
     {
         if (!IsChangeGravityCoolingDown)
         {
-            //var closestDir = ClosestDirection(dir, _gravChangeDirections);
             ChangeGORBGravityDirection(GetComponent<GravityObjectRigidBody>(), dir);
             IsChangeGravityCoolingDown = true;
             StartCoroutine(ChangeGravityCoolDown());
