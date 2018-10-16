@@ -168,7 +168,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AttachedObject: {fileID: 0}
-  RechargeTime: 0.4
+  RechargeTime: 0.2
   ChangeGravityRechargeTime: 0
   DashCoolDownTime: 0.5
   DurationOfNormalGravityProjectile: 1

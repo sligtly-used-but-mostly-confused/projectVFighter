@@ -15,18 +15,30 @@ public class TronBlock : NetworkBehaviour {
     [SerializeField]
     private float _secondsForTailToSurvive = 1f;
 
+    private List<GameObject> _tails = new List<GameObject>();
+
 	void Start () {
         _gORB = GetComponent<GravityObjectRigidBody>();
     }
 
+    private void OnDestroy()
+    {
+        if (isServer)
+            _tails.ForEach(x => Destroy(x));
+    }
+
     private void SpawnNewTail()
     {
+            
         var newTail = Instantiate(_tronBlockTailPrefab);
         _lastTailPlaced = newTail;
         _lastTailPlaced.transform.localPosition = transform.position;
         _lastTailPlaced.GetComponent<ControllableGravityObjectRigidBody>().LastShotBy = GetComponent<ControllableGravityObjectRigidBody>().LastShotBy;
+        _lastTailPlaced.GetComponent<TronTail>().SecondsForTailToSurvive = _secondsForTailToSurvive;
         StartCoroutine(DestoryTailCoroutine(newTail));
+        _tails.Add(_lastTailPlaced);
         NetworkServer.Spawn(newTail);
+        
     }
 
     private void Update()
@@ -46,10 +58,10 @@ public class TronBlock : NetworkBehaviour {
                 {
                     SpawnNewTail();
                 }
-
             }
         }
     }
+    
 
     private IEnumerator DestoryTailCoroutine(GameObject tailBlock)
     {
@@ -58,7 +70,7 @@ public class TronBlock : NetworkBehaviour {
         {
             _lastTailPlaced = null;
         }
-       
-        Destroy(tailBlock);
+        _tails.Remove(tailBlock);
+        //Destroy(tailBlock);
     }
 }

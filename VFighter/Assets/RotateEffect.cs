@@ -4,21 +4,13 @@ using UnityEngine;
 
 public class RotateEffect : MonoBehaviour {
     [SerializeField]
-    public ForceZoneController other;
-    [SerializeField]
     float angleRotation = 360;
     [SerializeField]
-    SpriteRenderer im;
     private ParticleSystem ps;
     private Vector2 forces;
     // Use this for initialization
     void Start()
     {
-        ps = GetComponent<ParticleSystem>();
-        other = GetComponent<ForceZoneController>();
-        im = GetComponent<SpriteRenderer>();
-        im.enabled = false;
-        
     }
 
 
