@@ -29,7 +29,6 @@ public class TronBlock : NetworkBehaviour {
 
     private void SpawnNewTail()
     {
-            
         var newTail = Instantiate(_tronBlockTailPrefab);
         _lastTailPlaced = newTail;
         _lastTailPlaced.transform.localPosition = transform.position;
@@ -38,7 +37,6 @@ public class TronBlock : NetworkBehaviour {
         StartCoroutine(DestoryTailCoroutine(newTail));
         _tails.Add(_lastTailPlaced);
         NetworkServer.Spawn(newTail);
-        
     }
 
     private void Update()
@@ -61,7 +59,6 @@ public class TronBlock : NetworkBehaviour {
             }
         }
     }
-    
 
     private IEnumerator DestoryTailCoroutine(GameObject tailBlock)
     {
@@ -71,6 +68,5 @@ public class TronBlock : NetworkBehaviour {
             _lastTailPlaced = null;
         }
         _tails.Remove(tailBlock);
-        //Destroy(tailBlock);
     }
 }
