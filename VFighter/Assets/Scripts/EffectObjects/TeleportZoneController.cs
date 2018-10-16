@@ -21,11 +21,15 @@ public class TeleportZoneController : MonoBehaviour {
             {
                 TeleportTo.ObjectsWaitingToExitTeleporter.Add(gorb);
 
+                //get the players offset from the teleporter so we can match it on the other side
+                //also do a projection with the scale of the teleporter so that the player is garunteed to spawn 
+                //within the teleporter when they come out
                 var deltaPosition = collision.transform.position - transform.position;
                 var teleporterScale = TeleportTo.transform.rotation * TeleportTo.transform.lossyScale;
                 teleporterScale = new Vector3(Mathf.Abs(teleporterScale.x), Mathf.Abs(teleporterScale.y), Mathf.Abs(teleporterScale.z));
-                
-                collision.transform.position = TeleportTo.transform.position + Vector3.Project(deltaPosition, teleporterScale);
+                var playerOffsetFromTeleporter = Vector3.Project(deltaPosition, teleporterScale);
+
+                collision.transform.position = TeleportTo.transform.position + playerOffsetFromTeleporter;
             }
         }
     }
