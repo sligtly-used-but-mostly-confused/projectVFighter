@@ -27,7 +27,7 @@ GameObject:
   - component: {fileID: 114074985865123764}
   - component: {fileID: 212790667762722952}
   - component: {fileID: 95606028872242414}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Gravity Pulse Wave (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
