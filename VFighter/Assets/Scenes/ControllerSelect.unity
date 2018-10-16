@@ -592,7 +592,7 @@ MonoBehaviour:
   levels:
   - LongLevel
   - VortexLevel
-  - PinBallLevel
+  - TeleporterLoopLevel
   - SpringLevel
   platform: {fileID: 1841537160547452, guid: c8f09f02dca094a2aab8d34e4220d023, type: 2}
   levelZone: {fileID: 1647109427917884, guid: c571407ca27484f0fb1de03b5a495f4b, type: 2}

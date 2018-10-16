@@ -8,33 +8,34 @@ public class TeleportZoneController : MonoBehaviour {
 
     [SerializeField]
     private bool _waitingForCooldown;
-    [SerializeField]
-    private float _teleportCoolDownTime = .25f;
+
+    public List<GravityObjectRigidBody> ObjectsWaitingToExitTeleporter = new List<GravityObjectRigidBody>();
 
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (!_waitingForCooldown)
         {
             Rigidbody2D rb = collision.attachedRigidbody;
-
-            if (collision.GetComponent<GravityObjectRigidBody>() || collision.GetComponent<GravityGunProjectileController>())
+            var gorb = collision.GetComponent<GravityObjectRigidBody>();
+            if (gorb && !ObjectsWaitingToExitTeleporter.Contains(gorb))
             {
-                collision.transform.position = TeleportTo.transform.position;
-                StartCoolDown();
-                TeleportTo.StartCoolDown();
+                TeleportTo.ObjectsWaitingToExitTeleporter.Add(gorb);
+
+                var deltaPosition = collision.transform.position - transform.position;
+                var teleporterScale = TeleportTo.transform.rotation * TeleportTo.transform.lossyScale;
+                teleporterScale = new Vector3(Mathf.Abs(teleporterScale.x), Mathf.Abs(teleporterScale.y), Mathf.Abs(teleporterScale.z));
+                
+                collision.transform.position = TeleportTo.transform.position + Vector3.Project(deltaPosition, teleporterScale);
             }
         }
     }
 
-    public void StartCoolDown()
+    public void OnTriggerExit2D(Collider2D collision)
     {
-        StartCoroutine(CoolDown());
-    }
-
-    IEnumerator CoolDown()
-    {
-        _waitingForCooldown = true;
-        yield return new WaitForSeconds(_teleportCoolDownTime);
-        _waitingForCooldown = false;
+        var gorb = collision.GetComponent<GravityObjectRigidBody>();
+        if (gorb && ObjectsWaitingToExitTeleporter.Contains(gorb))
+        {
+            ObjectsWaitingToExitTeleporter.Remove(gorb);
+        }
     }
 }

@@ -123,4 +123,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TeleportTo: {fileID: 0}
   _waitingForCooldown: 0
-  _teleportCoolDownTime: 0.25
+  ObjectsWaitingToExitTeleporter: []
