@@ -31,14 +31,18 @@ public class PlayerCameraController : MonoBehaviour
         var displacement = _targetCenter - transform.position;
         _rB.velocity = displacement.normalized * Mathf.Pow(displacement.magnitude, 2f);
         var deltaSize = _targetCameraSize - GetComponent<Camera>().orthographicSize;
-        deltaSize = deltaSize * Mathf.Pow(Mathf.Abs(deltaSize), 4f) * Time.fixedDeltaTime * 4;
-        deltaSize = Mathf.Clamp(deltaSize, -5, 5);
-        if (float.IsNaN(GetComponent<Camera>().orthographicSize))
+
+        //bias it so that shinking the camera happens slower than increasing it
+        if(deltaSize < 0)
         {
-            //just incase the camera gets weird fix it
-            GetComponent<Camera>().orthographicSize = _targetCameraSize;
+            //so it take 4 seconds to reach max size
+            deltaSize *= Time.deltaTime / 2;
         }
-        
+        else
+        {
+            deltaSize *= Time.deltaTime*4;
+        }
+
         GetComponent<Camera>().orthographicSize += deltaSize;
     }
 
@@ -66,13 +70,13 @@ public class PlayerCameraController : MonoBehaviour
 
         if (yRatio.magnitude > xRatio.magnitude || Mathf.Approximately(yRatio.magnitude, xRatio.magnitude))
         {
-            _targetCameraSize = yRatio.y * _cameraSizePadding;
+            _targetCameraSize = yRatio.y * _cameraSizePadding * 1.5f;
         }
         else
         {
             _targetCameraSize = xRatio.y * _cameraSizePadding;
         }
-
+        
         _targetCameraSize = Mathf.Clamp(_targetCameraSize, _minCameraSize, _maxCameraSize);
     }
 }

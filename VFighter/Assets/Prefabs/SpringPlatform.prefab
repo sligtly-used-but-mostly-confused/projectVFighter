@@ -55,6 +55,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4239699494155374}
   - component: {fileID: 50986348700785892}
+  - component: {fileID: 114324581619979394}
   m_Layer: 0
   m_Name: SpringPlatform
   m_TagString: Untagged
@@ -210,6 +211,38 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.5, y: 0.5}
   m_EdgeRadius: 0
+--- !u!114 &114324581619979394
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1865317440980488}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 220
+    i1: 59
+    i2: 219
+    i3: 51
+    i4: 127
+    i5: 21
+    i6: 98
+    i7: 4
+    i8: 10
+    i9: 111
+    i10: 222
+    i11: 44
+    i12: 7
+    i13: 113
+    i14: 73
+    i15: 3
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0
 --- !u!231 &231616945706980244
 SpringJoint2D:
   m_ObjectHideFlags: 1

@@ -16,8 +16,8 @@ public enum MappedButton
     ShootGravGun,
     Jump,
     ChangeGrav,
-    Dash,
     Ready,
-    ShotgunBlast,
-    OpenMenu
+    Special,
+    OpenMenu,
+    SubmitCharacterChoice
 }

@@ -10,7 +10,6 @@ public class ArrowParticleDirection : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         ps = GetComponent<ParticleSystem>();
-        other = GetComponent<ForceZoneController>();
         float xValue = other.GetgravityForce().x;
         float yValue = other.GetgravityForce().y;
         ParticleSystem.MainModule mainMod = ps.main;

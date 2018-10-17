@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 public class GamepadInputDevice : InputDevice
 {	
@@ -20,7 +21,7 @@ public class GamepadInputDevice : InputDevice
 	public override string GetAxisName(MappedAxis axis)
 	{
 		var mapping = MappedInput.Instance.GamepadInputMapping.GetGamepadAxisMapping (axis);
-		if( mapping != null )
+		if( mapping != null && mapping.axes.Count() > 0)
 		{
 			return gamepad.layout.GetAxisName(mapping.axes[0]);
 		}
