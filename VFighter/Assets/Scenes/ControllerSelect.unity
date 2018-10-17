@@ -399,11 +399,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4498889274554618, guid: 68dd72ba98b26804c946fe051bbb26f9, type: 2}
       propertyPath: m_RootOrder
-<<<<<<< HEAD
-      value: 6
-=======
       value: 4
->>>>>>> master
       objectReference: {fileID: 0}
     - target: {fileID: 114351146768470940, guid: 68dd72ba98b26804c946fe051bbb26f9,
         type: 2}
@@ -695,12 +691,6 @@ MonoBehaviour:
   _usedDevices: []
   NetworkPlayerPrefab: {fileID: 1596458492531264, guid: 23a394dfea771d24c8c02502a01bf446,
     type: 2}
-<<<<<<< HEAD
-  _isWaitingForReady: 1
-  LevelToLoad: forceZoneTest
-  numLivesPerPlayer: 5
-=======
->>>>>>> master
   DevicesWaitingForPlayer: []
 --- !u!4 &636215035
 Transform:
