@@ -267,6 +267,7 @@ MonoBehaviour:
   CanBeSelected: 1
   KillsPlayer: 1
   IsSimulatedOnThisConnection: 0
+  CanMove: 1
   Owner: {fileID: 0}
   _speedMultiplier: 1
   _speedMultiplierStep: 0.1
@@ -302,7 +303,7 @@ MonoBehaviour:
     i14: 77
     i15: 137
   m_ServerOnly: 0
-  m_LocalPlayerAuthority: 1
+  m_LocalPlayerAuthority: 0
 --- !u!114 &114336607378335190
 MonoBehaviour:
   m_ObjectHideFlags: 1

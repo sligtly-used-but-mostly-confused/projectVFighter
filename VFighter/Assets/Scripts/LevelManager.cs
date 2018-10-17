@@ -108,6 +108,6 @@ public class LevelManager : NetworkBehaviour
         int index = (int)(Random.value * (_spawnPositions.Count - 1));
         SpawnPosition position = _spawnPositions[index];
         _spawnPositions.RemoveAt(index);
-        player.InitializeForStartLevel(position.gameObject);
+        player.InitializeForStartLevel(position.gameObject.transform.position);
     }
 }

@@ -93,12 +93,7 @@ public abstract class PlayerController : NetworkBehaviour {
         var indicator = Instantiate(PlayerReadyIndicatorPrefab);
         indicator.GetComponent<PlayerReadyIndicatorController>().AttachedPlayer = this;
 
-        GetComponent<Renderer>().material = GetComponent< CharacterSelectController>().CharacterTypeMaterialMappings[CharacterType];
-    }
-
-    private void Update()
-    {
-        FindReticle();
+        GetComponent<Renderer>().material = GetComponent<CharacterSelectController>().CharacterTypeMaterialMappings[CharacterType];
     }
 
     public override void OnStartServer()
@@ -107,10 +102,10 @@ public abstract class PlayerController : NetworkBehaviour {
         GameObject aimingReticle = Instantiate(AimingReticlePrefab);
         _aimingReticleIdCnt++;
         aimingReticle.GetComponent<AimingReticle>().Id = _aimingReticleIdCnt;
+        aimingReticle.GetComponent<AimingReticle>().PlayerAttachedTo = netId;
         ReticleId = _aimingReticleIdCnt;
 
         GetComponent<Renderer>().material = GetComponent<CharacterSelectController>().CharacterTypeMaterialMappings[CharacterType];
-        aimingReticle.GetComponent<Renderer>().material = GetComponent<CharacterSelectController>().CharacterTypeMaterialMappings[CharacterType];
 
         NetworkServer.SpawnWithClientAuthority(aimingReticle, connectionToClient);
         ReticleParent = gameObject;
@@ -166,9 +161,12 @@ public abstract class PlayerController : NetworkBehaviour {
         }
     }
 
-    public void Move(float dir)
+    public void Move(Vector2 dir)
     {
-        GetComponent<GravityObjectRigidBody>().UpdateVelocity(VelocityType.Movement, new Vector2(dir * MoveSpeed, 0));
+        var fixedDir = Vector2.Perpendicular(GetComponent<GravityObjectRigidBody>().GravityDirection);
+        fixedDir = new Vector2(Mathf.Abs(fixedDir.x), Mathf.Abs(fixedDir.y));
+       
+        GetComponent<GravityObjectRigidBody>().UpdateVelocity(VelocityType.Movement, Vector3.Project(dir, fixedDir) * MoveSpeed);
     }
 
     public void FlipGravity()
@@ -205,8 +203,7 @@ public abstract class PlayerController : NetworkBehaviour {
     {
         if (!IsChangeGravityCoolingDown)
         {
-            var closestDir = ClosestDirection(dir, _gravChangeDirections);
-            ChangeGORBGravityDirection(GetComponent<GravityObjectRigidBody>(), closestDir);
+            ChangeGORBGravityDirection(GetComponent<GravityObjectRigidBody>(), dir);
             IsChangeGravityCoolingDown = true;
             StartCoroutine(ChangeGravityCoolDown());
         }
@@ -242,7 +239,6 @@ public abstract class PlayerController : NetworkBehaviour {
             if (tempReticle)
             {
                 Reticle = tempReticle.gameObject;
-
                 if (!ReticleParent)
                 {
                     ReticleParent = gameObject;
@@ -320,11 +316,16 @@ public abstract class PlayerController : NetworkBehaviour {
     [Command]
     public void CmdSpawnProjectile(Vector2 dir, float secondsUntilDestroy, bool isFromShotgun)
     {
+        float xValue = dir.x;
+        float yVlaue = dir.y;
+        float angle = Mathf.Rad2Deg * Mathf.Atan2(dir.y, dir.x);
         GameObject projectileClone = Instantiate(ProjectilePrefab, Reticle.transform.position, Reticle.transform.rotation);
         projectileClone.GetComponent<GravityGunProjectileController>().Owner = this;
         projectileClone.GetComponent<GravityGunProjectileController>().SecondsUntilDestroy = secondsUntilDestroy;
         projectileClone.GetComponent<GravityGunProjectileController>().IsShotgunProjectile = isFromShotgun;
-        projectileClone.GetComponent<GravityObjectRigidBody>().UpdateVelocity(VelocityType.OtherPhysics, dir * ShootSpeed);
+        ChangeGORBGravityDirection(projectileClone.GetComponent<GravityObjectRigidBody>(), dir);
+        projectileClone.GetComponent<GravityObjectRigidBody>().ChangeGravityScale(ShootSpeed);
+        projectileClone.transform.Rotate(0, 0, angle);
         NetworkServer.Spawn(projectileClone);
     }
 
@@ -558,7 +559,7 @@ public abstract class PlayerController : NetworkBehaviour {
     }
     #endregion
 
-    public void InitializeForStartLevel(GameObject spawnPoint)
+    public void InitializeForStartLevel(Vector3 spawnPoint)
     {
         if (isLocalPlayer)
         {
@@ -570,16 +571,16 @@ public abstract class PlayerController : NetworkBehaviour {
         }
     }
 
-    public void InitializeForStartLevelInternal(GameObject spawnPoint)
+    public void InitializeForStartLevelInternal(Vector3 spawnPoint)
     {
-        transform.position = spawnPoint.transform.position;
+        transform.position = spawnPoint;
         GetComponent<GravityObjectRigidBody>().ClearAllVelocities();
         ChangeGORBGravityDirection(GetComponent<GravityObjectRigidBody>(), FindDirToClosestWall());
         IsDead = false;
     }
 
     [Command]
-    public void CmdInitializeForStartLevel(GameObject spawnPoint)
+    public void CmdInitializeForStartLevel(Vector3 spawnPoint)
     {
         if (isLocalPlayer)
         {
@@ -592,7 +593,7 @@ public abstract class PlayerController : NetworkBehaviour {
     }
 
     [ClientRpc]
-    public void RpcInitializeForStartLevel(GameObject spawnPoint)
+    public void RpcInitializeForStartLevel(Vector3 spawnPoint)
     {
         if (isLocalPlayer)
         {
@@ -645,9 +646,9 @@ public abstract class PlayerController : NetworkBehaviour {
 
     public void ChangeMaterial(PlayerCharacterType characterType)
     {
-
-        GetComponent<Renderer>().material = GetComponent<CharacterSelectController>().CharacterTypeMaterialMappings[characterType];
-        if (Reticle)
-        Reticle.GetComponent<Renderer>().material = GetComponent<CharacterSelectController>().CharacterTypeMaterialMappings[characterType];
+        if(GetComponent<CharacterSelectController>())
+        {
+            GetComponent<Renderer>().material = GetComponent<CharacterSelectController>().CharacterTypeMaterialMappings[characterType];
+        }
     }
 }

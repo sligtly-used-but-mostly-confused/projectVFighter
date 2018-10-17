@@ -32,8 +32,11 @@ public class CharacterSelectController : NetworkBehaviour {
     [SerializeField]
     private List<CaracterTypeMaterialMap> CharacterTypeIconMappingsInternal = new List<CaracterTypeMaterialMap>();
 
+
     public Dictionary<PlayerCharacterType, Material> CharacterTypeMaterialMappings = new Dictionary<PlayerCharacterType, Material>();
     public Dictionary<PlayerCharacterType, Material> CharacterTypeIconMappings = new Dictionary<PlayerCharacterType, Material>();
+
+    private bool _hasFoundReticle = false;
 
     private void Awake()
     {
@@ -78,6 +81,12 @@ public class CharacterSelectController : NetworkBehaviour {
             return;
         }
         
+        if(!_hasFoundReticle && GetComponent<PlayerController>().Reticle)
+        {
+            _hasFoundReticle = true;
+            ChangeToNextCharacterType(1);
+        }
+
         if(GetComponent<PlayerController>().InputDevice.GetButtonDown(MappedButton.SubmitCharacterChoice))
         {
             GetComponent<GravityObjectRigidBody>().CanMove = true;
