@@ -17,6 +17,7 @@ public class CharacterSelectController : NetworkBehaviour {
     }
     
     public Dictionary<PlayerCharacterType, Material> CharacterTypeMaterialMappings = new Dictionary<PlayerCharacterType, Material>();
+    public Dictionary<MappedAxis, Material> CharacterSwitchKeyboardMapping = new Dictionary<MappedAxis, Material>();
 
     [SerializeField]
     private List<CaracterTypeMaterialMap> CharacterTypeMaterialMappingsInternal = new List<CaracterTypeMaterialMap>();
@@ -26,6 +27,7 @@ public class CharacterSelectController : NetworkBehaviour {
     private void Awake()
     {
         CharacterTypeMaterialMappingsInternal.ForEach(x => CharacterTypeMaterialMappings.Add(x.CharacterType, x.Material));
+        //CharacterSwitchKeyboardMapping.Add(MappedAxis.ChangeCharacter, )
     }
 
     void Update() {
