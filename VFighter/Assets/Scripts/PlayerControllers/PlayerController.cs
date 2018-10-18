@@ -448,9 +448,9 @@ public abstract class PlayerController : NetworkBehaviour {
             if(IsDashCoolingDown)
             {
                 //if we dash into an object push it
-                var dashVel = GetComponent<GravityObjectRigidBody>().GetVelocity(VelocityType.Dash);
+                var dashVel = GetComponent<Rigidbody2D>().velocity;
                 ChangeGORBGravityDirection(GORB, dashVel.normalized);
-                GetComponent<GravityObjectRigidBody>().ClearAllVelocities();
+                RpcClearVelocities(gameObject);
                 IsDashCoolingDown = false;
                 return;
             }
@@ -550,7 +550,6 @@ public abstract class PlayerController : NetworkBehaviour {
     [Command]
     public void CmdChangeGORBGravityDirection(GameObject GORB, Vector2 dir)
     {
-        Debug.Log("cmd change grav");
         if (GORB.GetComponent<GravityObjectRigidBody>().IsSimulatedOnThisConnection)
         {
             GORB.GetComponent<GravityObjectRigidBody>().ChangeGravityDirectionInternal(dir);
@@ -564,13 +563,21 @@ public abstract class PlayerController : NetworkBehaviour {
     [ClientRpc]
     public void RpcChangeGORBGravityDirection(GameObject GORB, Vector2 dir)
     {
-        Debug.Log("rpc change grav");
         if (GORB.GetComponent<GravityObjectRigidBody>().IsSimulatedOnThisConnection)
         {
             GORB.GetComponent<GravityObjectRigidBody>().ChangeGravityDirectionInternal(dir);
         }
     }
     #endregion
+
+    [ClientRpc]
+    public void RpcClearVelocities(GameObject GORB)
+    {
+        if (GORB.GetComponent<GravityObjectRigidBody>().IsSimulatedOnThisConnection)
+        {
+            GORB.GetComponent<GravityObjectRigidBody>().ClearAllVelocities();
+        }
+    }
 
     public void InitializeForStartLevel(Vector3 spawnPoint)
     {
@@ -662,6 +669,7 @@ public abstract class PlayerController : NetworkBehaviour {
         if(GetComponent<CharacterSelectController>())
         {
             GetComponent<Renderer>().material = GetComponent<CharacterSelectController>().CharacterTypeMaterialMappings[characterType];
+            this.CharacterType = characterType;
         }
     }
 }

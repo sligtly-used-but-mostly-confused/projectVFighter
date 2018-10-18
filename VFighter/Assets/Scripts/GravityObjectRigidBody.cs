@@ -92,15 +92,15 @@ public class GravityObjectRigidBody : NetworkBehaviour {
         }
     }
 
-    void Start () {
+    void Start() {
         _rB.gravityScale = 0;
-	}
-	
-	void FixedUpdate () {
+    }
+
+    void FixedUpdate() {
         DoGravity();
         DoDrag();
         ProcessVelocity();
-	}
+    }
 
     private void ProcessVelocity()
     {
