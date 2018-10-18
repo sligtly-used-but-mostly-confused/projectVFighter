@@ -239,7 +239,7 @@ public class GravityObjectRigidBody : NetworkBehaviour {
             UpdateVelocity(VelocityType.OtherPhysics, reflectionVec);
         }
 
-        if (_stopObjectOnCollide && IsSimulatedOnThisConnection)
+        if (_stopObjectOnCollide && IsSimulatedOnThisConnection && !collision.gameObject.GetComponent<PlayerController>())
         {
             FindObjectOfType<PlayerController>().ChangeGORBGravityDirection(this, Vector2.zero);
         }

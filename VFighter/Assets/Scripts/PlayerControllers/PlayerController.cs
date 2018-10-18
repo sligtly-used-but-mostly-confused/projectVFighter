@@ -39,6 +39,8 @@ public abstract class PlayerController : NetworkBehaviour {
     [SerializeField]
     protected float DashSpeed = 10f;
     [SerializeField]
+    protected float ShotGunKickBackForce = 10f;
+    [SerializeField]
     protected GameObject ProjectilePrefab;
     [SerializeField]
     protected GameObject AimingReticlePrefab;
@@ -302,6 +304,8 @@ public abstract class PlayerController : NetworkBehaviour {
                     CmdSpawnProjectile(Quaternion.Euler(0, 0, 15) * new Vector3(dir.x, dir.y, 0), DurationOfShotgunGravityProjectile, true);
                     CmdSpawnProjectile(Quaternion.Euler(0, 0, -15) * new Vector3(dir.x, dir.y, 0), DurationOfShotgunGravityProjectile, true);
                     StartGravGunCoolDown();
+                    //GetComponent<GravityObjectRigidBody>().AddVelocity(VelocityType.OtherPhysics, -dir * ShotGunKickBackForce);
+                    GetComponent<GravityObjectRigidBody>().Dash(-dir * ShotGunKickBackForce);
                 }
                 else
                 {
@@ -437,7 +441,17 @@ public abstract class PlayerController : NetworkBehaviour {
                     return;
                 }
 
-                //dont kill if we run into another player
+                //dont kill us if we run into another player
+                return;
+            }
+
+            if(IsDashCoolingDown)
+            {
+                //if we dash into an object push it
+                var dashVel = GetComponent<GravityObjectRigidBody>().GetVelocity(VelocityType.Dash);
+                ChangeGORBGravityDirection(GORB, dashVel.normalized);
+                GetComponent<GravityObjectRigidBody>().ClearAllVelocities();
+                IsDashCoolingDown = false;
                 return;
             }
             
