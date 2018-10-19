@@ -4310,17 +4310,6 @@ Prefab:
       propertyPath: m_Name
       value: ScoreScreen
       objectReference: {fileID: 0}
-    - target: {fileID: 114909940388538528, guid: 1111fb481ba47cc4dbca84d5c38c2309,
-        type: 2}
-      propertyPath: _playerCardPrefab
-      value: 
-      objectReference: {fileID: 1724572634328144, guid: 00d7dabedfd9d0149b24030825c36055,
-        type: 2}
-    - target: {fileID: 114637000644279850, guid: 1111fb481ba47cc4dbca84d5c38c2309,
-        type: 2}
-      propertyPath: m_Color.a
-      value: 0.7058824
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1111fb481ba47cc4dbca84d5c38c2309, type: 2}
   m_IsPrefabAsset: 0
