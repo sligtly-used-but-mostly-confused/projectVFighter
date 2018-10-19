@@ -19,7 +19,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - Texture2D_A9690805:
-        m_Texture: {fileID: 2800000, guid: 98601b4a1a108d3428344129dca391c2, type: 3}
+        m_Texture: {fileID: 2800000, guid: d09b9edf9cccf2541811316957338aa6, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
@@ -86,10 +86,11 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - Color_25706F65: {r: 0.622421, g: 1, b: 0, a: 1}
-    - Color_4D800E74: {r: 6.3541465, g: 0.38883978, b: 0, a: 0}
-    - Vector2_ACD1EF2D: {r: 1, g: 2, b: 0, a: 0}
-    - Vector2_F33FA330: {r: 0.1, g: 0.1, b: 0, a: 0}
+    - Color_25706F65: {r: 1, g: 0.46787477, b: 0, a: 1}
+    - Color_4D800E74: {r: 0.5149178, g: 0.5149178, b: 0.5149178, a: 0}
+    - Vector2_ACD1EF2D: {r: 1, g: 0.78, b: 0, a: 0}
+    - Vector2_F33FA330: {r: 1, g: 0.25, b: 0, a: 0}
+    - Vector3_CD97C420: {r: 1, g: 1, b: 1, a: 0}
     - _Color: {r: 0.5, g: 0.5, b: 0.5, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
