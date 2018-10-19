@@ -455,7 +455,9 @@ public abstract class PlayerController : NetworkBehaviour {
                 return;
             }
             
-            if(GORB is ControllableGravityObjectRigidBody && (GORB as ControllableGravityObjectRigidBody).LastShotBy != NetworkInstanceId.Invalid)
+            if(GORB is ControllableGravityObjectRigidBody && 
+                (GORB as ControllableGravityObjectRigidBody).LastShotBy != NetworkInstanceId.Invalid &&
+                (GORB as ControllableGravityObjectRigidBody).LastShotBy != netId) 
             {
                 var otherPlayer = NetworkServer.FindLocalObject((GORB as ControllableGravityObjectRigidBody).LastShotBy).GetComponent<PlayerController>();
                 otherPlayer.ControlledPlayer.NumKills++;
