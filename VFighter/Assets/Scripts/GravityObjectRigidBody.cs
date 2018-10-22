@@ -92,15 +92,15 @@ public class GravityObjectRigidBody : NetworkBehaviour {
         }
     }
 
-    void Start () {
+    void Start() {
         _rB.gravityScale = 0;
-	}
-	
-	void FixedUpdate () {
+    }
+
+    void FixedUpdate() {
         DoGravity();
         DoDrag();
         ProcessVelocity();
-	}
+    }
 
     private void ProcessVelocity()
     {
@@ -239,7 +239,7 @@ public class GravityObjectRigidBody : NetworkBehaviour {
             UpdateVelocity(VelocityType.OtherPhysics, reflectionVec);
         }
 
-        if (_stopObjectOnCollide && IsSimulatedOnThisConnection)
+        if (_stopObjectOnCollide && IsSimulatedOnThisConnection && !collision.gameObject.GetComponent<PlayerController>())
         {
             FindObjectOfType<PlayerController>().ChangeGORBGravityDirection(this, Vector2.zero);
         }

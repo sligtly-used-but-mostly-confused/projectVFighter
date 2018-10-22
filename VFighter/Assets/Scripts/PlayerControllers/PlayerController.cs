@@ -39,6 +39,8 @@ public abstract class PlayerController : NetworkBehaviour {
     [SerializeField]
     protected float DashSpeed = 10f;
     [SerializeField]
+    protected float ShotGunKickBackForce = 10f;
+    [SerializeField]
     protected GameObject ProjectilePrefab;
     [SerializeField]
     protected GameObject AimingReticlePrefab;
@@ -302,6 +304,8 @@ public abstract class PlayerController : NetworkBehaviour {
                     CmdSpawnProjectile(Quaternion.Euler(0, 0, 15) * new Vector3(dir.x, dir.y, 0), DurationOfShotgunGravityProjectile, true);
                     CmdSpawnProjectile(Quaternion.Euler(0, 0, -15) * new Vector3(dir.x, dir.y, 0), DurationOfShotgunGravityProjectile, true);
                     StartGravGunCoolDown();
+                    //GetComponent<GravityObjectRigidBody>().AddVelocity(VelocityType.OtherPhysics, -dir * ShotGunKickBackForce);
+                    GetComponent<GravityObjectRigidBody>().Dash(-dir * ShotGunKickBackForce);
                 }
                 else
                 {
@@ -437,11 +441,23 @@ public abstract class PlayerController : NetworkBehaviour {
                     return;
                 }
 
-                //dont kill if we run into another player
+                //dont kill us if we run into another player
+                return;
+            }
+
+            if(IsDashCoolingDown)
+            {
+                //if we dash into an object push it
+                var dashVel = GetComponent<Rigidbody2D>().velocity;
+                ChangeGORBGravityDirection(GORB, dashVel.normalized);
+                RpcClearVelocities(gameObject);
+                IsDashCoolingDown = false;
                 return;
             }
             
-            if(GORB is ControllableGravityObjectRigidBody && (GORB as ControllableGravityObjectRigidBody).LastShotBy != NetworkInstanceId.Invalid)
+            if(GORB is ControllableGravityObjectRigidBody && 
+                (GORB as ControllableGravityObjectRigidBody).LastShotBy != NetworkInstanceId.Invalid &&
+                (GORB as ControllableGravityObjectRigidBody).LastShotBy != netId) 
             {
                 var otherPlayer = NetworkServer.FindLocalObject((GORB as ControllableGravityObjectRigidBody).LastShotBy).GetComponent<PlayerController>();
                 otherPlayer.ControlledPlayer.NumKills++;
@@ -536,7 +552,6 @@ public abstract class PlayerController : NetworkBehaviour {
     [Command]
     public void CmdChangeGORBGravityDirection(GameObject GORB, Vector2 dir)
     {
-        Debug.Log("cmd change grav");
         if (GORB.GetComponent<GravityObjectRigidBody>().IsSimulatedOnThisConnection)
         {
             GORB.GetComponent<GravityObjectRigidBody>().ChangeGravityDirectionInternal(dir);
@@ -550,13 +565,21 @@ public abstract class PlayerController : NetworkBehaviour {
     [ClientRpc]
     public void RpcChangeGORBGravityDirection(GameObject GORB, Vector2 dir)
     {
-        Debug.Log("rpc change grav");
         if (GORB.GetComponent<GravityObjectRigidBody>().IsSimulatedOnThisConnection)
         {
             GORB.GetComponent<GravityObjectRigidBody>().ChangeGravityDirectionInternal(dir);
         }
     }
     #endregion
+
+    [ClientRpc]
+    public void RpcClearVelocities(GameObject GORB)
+    {
+        if (GORB.GetComponent<GravityObjectRigidBody>().IsSimulatedOnThisConnection)
+        {
+            GORB.GetComponent<GravityObjectRigidBody>().ClearAllVelocities();
+        }
+    }
 
     public void InitializeForStartLevel(Vector3 spawnPoint)
     {
@@ -648,6 +671,7 @@ public abstract class PlayerController : NetworkBehaviour {
         if(GetComponent<CharacterSelectController>())
         {
             GetComponent<Renderer>().material = GetComponent<CharacterSelectController>().CharacterTypeMaterialMappings[characterType];
+            this.CharacterType = characterType;
         }
     }
 }
