@@ -55,7 +55,10 @@ public abstract class InputDevice : MonoBehaviour
 	public abstract string GetButtonName (MappedButton button);	
 	public abstract string GetAxisName (MappedAxis axis);
 
-	public abstract bool GetButton (MappedButton button);
+    public abstract Sprite GetButtonIcon(MappedButton button);
+    public abstract Sprite GetAxisIcon(MappedAxis axis);
+
+    public abstract bool GetButton (MappedButton button);
 	public abstract bool GetButtonDown (MappedButton button);
 	public abstract bool GetButtonUp (MappedButton button);
 

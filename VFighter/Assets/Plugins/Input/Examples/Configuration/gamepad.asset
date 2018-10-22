@@ -56,3 +56,4 @@ MonoBehaviour:
     buttonsPositive: 07000000
     buttonsNegative: 09000000
     inverted: 0
+  IconMapping: {fileID: 11400000, guid: b3675077726e0ab418704b5e345b8c9c, type: 2}

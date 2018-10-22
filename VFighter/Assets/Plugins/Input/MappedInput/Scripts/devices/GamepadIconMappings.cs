@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-[CreateAssetMenu]
 public class GamepadIconMappings : ScriptableObject
 {
     public List<ButtonIconMapping> buttonMappings = new List<ButtonIconMapping>();
@@ -41,8 +40,6 @@ public class GamepadIconMappings : ScriptableObject
     public class AxisIconMapping
     {
         public GamepadAxis[] Axes;
-        public Sprite IconNegative;
-        public Sprite IconNeutral;
-        public Sprite IconPositive;
+        public Sprite Icon;
     }
 }

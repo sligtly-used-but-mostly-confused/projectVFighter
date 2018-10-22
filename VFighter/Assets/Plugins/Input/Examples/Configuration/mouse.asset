@@ -21,3 +21,4 @@ MonoBehaviour:
     mouseAxisId: 0
   - target: 3
     mouseAxisId: 1
+  MouseIconMappings: {fileID: 11400000, guid: 8e8343084d3df514ba05d81c027bb352, type: 2}

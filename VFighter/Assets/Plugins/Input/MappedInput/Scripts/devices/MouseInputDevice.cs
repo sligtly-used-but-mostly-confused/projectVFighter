@@ -25,7 +25,19 @@ public class MouseInputDevice : InputDevice
 		return "";
 	}
 
-	public override bool GetButton(MappedButton button)
+    public override Sprite GetButtonIcon(MappedButton button)
+    {
+        var mapping = MappedInput.Instance.GamepadInputMapping.GetGamepadButtonMapping(button);
+        return MappedInput.Instance.GamepadInputMapping.IconMapping.GetGamepadButtonIconMapping(mapping.buttons[0]).Icon;
+    }
+
+    public override Sprite GetAxisIcon(MappedAxis axis)
+    {
+        var mapping = MappedInput.Instance.GamepadInputMapping.GetGamepadAxisMapping(axis);
+        return MappedInput.Instance.GamepadInputMapping.IconMapping.GetGamepadAxisIconMapping(mapping.axes[0]).Icon;
+    }
+
+    public override bool GetButton(MappedButton button)
 	{
 		var mapping = MappedInput.Instance.MouseInputMapping.GetButtonMapping (button);
 		if (mapping != null)

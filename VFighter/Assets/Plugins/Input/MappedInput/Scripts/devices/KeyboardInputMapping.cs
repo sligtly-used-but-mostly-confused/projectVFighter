@@ -7,7 +7,9 @@ public class KeyboardInputMapping : ScriptableObject
 	public List<ButtonMapping> keyboardButtonMapping = new List<ButtonMapping> ();
 	public List<AxisMapping> keyboardAxisMapping = new List<AxisMapping> ();
 
-	public ButtonMapping GetButtonMapping(MappedButton target)
+    public KeyboardIconMappings KeyboardIconMappings;
+
+    public ButtonMapping GetButtonMapping(MappedButton target)
 	{
 		for (int i = 0; i < keyboardButtonMapping.Count; i++)
 		{

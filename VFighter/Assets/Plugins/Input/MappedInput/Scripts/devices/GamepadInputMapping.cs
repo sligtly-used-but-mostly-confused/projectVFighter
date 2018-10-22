@@ -7,6 +7,8 @@ public class GamepadInputMapping : ScriptableObject
 	public List<ButtonMapping> buttonMappings = new List<ButtonMapping> ();
 	public List<AxisMapping> axisMappings = new List<AxisMapping> ();
 
+    public GamepadIconMappings IconMapping;
+
 	public ButtonMapping GetGamepadButtonMapping(MappedButton target)
 	{
 		for (int i = 0; i < buttonMappings.Count; i++)

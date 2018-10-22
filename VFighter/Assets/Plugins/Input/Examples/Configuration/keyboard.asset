@@ -30,3 +30,5 @@ MonoBehaviour:
   - target: 6
     buttonsPositive: 13010000
     buttonsNegative: 14010000
+  KeyboardIconMappings: {fileID: 11400000, guid: 8eb6ae3ef622356459f8739fbe6f3d14,
+    type: 2}

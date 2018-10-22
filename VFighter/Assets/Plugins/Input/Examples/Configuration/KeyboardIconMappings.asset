@@ -11,4 +11,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5be32b995175f544681a1ced119716da, type: 3}
   m_Name: KeyboardIconMappings
   m_EditorClassIdentifier: 
-  buttonMappings: []
+  buttonMappings:
+  - Keys: 61000000
+    Icon: {fileID: 21300012, guid: afb43938db215c640a6900ae2fb947ed, type: 3}
+  - Keys: 64000000
+    Icon: {fileID: 21300016, guid: afb43938db215c640a6900ae2fb947ed, type: 3}
+  - Keys: 0d000000
+    Icon: {fileID: 21300000, guid: afb43938db215c640a6900ae2fb947ed, type: 3}
