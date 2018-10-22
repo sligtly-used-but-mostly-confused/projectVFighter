@@ -218,6 +218,7 @@ MonoBehaviour:
     type: 2}
   descriptionPrefab: {fileID: 1728269792808170, guid: 2915887537fe745e39dc7f21354108d2,
     type: 2}
+  secondForCharacterTip: 1
   characterDataList:
   - characterMaterial: {fileID: 2100000, guid: b2a8a02c59a65284d9aae1c3dd996a45, type: 2}
     IconMaterial: {fileID: 2100000, guid: 6fcced9f938a5a549b7ee8d34c8fd1c7, type: 2}
@@ -235,19 +236,20 @@ MonoBehaviour:
     CharacterType: 2
   - characterMaterial: {fileID: 2100000, guid: 04d126ba1f0d0478f801292308bbc946, type: 2}
     IconMaterial: {fileID: 2100000, guid: c15c4b8059261441fa6ac72c71454e30, type: 2}
-    description: A single projectile that gains speed the further it travels.
+    description: Creates a stasis bubble that freezes everything inside
     CharacterType: 3
   - characterMaterial: {fileID: 2100000, guid: 04d126ba1f0d0478f801292308bbc946, type: 2}
     IconMaterial: {fileID: 2100000, guid: d1a34e5e47473784cbc28a97a06f2299, type: 2}
-    description: A single projectile that gains speed the further it travels.
+    description: Emits a force shield that protects the player
     CharacterType: 4
   - characterMaterial: {fileID: 2100000, guid: 6b27233b30329469ea2c8f7bafe5d057, type: 2}
     IconMaterial: {fileID: 2100000, guid: b2a8a02c59a65284d9aae1c3dd996a45, type: 2}
-    description: A single projectile that gains speed the further it travels.
+    description: Shoots a magnet that attaches itself to projectiles and has a slight
+      pulling effect on other players that are close.
     CharacterType: 5
   - characterMaterial: {fileID: 2100000, guid: b0dff6ed54e0fef4083625113af443c8, type: 2}
     IconMaterial: {fileID: 2100000, guid: c15c4b8059261441fa6ac72c71454e30, type: 2}
-    description: A single projectile that gains speed the further it travels.
+    description: Player emits a trail with dangerous qualities
     CharacterType: 6
 --- !u!114 &114662783024654882
 MonoBehaviour:

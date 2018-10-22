@@ -12,6 +12,7 @@ public class CharacterSelectController : NetworkBehaviour {
     public GameObject previewPrefab;
     public GameObject currentIconGameObject;
     public GameObject descriptionPrefab;
+    public int secondForCharacterTip;
 
     private readonly List<PlayerCharacterType> CharacterTypes = Enum.GetValues(typeof(PlayerCharacterType)).Cast<PlayerCharacterType>().ToList();
 
@@ -40,7 +41,7 @@ public class CharacterSelectController : NetworkBehaviour {
     public Dictionary<PlayerCharacterType, string> CharacterTypeDescriptionMappings = new Dictionary<PlayerCharacterType, string>();
 
     private bool _hasFoundReticle = false;
-    private float time_on_selection;
+    private float timeOnSelection;
 
     private void Awake()
     {
@@ -60,26 +61,25 @@ public class CharacterSelectController : NetworkBehaviour {
 
         currentIcon = Instantiate(currentIconGameObject);
         currentIcon.transform.SetParent(transform);
-        currentIcon.transform.position = Vector3.down;
+        currentIcon.transform.position = Vector3.down + new Vector3(0, 0, -3);
 
         descriptionCanvas = Instantiate(descriptionPrefab);
         descriptionCanvas.transform.SetParent(transform);
         descriptionCanvas.transform.position = Vector3.down * 2 + new Vector3(0,0,-3);
 
         ChangeToNextCharacterTypeInternal(0);
-        time_on_selection = 0;
+        timeOnSelection = 0;
     }
 
     void Update() {
 
-        time_on_selection += Time.deltaTime;
+        timeOnSelection += Time.deltaTime;
 
         bool ready = playerController.IsReady;
 
         nextCharacterPreview.SetActive(!ready);
         previousCharacterPreview.SetActive(!ready);
-        descriptionCanvas.SetActive(!ready); //can be timed with time_on_selection ie time_on_selection > 1 to wait one second for example
-        currentIcon.SetActive(!ready);
+        descriptionCanvas.SetActive(!ready && timeOnSelection > secondForCharacterTip); 
 
         GravityObjectRigidBody rb = GetComponent<GravityObjectRigidBody>();
         rb.CanMove = ready;
@@ -111,6 +111,12 @@ public class CharacterSelectController : NetworkBehaviour {
             ChangeToNextCharacterType(ChangeCharacterDir > 0 ? 1 : -1);
         }
 
+        if(GetComponent<GravityObjectRigidBody>().GravityDirection.y < 0){
+            descriptionCanvas.transform.localPosition = Vector3.up * 4 + new Vector3(0, 0, -3);
+        }
+        else{
+            descriptionCanvas.transform.localPosition = Vector3.down * 5 + new Vector3(0, 0, -3);
+        }
 
     }
 
@@ -151,7 +157,8 @@ public class CharacterSelectController : NetworkBehaviour {
         previousCharacterPreview.transform.GetChild(0).GetComponent<Renderer>().material = CharacterTypeIconMappings[previousCharacterType];
 
         //reset selection time and update description
-        descriptionCanvas.transform.GetChild(0).GetComponent<UnityEngine.UI.Text>().text = CharacterTypeDescriptionMappings[GetComponent<PlayerController>().CharacterType];
-        time_on_selection = 0;
+        descriptionCanvas.transform.GetChild(0).transform.GetChild(0).GetComponent<UnityEngine.UI.Text>().text = CharacterTypeDescriptionMappings[GetComponent<PlayerController>().CharacterType];
+        timeOnSelection = 0;
+        descriptionCanvas.SetActive(false);
     }
 }

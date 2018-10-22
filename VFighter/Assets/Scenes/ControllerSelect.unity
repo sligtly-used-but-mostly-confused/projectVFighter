@@ -590,10 +590,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levels:
-  - LongLevel
-  - VortexLevel
-  - TeleporterLoopLevel
-  - SpringLevel
+  - levelName: LongLevel
+    previewMaterial: {fileID: 2100000, guid: 5facf3c7e548d4824a49aea069965b84, type: 2}
+  - levelName: TeleporterLoopLevel
+    previewMaterial: {fileID: 2100000, guid: 17f8d9d77dfe3435380586e98f445d8c, type: 2}
+  - levelName: VortexLevel
+    previewMaterial: {fileID: 2100000, guid: ea227a9de3f7f4167b264ffef1153342, type: 2}
   platform: {fileID: 1841537160547452, guid: c8f09f02dca094a2aab8d34e4220d023, type: 2}
   levelZone: {fileID: 1647109427917884, guid: c571407ca27484f0fb1de03b5a495f4b, type: 2}
   areaWidth: 16
