@@ -11,8 +11,9 @@ public class GameManager : NetworkBehaviour {
 
     private const string LevelSelect = "ControllerSelect";
 
-    [SerializeField]
-    private string _levelName;
+    //[SerializeField]
+    //private string _levelName;
+    private List<string> _roundLevelNames = new List<string>();
     public bool DebugScene = false;
 
     public bool CurrentlyChangingScenes = false;
@@ -32,9 +33,9 @@ public class GameManager : NetworkBehaviour {
         DontDestroyOnLoad(this);
 	}
 
-    public void StartGame(string levelName)
+    public void StartGame(List<string> roundStages)
     {
-        _levelName = levelName;
+        _roundLevelNames = roundStages;
         LoadNextStage();
     }
 
@@ -51,7 +52,6 @@ public class GameManager : NetworkBehaviour {
                 CurrentlyChangingScenes = true;
                 NetworkManager.singleton.ServerChangeScene(LevelSelect);
             });
-
         }
         else
         {
@@ -65,7 +65,7 @@ public class GameManager : NetworkBehaviour {
         ProgressionThroughGame = players.Max(x => x.ControlledPlayer.NumDeaths) / (float)players[0].ControlledPlayer.NumLives;
         players.ForEach(x => x.IsDead = false);
         CurrentlyChangingScenes = true;
-        NetworkManager.singleton.ServerChangeScene(_levelName);
+        NetworkManager.singleton.ServerChangeScene(_roundLevelNames[0]);
     }
 
     public void DoneChangingScenes()
