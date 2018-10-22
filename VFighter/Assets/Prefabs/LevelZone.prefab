@@ -77,3 +77,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93f85a5b8730244bfbad43ad76a17be4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  levelName: VortexLevel
+  playersInside: 0
