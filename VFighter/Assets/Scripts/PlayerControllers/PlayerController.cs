@@ -9,7 +9,11 @@ public enum PlayerCharacterType
 {
     ShotGun,
     Dash,
-    Rocket
+    Rocket,
+    Stasis,
+    Forceshield,
+    Magnet,
+    Tron
 }
 
 

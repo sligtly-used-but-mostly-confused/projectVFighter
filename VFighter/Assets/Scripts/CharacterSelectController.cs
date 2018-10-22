@@ -11,61 +11,74 @@ public class CharacterSelectController : NetworkBehaviour {
 
     public GameObject previewPrefab;
     public GameObject currentIconGameObject;
+    public GameObject descriptionPrefab;
 
     private readonly List<PlayerCharacterType> CharacterTypes = Enum.GetValues(typeof(PlayerCharacterType)).Cast<PlayerCharacterType>().ToList();
 
     private GameObject previousCharacterPreview;
     private GameObject nextCharacterPreview;
     private GameObject currentIcon;
+    private GameObject descriptionCanvas;
 
     private PlayerController playerController;
 
     [System.Serializable]
-    public struct CaracterTypeMaterialMap
+    public struct CaracterData
     {
-        public Material Material;
+        public Material characterMaterial;
+        public Material IconMaterial;
+        public string description;
         public PlayerCharacterType CharacterType;
     }
 
     [SerializeField]
-    private List<CaracterTypeMaterialMap> CharacterTypeMaterialMappingsInternal = new List<CaracterTypeMaterialMap>();
-    [SerializeField]
-    private List<CaracterTypeMaterialMap> CharacterTypeIconMappingsInternal = new List<CaracterTypeMaterialMap>();
+    private List<CaracterData> characterDataList = new List<CaracterData>();
 
 
     public Dictionary<PlayerCharacterType, Material> CharacterTypeMaterialMappings = new Dictionary<PlayerCharacterType, Material>();
     public Dictionary<PlayerCharacterType, Material> CharacterTypeIconMappings = new Dictionary<PlayerCharacterType, Material>();
+    public Dictionary<PlayerCharacterType, string> CharacterTypeDescriptionMappings = new Dictionary<PlayerCharacterType, string>();
 
     private bool _hasFoundReticle = false;
+    private float time_on_selection;
 
     private void Awake()
     {
         playerController = GetComponent<PlayerController>();
 
-        CharacterTypeMaterialMappingsInternal.ForEach(x => CharacterTypeMaterialMappings.Add(x.CharacterType, x.Material));
-        CharacterTypeIconMappingsInternal.ForEach(x => CharacterTypeIconMappings.Add(x.CharacterType, x.Material));
+        characterDataList.ForEach(x => CharacterTypeMaterialMappings.Add(x.CharacterType, x.characterMaterial));
+        characterDataList.ForEach(x => CharacterTypeIconMappings.Add(x.CharacterType, x.IconMaterial));
+        characterDataList.ForEach(x => CharacterTypeDescriptionMappings.Add(x.CharacterType, x.description));
 
         previousCharacterPreview = Instantiate(previewPrefab);
         previousCharacterPreview.transform.SetParent(transform);
-        previousCharacterPreview.transform.position = Vector3.left;
+        previousCharacterPreview.transform.position = Vector3.left + new Vector3(0, 0, -3);
 
         nextCharacterPreview = Instantiate(previewPrefab);
         nextCharacterPreview.transform.SetParent(transform);
-        nextCharacterPreview.transform.position = Vector3.right;
+        nextCharacterPreview.transform.position = Vector3.right + new Vector3(0, 0, -3);
 
         currentIcon = Instantiate(currentIconGameObject);
         currentIcon.transform.SetParent(transform);
         currentIcon.transform.position = Vector3.down;
 
+        descriptionCanvas = Instantiate(descriptionPrefab);
+        descriptionCanvas.transform.SetParent(transform);
+        descriptionCanvas.transform.position = Vector3.down * 2 + new Vector3(0,0,-3);
+
         ChangeToNextCharacterTypeInternal(0);
+        time_on_selection = 0;
     }
 
     void Update() {
+
+        time_on_selection += Time.deltaTime;
 
         bool ready = playerController.IsReady;
 
         nextCharacterPreview.SetActive(!ready);
         previousCharacterPreview.SetActive(!ready);
+        descriptionCanvas.SetActive(!ready); //can be timed with time_on_selection ie time_on_selection > 1 to wait one second for example
         currentIcon.SetActive(!ready);
 
         GravityObjectRigidBody rb = GetComponent<GravityObjectRigidBody>();
@@ -137,6 +150,8 @@ public class CharacterSelectController : NetworkBehaviour {
         previousCharacterPreview.GetComponent<Renderer>().material = CharacterTypeMaterialMappings[previousCharacterType];
         previousCharacterPreview.transform.GetChild(0).GetComponent<Renderer>().material = CharacterTypeIconMappings[previousCharacterType];
 
-
+        //reset selection time and update description
+        descriptionCanvas.transform.GetChild(0).GetComponent<UnityEngine.UI.Text>().text = CharacterTypeDescriptionMappings[GetComponent<PlayerController>().CharacterType];
+        time_on_selection = 0;
     }
 }
