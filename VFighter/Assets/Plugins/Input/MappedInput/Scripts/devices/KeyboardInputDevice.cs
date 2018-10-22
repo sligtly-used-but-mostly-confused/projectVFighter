@@ -35,6 +35,7 @@ public class KeyboardInputDevice : InputDevice
     public override Sprite GetAxisIcon(MappedAxis axis)
     {
         var mapping = MappedInput.Instance.GamepadInputMapping.GetGamepadAxisMapping(axis);
+        // There is a index out of range exception below
         return MappedInput.Instance.GamepadInputMapping.IconMapping.GetGamepadAxisIconMapping(mapping.axes[0]).Icon;
     }
 

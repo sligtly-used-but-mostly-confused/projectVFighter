@@ -21,7 +21,7 @@ public class TutorialPromptController : MonoBehaviour {
 
     private void Start()
     {
-        Controller = MappedInput.InputDevices[3];
+        Controller = MappedInput.InputDevices[1];
         GetComponent<Image>().sprite = GetSpriteFromPrompt(Prompts[0]);
     }
 
