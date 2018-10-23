@@ -77,7 +77,7 @@ public class LevelSelectManager : NetworkBehaviour
     private List<string> LeadingLevels(){
         var copy = new List<LevelZoneController>(zones);
         copy.Sort((x,y) => { return x.playersInside.CompareTo(y.playersInside); });
-        return copy.Select(x => x.levelName).ToList();
+        return copy.Select(x => x.levelName).Reverse().ToList();
     }
 
     public void StartTimer()
@@ -118,7 +118,7 @@ public class LevelSelectManager : NetworkBehaviour
         }
 
         yield return new WaitForSeconds(1);
-        GameManager.Instance.StartGame(LeadingLevel());
+        GameManager.Instance.StartGame(LeadingLevels());
     }
 
     private void SpawnLevelPlatforms()
