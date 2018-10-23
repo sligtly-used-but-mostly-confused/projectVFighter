@@ -90,6 +90,7 @@ GameObject:
   - component: {fileID: 222489573253208784}
   - component: {fileID: 114021655404585896}
   - component: {fileID: 114046390277212534}
+  - component: {fileID: 114007458961499022}
   m_Layer: 5
   m_Name: PlayerCard
   m_TagString: Untagged
@@ -114,6 +115,19 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &114007458961499022
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1724572634328144}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b01899c6f0f67d4db825462c79e26c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _livesText: {fileID: 114461045374536208}
+  _killsText: {fileID: 114215333340175394}
 --- !u!114 &114021655404585896
 MonoBehaviour:
   m_ObjectHideFlags: 1
