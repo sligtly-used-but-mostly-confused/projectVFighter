@@ -37,7 +37,6 @@ public class GameManager : NetworkBehaviour {
     public void StartGame(List<string> roundStages)
     {
         _roundLevelNames = roundStages;
-        //LoadNextStage();
         CheckHeartBeatThenCallback(StartNewRound);
     }
 
