@@ -191,6 +191,27 @@ MonoBehaviour:
   IsCoolingDown: 0
   IsChangeGravityCoolingDown: 0
   IsDashCoolingDown: 0
+  gravChange: {fileID: 8300000, guid: 9df04c4bdabbc7640abea203e3c5d2a7, type: 3}
+  death: {fileID: 8300000, guid: 4f6517b59e1e2c04e916beae8d9112e2, type: 3}
+  dash: {fileID: 8300000, guid: 3cf0c9b8b5ed6ba4588ab9e55cb2606a, type: 3}
+  gravGunFire:
+  - {fileID: 8300000, guid: 7bf6bf0f4c9d88841a3ca2bef98bdd23, type: 3}
+  - {fileID: 8300000, guid: 1b58fc692024a0045be1c7abe445b85f, type: 3}
+  - {fileID: 8300000, guid: 8e9d412a464c39e4099cb4b20d931307, type: 3}
+  - {fileID: 8300000, guid: 873e6215f66ed4a4ca1b7c28303317b8, type: 3}
+  gravGunFireCave:
+  - {fileID: 8300000, guid: 540f1a5605a76e34ab2b2dc4c069a3d4, type: 3}
+  - {fileID: 8300000, guid: 2473890addadd824089fb05456a8f1c6, type: 3}
+  - {fileID: 8300000, guid: b2e8e555e64d6e94f94ccc307ae8a16a, type: 3}
+  - {fileID: 8300000, guid: e14994f9f9ae146438a5cf8ca06eb596, type: 3}
+  shotGunFire:
+  - {fileID: 8300000, guid: b9d07fa242c806343a6fcb73279ae5e1, type: 3}
+  - {fileID: 8300000, guid: 9042bd97dda7aaa41b57340492a498b8, type: 3}
+  - {fileID: 8300000, guid: 1f23ba4bc23648146964ae1e522d7723, type: 3}
+  shotGunFireCave:
+  - {fileID: 8300000, guid: d7a1574ef8b6c2e43bcd697216476eaf, type: 3}
+  - {fileID: 8300000, guid: 25f1e330765785c4692a384dc948d7bd, type: 3}
+  - {fileID: 8300000, guid: 3a224acb471aebd41bb209bd31158e68, type: 3}
   ReticleId: -1
   MaterialId: -1
   IsReady: 0

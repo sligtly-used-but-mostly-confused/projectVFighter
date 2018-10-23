@@ -59,6 +59,15 @@ public abstract class PlayerController : NetworkBehaviour {
     public bool IsChangeGravityCoolingDown = false;
     public bool IsDashCoolingDown = false;
 
+    //sound effects
+    public AudioClip gravChange;
+    public AudioClip death;
+    public AudioClip dash;
+    public AudioClip[] gravGunFire;
+    public AudioClip[] gravGunFireCave;
+    public AudioClip[] shotGunFire;
+    public AudioClip[] shotGunFireCave;
+
     private static int _heartBeatId = 0;
     //THIS SHOULD ONLY BE USED FROM HEART BEAT FUNCTION
     public Dictionary<int, bool> HeartBeats = new Dictionary<int, bool>();
@@ -177,6 +186,7 @@ public abstract class PlayerController : NetworkBehaviour {
             if (!IsChangeGravityCoolingDown)
             {
                 ChangeGravity(GetComponent<GravityObjectRigidBody>().GravityDirection * -1);
+                AudioManager.instance.PlaySingle(gravChange);
             }
         }
         else
@@ -224,6 +234,7 @@ public abstract class PlayerController : NetworkBehaviour {
             var closestDir = ClosestDirection(dir, _gravChangeDirections);
             ChangeGORBGravityDirection(GetComponent<GravityObjectRigidBody>(), closestDir);
             GetComponent<GravityObjectRigidBody>().Dash(dashVec);
+            AudioManager.instance.PlaySingle(dash);
 
             IsDashCoolingDown = true;
             StartCoroutine(DashCoolDown());
@@ -278,11 +289,13 @@ public abstract class PlayerController : NetworkBehaviour {
                 if (AttachedObject == null)
                 {
                     CmdSpawnProjectile(dir, DurationOfNormalGravityProjectile, false);
+                    AudioManager.instance.RandomizeSfx(gravGunFire, gravGunFireCave);
                     StartGravGunCoolDown();
                 }
                 else
                 {
                     ChangeGORBGravityDirection(AttachedObject, dir);
+                    //Add gravity gun release sound fx
                     DetachReticle();
                 }
             }
@@ -303,6 +316,7 @@ public abstract class PlayerController : NetworkBehaviour {
                     CmdSpawnProjectile(Quaternion.Euler(0, 0, -30) * new Vector3(dir.x, dir.y, 0), DurationOfShotgunGravityProjectile, true);
                     CmdSpawnProjectile(Quaternion.Euler(0, 0, 15) * new Vector3(dir.x, dir.y, 0), DurationOfShotgunGravityProjectile, true);
                     CmdSpawnProjectile(Quaternion.Euler(0, 0, -15) * new Vector3(dir.x, dir.y, 0), DurationOfShotgunGravityProjectile, true);
+                    AudioManager.instance.RandomizeSfx(shotGunFire, shotGunFireCave);
                     StartGravGunCoolDown();
                     //GetComponent<GravityObjectRigidBody>().AddVelocity(VelocityType.OtherPhysics, -dir * ShotGunKickBackForce);
                     GetComponent<GravityObjectRigidBody>().Dash(-dir * ShotGunKickBackForce);
@@ -497,6 +511,7 @@ public abstract class PlayerController : NetworkBehaviour {
         {
             IsDead = true;
             ControlledPlayer.NumDeaths++;
+            AudioManager.instance.PlaySingle(death);
         }
         
         SetDirtyBit(0xFFFFFFFF);
