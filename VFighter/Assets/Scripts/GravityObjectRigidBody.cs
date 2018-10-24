@@ -23,7 +23,6 @@ public enum VelocityType
     OtherPhysics
 }
 
-[RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Collider2D))]
 public class GravityObjectRigidBody : NetworkBehaviour {
     #region vars
@@ -93,19 +92,20 @@ public class GravityObjectRigidBody : NetworkBehaviour {
     }
 
     void Start() {
-        _rB.gravityScale = 0;
+        if(_rB)
+            _rB.gravityScale = 0;
     }
 
     void FixedUpdate() {
-        DoGravity();
-        DoDrag();
         ProcessVelocity();
     }
 
     private void ProcessVelocity()
     {
-        if (GetComponent<GravityObjectRigidBody>().IsSimulatedOnThisConnection && CanMove)
+        if (CanMove && GetComponent<GravityObjectRigidBody>().IsSimulatedOnThisConnection)
         {
+            DoGravity();
+            DoDrag();
             _rB.velocity = Vector2.zero;
 
             foreach (var velocity in _velocities)
@@ -221,6 +221,7 @@ public class GravityObjectRigidBody : NetworkBehaviour {
 
     void OnCollisionEnter2D(Collision2D collision)
     {
+        /*
         if(collision.gameObject.GetComponent<GravityObjectRigidBody>())
         {
             var vel = _rB.velocity;
@@ -238,10 +239,11 @@ public class GravityObjectRigidBody : NetworkBehaviour {
             var reflectionVec = vel * reflectionCoef;
             UpdateVelocity(VelocityType.OtherPhysics, reflectionVec);
         }
-
+        */
         if (_stopObjectOnCollide && IsSimulatedOnThisConnection && !collision.gameObject.GetComponent<PlayerController>())
         {
             FindObjectOfType<PlayerController>().ChangeGORBGravityDirection(this, Vector2.zero);
         }
+        
     }
 }

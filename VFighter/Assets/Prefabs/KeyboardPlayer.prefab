@@ -181,6 +181,10 @@ MonoBehaviour:
   ShotGunKickBackForce: 10
   ProjectilePrefab: {fileID: 1308181843918824, guid: a281ff688cb314c25a066ed56cca8b4d,
     type: 2}
+  ShotGunProjectilePrefab: {fileID: 1599802459956264, guid: 9785f25303de0d44fba65c5c4e467027,
+    type: 2}
+  RocketProjectilePrefab: {fileID: 1768928368749820, guid: 90a3f89ddc204ab458ff2464b5ae4678,
+    type: 2}
   AimingReticlePrefab: {fileID: 1904020002216382, guid: fee8c362ea81b684890d6767eaf66389,
     type: 2}
   Reticle: {fileID: 0}
@@ -218,6 +222,8 @@ MonoBehaviour:
     CharacterType: 0
   - Material: {fileID: 2100000, guid: f1a6e1fc3730df442be9feffac8c07c2, type: 2}
     CharacterType: 1
+  - Material: {fileID: 2100000, guid: a53f736afdaa243469f8015e25e684a5, type: 2}
+    CharacterType: 2
 --- !u!114 &114662783024654882
 MonoBehaviour:
   m_ObjectHideFlags: 1

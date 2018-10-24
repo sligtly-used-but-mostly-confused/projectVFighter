@@ -124,6 +124,8 @@ GameObject:
   - component: {fileID: 19129048}
   - component: {fileID: 19129047}
   - component: {fileID: 19129046}
+  - component: {fileID: 19129050}
+  - component: {fileID: 19129049}
   m_Layer: 8
   m_Name: New Sprite (4)
   m_TagString: Untagged
@@ -211,6 +213,63 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 19129044}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &19129049
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 19129044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72e227611bd16ec43923854f771b221f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _id: 0
+  _gravityScale: 0
+  _gravityDirection: {x: 0, y: -1}
+  _maxDefaultComponentSpeed: {x: 10, y: 10}
+  _maxComponentSpeeds: []
+  _stopObjectOnCollide: 0
+  _timeToDashStop: 1
+  _drag: 1
+  Bounciness: 0
+  CanBeSelected: 0
+  KillsPlayer: 0
+  IsSimulatedOnThisConnection: 0
+  CanMove: 0
+  Owner: {fileID: 0}
+--- !u!114 &19129050
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 19129044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 0
+    i1: 0
+    i2: 0
+    i3: 0
+    i4: 0
+    i5: 0
+    i6: 0
+    i7: 0
+    i8: 0
+    i9: 0
+    i10: 0
+    i11: 0
+    i12: 0
+    i13: 0
+    i14: 0
+    i15: 0
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0
 --- !u!1 &36417626
 GameObject:
   m_ObjectHideFlags: 0
@@ -478,11 +537,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4239699494155374, guid: dc3bdb337f1562040a6fde2c07714903, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -3.431295
+      value: -6
       objectReference: {fileID: 0}
     - target: {fileID: 4239699494155374, guid: dc3bdb337f1562040a6fde2c07714903, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -0.40758717
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4239699494155374, guid: dc3bdb337f1562040a6fde2c07714903, type: 2}
       propertyPath: m_LocalPosition.z
@@ -943,6 +1002,8 @@ GameObject:
   - component: {fileID: 813629748}
   - component: {fileID: 813629747}
   - component: {fileID: 813629746}
+  - component: {fileID: 813629750}
+  - component: {fileID: 813629749}
   m_Layer: 8
   m_Name: whiteBoxx (5)
   m_TagString: Untagged
@@ -1030,6 +1091,63 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 813629744}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &813629749
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 813629744}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72e227611bd16ec43923854f771b221f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _id: 0
+  _gravityScale: 0
+  _gravityDirection: {x: 0, y: -1}
+  _maxDefaultComponentSpeed: {x: 10, y: 10}
+  _maxComponentSpeeds: []
+  _stopObjectOnCollide: 0
+  _timeToDashStop: 1
+  _drag: 1
+  Bounciness: 0
+  CanBeSelected: 0
+  KillsPlayer: 0
+  IsSimulatedOnThisConnection: 0
+  CanMove: 0
+  Owner: {fileID: 0}
+--- !u!114 &813629750
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 813629744}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 0
+    i1: 0
+    i2: 0
+    i3: 0
+    i4: 0
+    i5: 0
+    i6: 0
+    i7: 0
+    i8: 0
+    i9: 0
+    i10: 0
+    i11: 0
+    i12: 0
+    i13: 0
+    i14: 0
+    i15: 0
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0
 --- !u!1 &911928687 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1927028461619176, guid: 68dd72ba98b26804c946fe051bbb26f9,
@@ -1144,6 +1262,8 @@ GameObject:
   - component: {fileID: 996231376}
   - component: {fileID: 996231375}
   - component: {fileID: 996231374}
+  - component: {fileID: 996231378}
+  - component: {fileID: 996231377}
   m_Layer: 8
   m_Name: whiteBoxx (4)
   m_TagString: Untagged
@@ -1231,6 +1351,63 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 996231372}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &996231377
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 996231372}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72e227611bd16ec43923854f771b221f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _id: 0
+  _gravityScale: 0
+  _gravityDirection: {x: 0, y: -1}
+  _maxDefaultComponentSpeed: {x: 10, y: 10}
+  _maxComponentSpeeds: []
+  _stopObjectOnCollide: 0
+  _timeToDashStop: 1
+  _drag: 1
+  Bounciness: 0
+  CanBeSelected: 0
+  KillsPlayer: 0
+  IsSimulatedOnThisConnection: 0
+  CanMove: 0
+  Owner: {fileID: 0}
+--- !u!114 &996231378
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 996231372}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 0
+    i1: 0
+    i2: 0
+    i3: 0
+    i4: 0
+    i5: 0
+    i6: 0
+    i7: 0
+    i8: 0
+    i9: 0
+    i10: 0
+    i11: 0
+    i12: 0
+    i13: 0
+    i14: 0
+    i15: 0
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0
 --- !u!1 &1055669991
 GameObject:
   m_ObjectHideFlags: 0
@@ -1391,11 +1568,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4239699494155374, guid: dc3bdb337f1562040a6fde2c07714903, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 5.4688683
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 4239699494155374, guid: dc3bdb337f1562040a6fde2c07714903, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 1.6888938
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4239699494155374, guid: dc3bdb337f1562040a6fde2c07714903, type: 2}
       propertyPath: m_LocalPosition.z
@@ -1572,6 +1749,8 @@ GameObject:
   - component: {fileID: 1937113427}
   - component: {fileID: 1937113426}
   - component: {fileID: 1937113425}
+  - component: {fileID: 1937113429}
+  - component: {fileID: 1937113428}
   m_Layer: 8
   m_Name: New Sprite (5)
   m_TagString: Untagged
@@ -1659,6 +1838,63 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1937113423}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1937113428
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1937113423}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72e227611bd16ec43923854f771b221f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _id: 0
+  _gravityScale: 0
+  _gravityDirection: {x: 0, y: -1}
+  _maxDefaultComponentSpeed: {x: 10, y: 10}
+  _maxComponentSpeeds: []
+  _stopObjectOnCollide: 0
+  _timeToDashStop: 1
+  _drag: 1
+  Bounciness: 0
+  CanBeSelected: 0
+  KillsPlayer: 0
+  IsSimulatedOnThisConnection: 0
+  CanMove: 0
+  Owner: {fileID: 0}
+--- !u!114 &1937113429
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1937113423}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 0
+    i1: 0
+    i2: 0
+    i3: 0
+    i4: 0
+    i5: 0
+    i6: 0
+    i7: 0
+    i8: 0
+    i9: 0
+    i10: 0
+    i11: 0
+    i12: 0
+    i13: 0
+    i14: 0
+    i15: 0
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0
 --- !u!1 &1995606460
 GameObject:
   m_ObjectHideFlags: 0
