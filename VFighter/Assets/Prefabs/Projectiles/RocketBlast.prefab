@@ -133,7 +133,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9db498adfcbd3fb42a8339d470163d62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SecondsAlive: 0.5
+  SecondsAlive: 1
   ExplosionVelocity: 100
 --- !u!198 &198153283236305638
 ParticleSystem:
@@ -146,7 +146,7 @@ ParticleSystem:
   simulationSpeed: 1
   stopAction: 0
   looping: 1
-  prewarm: 0
+  prewarm: 1
   playOnAwake: 1
   useUnscaledTime: 0
   autoRandomSeed: 1
