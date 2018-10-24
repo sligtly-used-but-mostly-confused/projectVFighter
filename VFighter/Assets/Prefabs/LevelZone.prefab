@@ -123,3 +123,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelName: 
   playersInside: 0
+  emptySize: {x: 2, y: 2, z: 2}
+  occupiedSize: {x: 2.1, y: 2.1, z: 2.1}

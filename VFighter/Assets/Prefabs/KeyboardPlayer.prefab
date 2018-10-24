@@ -168,9 +168,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AttachedObject: {fileID: 0}
-  RechargeTime: 0.3
-  ChangeGravityRechargeTime: 0
-  DashCoolDownTime: 0.5
+  GravGunCoolDownTime: 1
+  ChangeGravityCoolDownTime: 0.1
+  SpecialCoolDownTime: 0.1
   DurationOfNormalGravityProjectile: 1
   DurationOfShotgunGravityProjectile: 0.3
   MoveSpeed: 10
@@ -185,12 +185,14 @@ MonoBehaviour:
     type: 2}
   Reticle: {fileID: 0}
   ReticleParent: {fileID: 0}
+  ReticleReadySize: {x: 0.25, y: 0.25, z: 0.25}
+  ReticleCoolingDownSize: {x: 0.1, y: 0.1, z: 0.1}
   PlayerReadyIndicatorPrefab: {fileID: 1574300143994424, guid: 50239be1e91c0ce48b9f24ef90027d08,
     type: 2}
   InputDevice: {fileID: 0}
   IsCoolingDown: 0
   IsChangeGravityCoolingDown: 0
-  IsDashCoolingDown: 0
+  IsSpecialCoolingDown: 0
   ReticleId: -1
   MaterialId: -1
   IsReady: 0
