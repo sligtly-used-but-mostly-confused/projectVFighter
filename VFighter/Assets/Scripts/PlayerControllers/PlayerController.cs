@@ -50,7 +50,7 @@ public abstract class PlayerController : NetworkBehaviour {
     protected GameObject ReticleParent;
     [SerializeField]
     protected GameObject PlayerReadyIndicatorPrefab;
-    
+
     protected readonly Vector2[] _gravChangeDirections = { Vector2.up, Vector2.down };
 
     public InputDevice InputDevice;

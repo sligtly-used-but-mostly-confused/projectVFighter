@@ -90,7 +90,7 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaAO: 1
     m_ShowResolutionOverlay: 1
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -580,6 +580,7 @@ GameObject:
   - component: {fileID: 1076461901}
   - component: {fileID: 1076461903}
   - component: {fileID: 1076461902}
+  - component: {fileID: 1076461904}
   m_Layer: 0
   m_Name: DashPulse
   m_TagString: Untagged
@@ -594,7 +595,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1076461900}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.07, y: 2.49, z: 0}
+  m_LocalPosition: {x: 2.7, y: 2.49, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1994036569}
@@ -647,7 +648,7 @@ ParticleSystemRenderer:
   m_LengthScale: 2
   m_SortingFudge: 0
   m_NormalDirection: 1
-  m_RenderAlignment: 2
+  m_RenderAlignment: 1
   m_Pivot: {x: 0, y: 0, z: 0}
   m_UseCustomVertexStreams: 0
   m_EnableGPUInstancing: 1
@@ -668,9 +669,9 @@ ParticleSystem:
   lengthInSec: 0.5
   simulationSpeed: 1
   stopAction: 0
-  looping: 1
-  prewarm: 1
-  playOnAwake: 1
+  looping: 0
+  prewarm: 0
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   useRigidbodyForVelocity: 1
@@ -5182,51 +5183,65 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
---- !u!1001 &1166440386
+--- !u!114 &1076461904
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1076461900}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb40f942c1ef648dab641b5563b1668e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dashOn: 0
+  pulse: {fileID: 1076461903}
+  prevState: 1
+--- !u!1001 &1167535770
 Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4239699494155374, guid: dc3bdb337f1562040a6fde2c07714903, type: 2}
+    - target: {fileID: 4986710107920854, guid: 58fb49fb4a9055343934f6f995dac95a, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 4.29
+      value: 9.541861
       objectReference: {fileID: 0}
-    - target: {fileID: 4239699494155374, guid: dc3bdb337f1562040a6fde2c07714903, type: 2}
+    - target: {fileID: 4986710107920854, guid: 58fb49fb4a9055343934f6f995dac95a, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -2.77
+      value: 2.5272002
       objectReference: {fileID: 0}
-    - target: {fileID: 4239699494155374, guid: dc3bdb337f1562040a6fde2c07714903, type: 2}
+    - target: {fileID: 4986710107920854, guid: 58fb49fb4a9055343934f6f995dac95a, type: 2}
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4239699494155374, guid: dc3bdb337f1562040a6fde2c07714903, type: 2}
+    - target: {fileID: 4986710107920854, guid: 58fb49fb4a9055343934f6f995dac95a, type: 2}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4239699494155374, guid: dc3bdb337f1562040a6fde2c07714903, type: 2}
+    - target: {fileID: 4986710107920854, guid: 58fb49fb4a9055343934f6f995dac95a, type: 2}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4239699494155374, guid: dc3bdb337f1562040a6fde2c07714903, type: 2}
+    - target: {fileID: 4986710107920854, guid: 58fb49fb4a9055343934f6f995dac95a, type: 2}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4239699494155374, guid: dc3bdb337f1562040a6fde2c07714903, type: 2}
+    - target: {fileID: 4986710107920854, guid: 58fb49fb4a9055343934f6f995dac95a, type: 2}
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 4239699494155374, guid: dc3bdb337f1562040a6fde2c07714903, type: 2}
+    - target: {fileID: 4986710107920854, guid: 58fb49fb4a9055343934f6f995dac95a, type: 2}
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 1865317440980488, guid: dc3bdb337f1562040a6fde2c07714903, type: 2}
+    - target: {fileID: 1865601022989246, guid: 58fb49fb4a9055343934f6f995dac95a, type: 2}
       propertyPath: m_Name
-      value: SpringPlatform (1)
+      value: KeyboardPlayer1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: dc3bdb337f1562040a6fde2c07714903, type: 2}
+  m_SourcePrefab: {fileID: 100100000, guid: 58fb49fb4a9055343934f6f995dac95a, type: 2}
   m_IsPrefabAsset: 0
 --- !u!1001 &1391226768
 Prefab:
@@ -5835,7 +5850,7 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1994036568}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -5853,8 +5868,8 @@ ParticleSystem:
   simulationSpeed: 1
   stopAction: 0
   looping: 1
-  prewarm: 0
-  playOnAwake: 1
+  prewarm: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   useRigidbodyForVelocity: 1
@@ -6496,7 +6511,7 @@ ParticleSystem:
     sphericalDirectionAmount: 0
     randomPositionAmount: 0
     radius:
-      value: 0.1
+      value: 0.2
       mode: 0
       spread: 0
       speed:
@@ -7045,16 +7060,16 @@ ParticleSystem:
       maxGradient:
         serializedVersion: 2
         key0: {r: 0.9061289, g: 0, b: 1, a: 0.23137255}
-        key1: {r: 0, g: 0.8248501, b: 0.9607843, a: 1}
-        key2: {r: 0, g: 0, b: 0, a: 0.48235294}
+        key1: {r: 0.50636613, g: 0.36390445, b: 0.982699, a: 1}
+        key2: {r: 0, g: 0.8248501, b: 0.9607843, a: 0.48235294}
         key3: {r: 0, g: 0, b: 0, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}
         key5: {r: 0, g: 0, b: 0, a: 0}
         key6: {r: 0, g: 0, b: 0, a: 0}
         key7: {r: 0, g: 0, b: 0, a: 0}
         ctime0: 0
-        ctime1: 65535
-        ctime2: 0
+        ctime1: 28913
+        ctime2: 65535
         ctime3: 0
         ctime4: 0
         ctime5: 0
@@ -7069,7 +7084,7 @@ ParticleSystem:
         atime6: 0
         atime7: 0
         m_Mode: 0
-        m_NumColorKeys: 2
+        m_NumColorKeys: 3
         m_NumAlphaKeys: 3
       minGradient:
         serializedVersion: 2
@@ -10412,7 +10427,7 @@ ParticleSystemRenderer:
   m_LengthScale: 2
   m_SortingFudge: 0
   m_NormalDirection: 1
-  m_RenderAlignment: 2
+  m_RenderAlignment: 1
   m_Pivot: {x: 0, y: 0, z: 0}
   m_UseCustomVertexStreams: 0
   m_EnableGPUInstancing: 1
