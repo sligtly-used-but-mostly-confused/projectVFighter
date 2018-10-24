@@ -8,7 +8,12 @@ using System;
 public enum PlayerCharacterType
 {
     ShotGun,
-    Dash
+    Dash,
+    Rocket,
+    Stasis,
+    Forceshield,
+    Magnet,
+    Tron
 }
 
 
