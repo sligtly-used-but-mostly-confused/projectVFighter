@@ -296,7 +296,7 @@ public abstract class PlayerController : NetworkBehaviour {
                 else
                 {
                     ChangeGORBGravityDirection(AttachedObject, dir);
-                    //Add gravity gun release sound fx
+                    AttachedObject.GetComponent<ControllableGravityObjectRigidBody>().LaunchSfx();
                     DetachReticle();
                 }
             }
