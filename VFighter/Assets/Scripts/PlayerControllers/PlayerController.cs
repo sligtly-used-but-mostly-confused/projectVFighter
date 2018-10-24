@@ -237,17 +237,6 @@ public abstract class PlayerController : NetworkBehaviour {
 
     }
 
-    public float DashDirection(){
-       
-            
-        float mouseX = InputDevice.GetAxisRaw(MappedAxis.AimX);
-        float mouseY = InputDevice.GetAxisRaw(MappedAxis.AimY);
-        var mousePos = Camera.main.ScreenToWorldPoint(new Vector2(mouseX, mouseY)); 
-        var aimVector1 = mousePos - transform.position;
-        aimVector1 = aimVector1.normalized;
-        return Mathf.Rad2Deg * Mathf.Atan2(aimVector1.y , aimVector1.x);
-    }
-
     private IEnumerator FindReticle()
     {
         if (ReticleId != -1 && !Reticle)

@@ -4,38 +4,37 @@ using UnityEngine;
 
 public class DashControl : MonoBehaviour {
     [SerializeField]
-    private Rigidbody2D rd;
+    private Rigidbody2D rb;
     [SerializeField]
     private Transform tm;
     [SerializeField]
     private DashEffect de;
     Vector2 velVec;
-    bool flag = true;
-    [SerializeField]
-    private KeyboardPlayerController kPC;
-
 
     // Use this for initialization
     // Update is called once per frame
     private void Start()
     {
-        rd = GetComponentInParent<Rigidbody2D>();
+        rb = GetComponentInParent<Rigidbody2D>();
         tm = GetComponentInParent<Transform>();
         de = GetComponent<DashEffect>();
-        kPC = GetComponentInParent<KeyboardPlayerController>();
     }
     void Update () {
 
-        if (de.dashEffectOn() && flag)
+        if (de.dashEffectOn())
         {
-            float dir = Mathf.Atan2(rd.velocity.y, rd.velocity.x);
-          
-            tm.Rotate(0.0f, 0.0f, dir * Mathf.Rad2Deg);
-            flag = false;
+         
+            Vector2 dir = rb.velocity;
+            float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg + 180;
+            if(angle < 10)
+            {
+                de.dashOn = false;
+            }
+            else
+            {
+                tm.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+            }
         }
-        else if (!de.dashEffectOn() && !flag){
-            flag = true;
-        }
-        print(kPC.DashDirection());
+     
     }
 }
