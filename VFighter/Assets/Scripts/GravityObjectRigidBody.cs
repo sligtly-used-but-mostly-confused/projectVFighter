@@ -23,7 +23,6 @@ public enum VelocityType
     OtherPhysics
 }
 
-[RequireComponent(typeof(Collider2D))]
 public class GravityObjectRigidBody : NetworkBehaviour {
     #region vars
     private static int _idCnt = 0;

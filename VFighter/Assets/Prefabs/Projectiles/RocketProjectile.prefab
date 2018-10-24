@@ -118,7 +118,7 @@ MonoBehaviour:
   _maxComponentSpeeds: []
   _stopObjectOnCollide: 0
   _timeToDashStop: 1
-  _drag: 0
+  _drag: 0.75
   Bounciness: 0
   CanBeSelected: 0
   KillsPlayer: 0
