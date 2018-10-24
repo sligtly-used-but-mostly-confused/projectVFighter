@@ -13,6 +13,8 @@ public class GameManager : NetworkBehaviour {
 
     [SerializeField]
     private string _levelName;
+    [SerializeField]
+    private List<string> _roundLevelNames = new List<string>();
     public bool DebugScene = false;
 
     public bool CurrentlyChangingScenes = false;
@@ -32,10 +34,10 @@ public class GameManager : NetworkBehaviour {
         DontDestroyOnLoad(this);
 	}
 
-    public void StartGame(string levelName)
+    public void StartGame(List<string> roundStages)
     {
-        _levelName = levelName;
-        LoadNextStage();
+        _roundLevelNames = roundStages;
+        CheckHeartBeatThenCallback(StartNewRound);
     }
 
     public void LoadNextStage()
@@ -45,17 +47,32 @@ public class GameManager : NetworkBehaviour {
 
         if (alive.Count() <= 1 && !DebugScene)
         {
+            CheckHeartBeatThenCallback(StartNewRound);
+        }
+        else
+        {
+            CheckHeartBeatThenCallback(StartNewLevel);
+        }
+    }
+
+    private void StartNewRound()
+    {
+        var players = FindObjectsOfType<PlayerController>().ToList();
+        if(_roundLevelNames.Count > 0)
+        {
+            _levelName = _roundLevelNames[0];
+            _roundLevelNames.RemoveAt(0);
+            players.ForEach(x => x.ControlledPlayer.Reset());
+            CheckHeartBeatThenCallback(StartNewLevel);
+        }
+        else
+        {
             CheckHeartBeatThenCallback(() =>
             {
                 players.ForEach(x => x.ControlledPlayer.Reset());
                 CurrentlyChangingScenes = true;
                 NetworkManager.singleton.ServerChangeScene(LevelSelect);
             });
-
-        }
-        else
-        {
-            CheckHeartBeatThenCallback(StartNewLevel);
         }
     }
 
