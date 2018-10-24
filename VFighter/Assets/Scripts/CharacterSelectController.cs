@@ -79,6 +79,7 @@ public class CharacterSelectController : NetworkBehaviour {
 
         nextCharacterPreview.SetActive(!ready);
         previousCharacterPreview.SetActive(!ready);
+        currentIcon.SetActive(false);
         descriptionCanvas.SetActive(!ready && timeOnSelection > secondForCharacterTip); 
 
         GravityObjectRigidBody rb = GetComponent<GravityObjectRigidBody>();
