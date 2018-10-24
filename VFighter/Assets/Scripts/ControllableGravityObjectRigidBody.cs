@@ -27,7 +27,6 @@ public class ControllableGravityObjectRigidBody : GravityObjectRigidBody {
     {
         _speedMultiplier *= 1 + _speedMultiplierStep;
         _speedMultiplier = Mathf.Clamp(_speedMultiplier, 1, _maxSpeedMultiplier);
-        //RandomizeSfx(ImpactSound, ImpactSoundCave);
     }
 
     public override void UpdateVelocity(VelocityType id, Vector2 vel)
