@@ -80,17 +80,10 @@ public class LevelSelectManager : NetworkBehaviour
         }
     }
 
-    private string LeadingLevel(){
-        LevelZoneController leader = zones[0];
-        int mostVotes = 0;
-        foreach(LevelZoneController zone in zones){
-            if (zone.playersInside > mostVotes){
-                leader = zone;
-                mostVotes = zone.playersInside;
-            }
-        }
-
-        return leader.levelName;
+    private List<string> LeadingLevels(){
+        var copy = new List<LevelZoneController>(zones);
+        copy.Sort((x,y) => { return x.playersInside.CompareTo(y.playersInside); });
+        return copy.Select(x => x.levelName).Reverse().Take(1).ToList();
     }
 
     public void StartTimer()
@@ -131,7 +124,7 @@ public class LevelSelectManager : NetworkBehaviour
         }
 
         yield return new WaitForSeconds(1);
-        GameManager.Instance.StartGame(LeadingLevel());
+        GameManager.Instance.StartGame(LeadingLevels());
     }
 
     private void SpawnLevelPlatforms()

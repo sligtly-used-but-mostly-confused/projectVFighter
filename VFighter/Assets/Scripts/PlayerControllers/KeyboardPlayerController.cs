@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class KeyboardPlayerController : PlayerController
 {
-    void Update()
+    public void Update()
     {
         if (InputDevice == null)
         {

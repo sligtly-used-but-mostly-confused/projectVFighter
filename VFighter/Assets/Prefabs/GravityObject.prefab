@@ -41,8 +41,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1167609975392520}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.4, y: 0.042435944, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.1}
+  m_LocalPosition: {x: -0.127, y: -2.64, z: 0}
+  m_LocalScale: {x: 0.75, y: 0.75, z: 0.1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -62,7 +62,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 04d126ba1f0d0478f801292308bbc946, type: 2}
+  - {fileID: 2100000, guid: 37c5d081b049da642b2e72538c2d7e1c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -88,7 +88,7 @@ MeshFilter:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1167609975392520}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!50 &50376385175709922
 Rigidbody2D:
   serializedVersion: 4
@@ -150,7 +150,7 @@ TrailRenderer:
   m_ReflectionProbeUsage: 0
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 04d126ba1f0d0478f801292308bbc946, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -179,7 +179,7 @@ TrailRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.59207153
+        value: 0.4824829
         inSlope: -0.5329618
         outSlope: -0.5329618
         tangentMode: 0
@@ -262,7 +262,7 @@ MonoBehaviour:
   _maxComponentSpeeds: []
   _stopObjectOnCollide: 1
   _timeToDashStop: 1
-  _drag: 1
+  _drag: 0.5
   Bounciness: 0
   CanBeSelected: 1
   KillsPlayer: 1
