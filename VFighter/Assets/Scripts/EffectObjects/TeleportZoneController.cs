@@ -41,6 +41,7 @@ public class TeleportZoneController : MonoBehaviour {
             collision.transform.position = TeleportTo.transform.position + playerOffsetFromTeleporter;
 
             TeleportTo.StartCoroutine(TeleportTo.ObjectExitTeleporterTimeout(gorb));
+            TeleportSfx();
         }
     }
 
@@ -61,7 +62,6 @@ public class TeleportZoneController : MonoBehaviour {
         if (gorb && ObjectsWaitingToExitTeleporter.Contains(gorb))
         {
             ObjectsWaitingToExitTeleporter.Remove(gorb);
-            TeleportSfx();
         }
     }
 
