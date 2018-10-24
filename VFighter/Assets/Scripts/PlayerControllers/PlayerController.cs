@@ -59,6 +59,16 @@ public abstract class PlayerController : NetworkBehaviour {
     public bool IsChangeGravityCoolingDown = false;
     public bool IsDashCoolingDown = false;
 
+    //sound effects
+    public AudioSource[] channels = new AudioSource[4]; //ch0 - ggfire, ch1 - dash/sgfire, ch2 - changeGrav, ch3 - death
+    public AudioClip gravChange;
+    public AudioClip death;
+    public AudioClip dash;
+    public AudioClip[] gravGunFire;
+    public AudioClip[] gravGunFireCave;
+    public AudioClip[] shotGunFire;
+    public AudioClip[] shotGunFireCave;
+
     private static int _heartBeatId = 0;
     //THIS SHOULD ONLY BE USED FROM HEART BEAT FUNCTION
     public Dictionary<int, bool> HeartBeats = new Dictionary<int, bool>();
@@ -177,6 +187,7 @@ public abstract class PlayerController : NetworkBehaviour {
             if (!IsChangeGravityCoolingDown)
             {
                 ChangeGravity(GetComponent<GravityObjectRigidBody>().GravityDirection * -1);
+                PlaySingle(gravChange,2);
             }
         }
         else
@@ -224,6 +235,7 @@ public abstract class PlayerController : NetworkBehaviour {
             var closestDir = ClosestDirection(dir, _gravChangeDirections);
             ChangeGORBGravityDirection(GetComponent<GravityObjectRigidBody>(), closestDir);
             GetComponent<GravityObjectRigidBody>().Dash(dashVec);
+            PlaySingle(dash,1);
 
             IsDashCoolingDown = true;
             StartCoroutine(DashCoolDown());
@@ -278,11 +290,13 @@ public abstract class PlayerController : NetworkBehaviour {
                 if (AttachedObject == null)
                 {
                     CmdSpawnProjectile(dir, DurationOfNormalGravityProjectile, false);
+                    RandomizeSfx(gravGunFire, gravGunFireCave, 0);
                     StartGravGunCoolDown();
                 }
                 else
                 {
                     ChangeGORBGravityDirection(AttachedObject, dir);
+                    AttachedObject.GetComponent<ControllableGravityObjectRigidBody>().LaunchSfx();
                     DetachReticle();
                 }
             }
@@ -303,6 +317,7 @@ public abstract class PlayerController : NetworkBehaviour {
                     CmdSpawnProjectile(Quaternion.Euler(0, 0, -30) * new Vector3(dir.x, dir.y, 0), DurationOfShotgunGravityProjectile, true);
                     CmdSpawnProjectile(Quaternion.Euler(0, 0, 15) * new Vector3(dir.x, dir.y, 0), DurationOfShotgunGravityProjectile, true);
                     CmdSpawnProjectile(Quaternion.Euler(0, 0, -15) * new Vector3(dir.x, dir.y, 0), DurationOfShotgunGravityProjectile, true);
+                    RandomizeSfx(shotGunFire, shotGunFireCave, 1);
                     StartGravGunCoolDown();
                     //GetComponent<GravityObjectRigidBody>().AddVelocity(VelocityType.OtherPhysics, -dir * ShotGunKickBackForce);
                     GetComponent<GravityObjectRigidBody>().Dash(-dir * ShotGunKickBackForce);
@@ -498,7 +513,7 @@ public abstract class PlayerController : NetworkBehaviour {
             IsDead = true;
             ControlledPlayer.NumDeaths++;
         }
-        
+        PlaySingle(death, 3);
         SetDirtyBit(0xFFFFFFFF);
         if (isLocalPlayer)
         {
@@ -673,5 +688,41 @@ public abstract class PlayerController : NetworkBehaviour {
             GetComponent<Renderer>().material = GetComponent<CharacterSelectController>().CharacterTypeMaterialMappings[characterType];
             this.CharacterType = characterType;
         }
+    }
+
+    public void PlaySingle(AudioClip clip, int channel)
+    {
+        //Set the clip of our efxSource audio source to the clip passed in as a parameter.
+        channels[channel].clip = clip;
+
+        //Play the clip.
+        channels[channel].Play();
+    }
+
+
+    //RandomizeSfx chooses randomly between various audio clips
+    public void RandomizeSfx(AudioClip[] clips, AudioClip[] caveClips, int channel)
+    {
+        //Generate a random number between 0 and the length of our array of clips passed in.
+        int randomIndex;
+        if (AudioManager.instance.isCaveLevel)
+            randomIndex = UnityEngine.Random.Range(0, caveClips.Length);
+        else
+            randomIndex = UnityEngine.Random.Range(0, clips.Length);
+
+        //Choose a random pitch to play back our clip at between our high and low pitch ranges.
+        float randomPitch = UnityEngine.Random.Range(AudioManager.instance.lowPitchRange, AudioManager.instance.highPitchRange);
+
+        //Set the pitch of the audio source to the randomly chosen pitch.
+        channels[channel].pitch = randomPitch;
+
+        //Set the clip to the clip at our randomly chosen index.
+        if (AudioManager.instance.isCaveLevel)
+            channels[channel].clip = caveClips[randomIndex];
+        else
+            channels[channel].clip = clips[randomIndex];
+
+        //Play the clip.
+        channels[channel].Play();
     }
 }
