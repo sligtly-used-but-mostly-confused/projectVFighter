@@ -50,6 +50,10 @@ public abstract class PlayerController : NetworkBehaviour {
     protected GameObject ReticleParent;
     [SerializeField]
     protected GameObject PlayerReadyIndicatorPrefab;
+    [SerializeField]
+    protected DashEffect de;
+
+
 
     protected readonly Vector2[] _gravChangeDirections = { Vector2.up, Vector2.down };
 
@@ -93,7 +97,7 @@ public abstract class PlayerController : NetworkBehaviour {
         StartCoroutine(FindReticle());
         var indicator = Instantiate(PlayerReadyIndicatorPrefab);
         indicator.GetComponent<PlayerReadyIndicatorController>().AttachedPlayer = this;
-
+        de = GetComponentInChildren<DashEffect>();
         GetComponent<Renderer>().material = GetComponent<CharacterSelectController>().CharacterTypeMaterialMappings[CharacterType];
     }
 
@@ -219,6 +223,8 @@ public abstract class PlayerController : NetworkBehaviour {
     {
         if (!IsDashCoolingDown)
         {
+
+            de.dashOn = true;
             //need to account for gravity
             var dashVec = dir.normalized * DashSpeed;
             var closestDir = ClosestDirection(dir, _gravChangeDirections);
@@ -229,6 +235,17 @@ public abstract class PlayerController : NetworkBehaviour {
             StartCoroutine(DashCoolDown());
         }
 
+    }
+
+    public float DashDirection(){
+       
+            
+        float mouseX = InputDevice.GetAxisRaw(MappedAxis.AimX);
+        float mouseY = InputDevice.GetAxisRaw(MappedAxis.AimY);
+        var mousePos = Camera.main.ScreenToWorldPoint(new Vector2(mouseX, mouseY)); 
+        var aimVector1 = mousePos - transform.position;
+        aimVector1 = aimVector1.normalized;
+        return Mathf.Rad2Deg * Mathf.Atan2(aimVector1.y , aimVector1.x);
     }
 
     private IEnumerator FindReticle()
@@ -407,6 +424,7 @@ public abstract class PlayerController : NetworkBehaviour {
         IsDashCoolingDown = true;
         CmdSetDashCoolDown(true);
         yield return new WaitForSeconds(DashCoolDownTime);
+        de.dashOn = false;
         IsDashCoolingDown = false;
         CmdSetDashCoolDown(false);
     }

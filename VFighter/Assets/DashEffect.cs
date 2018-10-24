@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class DashEffect : MonoBehaviour {
+   
+    public bool dashOn = false;
     [SerializeField]
-    bool dashOn = false;
-    [SerializeField]
-    private ParticleSystem pulse;
+    public ParticleSystem pulse;
     // Use this for initialization;
-    public bool prevState = true;
+    bool prevState = true;
 
     void Start()
     {
@@ -30,5 +30,8 @@ public class DashEffect : MonoBehaviour {
         }
         prevState = dashOn;
         
+    }
+    public bool dashEffectOn(){
+        return pulse.isPlaying;
     }
 }
