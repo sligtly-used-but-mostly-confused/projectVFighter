@@ -35,7 +35,6 @@ public class CharacterSelectController : NetworkBehaviour {
     [SerializeField]
     private List<CaracterData> characterDataList = new List<CaracterData>();
 
-
     public Dictionary<PlayerCharacterType, Material> CharacterTypeMaterialMappings = new Dictionary<PlayerCharacterType, Material>();
     public Dictionary<PlayerCharacterType, Material> CharacterTypeIconMappings = new Dictionary<PlayerCharacterType, Material>();
     public Dictionary<PlayerCharacterType, string> CharacterTypeDescriptionMappings = new Dictionary<PlayerCharacterType, string>();

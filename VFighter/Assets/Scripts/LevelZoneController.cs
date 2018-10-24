@@ -14,13 +14,18 @@ public class LevelZoneController : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.GetComponent<PlayerController>()) ++playersInside;
-
+        if (collision.gameObject.GetComponent<PlayerController>())
+        {
+            ++playersInside;
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.GetComponent<PlayerController>()) --playersInside;
+        if (collision.gameObject.GetComponent<PlayerController>())
+        {
+            --playersInside;
+        }
     }
 
     private void Update()
