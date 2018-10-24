@@ -24,11 +24,11 @@ public abstract class PlayerController : NetworkBehaviour {
     public GravityObjectRigidBody AttachedObject;
 
     [SerializeField]
-    protected float RechargeTime = 1f;
+    protected float GravGunCoolDownTime = 1f;
     [SerializeField]
-    protected float ChangeGravityRechargeTime = .1f;
+    protected float ChangeGravityCoolDownTime = .1f;
     [SerializeField]
-    protected float DashCoolDownTime = .1f;
+    protected float SpecialCoolDownTime = .1f;
     [SerializeField]
     protected float DurationOfNormalGravityProjectile = 1;
     [SerializeField]
@@ -54,6 +54,10 @@ public abstract class PlayerController : NetworkBehaviour {
     [SerializeField]
     protected GameObject ReticleParent;
     [SerializeField]
+    protected Vector3 ReticleReadySize;
+    [SerializeField]
+    protected Vector3 ReticleCoolingDownSize;
+    [SerializeField]
     protected GameObject PlayerReadyIndicatorPrefab;
     
     protected readonly Vector2[] _gravChangeDirections = { Vector2.up, Vector2.down };
@@ -62,7 +66,7 @@ public abstract class PlayerController : NetworkBehaviour {
 
     public bool IsCoolingDown = false;
     public bool IsChangeGravityCoolingDown = false;
-    public bool IsDashCoolingDown = false;
+    public bool IsSpecialCoolingDown = false;
 
     private static int _heartBeatId = 0;
     //THIS SHOULD ONLY BE USED FROM HEART BEAT FUNCTION
@@ -88,7 +92,7 @@ public abstract class PlayerController : NetworkBehaviour {
     {
         IsCoolingDown = false;
         IsChangeGravityCoolingDown = false;
-        IsDashCoolingDown = false;
+        IsSpecialCoolingDown = false;
         IsDead = false;
     }
 
@@ -222,7 +226,7 @@ public abstract class PlayerController : NetworkBehaviour {
 
     public void Dash(Vector2 dir)
     {
-        if (!IsDashCoolingDown)
+        if (!IsSpecialCoolingDown)
         {
             //need to account for gravity
             var dashVec = dir.normalized * DashSpeed;
@@ -230,8 +234,8 @@ public abstract class PlayerController : NetworkBehaviour {
             ChangeGORBGravityDirection(GetComponent<GravityObjectRigidBody>(), closestDir);
             GetComponent<GravityObjectRigidBody>().Dash(dashVec);
 
-            IsDashCoolingDown = true;
-            StartCoroutine(DashCoolDown());
+            IsSpecialCoolingDown = true;
+            StartCoroutine(SpecialCoolDown());
         }
 
     }
@@ -396,31 +400,33 @@ public abstract class PlayerController : NetworkBehaviour {
     public IEnumerator GravGunCoolDown()
     {
         IsCoolingDown = true;
-        yield return new WaitForSeconds(RechargeTime);
+        yield return new WaitForSeconds(GravGunCoolDownTime);
         IsCoolingDown = false;
         GravGunCoolDownCoroutine = null;
     }
 
     IEnumerator ChangeGravityCoolDown()
     {
-        yield return new WaitForSeconds(ChangeGravityRechargeTime);
+        yield return new WaitForSeconds(ChangeGravityCoolDownTime);
         IsChangeGravityCoolingDown = false;
     }
 
-    IEnumerator DashCoolDown()
+    IEnumerator SpecialCoolDown()
     {
-        IsDashCoolingDown = true;
-        CmdSetDashCoolDown(true);
-        yield return new WaitForSeconds(DashCoolDownTime);
-        IsDashCoolingDown = false;
-        CmdSetDashCoolDown(false);
+        IsSpecialCoolingDown = true;
+        CmdSetSpecialCoolDown(true);
+        Reticle.transform.localScale = ReticleCoolingDownSize;
+        yield return new WaitForSeconds(SpecialCoolDownTime);
+        Reticle.transform.localScale = ReticleReadySize;
+        IsSpecialCoolingDown = false;
+        CmdSetSpecialCoolDown(false);
     }
 
     [Command]
-    private void CmdSetDashCoolDown(bool isCoolingDown)
+    private void CmdSetSpecialCoolDown(bool isCoolingDown)
     {
         //need to set dash cool down on server so that they player collision counts as a kill
-        IsDashCoolingDown = isCoolingDown;
+        IsSpecialCoolingDown = isCoolingDown;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -437,7 +443,7 @@ public abstract class PlayerController : NetworkBehaviour {
         {
             if(collision.collider.GetComponent<PlayerController>())
             {
-                if(IsDashCoolingDown)
+                if(IsSpecialCoolingDown)
                 {
                     ControlledPlayer.NumKills++;
                     SetDirtyBit(0xFFFFFFFF);
@@ -450,13 +456,13 @@ public abstract class PlayerController : NetworkBehaviour {
                 return;
             }
 
-            if(IsDashCoolingDown)
+            if(IsSpecialCoolingDown)
             {
                 //if we dash into an object push it
                 var dashVel = GetComponent<Rigidbody2D>().velocity;
                 ChangeGORBGravityDirection(GORB, dashVel.normalized);
                 RpcClearVelocities(gameObject);
-                IsDashCoolingDown = false;
+                IsSpecialCoolingDown = false;
                 return;
             }
             
