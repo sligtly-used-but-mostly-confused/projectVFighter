@@ -12,8 +12,6 @@ public class TutorialPromptController : MonoBehaviour {
     public struct TutorialPrompt
     {
         [SerializeField]
-        public bool IsButton;
-        [SerializeField]
         public MappedButton MappedButton;
         [SerializeField]
         public MappedAxis MappedAxis;
@@ -21,7 +19,7 @@ public class TutorialPromptController : MonoBehaviour {
 
     private void Start()
     {
-        Controller = MappedInput.InputDevices[1];
+        Controller = MappedInput.InputDevices[2];
         GetComponent<Image>().sprite = GetSpriteFromPrompt(Prompts[0]);
     }
 

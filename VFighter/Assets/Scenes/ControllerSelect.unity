@@ -1496,26 +1496,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Controller: {fileID: 0}
   Prompts:
-  - IsButton: 0
-    MappedButton: 0
+  - MappedButton: 0
     MappedAxis: 6
-  - IsButton: 0
-    MappedButton: 4
+  - MappedButton: 4
     MappedAxis: 7
-  - IsButton: 0
-    MappedButton: 0
+  - MappedButton: 0
     MappedAxis: 0
-  - IsButton: 0
-    MappedButton: 0
+  - MappedButton: 0
     MappedAxis: 5
-  - IsButton: 0
-    MappedButton: 0
+  - MappedButton: 0
     MappedAxis: 2
-  - IsButton: 0
-    MappedButton: 0
+  - MappedButton: 1
     MappedAxis: 4
-  - IsButton: 0
-    MappedButton: 5
+  - MappedButton: 5
     MappedAxis: 7
 --- !u!1 &1672618671
 GameObject:
