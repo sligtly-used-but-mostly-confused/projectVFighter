@@ -17,16 +17,21 @@ public class GravityGunProjectileController : NetworkBehaviour {
     public float SecondsUntilDestroy = 1;
     public PlayerController Owner;
 
-    public override void OnStartServer()
+    public virtual void OnShot()
     {
-        base.OnStartServer();
         StartCoroutine(Onstart());
     }
     
     IEnumerator Onstart () {
         yield return new WaitForSeconds(SecondsUntilDestroy);
-        NetworkServer.Destroy(gameObject);
-	}
+        ReturnToPool();
+    }
+
+    protected virtual void ReturnToPool()
+    {
+        Debug.Log("normal");
+        ProjectilePool.Instance.ReturnProjectile(this, this.GetType());
+    }
 
     public virtual void OnHitGORB(GravityObjectRigidBody GORB)
     {
@@ -55,12 +60,12 @@ public class GravityGunProjectileController : NetworkBehaviour {
                 collision.GetComponent<PlayerController>().FlipGravity();
                 Owner.IsCoolingDown = true;
                 Owner.StartGravGunCoolDown();
-                NetworkServer.Destroy(gameObject);
+                ReturnToPool();
                 return;
             }
 
             OnHitGORB(gravityObjectRB);
-            NetworkServer.Destroy(gameObject);
+            ReturnToPool();
             return;
         }
     }

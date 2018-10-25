@@ -340,26 +340,14 @@ public abstract class PlayerController : NetworkBehaviour {
         float xValue = dir.x;
         float yVlaue = dir.y;
         float angle = Mathf.Rad2Deg * Mathf.Atan2(dir.y, dir.x);
-        GameObject projectileClone = null;
-        if(type == ProjectileControllerType.Shotgun)
-        {
-            projectileClone = Instantiate(ShotGunProjectilePrefab, Reticle.transform.position, Reticle.transform.rotation);
-        }
-        else if (type == ProjectileControllerType.Rocket)
-        {
-            projectileClone = Instantiate(RocketProjectilePrefab, Reticle.transform.position, Reticle.transform.rotation);
-        }
-        else
-        {
-            projectileClone = Instantiate(ProjectilePrefab, Reticle.transform.position, Reticle.transform.rotation);
-        }
-
-        projectileClone.GetComponent<GravityGunProjectileController>().Owner = this;
-        projectileClone.GetComponent<GravityGunProjectileController>().SecondsUntilDestroy = secondsUntilDestroy;
+        GravityGunProjectileController projectileClone = ProjectilePool.Instance.GetProjectile(ProjectilePool.ConvertProjectileControllerTypeToType(type));
+        projectileClone.transform.position = Reticle.transform.position;
+        projectileClone.Owner = this;
+        projectileClone.SecondsUntilDestroy = secondsUntilDestroy;
         ChangeGORBGravityDirection(projectileClone.GetComponent<GravityObjectRigidBody>(), dir);
         projectileClone.GetComponent<GravityObjectRigidBody>().ChangeGravityScale(ShootSpeed);
         projectileClone.transform.Rotate(0, 0, angle);
-        NetworkServer.Spawn(projectileClone);
+        projectileClone.OnShot();
     }
 
     #region attach reticle
