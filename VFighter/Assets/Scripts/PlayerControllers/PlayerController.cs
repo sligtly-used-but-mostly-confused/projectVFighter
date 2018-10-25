@@ -9,11 +9,7 @@ public enum PlayerCharacterType
 {
     ShotGun,
     Dash,
-    Rocket,
-    Stasis,
-    Forceshield,
-    Magnet,
-    Tron
+    Rocket
 }
 
 
@@ -47,6 +43,10 @@ public abstract class PlayerController : NetworkBehaviour {
     protected float ShotGunKickBackForce = 10f;
     [SerializeField]
     protected GameObject ProjectilePrefab;
+    [SerializeField]
+    protected GameObject ShotGunProjectilePrefab;
+    [SerializeField]
+    protected GameObject RocketProjectilePrefab;
     [SerializeField]
     protected GameObject AimingReticlePrefab;
     [SerializeField]
@@ -288,7 +288,7 @@ public abstract class PlayerController : NetworkBehaviour {
         }
     }
 
-    public void ShootGravityGun(Vector2 dir)
+    public void ShootGravityGun(Vector2 dir, ProjectileControllerType type)
     {
         if (isLocalPlayer && !IsDead)
         {
@@ -297,7 +297,19 @@ public abstract class PlayerController : NetworkBehaviour {
             {
                 if (AttachedObject == null)
                 {
-                    CmdSpawnProjectile(dir, DurationOfNormalGravityProjectile, false);
+                    if(type == ProjectileControllerType.Normal)
+                    {
+                        CmdSpawnProjectile(dir, DurationOfNormalGravityProjectile, ProjectileControllerType.Normal);
+                    }
+                    else if (type == ProjectileControllerType.Shotgun)
+                    {
+                        ShotGunBlast(dir);
+                    }
+                    else if (type == ProjectileControllerType.Rocket)
+                    {
+                        CmdSpawnProjectile(dir, DurationOfNormalGravityProjectile, ProjectileControllerType.Rocket);
+                    }
+
                     RandomizeSfx(gravGunFire, gravGunFireCave, 0);
                     StartGravGunCoolDown();
                 }
@@ -311,44 +323,39 @@ public abstract class PlayerController : NetworkBehaviour {
         }
     }
 
-    public void ShotGunBlast(Vector2 dir)
+    private void ShotGunBlast(Vector2 dir)
     {
-        if (isLocalPlayer && !IsDead)
-        {
-            dir = dir.normalized;
-            if (!IsCoolingDown)
-            {
-                if (AttachedObject == null)
-                {
-                    CmdSpawnProjectile(dir, DurationOfShotgunGravityProjectile, true);
-                    CmdSpawnProjectile(Quaternion.Euler(0, 0, 30) * new Vector3(dir.x, dir.y, 0), DurationOfShotgunGravityProjectile, true);
-                    CmdSpawnProjectile(Quaternion.Euler(0, 0, -30) * new Vector3(dir.x, dir.y, 0), DurationOfShotgunGravityProjectile, true);
-                    CmdSpawnProjectile(Quaternion.Euler(0, 0, 15) * new Vector3(dir.x, dir.y, 0), DurationOfShotgunGravityProjectile, true);
-                    CmdSpawnProjectile(Quaternion.Euler(0, 0, -15) * new Vector3(dir.x, dir.y, 0), DurationOfShotgunGravityProjectile, true);
-                    RandomizeSfx(shotGunFire, shotGunFireCave, 1);
-                    StartGravGunCoolDown();
-                    //GetComponent<GravityObjectRigidBody>().AddVelocity(VelocityType.OtherPhysics, -dir * ShotGunKickBackForce);
-                    GetComponent<GravityObjectRigidBody>().Dash(-dir * ShotGunKickBackForce);
-                }
-                else
-                {
-                    ChangeGORBGravityDirection(AttachedObject, dir);
-                    DetachReticle();
-                }
-            }
-        }
+        CmdSpawnProjectile(dir, DurationOfShotgunGravityProjectile, ProjectileControllerType.Shotgun);
+        CmdSpawnProjectile(Quaternion.Euler(0, 0, 30) * new Vector3(dir.x, dir.y, 0), DurationOfShotgunGravityProjectile, ProjectileControllerType.Shotgun);
+        CmdSpawnProjectile(Quaternion.Euler(0, 0, -30) * new Vector3(dir.x, dir.y, 0), DurationOfShotgunGravityProjectile, ProjectileControllerType.Shotgun);
+        CmdSpawnProjectile(Quaternion.Euler(0, 0, 15) * new Vector3(dir.x, dir.y, 0), DurationOfShotgunGravityProjectile, ProjectileControllerType.Shotgun);
+        CmdSpawnProjectile(Quaternion.Euler(0, 0, -15) * new Vector3(dir.x, dir.y, 0), DurationOfShotgunGravityProjectile, ProjectileControllerType.Shotgun);
+        GetComponent<GravityObjectRigidBody>().Dash(-dir * ShotGunKickBackForce);  
+        RandomizeSfx(shotGunFire, shotGunFireCave, 1);    
     }
 
     [Command]
-    public void CmdSpawnProjectile(Vector2 dir, float secondsUntilDestroy, bool isFromShotgun)
+    public void CmdSpawnProjectile(Vector2 dir, float secondsUntilDestroy, ProjectileControllerType type)
     {
         float xValue = dir.x;
         float yVlaue = dir.y;
         float angle = Mathf.Rad2Deg * Mathf.Atan2(dir.y, dir.x);
-        GameObject projectileClone = Instantiate(ProjectilePrefab, Reticle.transform.position, Reticle.transform.rotation);
+        GameObject projectileClone = null;
+        if(type == ProjectileControllerType.Shotgun)
+        {
+            projectileClone = Instantiate(ShotGunProjectilePrefab, Reticle.transform.position, Reticle.transform.rotation);
+        }
+        else if (type == ProjectileControllerType.Rocket)
+        {
+            projectileClone = Instantiate(RocketProjectilePrefab, Reticle.transform.position, Reticle.transform.rotation);
+        }
+        else
+        {
+            projectileClone = Instantiate(ProjectilePrefab, Reticle.transform.position, Reticle.transform.rotation);
+        }
+
         projectileClone.GetComponent<GravityGunProjectileController>().Owner = this;
         projectileClone.GetComponent<GravityGunProjectileController>().SecondsUntilDestroy = secondsUntilDestroy;
-        projectileClone.GetComponent<GravityGunProjectileController>().IsShotgunProjectile = isFromShotgun;
         ChangeGORBGravityDirection(projectileClone.GetComponent<GravityObjectRigidBody>(), dir);
         projectileClone.GetComponent<GravityObjectRigidBody>().ChangeGravityScale(ShootSpeed);
         projectileClone.transform.Rotate(0, 0, angle);
@@ -605,45 +612,45 @@ public abstract class PlayerController : NetworkBehaviour {
         }
     }
 
-    public void InitializeForStartLevel(Vector3 spawnPoint)
+    public void InitializeForStartLevel(Vector3 spawnPoint, bool isDead)
     {
         if (isLocalPlayer)
         {
-            InitializeForStartLevelInternal(spawnPoint);
+            InitializeForStartLevelInternal(spawnPoint, isDead);
         }
         else
         {
-            CmdInitializeForStartLevel(spawnPoint);
+            CmdInitializeForStartLevel(spawnPoint, isDead);
         }
     }
 
-    public void InitializeForStartLevelInternal(Vector3 spawnPoint)
+    public void InitializeForStartLevelInternal(Vector3 spawnPoint, bool isDead)
     {
         transform.position = spawnPoint;
         GetComponent<GravityObjectRigidBody>().ClearAllVelocities();
         ChangeGORBGravityDirection(GetComponent<GravityObjectRigidBody>(), FindDirToClosestWall());
-        IsDead = false;
+        IsDead = isDead;
     }
 
     [Command]
-    public void CmdInitializeForStartLevel(Vector3 spawnPoint)
+    public void CmdInitializeForStartLevel(Vector3 spawnPoint, bool isDead)
     {
         if (isLocalPlayer)
         {
-            InitializeForStartLevelInternal(spawnPoint);
+            InitializeForStartLevelInternal(spawnPoint, isDead);
         }
         else
         {
-            RpcInitializeForStartLevel(spawnPoint);
+            RpcInitializeForStartLevel(spawnPoint, isDead);
         }
     }
 
     [ClientRpc]
-    public void RpcInitializeForStartLevel(Vector3 spawnPoint)
+    public void RpcInitializeForStartLevel(Vector3 spawnPoint, bool isDead)
     {
         if (isLocalPlayer)
         {
-            InitializeForStartLevelInternal(spawnPoint);
+            InitializeForStartLevelInternal(spawnPoint, isDead);
         }
     }
 
@@ -682,7 +689,10 @@ public abstract class PlayerController : NetworkBehaviour {
         switch (CharacterType)
         {
             case PlayerCharacterType.ShotGun:
-                ShotGunBlast(aimVector);
+                ShootGravityGun(aimVector, ProjectileControllerType.Shotgun);
+                break;
+            case PlayerCharacterType.Rocket:
+                ShootGravityGun(aimVector, ProjectileControllerType.Rocket);
                 break;
             case PlayerCharacterType.Dash:
                 Dash(aimVector);

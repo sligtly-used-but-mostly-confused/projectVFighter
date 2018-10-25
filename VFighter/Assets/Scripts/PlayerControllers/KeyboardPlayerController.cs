@@ -54,7 +54,7 @@ public class KeyboardPlayerController : PlayerController
 
         if (InputDevice.GetButtonDown(MappedButton.ShootGravGun))
         {
-            ShootGravityGun(aimVector);
+            ShootGravityGun(aimVector, ProjectileControllerType.Normal);
         }
 
         if (InputDevice.GetButtonDown(MappedButton.OpenMenu))
@@ -83,7 +83,7 @@ public class KeyboardPlayerController : PlayerController
 
         if (InputDevice.GetIsAxisTapped(MappedAxis.ShootGravGun) && aimDir.magnitude > 0)
         {
-            ShootGravityGun(aimDir);
+            ShootGravityGun(aimDir, ProjectileControllerType.Normal);
         }
 
         if (InputDevice.GetButtonDown(MappedButton.Special))
