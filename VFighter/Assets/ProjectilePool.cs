@@ -57,6 +57,9 @@ public class ProjectilePool : NetworkBehaviour {
     public void ReturnProjectile(GravityGunProjectileController projectile, Type type)
     {
         _projectilePools[type].Add(projectile);
+        projectile.transform.position = Vector3.zero;
+        projectile.transform.rotation = Quaternion.identity;
+
         projectile.gameObject.SetActive(false);
     }
 
@@ -77,5 +80,21 @@ public class ProjectilePool : NetworkBehaviour {
         obj.transform.SetParent(transform);
         obj.SetActive(false);
         NetworkServer.Spawn(obj);
+    }
+
+    public static Type ConvertProjectileControllerTypeToType(ProjectileControllerType type)
+    {
+        if (type == ProjectileControllerType.Rocket)
+        {
+            return typeof(RocketProjectileController);
+        }
+        if (type == ProjectileControllerType.Shotgun)
+        {
+            return typeof(ShotgunProjectileController);
+        }
+        else
+        {
+            return typeof(GravityGunProjectileController);
+        }
     }
 }

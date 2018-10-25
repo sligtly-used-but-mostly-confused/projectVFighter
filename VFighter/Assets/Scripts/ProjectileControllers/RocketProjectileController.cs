@@ -15,5 +15,6 @@ public class RocketProjectileController : GravityGunProjectileController
         var blast = Instantiate(RocketBlastPrefab);
         blast.transform.position = this.transform.position;
         NetworkServer.Spawn(blast);
+        base.ReturnToPool();
     }
 }

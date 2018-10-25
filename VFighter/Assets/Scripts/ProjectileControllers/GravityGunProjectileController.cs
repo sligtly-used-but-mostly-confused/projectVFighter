@@ -30,7 +30,8 @@ public class GravityGunProjectileController : NetworkBehaviour {
 
     protected virtual void ReturnToPool()
     {
-        ProjectilePool.Instance.ReturnProjectile(this, ProjectileControllerType.Normal);
+        Debug.Log("normal");
+        ProjectilePool.Instance.ReturnProjectile(this, this.GetType());
     }
 
     public virtual void OnHitGORB(GravityObjectRigidBody GORB)
@@ -60,12 +61,12 @@ public class GravityGunProjectileController : NetworkBehaviour {
                 collision.GetComponent<PlayerController>().FlipGravity();
                 Owner.IsCoolingDown = true;
                 Owner.StartGravGunCoolDown();
-                NetworkServer.Destroy(gameObject);
+                ReturnToPool();
                 return;
             }
 
             OnHitGORB(gravityObjectRB);
-            NetworkServer.Destroy(gameObject);
+            ReturnToPool();
             return;
         }
     }

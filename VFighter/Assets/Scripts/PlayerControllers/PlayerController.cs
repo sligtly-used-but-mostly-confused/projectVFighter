@@ -340,7 +340,7 @@ public abstract class PlayerController : NetworkBehaviour {
         float xValue = dir.x;
         float yVlaue = dir.y;
         float angle = Mathf.Rad2Deg * Mathf.Atan2(dir.y, dir.x);
-        GravityGunProjectileController projectileClone = ProjectilePool.Instance.GetProjectile(type);
+        GravityGunProjectileController projectileClone = ProjectilePool.Instance.GetProjectile(ProjectilePool.ConvertProjectileControllerTypeToType(type));
         projectileClone.transform.position = Reticle.transform.position;
         projectileClone.Owner = this;
         projectileClone.SecondsUntilDestroy = secondsUntilDestroy;
