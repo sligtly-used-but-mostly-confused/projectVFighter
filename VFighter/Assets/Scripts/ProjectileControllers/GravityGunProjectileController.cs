@@ -24,7 +24,6 @@ public class GravityGunProjectileController : NetworkBehaviour {
     
     IEnumerator Onstart () {
         yield return new WaitForSeconds(SecondsUntilDestroy);
-        //NetworkServer.Destroy(gameObject);
         ReturnToPool();
     }
 
