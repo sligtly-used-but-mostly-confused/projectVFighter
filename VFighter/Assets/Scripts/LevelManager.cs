@@ -105,9 +105,15 @@ public class LevelManager : NetworkBehaviour
 
     public void SpawnPlayer(PlayerController player)
     {
+        if(player.ControlledPlayer.NumLives - player.ControlledPlayer.NumDeaths <= 0)
+        {
+            player.InitializeForStartLevel(JailTransform.position, true);
+            return;
+        }
+
         int index = (int)(Random.value * (_spawnPositions.Count - 1));
         SpawnPosition position = _spawnPositions[index];
         _spawnPositions.RemoveAt(index);
-        player.InitializeForStartLevel(position.gameObject.transform.position);
+        player.InitializeForStartLevel(position.gameObject.transform.position, false);
     }
 }

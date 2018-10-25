@@ -86,7 +86,7 @@ Material:
     m_Colors:
     - Color_72FF29BE: {r: 0, g: 0, b: 0, a: 0}
     - Color_83748418: {r: 0.90593314, g: 1, b: 0.2971698, a: 0}
-    - Vector2_3DB5D654: {r: 2, g: 2, b: 0, a: 0}
+    - Vector2_3DB5D654: {r: 1, g: 8, b: 0, a: 0}
     - _Color: {r: 0.5, g: 0.5, b: 0.5, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}

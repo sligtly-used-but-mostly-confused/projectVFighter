@@ -608,45 +608,45 @@ public abstract class PlayerController : NetworkBehaviour {
         }
     }
 
-    public void InitializeForStartLevel(Vector3 spawnPoint)
+    public void InitializeForStartLevel(Vector3 spawnPoint, bool isDead)
     {
         if (isLocalPlayer)
         {
-            InitializeForStartLevelInternal(spawnPoint);
+            InitializeForStartLevelInternal(spawnPoint, isDead);
         }
         else
         {
-            CmdInitializeForStartLevel(spawnPoint);
+            CmdInitializeForStartLevel(spawnPoint, isDead);
         }
     }
 
-    public void InitializeForStartLevelInternal(Vector3 spawnPoint)
+    public void InitializeForStartLevelInternal(Vector3 spawnPoint, bool isDead)
     {
         transform.position = spawnPoint;
         GetComponent<GravityObjectRigidBody>().ClearAllVelocities();
         ChangeGORBGravityDirection(GetComponent<GravityObjectRigidBody>(), FindDirToClosestWall());
-        IsDead = false;
+        IsDead = isDead;
     }
 
     [Command]
-    public void CmdInitializeForStartLevel(Vector3 spawnPoint)
+    public void CmdInitializeForStartLevel(Vector3 spawnPoint, bool isDead)
     {
         if (isLocalPlayer)
         {
-            InitializeForStartLevelInternal(spawnPoint);
+            InitializeForStartLevelInternal(spawnPoint, isDead);
         }
         else
         {
-            RpcInitializeForStartLevel(spawnPoint);
+            RpcInitializeForStartLevel(spawnPoint, isDead);
         }
     }
 
     [ClientRpc]
-    public void RpcInitializeForStartLevel(Vector3 spawnPoint)
+    public void RpcInitializeForStartLevel(Vector3 spawnPoint, bool isDead)
     {
         if (isLocalPlayer)
         {
-            InitializeForStartLevelInternal(spawnPoint);
+            InitializeForStartLevelInternal(spawnPoint, isDead);
         }
     }
 
