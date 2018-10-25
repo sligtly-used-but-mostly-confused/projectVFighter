@@ -47,7 +47,7 @@ public class KeyboardPlayerController : PlayerController
 
         AimReticle(aimVector);
 
-        if (InputDevice.GetButtonDown(MappedButton.ChangeGrav))
+        if (InputDevice.GetButtonDown(MappedButton.ChangeGrav) && IsReady)
         {
             FlipGravity();
         }
@@ -76,7 +76,7 @@ public class KeyboardPlayerController : PlayerController
         Vector2 aimDir = new Vector2(rightSitckX, rightSitckY);
         AimReticle(aimDir);
 
-        if (InputDevice.GetIsAxisTapped(MappedAxis.ChangeGrav) && InputDevice.GetAxis(MappedAxis.ChangeGrav) > 0)
+        if (InputDevice.GetIsAxisTapped(MappedAxis.ChangeGrav) && InputDevice.GetAxis(MappedAxis.ChangeGrav) > 0 && IsReady)
         {
             FlipGravity();
         }

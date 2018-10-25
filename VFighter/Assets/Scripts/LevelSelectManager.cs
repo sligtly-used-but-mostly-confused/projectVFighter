@@ -10,7 +10,13 @@ public class LevelSelectManager : NetworkBehaviour
 {
     public static LevelSelectManager Instance;
 
-    public List<string> levels;
+    [System.Serializable]
+    public struct levelData{
+        public string levelName;
+        public Material previewMaterial;
+    }
+
+    public List<levelData> levels;
     public GameObject platform;
     public GameObject levelZone;
     public float areaWidth;
@@ -77,7 +83,7 @@ public class LevelSelectManager : NetworkBehaviour
     private List<string> LeadingLevels(){
         var copy = new List<LevelZoneController>(zones);
         copy.Sort((x,y) => { return x.playersInside.CompareTo(y.playersInside); });
-        return copy.Select(x => x.levelName).Reverse().Take(1).ToList();
+        return copy.Select(x => x.levelName).Reverse().Take(3).ToList();
     }
 
     public void StartTimer()
@@ -145,7 +151,8 @@ public class LevelSelectManager : NetworkBehaviour
                     zonePos += new Vector3(0, y * 1.25f, 0);
                     LevelZoneController zone = Instantiate(levelZone, zonePos, Quaternion.identity).GetComponent<LevelZoneController>();
                     zones.Add(zone);
-                    zone.levelName = levels[levelIndex];
+                    zone.levelName = levels[levelIndex].levelName;
+                    zone.GetComponent<MeshRenderer>().material = levels[levelIndex].previewMaterial;
                     ++levelIndex;
                     --levelsRemaining;
                 }
@@ -156,7 +163,8 @@ public class LevelSelectManager : NetworkBehaviour
                 zonePos += new Vector3(0, 1.25f, 0);
                 LevelZoneController zone = Instantiate(levelZone, zonePos, Quaternion.identity).GetComponent<LevelZoneController>();
                 zones.Add(zone);
-                zone.levelName = levels[levelIndex];
+                zone.levelName = levels[levelIndex].levelName;
+                zone.GetComponent<MeshRenderer>().material = levels[levelIndex].previewMaterial;
                 ++levelIndex;
                 --levelsRemaining;
             }
