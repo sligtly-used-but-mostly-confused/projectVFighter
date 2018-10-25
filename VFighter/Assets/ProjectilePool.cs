@@ -57,10 +57,9 @@ public class ProjectilePool : NetworkBehaviour {
     public void ReturnProjectile(GravityGunProjectileController projectile, Type type)
     {
         _projectilePools[type].Add(projectile);
-        projectile.transform.position = Vector3.zero;
         projectile.transform.rotation = Quaternion.identity;
 
-        projectile.gameObject.SetActive(false);
+        projectile.transform.position = new Vector3(1000000, 1000000, 0);
     }
 
     private void MakePool(GameObject prefab, Type type)
@@ -77,9 +76,10 @@ public class ProjectilePool : NetworkBehaviour {
     {
         var obj = Instantiate(prefab);
         _projectilePools[type].Add(obj.GetComponent<GravityGunProjectileController>());
-        obj.transform.SetParent(transform);
-        obj.SetActive(false);
         NetworkServer.Spawn(obj);
+        //we cant just set it to be unactive because then it wouldent sync
+        obj.transform.position = new Vector3(1000000, 1000000, 0);
+
     }
 
     public static Type ConvertProjectileControllerTypeToType(ProjectileControllerType type)
