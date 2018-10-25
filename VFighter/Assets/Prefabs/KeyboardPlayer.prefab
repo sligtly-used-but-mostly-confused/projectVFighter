@@ -21,8 +21,8 @@ GameObject:
   - component: {fileID: 4584905733197824}
   - component: {fileID: 198304947611754000}
   - component: {fileID: 199603609696648946}
-  - component: {fileID: 114485474864903934}
   - component: {fileID: 114883221867361214}
+  - component: {fileID: 114124901692973594}
   m_Layer: 0
   m_Name: DashPulse (2)
   m_TagString: Untagged
@@ -583,6 +583,20 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &114124901692973594
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1009170412106032}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: acf14b97310f6e948ac1b89561f95d84, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rb: {fileID: 0}
+  tm: {fileID: 0}
+  de: {fileID: 0}
 --- !u!114 &114133254777048290
 MonoBehaviour:
   m_ObjectHideFlags: 1
