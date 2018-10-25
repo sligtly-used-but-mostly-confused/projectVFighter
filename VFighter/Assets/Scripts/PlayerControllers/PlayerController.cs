@@ -55,7 +55,9 @@ public abstract class PlayerController : NetworkBehaviour {
     protected GameObject ReticleParent;
     [SerializeField]
     protected GameObject PlayerReadyIndicatorPrefab;
-    
+    [SerializeField]
+    protected DashEffect de;
+
     protected readonly Vector2[] _gravChangeDirections = { Vector2.up, Vector2.down };
 
     public InputDevice InputDevice;
@@ -108,7 +110,7 @@ public abstract class PlayerController : NetworkBehaviour {
         StartCoroutine(FindReticle());
         var indicator = Instantiate(PlayerReadyIndicatorPrefab);
         indicator.GetComponent<PlayerReadyIndicatorController>().AttachedPlayer = this;
-
+        de = GetComponentInChildren<DashEffect>();
         GetComponent<Renderer>().material = GetComponent<CharacterSelectController>().CharacterTypeMaterialMappings[CharacterType];
     }
 
@@ -235,6 +237,7 @@ public abstract class PlayerController : NetworkBehaviour {
     {
         if (!IsDashCoolingDown)
         {
+            de.dashOn = true;
             //need to account for gravity
             var dashVec = dir.normalized * DashSpeed;
             var closestDir = ClosestDirection(dir, _gravChangeDirections);
@@ -434,6 +437,7 @@ public abstract class PlayerController : NetworkBehaviour {
         IsDashCoolingDown = true;
         CmdSetDashCoolDown(true);
         yield return new WaitForSeconds(DashCoolDownTime);
+        de.dashOn = false;
         IsDashCoolingDown = false;
         CmdSetDashCoolDown(false);
     }
