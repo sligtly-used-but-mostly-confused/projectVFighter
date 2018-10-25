@@ -10,7 +10,7 @@ public class RocketProjectileController : GravityGunProjectileController
     {
     }
 
-    private void OnDestroy()
+    protected override void ReturnToPool()
     {
         var blast = Instantiate(RocketBlastPrefab);
         blast.transform.position = this.transform.position;
