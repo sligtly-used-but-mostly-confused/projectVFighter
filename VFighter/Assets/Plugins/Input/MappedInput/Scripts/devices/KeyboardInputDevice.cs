@@ -36,15 +36,15 @@ public class KeyboardInputDevice : InputDevice
     {
         //This needs to be able to return both the positive and negative button icon
         var mapping = MappedInput.Instance.KeyboardInputMapping.GetKeyboardAxisMapping(axis);
-        if (mapping != null)
-        {
-
-            if (mapping.buttonsPositive.Length > 0 && mapping.buttonsNegative.Length > 0)
-                return MappedInput.Instance.KeyboardInputMapping.IconMappings.GetKeyboardAxisIconMapping(mapping.buttonsNegative[0]).Icon;
-            if (mapping.buttonsPositive.Length > 0)
-                return MappedInput.Instance.KeyboardInputMapping.IconMappings.GetKeyboardAxisIconMapping(mapping.buttonsPositive[0]).Icon;
-        }
-        return null;
+       return MappedInput.Instance.KeyboardInputMapping.IconMappings.GetKeyboardAxisIconMapping(mapping.axes[0]).Icon;
+        //if (mapping != null)
+        //{
+        //    if (mapping.buttonsPositive.Length > 0 && mapping.buttonsNegative.Length > 0)
+        //        return MappedInput.Instance.KeyboardInputMapping.IconMappings.GetKeyboardAxisIconMapping(mapping.buttonsNegative[0]).Icon;
+        //    if (mapping.buttonsPositive.Length > 0)
+        //        return MappedInput.Instance.KeyboardInputMapping.IconMappings.GetKeyboardAxisIconMapping(mapping.buttonsPositive[0]).Icon;
+        //}
+        //return null;
     }
 
     public override bool GetButton(MappedButton button)

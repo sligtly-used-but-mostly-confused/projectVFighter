@@ -42,8 +42,10 @@ public class KeyboardInputMapping : ScriptableObject
 	public class AxisMapping
 	{
 		public MappedAxis target;
+        public KeyboardAxis[] axes;
 		public KeyCode[] buttonsPositive;
 		public KeyCode[] buttonsNegative;
+        public bool inverted;
 	}
 }
 

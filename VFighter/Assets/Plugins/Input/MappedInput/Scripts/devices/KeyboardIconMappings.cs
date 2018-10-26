@@ -8,6 +8,7 @@ public class KeyboardIconMappings : ScriptableObject
 {
 
     public List<ButtonIconMapping> buttonMappings = new List<ButtonIconMapping>();
+    public List<AxisIconMapping> axisMappings = new List<AxisIconMapping>();
 
     public ButtonIconMapping GetKeyboardButtonIconMapping(KeyCode target)
     {
@@ -23,13 +24,13 @@ public class KeyboardIconMappings : ScriptableObject
     // I'm not sure that we need this at all because the keyboard doesn't really
     // have an axis
     
-    public ButtonIconMapping GetKeyboardAxisIconMapping(KeyCode target)
+    public AxisIconMapping GetKeyboardAxisIconMapping(KeyboardAxis target)
     {
-        for (int i = 0; i < buttonMappings.Count; i++)
+        for (int i = 0; i < axisMappings.Count; i++)
         {
-            if (buttonMappings[i].Keys.Any(x => x == target))
+            if (axisMappings[i].Axes.Any(x => x == target))
             {
-                return buttonMappings[i];
+                return axisMappings[i];
             }
         }
         return null;
@@ -44,9 +45,10 @@ public class KeyboardIconMappings : ScriptableObject
 
     // This kind of needs to parallel the gamepad
     [System.Serializable]
-    public class AxisMapping
+    public class AxisIconMapping
     {
-       // public KeyboardAxis[] Axes;
+        public KeyboardAxis[] Axes;
+        public Sprite Icon;
         //public MappedAxis target;
         //public KeyboardAxis[] axes;
         //public KeyboardButton[] buttonsPositive;
