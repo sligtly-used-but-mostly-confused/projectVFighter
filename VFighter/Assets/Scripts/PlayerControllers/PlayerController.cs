@@ -457,6 +457,7 @@ public abstract class PlayerController : NetworkBehaviour {
                     SetDirtyBit(0xFFFFFFFF);
                     //kill the other player
                     collision.collider.GetComponent<PlayerController>().Kill();
+                    Recoil();
                     return;
                 }
 
@@ -469,7 +470,7 @@ public abstract class PlayerController : NetworkBehaviour {
                 //if we dash into an object push it
                 var dashVel = GetComponent<Rigidbody2D>().velocity;
                 ChangeGORBGravityDirection(GORB, dashVel.normalized);
-                RpcClearVelocities(gameObject);
+                Recoil();
                 IsDashCoolingDown = false;
                 return;
             }
@@ -487,6 +488,18 @@ public abstract class PlayerController : NetworkBehaviour {
         }
     }
 
+    //must be on server
+    private void Recoil()
+    {
+        var GORB = GetComponent<GravityObjectRigidBody>();
+        var vel = GetComponent<Rigidbody2D>().velocity;
+        RpcClearVelocities(gameObject);
+        RpcUpdateGORBVelocity(gameObject,VelocityType.OtherPhysics, -vel * 10);
+        var compass = new List<Vector2> { GORB.GravityDirection, -GORB.GravityDirection };
+        
+        ChangeGORBGravityDirection(GORB, ClosestDirection(-vel, compass.ToArray(), GORB.GravityDirection, .1f));
+    }
+
     public static Vector2 ClosestDirection(Vector2 v, Vector2[] compass)
     {
         var maxDot = -Mathf.Infinity;
@@ -500,6 +513,29 @@ public abstract class PlayerController : NetworkBehaviour {
                 ret = dir;
                 maxDot = t;
             }
+        }
+        
+        return ret;
+    }
+
+    public static Vector2 ClosestDirection(Vector2 v, Vector2[] compass, Vector3 defaultDir, float threshold)
+    {
+        var maxDot = -Mathf.Infinity;
+        var ret = Vector3.zero;
+
+        foreach (var dir in compass)
+        {
+            var t = Vector3.Dot(v, dir);
+            if (t > maxDot)
+            {
+                ret = dir;
+                maxDot = t;
+            }
+        }
+        
+        if (maxDot < threshold)
+        {
+            return defaultDir;
         }
 
         return ret;
@@ -553,6 +589,40 @@ public abstract class PlayerController : NetworkBehaviour {
     public void CmdToggleReady()
     {
         IsReady = !IsReady;
+    }
+
+    public void UpdateGORBVelocity(GravityObjectRigidBody GORB, VelocityType type, Vector2 dir)
+    {
+        if (GORB.IsSimulatedOnThisConnection)
+        {
+            GORB.UpdateVelocity(type, dir);
+        }
+        else
+        {
+            CmdUpdateGORBVelocity(GORB.gameObject, type, dir);
+        }
+    }
+
+    [Command]
+    public void CmdUpdateGORBVelocity(GameObject GORB, VelocityType type, Vector2 dir)
+    {
+        if (GORB.GetComponent<GravityObjectRigidBody>().IsSimulatedOnThisConnection)
+        {
+            GORB.GetComponent<GravityObjectRigidBody>().UpdateVelocity(type, dir);
+        }
+        else
+        {
+            RpcUpdateGORBVelocity(GORB, type, dir);
+        }
+    }
+
+    [ClientRpc]
+    public void RpcUpdateGORBVelocity(GameObject GORB, VelocityType type, Vector2 dir)
+    {
+        if (GORB.GetComponent<GravityObjectRigidBody>().IsSimulatedOnThisConnection)
+        {
+            GORB.GetComponent<GravityObjectRigidBody>().UpdateVelocity(type, dir);
+        }
     }
 
     #region changGORB gravity dir

@@ -26,6 +26,7 @@ public class ProjectilePool : NetworkBehaviour {
         }
 
         Instance = this;
+        DontDestroyOnLoad(gameObject);
     }
 
     public override void OnStartServer()
