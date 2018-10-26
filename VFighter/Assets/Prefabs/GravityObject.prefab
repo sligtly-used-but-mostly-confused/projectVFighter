@@ -26,8 +26,8 @@ GameObject:
   - component: {fileID: 114227078285474836}
   - component: {fileID: 114251008964941468}
   - component: {fileID: 114336607378335190}
-  - component: {fileID: 96965740948421520}
   - component: {fileID: 82144942733576756}
+  - component: {fileID: 96011521636799990}
   m_Layer: 0
   m_Name: GravityObject
   m_TagString: Untagged
@@ -42,7 +42,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1167609975392520}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.7854548, y: -1.8750341, z: 0}
+  m_LocalPosition: {x: 1.19, y: 1.42, z: 0}
   m_LocalScale: {x: 0.75, y: 0.75, z: 0.75}
   m_Children: []
   m_Father: {fileID: 0}
@@ -230,7 +230,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!96 &96965740948421520
+--- !u!96 &96011521636799990
 TrailRenderer:
   serializedVersion: 2
   m_ObjectHideFlags: 1
@@ -246,7 +246,7 @@ TrailRenderer:
   m_ReflectionProbeUsage: 0
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 04d126ba1f0d0478f801292308bbc946, type: 2}
+  - {fileID: 2100000, guid: ed4d15baad37141e2aefc53f051f386e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -262,7 +262,7 @@ TrailRenderer:
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
+  m_LightmapParameters: {fileID: 15200, guid: 0000000000000000f000000000000000, type: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -275,7 +275,7 @@ TrailRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.4824829
+        value: 1
         inSlope: -0.5329618
         outSlope: -0.5329618
         tangentMode: 0
@@ -283,16 +283,16 @@ TrailRenderer:
         inWeight: 0.33333334
         outWeight: 0.2706087
       - serializedVersion: 3
-        time: 0.47525793
-        value: 0.22856775
-        inSlope: -0.5945104
-        outSlope: -0.5945104
+        time: 0.71103066
+        value: 0.32681912
+        inSlope: -0.57015824
+        outSlope: -0.57015824
         tangentMode: 0
         weightedMode: 0
         inWeight: 0.33333334
-        outWeight: 0.20470868
+        outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.9973755
+        time: 1
         value: 0
         inSlope: -0.3735289
         outSlope: -0.3735289
@@ -305,15 +305,15 @@ TrailRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 0.44854486, g: 0.990566, b: 0, a: 1}
-      key1: {r: 1, g: 1, b: 1, a: 0.48235294}
-      key2: {r: 0, g: 0, b: 0, a: 0.5647059}
+      key0: {r: 0.44854486, g: 0.990566, b: 0, a: 0}
+      key1: {r: 1, g: 1, b: 1, a: 1}
+      key2: {r: 0, g: 0, b: 0, a: 0.80784315}
       key3: {r: 0, g: 0, b: 0, a: 1}
       key4: {r: 0, g: 0, b: 0, a: 0}
       key5: {r: 0, g: 0, b: 0, a: 0}
       key6: {r: 0, g: 0, b: 0, a: 0}
       key7: {r: 0, g: 0, b: 0, a: 0}
-      ctime0: 0
+      ctime0: 10601
       ctime1: 65535
       ctime2: 0
       ctime3: 0
@@ -321,8 +321,8 @@ TrailRenderer:
       ctime5: 0
       ctime6: 0
       ctime7: 0
-      atime0: 0
-      atime1: 30455
+      atime0: 964
+      atime1: 10987
       atime2: 53777
       atime3: 65535
       atime4: 0
@@ -357,7 +357,6 @@ MonoBehaviour:
   _maxDefaultComponentSpeed: {x: 10, y: 10}
   _maxComponentSpeeds: []
   _stopObjectOnCollide: 1
-  _timeToDashStop: 1
   _drag: 0.5
   Bounciness: 0
   CanBeSelected: 1
