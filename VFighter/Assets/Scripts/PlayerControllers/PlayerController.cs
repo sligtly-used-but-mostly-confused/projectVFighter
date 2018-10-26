@@ -414,6 +414,7 @@ public abstract class PlayerController : NetworkBehaviour {
                 if(_cooldownController.IsCoolingDown(CooldownType.Dash))
                 {
                     ControlledPlayer.NumKills++;
+                    ControlledPlayer.NumOverallKills++;
                     SetDirtyBit(0xFFFFFFFF);
                     //kill the other player
                     collision.collider.GetComponent<PlayerController>().Kill();
@@ -441,6 +442,7 @@ public abstract class PlayerController : NetworkBehaviour {
             {
                 var otherPlayer = NetworkServer.FindLocalObject((GORB as ControllableGravityObjectRigidBody).LastShotBy).GetComponent<PlayerController>();
                 otherPlayer.ControlledPlayer.NumKills++;
+                otherPlayer.ControlledPlayer.NumOverallKills++;
                 otherPlayer.SetDirtyBit(0xFFFFFFFF);
             }
 
@@ -512,6 +514,7 @@ public abstract class PlayerController : NetworkBehaviour {
         {
             IsDead = true;
             ControlledPlayer.NumDeaths++;
+            ControlledPlayer.NumOverallDeaths++;
         }
         PlaySingle(death, 3);
         SetDirtyBit(0xFFFFFFFF);

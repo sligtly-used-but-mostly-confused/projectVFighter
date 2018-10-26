@@ -37,7 +37,7 @@ public class GameManager : NetworkBehaviour {
     public void StartGame(List<string> roundStages)
     {
         _roundLevelNames = roundStages;
-        CheckHeartBeatThenCallback(StartNewRound);
+        CheckHeartBeatThenCallback(LoadNewLevel);
     }
 
     public void LoadNextStage()
@@ -60,20 +60,28 @@ public class GameManager : NetworkBehaviour {
         var players = FindObjectsOfType<PlayerController>().ToList();
         if(_roundLevelNames.Count > 0)
         {
-            _levelName = _roundLevelNames[0];
-            _roundLevelNames.RemoveAt(0);
-            players.ForEach(x => x.ControlledPlayer.Reset());
-            CheckHeartBeatThenCallback(StartNewLevel);
+            players.Where(x => !x.IsDead).ToList().ForEach(x => x.ControlledPlayer.NumRoundWins++);
+            LoadNewLevel();
         }
         else
         {
+            
             CheckHeartBeatThenCallback(() =>
             {
-                players.ForEach(x => x.ControlledPlayer.Reset());
+                players.ForEach(x => x.ControlledPlayer.ResetForNewGame());
                 CurrentlyChangingScenes = true;
                 NetworkManager.singleton.ServerChangeScene(LevelSelect);
             });
         }
+    }
+    
+    private void LoadNewLevel()
+    {
+        var players = FindObjectsOfType<PlayerController>().ToList();
+        _levelName = _roundLevelNames[0];
+        _roundLevelNames.RemoveAt(0);
+        players.ForEach(x => x.ControlledPlayer.Reset());
+        CheckHeartBeatThenCallback(StartNewLevel);
     }
 
     private void StartNewLevel()

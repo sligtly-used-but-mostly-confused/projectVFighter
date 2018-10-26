@@ -689,6 +689,9 @@ MonoBehaviour:
     NumDeaths: 0
     NumLives: 0
     NumKills: 0
+    NumOverallKills: 0
+    NumOverallDeaths: 0
+    NumRoundWins: 0
   IsDead: 0
   CharacterType: 0
 --- !u!114 &114313954095473740
@@ -749,7 +752,7 @@ MonoBehaviour:
     CooldownTime: 0.5
     IsCoolingDown: 0
   - Type: 4
-    CooldownTime: 1
+    CooldownTime: 0.25
     IsCoolingDown: 0
 --- !u!114 &114662783024654882
 MonoBehaviour:
