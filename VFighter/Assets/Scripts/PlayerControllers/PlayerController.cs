@@ -231,12 +231,15 @@ public abstract class PlayerController : NetworkBehaviour {
             de.dashOn = true;
             //need to account for gravity
             var dashVec = dir.normalized * DashSpeed;
-            var closestDir = ClosestDirection(dir, _gravChangeDirections);
-            ChangeGORBGravityDirection(GetComponent<GravityObjectRigidBody>(), closestDir);
+
+            var GORB = GetComponent<GravityObjectRigidBody>();
+            var compass = new List<Vector2> { GORB.GravityDirection, -GORB.GravityDirection };
+            ChangeGORBGravityDirection(GORB, ClosestDirection(dir, compass.ToArray(), GORB.GravityDirection));
+
             GetComponent<GravityObjectRigidBody>().Dash(dashVec, _cooldownController.GetCooldownTime(CooldownType.Dash) * .5f);
             PlaySingle(dash,1);
 
-            _cooldownController.StartCooldown(CooldownType.Dash, () => { de.dashOn = false; });
+            _cooldownController.StartCooldown(CooldownType.Dash, () => { de.dashOn = false; Debug.Log("callback"); });
         }
 
     }
@@ -459,7 +462,7 @@ public abstract class PlayerController : NetworkBehaviour {
         RpcUpdateGORBVelocity(gameObject,VelocityType.OtherPhysics, -vel * 10);
         var compass = new List<Vector2> { GORB.GravityDirection, -GORB.GravityDirection };
         
-        ChangeGORBGravityDirection(GORB, ClosestDirection(-vel, compass.ToArray(), GORB.GravityDirection, .1f));
+        ChangeGORBGravityDirection(GORB, ClosestDirection(-vel, compass.ToArray(), GORB.GravityDirection));
     }
 
     public static Vector2 ClosestDirection(Vector2 v, Vector2[] compass)
@@ -480,8 +483,9 @@ public abstract class PlayerController : NetworkBehaviour {
         return ret;
     }
 
-    public static Vector2 ClosestDirection(Vector2 v, Vector2[] compass, Vector3 defaultDir, float threshold)
+    public static Vector2 ClosestDirection(Vector2 v, Vector2[] compass, Vector3 defaultDir, float threshold = .1f)
     {
+        v = v.normalized;
         var maxDot = -Mathf.Infinity;
         var ret = Vector3.zero;
 
@@ -494,9 +498,12 @@ public abstract class PlayerController : NetworkBehaviour {
                 maxDot = t;
             }
         }
-        
+
+        Debug.Log(maxDot + " " + threshold);
+
         if (maxDot < threshold)
         {
+            Debug.Log("default " + defaultDir);
             return defaultDir;
         }
 
