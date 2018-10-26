@@ -46,10 +46,12 @@ public class KeyboardIconMappings : ScriptableObject
     [System.Serializable]
     public class AxisMapping
     {
-        public MappedAxis target;
-        public KeyboardAxis[] axes;
-        public KeyboardButton[] buttonsPositive;
-        public KeyboardButton[] buttonsNegative;
-        public bool inverted;
+       // public KeyboardAxis[] Axes;
+        //public MappedAxis target;
+        //public KeyboardAxis[] axes;
+        //public KeyboardButton[] buttonsPositive;
+        //public KeyboardButton[] buttonsNegative;
+        //public bool inverted;
+
     }
 }
