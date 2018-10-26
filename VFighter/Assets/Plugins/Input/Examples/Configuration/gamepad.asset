@@ -23,13 +23,13 @@ MonoBehaviour:
   axisMappings:
   - target: 0
     axes: 00000000
-    buttonsPositive: 09000000
-    buttonsNegative: 07000000
+    buttonsPositive: 
+    buttonsNegative: 
     inverted: 0
   - target: 1
     axes: 01000000
-    buttonsPositive: 08000000
-    buttonsNegative: 0a000000
+    buttonsPositive: 
+    buttonsNegative: 
     inverted: 0
   - target: 2
     axes: 02000000

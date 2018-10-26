@@ -12,7 +12,7 @@ public class CharacterSelectController : NetworkBehaviour {
     public GameObject previewPrefab;
     public GameObject currentIconGameObject;
     public GameObject descriptionPrefab;
-    public int secondForCharacterTip;
+    public float secondForCharacterTip;
 
     private readonly List<PlayerCharacterType> CharacterTypes = Enum.GetValues(typeof(PlayerCharacterType)).Cast<PlayerCharacterType>().ToList();
 
@@ -122,7 +122,8 @@ public class CharacterSelectController : NetworkBehaviour {
 
     public void ChangeToNextCharacterType(int dir)
     {
-        if(!playerController.IsReady)CmdChangeToNextCharacterType(dir);
+        if(!playerController.IsReady)
+            CmdChangeToNextCharacterType(dir);
     }
 
     [Command]

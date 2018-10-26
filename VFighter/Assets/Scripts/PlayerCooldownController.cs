@@ -26,9 +26,15 @@ public class PlayerCooldownController : NetworkBehaviour {
         public bool IsCoolingDown;
     }
 
+    public class CooldownCoroutineCallbackPair
+    {
+        public Coroutine CooldownTimer;
+        public Action Callback;
+    }
+
     [SerializeField]
     private List<CooldownTimePair> _coolDowns;
-    private Dictionary<CooldownType, Coroutine> _coolDownTimers = new Dictionary<CooldownType, Coroutine>();
+    private Dictionary<CooldownType, CooldownCoroutineCallbackPair> _coolDownTimers = new Dictionary<CooldownType, CooldownCoroutineCallbackPair>();
 
     [System.Serializable]
     public class SyncListCooldownPairs : SyncListStruct<CooldownTimePair>{}
@@ -69,15 +75,11 @@ public class PlayerCooldownController : NetworkBehaviour {
         temp.IsCoolingDown = true;
         _pairs[index] = temp;
         CmdChangeCooldownState(temp);
+        var coolDown = new CooldownCoroutineCallbackPair();
 
-        _coolDownTimers[type] = StartCoroutine(CooldownInternal(temp.CooldownTime, () => 
-        {
-            _coolDownTimers[type] = null;
-            temp.IsCoolingDown = false;
-            _pairs[index] = temp;
-            CmdChangeCooldownState(temp);
-            cb();
-        }));
+        coolDown.CooldownTimer = StartCoroutine(CooldownInternal(type, temp.CooldownTime, cb));
+        coolDown.Callback = cb;
+        _coolDownTimers[type] = coolDown;
     }
 
     public bool IsCoolingDown(CooldownType type)
@@ -97,7 +99,8 @@ public class PlayerCooldownController : NetworkBehaviour {
         int index = _pairs.ToList().IndexOf(temp);
         if(_coolDownTimers[type] != null)
         {
-            StopCoroutine(_coolDownTimers[type]);
+            StopCoroutine(_coolDownTimers[type].CooldownTimer);
+            _coolDownTimers[type].Callback();
             _coolDownTimers[type] = null;
         }
 
@@ -106,9 +109,15 @@ public class PlayerCooldownController : NetworkBehaviour {
         CmdChangeCooldownState(temp);
     }
 
-    private IEnumerator CooldownInternal(float time, Action cb)
+    private IEnumerator CooldownInternal(CooldownType type, float time, Action cb)
     {
+        var temp = _pairs.ToList().Find(x => x.Type == type);
+        int index = _pairs.ToList().IndexOf(temp);
         yield return new WaitForSeconds(time);
+        _coolDownTimers[type] = null;
+        temp.IsCoolingDown = false;
+        _pairs[index] = temp;
+        CmdChangeCooldownState(temp);
         cb();
     }
 

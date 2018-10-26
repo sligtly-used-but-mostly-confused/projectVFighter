@@ -4960,7 +4960,6 @@ MonoBehaviour:
   _maxDefaultComponentSpeed: {x: 10, y: 10}
   _maxComponentSpeeds: []
   _stopObjectOnCollide: 0
-  _timeToDashStop: 1
   _drag: 1
   Bounciness: 0
   CanBeSelected: 0
@@ -5226,7 +5225,6 @@ MonoBehaviour:
   _maxDefaultComponentSpeed: {x: 10, y: 10}
   _maxComponentSpeeds: []
   _stopObjectOnCollide: 0
-  _timeToDashStop: 1
   _drag: 1
   Bounciness: 0
   CanBeSelected: 0
@@ -5363,66 +5361,6 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 114347155088110636, guid: 1111fb481ba47cc4dbca84d5c38c2309,
-        type: 2}
-      propertyPath: m_Text
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 114347155088110636, guid: 1111fb481ba47cc4dbca84d5c38c2309,
-        type: 2}
-      propertyPath: m_FontData.m_FontSize
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 114347155088110636, guid: 1111fb481ba47cc4dbca84d5c38c2309,
-        type: 2}
-      propertyPath: m_FontData.m_MaxSize
-      value: 258
-      objectReference: {fileID: 0}
-    - target: {fileID: 114347155088110636, guid: 1111fb481ba47cc4dbca84d5c38c2309,
-        type: 2}
-      propertyPath: m_FontData.m_MinSize
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224351864620591018, guid: 1111fb481ba47cc4dbca84d5c38c2309,
-        type: 2}
-      propertyPath: m_AnchorMin.x
-      value: 0.7495625
-      objectReference: {fileID: 0}
-    - target: {fileID: 224351864620591018, guid: 1111fb481ba47cc4dbca84d5c38c2309,
-        type: 2}
-      propertyPath: m_AnchoredPosition.x
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 224351864620591018, guid: 1111fb481ba47cc4dbca84d5c38c2309,
-        type: 2}
-      propertyPath: m_SizeDelta.x
-      value: -8
-      objectReference: {fileID: 0}
-    - target: {fileID: 224351864620591018, guid: 1111fb481ba47cc4dbca84d5c38c2309,
-        type: 2}
-      propertyPath: m_AnchorMin.y
-      value: 0.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 224351864620591018, guid: 1111fb481ba47cc4dbca84d5c38c2309,
-        type: 2}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224351864620591018, guid: 1111fb481ba47cc4dbca84d5c38c2309,
-        type: 2}
-      propertyPath: m_SizeDelta.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224351864620591018, guid: 1111fb481ba47cc4dbca84d5c38c2309,
-        type: 2}
-      propertyPath: m_AnchorMax.x
-      value: 0.8537501
-      objectReference: {fileID: 0}
-    - target: {fileID: 224351864620591018, guid: 1111fb481ba47cc4dbca84d5c38c2309,
-        type: 2}
-      propertyPath: m_AnchorMax.y
-      value: 0.6018519
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1111fb481ba47cc4dbca84d5c38c2309, type: 2}
   m_IsPrefabAsset: 0
@@ -5548,7 +5486,6 @@ MonoBehaviour:
   _maxDefaultComponentSpeed: {x: 10, y: 10}
   _maxComponentSpeeds: []
   _stopObjectOnCollide: 0
-  _timeToDashStop: 1
   _drag: 1
   Bounciness: 0
   CanBeSelected: 0
@@ -10391,7 +10328,6 @@ MonoBehaviour:
   _maxDefaultComponentSpeed: {x: 10, y: 10}
   _maxComponentSpeeds: []
   _stopObjectOnCollide: 0
-  _timeToDashStop: 1
   _drag: 1
   Bounciness: 0
   CanBeSelected: 0
@@ -10696,7 +10632,6 @@ MonoBehaviour:
   _maxDefaultComponentSpeed: {x: 10, y: 10}
   _maxComponentSpeeds: []
   _stopObjectOnCollide: 0
-  _timeToDashStop: 1
   _drag: 1
   Bounciness: 0
   CanBeSelected: 0
@@ -10853,7 +10788,6 @@ MonoBehaviour:
   _maxDefaultComponentSpeed: {x: 10, y: 10}
   _maxComponentSpeeds: []
   _stopObjectOnCollide: 0
-  _timeToDashStop: 1
   _drag: 1
   Bounciness: 0
   CanBeSelected: 0
@@ -11066,7 +11000,6 @@ MonoBehaviour:
   _maxDefaultComponentSpeed: {x: 10, y: 10}
   _maxComponentSpeeds: []
   _stopObjectOnCollide: 0
-  _timeToDashStop: 1
   _drag: 1
   Bounciness: 0
   CanBeSelected: 0
@@ -11389,7 +11322,6 @@ MonoBehaviour:
   _maxDefaultComponentSpeed: {x: 10, y: 10}
   _maxComponentSpeeds: []
   _stopObjectOnCollide: 0
-  _timeToDashStop: 1
   _drag: 1
   Bounciness: 0
   CanBeSelected: 0
@@ -11574,7 +11506,6 @@ MonoBehaviour:
   _maxDefaultComponentSpeed: {x: 10, y: 10}
   _maxComponentSpeeds: []
   _stopObjectOnCollide: 0
-  _timeToDashStop: 1
   _drag: 1
   Bounciness: 0
   CanBeSelected: 0
@@ -12026,7 +11957,6 @@ MonoBehaviour:
   _maxDefaultComponentSpeed: {x: 10, y: 10}
   _maxComponentSpeeds: []
   _stopObjectOnCollide: 0
-  _timeToDashStop: 1
   _drag: 1
   Bounciness: 0
   CanBeSelected: 0
@@ -16998,7 +16928,6 @@ MonoBehaviour:
   _maxDefaultComponentSpeed: {x: 10, y: 10}
   _maxComponentSpeeds: []
   _stopObjectOnCollide: 0
-  _timeToDashStop: 1
   _drag: 1
   Bounciness: 0
   CanBeSelected: 0
@@ -22489,7 +22418,6 @@ MonoBehaviour:
   _maxDefaultComponentSpeed: {x: 10, y: 10}
   _maxComponentSpeeds: []
   _stopObjectOnCollide: 0
-  _timeToDashStop: 1
   _drag: 1
   Bounciness: 0
   CanBeSelected: 0
@@ -22646,7 +22574,6 @@ MonoBehaviour:
   _maxDefaultComponentSpeed: {x: 10, y: 10}
   _maxComponentSpeeds: []
   _stopObjectOnCollide: 0
-  _timeToDashStop: 1
   _drag: 1
   Bounciness: 0
   CanBeSelected: 0
@@ -22803,7 +22730,6 @@ MonoBehaviour:
   _maxDefaultComponentSpeed: {x: 10, y: 10}
   _maxComponentSpeeds: []
   _stopObjectOnCollide: 0
-  _timeToDashStop: 1
   _drag: 1
   Bounciness: 0
   CanBeSelected: 0
@@ -22960,7 +22886,6 @@ MonoBehaviour:
   _maxDefaultComponentSpeed: {x: 10, y: 10}
   _maxComponentSpeeds: []
   _stopObjectOnCollide: 0
-  _timeToDashStop: 1
   _drag: 1
   Bounciness: 0
   CanBeSelected: 0
@@ -23214,7 +23139,6 @@ MonoBehaviour:
   _maxDefaultComponentSpeed: {x: 10, y: 10}
   _maxComponentSpeeds: []
   _stopObjectOnCollide: 0
-  _timeToDashStop: 1
   _drag: 1
   Bounciness: 0
   CanBeSelected: 0
@@ -23645,7 +23569,6 @@ MonoBehaviour:
   _maxDefaultComponentSpeed: {x: 10, y: 10}
   _maxComponentSpeeds: []
   _stopObjectOnCollide: 0
-  _timeToDashStop: 1
   _drag: 1
   Bounciness: 0
   CanBeSelected: 0
@@ -23849,7 +23772,6 @@ MonoBehaviour:
   _maxDefaultComponentSpeed: {x: 10, y: 10}
   _maxComponentSpeeds: []
   _stopObjectOnCollide: 0
-  _timeToDashStop: 1
   _drag: 1
   Bounciness: 0
   CanBeSelected: 0
@@ -24370,7 +24292,6 @@ MonoBehaviour:
   _maxDefaultComponentSpeed: {x: 10, y: 10}
   _maxComponentSpeeds: []
   _stopObjectOnCollide: 0
-  _timeToDashStop: 1
   _drag: 1
   Bounciness: 0
   CanBeSelected: 0
@@ -24753,7 +24674,6 @@ MonoBehaviour:
   _maxDefaultComponentSpeed: {x: 10, y: 10}
   _maxComponentSpeeds: []
   _stopObjectOnCollide: 0
-  _timeToDashStop: 1
   _drag: 1
   Bounciness: 0
   CanBeSelected: 0
