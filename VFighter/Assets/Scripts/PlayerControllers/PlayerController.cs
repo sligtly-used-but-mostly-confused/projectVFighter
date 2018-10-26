@@ -532,8 +532,7 @@ public abstract class PlayerController : NetworkBehaviour {
                 maxDot = t;
             }
         }
-
-        Debug.Log(maxDot);
+        
         if (maxDot < threshold)
         {
             return defaultDir;
