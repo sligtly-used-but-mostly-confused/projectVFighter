@@ -17,6 +17,11 @@ public class GravityGunProjectileController : NetworkBehaviour {
     public float SecondsUntilDestroy = 1;
     public PlayerController Owner;
 
+    private void Awake()
+    {
+        DontDestroyOnLoad(gameObject);
+    }
+
     public virtual void OnShot()
     {
         StartCoroutine(Onstart());
