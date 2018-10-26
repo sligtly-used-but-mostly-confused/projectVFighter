@@ -34,7 +34,6 @@ public class GravityGunProjectileController : NetworkBehaviour {
 
     protected virtual void ReturnToPool()
     {
-        Debug.Log("normal");
         ProjectilePool.Instance.ReturnProjectile(this, this.GetType());
     }
 
@@ -49,9 +48,6 @@ public class GravityGunProjectileController : NetworkBehaviour {
             }
 
             Owner.AttachReticle(GORB);
-
-            Owner.IsCoolingDown = true;
-            Owner.StartGravGunCoolDown();
         }
     }
 
@@ -63,8 +59,6 @@ public class GravityGunProjectileController : NetworkBehaviour {
             if(collision.GetComponent<PlayerController>())
             {
                 collision.GetComponent<PlayerController>().FlipGravity();
-                Owner.IsCoolingDown = true;
-                Owner.StartGravGunCoolDown();
                 ReturnToPool();
                 return;
             }

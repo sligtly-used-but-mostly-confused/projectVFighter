@@ -20,15 +20,12 @@ public abstract class PlayerController : NetworkBehaviour {
     public GravityObjectRigidBody AttachedObject;
 
     [SerializeField]
-    protected float RechargeTime = 1f;
-    [SerializeField]
-    protected float ChangeGravityRechargeTime = .1f;
-    [SerializeField]
-    protected float DashCoolDownTime = .1f;
-    [SerializeField]
     protected float DurationOfNormalGravityProjectile = 1;
     [SerializeField]
     protected float DurationOfShotgunGravityProjectile = .25f;
+    [SerializeField]
+    protected float DurationOfRocketGravityProjectile = 1.5f;
+
     [SerializeField]
     protected float MoveSpeed = 1f;
     [SerializeField]
@@ -62,10 +59,6 @@ public abstract class PlayerController : NetworkBehaviour {
 
     public InputDevice InputDevice;
 
-    public bool IsCoolingDown = false;
-    public bool IsChangeGravityCoolingDown = false;
-    public bool IsDashCoolingDown = false;
-
     //sound effects
     public AudioSource[] channels = new AudioSource[4]; //ch0 - ggfire, ch1 - dash/sgfire, ch2 - changeGrav, ch3 - death
     public AudioClip gravChange;
@@ -82,7 +75,8 @@ public abstract class PlayerController : NetworkBehaviour {
 
     private List<GameObject> GravityGunProjectiles = new List<GameObject>();
     private Coroutine GravGunCoolDownCoroutine;
-    
+    private PlayerCooldownController _cooldownController;
+
     [SyncVar]
     public short ReticleId = -1;
     [SyncVar]
@@ -98,10 +92,8 @@ public abstract class PlayerController : NetworkBehaviour {
 
     protected virtual void Awake()
     {
-        IsCoolingDown = false;
-        IsChangeGravityCoolingDown = false;
-        IsDashCoolingDown = false;
         IsDead = false;
+        _cooldownController = GetComponent<PlayerCooldownController>();
     }
 
     private void Start()
@@ -191,7 +183,7 @@ public abstract class PlayerController : NetworkBehaviour {
     {
         if (isLocalPlayer)
         {
-            if (!IsChangeGravityCoolingDown)
+            if (!_cooldownController.IsCoolingDown(CooldownType.ChangeGravity))
             {
                 ChangeGravity(GetComponent<GravityObjectRigidBody>().GravityDirection * -1);
                 PlaySingle(gravChange,2);
@@ -220,11 +212,10 @@ public abstract class PlayerController : NetworkBehaviour {
 
     public void ChangeGravity(Vector2 dir)
     {
-        if (!IsChangeGravityCoolingDown)
+        if (!_cooldownController.IsCoolingDown(CooldownType.ChangeGravity))
         {
             ChangeGORBGravityDirection(GetComponent<GravityObjectRigidBody>(), dir);
-            IsChangeGravityCoolingDown = true;
-            StartCoroutine(ChangeGravityCoolDown());
+            _cooldownController.StartCooldown(CooldownType.ChangeGravity, () => { });
         }
     }
 
@@ -235,18 +226,17 @@ public abstract class PlayerController : NetworkBehaviour {
 
     public void Dash(Vector2 dir)
     {
-        if (!IsDashCoolingDown)
+        if (!_cooldownController.IsCoolingDown(CooldownType.Dash))
         {
             de.dashOn = true;
             //need to account for gravity
             var dashVec = dir.normalized * DashSpeed;
             var closestDir = ClosestDirection(dir, _gravChangeDirections);
             ChangeGORBGravityDirection(GetComponent<GravityObjectRigidBody>(), closestDir);
-            GetComponent<GravityObjectRigidBody>().Dash(dashVec);
+            GetComponent<GravityObjectRigidBody>().Dash(dashVec, _cooldownController.GetCooldownTime(CooldownType.Dash));
             PlaySingle(dash,1);
 
-            IsDashCoolingDown = true;
-            StartCoroutine(DashCoolDown());
+            _cooldownController.StartCooldown(CooldownType.Dash, () => { de.dashOn = false; });
         }
 
     }
@@ -293,31 +283,40 @@ public abstract class PlayerController : NetworkBehaviour {
         if (isLocalPlayer && !IsDead)
         {
             dir = dir.normalized;
-            if (!IsCoolingDown)
-            {
-                if (AttachedObject == null)
-                {
-                    if(type == ProjectileControllerType.Normal)
-                    {
-                        CmdSpawnProjectile(dir, DurationOfNormalGravityProjectile, ProjectileControllerType.Normal);
-                    }
-                    else if (type == ProjectileControllerType.Shotgun)
-                    {
-                        ShotGunBlast(dir);
-                    }
-                    else if (type == ProjectileControllerType.Rocket)
-                    {
-                        CmdSpawnProjectile(dir, DurationOfNormalGravityProjectile, ProjectileControllerType.Rocket);
-                    }
 
-                    RandomizeSfx(gravGunFire, gravGunFireCave, 0);
-                    StartGravGunCoolDown();
-                }
-                else
+            if (type == ProjectileControllerType.Normal)
+            {
+                if (!_cooldownController.IsCoolingDown(CooldownType.NormalShot))
                 {
-                    ChangeGORBGravityDirection(AttachedObject, dir);
-                    AttachedObject.GetComponent<ControllableGravityObjectRigidBody>().LaunchSfx();
-                    DetachReticle();
+                    if (AttachedObject == null)
+                    {
+
+                        CmdSpawnProjectile(dir, DurationOfNormalGravityProjectile, ProjectileControllerType.Normal);
+                        RandomizeSfx(gravGunFire, gravGunFireCave, 0);
+                        _cooldownController.StartCooldown(CooldownType.NormalShot, () => { });
+                    }
+                    else
+                    {
+                        ChangeGORBGravityDirection(AttachedObject, dir);
+                        AttachedObject.GetComponent<ControllableGravityObjectRigidBody>().LaunchSfx();
+                        DetachReticle();
+                    }
+                }
+            }
+            else if (type == ProjectileControllerType.Shotgun)
+            {
+                if (!_cooldownController.IsCoolingDown(CooldownType.ShotGunShot))
+                {
+                    ShotGunBlast(dir);
+                    _cooldownController.StartCooldown(CooldownType.ShotGunShot, () => { });
+                }
+            }
+            else if (type == ProjectileControllerType.Rocket)
+            {
+                if (!_cooldownController.IsCoolingDown(CooldownType.Rocket))
+                {
+                    CmdSpawnProjectile(dir, DurationOfRocketGravityProjectile, ProjectileControllerType.Rocket);
+                    _cooldownController.StartCooldown(CooldownType.Rocket, () => { });
                 }
             }
         }
@@ -330,7 +329,7 @@ public abstract class PlayerController : NetworkBehaviour {
         CmdSpawnProjectile(Quaternion.Euler(0, 0, -30) * new Vector3(dir.x, dir.y, 0), DurationOfShotgunGravityProjectile, ProjectileControllerType.Shotgun);
         CmdSpawnProjectile(Quaternion.Euler(0, 0, 15) * new Vector3(dir.x, dir.y, 0), DurationOfShotgunGravityProjectile, ProjectileControllerType.Shotgun);
         CmdSpawnProjectile(Quaternion.Euler(0, 0, -15) * new Vector3(dir.x, dir.y, 0), DurationOfShotgunGravityProjectile, ProjectileControllerType.Shotgun);
-        GetComponent<GravityObjectRigidBody>().Dash(-dir * ShotGunKickBackForce);  
+        GetComponent<GravityObjectRigidBody>().Dash(-dir * ShotGunKickBackForce, _cooldownController.GetCooldownTime(CooldownType.ShotGunShot) * .25f);  
         RandomizeSfx(shotGunFire, shotGunFireCave, 1);    
     }
 
@@ -398,45 +397,6 @@ public abstract class PlayerController : NetworkBehaviour {
         ReticleParent = gameObject;
     }
 
-    public void StartGravGunCoolDown()
-    {
-        if (GravGunCoolDownCoroutine == null)
-        {
-            GravGunCoolDownCoroutine = StartCoroutine(GravGunCoolDown());
-        }
-    }
-
-    public IEnumerator GravGunCoolDown()
-    {
-        IsCoolingDown = true;
-        yield return new WaitForSeconds(RechargeTime);
-        IsCoolingDown = false;
-        GravGunCoolDownCoroutine = null;
-    }
-
-    IEnumerator ChangeGravityCoolDown()
-    {
-        yield return new WaitForSeconds(ChangeGravityRechargeTime);
-        IsChangeGravityCoolingDown = false;
-    }
-
-    IEnumerator DashCoolDown()
-    {
-        IsDashCoolingDown = true;
-        CmdSetDashCoolDown(true);
-        yield return new WaitForSeconds(DashCoolDownTime);
-        de.dashOn = false;
-        IsDashCoolingDown = false;
-        CmdSetDashCoolDown(false);
-    }
-
-    [Command]
-    private void CmdSetDashCoolDown(bool isCoolingDown)
-    {
-        //need to set dash cool down on server so that they player collision counts as a kill
-        IsDashCoolingDown = isCoolingDown;
-    }
-
     private void OnCollisionEnter2D(Collision2D collision)
     {
         float otherMass = 1;
@@ -451,7 +411,7 @@ public abstract class PlayerController : NetworkBehaviour {
         {
             if(collision.collider.GetComponent<PlayerController>())
             {
-                if(IsDashCoolingDown)
+                if(_cooldownController.IsCoolingDown(CooldownType.Dash))
                 {
                     ControlledPlayer.NumKills++;
                     SetDirtyBit(0xFFFFFFFF);
@@ -465,13 +425,13 @@ public abstract class PlayerController : NetworkBehaviour {
                 return;
             }
 
-            if(IsDashCoolingDown)
+            if(_cooldownController.IsCoolingDown(CooldownType.Dash))
             {
                 //if we dash into an object push it
                 var dashVel = GetComponent<Rigidbody2D>().velocity;
                 ChangeGORBGravityDirection(GORB, dashVel.normalized);
                 Recoil();
-                IsDashCoolingDown = false;
+                _cooldownController.StopCooldown(CooldownType.Dash);
                 return;
             }
             
