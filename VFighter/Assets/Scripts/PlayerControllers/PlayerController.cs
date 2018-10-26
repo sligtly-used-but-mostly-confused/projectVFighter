@@ -233,7 +233,7 @@ public abstract class PlayerController : NetworkBehaviour {
             var dashVec = dir.normalized * DashSpeed;
             var closestDir = ClosestDirection(dir, _gravChangeDirections);
             ChangeGORBGravityDirection(GetComponent<GravityObjectRigidBody>(), closestDir);
-            GetComponent<GravityObjectRigidBody>().Dash(dashVec, _cooldownController.GetCooldownTime(CooldownType.Dash));
+            GetComponent<GravityObjectRigidBody>().Dash(dashVec, _cooldownController.GetCooldownTime(CooldownType.Dash) * .5f);
             PlaySingle(dash,1);
 
             _cooldownController.StartCooldown(CooldownType.Dash, () => { de.dashOn = false; });

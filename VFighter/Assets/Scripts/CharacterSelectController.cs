@@ -122,7 +122,8 @@ public class CharacterSelectController : NetworkBehaviour {
 
     public void ChangeToNextCharacterType(int dir)
     {
-        if(!playerController.IsReady)CmdChangeToNextCharacterType(dir);
+        if(!playerController.IsReady)
+            CmdChangeToNextCharacterType(dir);
     }
 
     [Command]

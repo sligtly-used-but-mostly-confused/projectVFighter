@@ -746,7 +746,7 @@ MonoBehaviour:
     CooldownTime: 0.5
     IsCoolingDown: 0
   - Type: 2
-    CooldownTime: 0.25
+    CooldownTime: 0.5
     IsCoolingDown: 0
   - Type: 3
     CooldownTime: 0.5
