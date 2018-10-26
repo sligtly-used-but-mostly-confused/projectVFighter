@@ -17,13 +17,13 @@ public class platformHoverEffect : MonoBehaviour {
         var shape = ps.shape;
         shape.enabled = true;
         shape.shapeType = ParticleSystemShapeType.SingleSidedEdge;
-        shape.radius = 0.25f;
+        shape.radius = 0.04f;
     }
 	
 	// Update is called once per frame
 	void Update () {
         var main = ps.main;
-        main.startSpeed = 0.5f;
+        main.startSpeed = 0.2f;
         var shape = ps.shape;
         if (currentPos.position.y > initYPos + 0.1)
         {

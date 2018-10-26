@@ -264,7 +264,6 @@ MonoBehaviour:
   _maxDefaultComponentSpeed: {x: 10, y: 10}
   _maxComponentSpeeds: []
   _stopObjectOnCollide: 0
-  _timeToDashStop: 1
   _drag: 1
   Bounciness: 0
   CanBeSelected: 0
@@ -294,7 +293,7 @@ ParticleSystem:
   m_GameObject: {fileID: 1559421529888734}
   serializedVersion: 5
   lengthInSec: 2
-  simulationSpeed: 1
+  simulationSpeed: 0.7
   stopAction: 0
   looping: 1
   prewarm: 1
@@ -1059,7 +1058,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 20
+      scalar: 5
       minScalar: 10
       maxCurve:
         serializedVersion: 2
