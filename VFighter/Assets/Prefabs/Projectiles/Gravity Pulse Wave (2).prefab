@@ -133,7 +133,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SecondsUntilDestroy: 1
-  IsShotgunProjectile: 0
   Owner: {fileID: 0}
 --- !u!114 &114347273714513476
 MonoBehaviour:

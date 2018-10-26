@@ -28,8 +28,7 @@ public class AIPlayerController : PlayerController
         }
         else
         {
-            //ShootGravityGun
-            ShootGravityGun(dir);
+            ShootGravityGun(dir, ProjectileControllerType.Normal);
         }
 
         yield return new WaitForSeconds(.1f);

@@ -21,6 +21,8 @@ GameObject:
   - component: {fileID: 4189721260192742}
   - component: {fileID: 61332210759461260}
   - component: {fileID: 114525239250879038}
+  - component: {fileID: 23762285467568596}
+  - component: {fileID: 33175538776539344}
   m_Layer: 0
   m_Name: LevelZone
   m_TagString: Untagged
@@ -41,6 +43,48 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!23 &23762285467568596
+MeshRenderer:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1647109427917884}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
+  m_Materials:
+  - {fileID: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!33 &33175538776539344
+MeshFilter:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1647109427917884}
+  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!61 &61332210759461260
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -77,5 +121,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93f85a5b8730244bfbad43ad76a17be4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelName: VortexLevel
+  levelName: 
   playersInside: 0
+  emptySize: {x: 2, y: 2, z: 1}
+  occupiedSize: {x: 2.1, y: 2.1, z: 1}
