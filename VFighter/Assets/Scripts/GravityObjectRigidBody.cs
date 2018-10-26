@@ -40,8 +40,6 @@ public class GravityObjectRigidBody : NetworkBehaviour {
     [SerializeField]
     private bool _stopObjectOnCollide = true;
     [SerializeField]
-    private float _timeToDashStop = 1f;
-    [SerializeField]
     private float _drag = 1f;
 
     private Rigidbody2D _rB;
@@ -194,17 +192,17 @@ public class GravityObjectRigidBody : NetworkBehaviour {
         GravityScale = newGravityScale;
     }
 
-    public void Dash(Vector2 dashVec)
+    public void Dash(Vector2 dashVec, float timeToStop)
     {
-        StartCoroutine(StartDash(dashVec));
+        StartCoroutine(StartDash(dashVec, timeToStop));
     }
 
-    private IEnumerator StartDash(Vector2 dashVec)
+    private IEnumerator StartDash(Vector2 dashVec, float timeToStop)
     {
         ClearAllVelocities();
         GravityScale = 0;
         UpdateVelocity(VelocityType.Dash, dashVec);
-        yield return new WaitForSeconds(_timeToDashStop);
+        yield return new WaitForSeconds(timeToStop);
         GravityScale = 1;
         ClearAllVelocities();
     }

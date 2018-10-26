@@ -68,6 +68,7 @@ GameObject:
   - component: {fileID: 82838794393769670}
   - component: {fileID: 82366291016765584}
   - component: {fileID: 82163953289816958}
+  - component: {fileID: 114642983415842072}
   m_Layer: 0
   m_Name: KeyboardPlayer
   m_TagString: Untagged
@@ -630,11 +631,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AttachedObject: {fileID: 0}
-  RechargeTime: 0.3
-  ChangeGravityRechargeTime: 0
-  DashCoolDownTime: 0.5
   DurationOfNormalGravityProjectile: 1
   DurationOfShotgunGravityProjectile: 0.3
+  DurationOfRocketGravityProjectile: 1.5
   MoveSpeed: 10
   ShootSpeed: 15
   JumpForce: 10
@@ -655,9 +654,6 @@ MonoBehaviour:
     type: 2}
   de: {fileID: 0}
   InputDevice: {fileID: 0}
-  IsCoolingDown: 0
-  IsChangeGravityCoolingDown: 0
-  IsDashCoolingDown: 0
   channels:
   - {fileID: 82572999522015082}
   - {fileID: 82838794393769670}
@@ -728,6 +724,33 @@ MonoBehaviour:
     IconMaterial: {fileID: 2100000, guid: b2a8a02c59a65284d9aae1c3dd996a45, type: 2}
     description: A single projectile that gains speed the further it travels.
     CharacterType: 2
+--- !u!114 &114642983415842072
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1865601022989246}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4dd3538692f4864ab635a7bfab59518, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _coolDowns:
+  - Type: 0
+    CooldownTime: 0.1
+    IsCoolingDown: 0
+  - Type: 1
+    CooldownTime: 0.5
+    IsCoolingDown: 0
+  - Type: 2
+    CooldownTime: 0.25
+    IsCoolingDown: 0
+  - Type: 3
+    CooldownTime: 0.5
+    IsCoolingDown: 0
+  - Type: 4
+    CooldownTime: 1
+    IsCoolingDown: 0
 --- !u!114 &114662783024654882
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -781,7 +804,6 @@ MonoBehaviour:
   - type: 2
     Velocity: {x: 30, y: 30}
   _stopObjectOnCollide: 0
-  _timeToDashStop: 0.25
   _drag: 0.5
   Bounciness: 0
   CanBeSelected: 1
