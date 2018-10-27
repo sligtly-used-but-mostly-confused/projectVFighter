@@ -8,21 +8,23 @@ public class PlayerCameraGroupController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        StartCoroutine(CheckForPlayers());
+	}
+	
+	private IEnumerator CheckForPlayers()
+    {
         var players = FindObjectsOfType<PlayerController>().Select(x => {
             var target = new CinemachineTargetGroup.Target
             {
                 target = x.transform,
                 weight = 1
             };
-            
+
             return target;
         }).ToArray();
 
         GetComponent<CinemachineTargetGroup>().m_Targets = players;
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+        yield return new WaitForSeconds(.1f);
+        yield return CheckForPlayers();
+    }
 }
