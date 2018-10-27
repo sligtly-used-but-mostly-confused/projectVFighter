@@ -6,22 +6,19 @@ Material:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: ProjectParticle
-  m_Shader: {fileID: 200, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: _ALPHABLEND_ON _REQUIRE_UV2
+  m_Name: stream1
+  m_Shader: {fileID: 203, guid: 0000000000000000f000000000000000, type: 0}
+  m_ShaderKeywords: _ALPHABLEND_ON _EMISSION _METALLICGLOSSMAP _REQUIRE_UV2
   m_LightmapFlags: 0
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
   stringTagMap: {}
-  disabledShaderPasses: []
+  disabledShaderPasses:
+  - DistortionVectors
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
-    - Texture2D_A9690805:
-        m_Texture: {fileID: 2800000, guid: 34477a2d5a75c4f9d988ea452f54f4f1, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - _BumpMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -38,16 +35,24 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _DistortionVectorMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _EmissionMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _EmissiveColorMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: d12f78d43adeb4374aab15da9596f45b, type: 3}
+        m_Texture: {fileID: 2800000, guid: 5ae1e0828a9887741b57cc16331b25b6, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 022a5dbc82be311428eec45125477996, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
@@ -62,57 +67,87 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _UnlitColorMap:
+        m_Texture: {fileID: 2800000, guid: 5120a189733a68a4daabbd23e6521a66, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Floats:
-    - Vector1_83E8818F: 0.02
     - _AlphaClip: 0
+    - _AlphaCutoff: 0.5
+    - _AlphaCutoffEnable: 0
     - _Blend: 0
-    - _BlendOp: 2
+    - _BlendMode: 0
+    - _BlendOp: 0
     - _BumpScale: 1
     - _CameraFadingEnabled: 0
     - _CameraFarFadeDistance: 2
     - _CameraNearFadeDistance: 1
-    - _ColorMode: 0
     - _Cull: 2
+    - _CullMode: 2
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DistortionBlend: 0.5
+    - _DistortionBlendMode: 0
+    - _DistortionBlurBlendMode: 0
+    - _DistortionBlurDstBlend: 1
+    - _DistortionBlurRemapMax: 1
+    - _DistortionBlurRemapMin: 0
+    - _DistortionBlurScale: 1
+    - _DistortionBlurSrcBlend: 1
+    - _DistortionDepthTest: 1
+    - _DistortionDstBlend: 1
+    - _DistortionEnable: 0
     - _DistortionEnabled: 0
+    - _DistortionOnly: 0
+    - _DistortionScale: 1
+    - _DistortionSrcBlend: 1
     - _DistortionStrength: 1
     - _DistortionStrengthScaled: 0
+    - _DistortionVectorBias: -1
+    - _DistortionVectorScale: 2
+    - _DoubleSidedEnable: 0
     - _DstBlend: 1
-    - _EmissionEnabled: 0
+    - _EmissionEnabled: 1
+    - _EnableFogOnTransparent: 0
     - _FlipbookMode: 1
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
-    - _InvFade: 2.37
+    - _HdrpVersion: 1
+    - _InvFade: 3
     - _LightingEnabled: 1
-    - _Metallic: 0.48
-    - _Mode: 5
+    - _Metallic: 0
+    - _Mode: 4
     - _OcclusionStrength: 1
     - _Parallax: 0.02
+    - _PreRefractionPass: 0
     - _SmoothnessTextureChannel: 0
     - _SoftParticlesEnabled: 0
     - _SoftParticlesFarFadeDistance: 1
     - _SoftParticlesNearFadeDistance: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 5
+    - _StencilRef: 2
+    - _StencilRefMV: 128
+    - _StencilWriteMask: 7
+    - _StencilWriteMaskMV: 128
     - _Surface: 0
+    - _SurfaceType: 0
+    - _TransparentSortPriority: 0
     - _UVSec: 0
     - _WorkflowMode: 1
+    - _ZTestModeDistortion: 4
     - _ZWrite: 0
     m_Colors:
-    - Color_25706F65: {r: 1, g: 1, b: 1, a: 1}
-    - Color_26BE4CAD: {r: 1, g: 0.99997807, b: 0, a: 0.0627451}
-    - Color_4D800E74: {r: 0.1889262, g: 2.670157, b: 2.234903, a: 1}
-    - Color_585E1186: {r: 0.6375262, g: 0.6415094, b: 0.39640442, a: 0}
-    - Vector2_ACD1EF2D: {r: 1, g: 0.5, b: 0, a: 0}
-    - Vector2_F33FA330: {r: 0.5, g: 0.5, b: 0, a: 0}
+    - Color_26BE4CAD: {r: 0.6398829, g: 1, b: 0.4198113, a: 0}
+    - Color_585E1186: {r: 0.4589808, g: 1, b: 0.3726415, a: 0}
+    - Color_6B08ADB9: {r: 0.6603774, g: 0, b: 0, a: 0}
     - _CameraFadeParams: {r: 0, g: Infinity, b: 0, a: 0}
-    - _Color: {r: 0.21568628, g: 1, b: 0, a: 1}
-    - _ColorAddSubDiff: {r: 0, g: 0, b: 0, a: 0}
+    - _Color: {r: 0, g: 0, b: 0, a: 1}
     - _EmisColor: {r: 0.2, g: 0.2, b: 0.2, a: 0}
-    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
+    - _EmissiveColor: {r: 0, g: 0, b: 0, a: 1}
     - _SoftParticleFadeParams: {r: 0, g: 0, b: 0, a: 0}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
-    - _TintColor: {r: 1, g: 1, b: 1, a: 1}
+    - _TintColor: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _UnlitColor: {r: 0.8490566, g: 0.06007475, b: 0.06007475, a: 1}
