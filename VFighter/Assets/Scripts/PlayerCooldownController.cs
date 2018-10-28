@@ -36,6 +36,9 @@ public class PlayerCooldownController : NetworkBehaviour {
     private List<CooldownTimePair> _coolDowns;
     private Dictionary<CooldownType, CooldownCoroutineCallbackPair> _coolDownTimers = new Dictionary<CooldownType, CooldownCoroutineCallbackPair>();
 
+    [SerializeField]
+    private float cooldownFlashInterval;
+
     [System.Serializable]
     public class SyncListCooldownPairs : SyncListStruct<CooldownTimePair>{}
 
@@ -78,6 +81,7 @@ public class PlayerCooldownController : NetworkBehaviour {
         var coolDown = new CooldownCoroutineCallbackPair();
 
         coolDown.CooldownTimer = StartCoroutine(CooldownInternal(type, temp.CooldownTime, cb));
+        StartCoroutine(FlashRenderer(GetComponent<MeshRenderer>(), cooldownFlashInterval, temp.CooldownTime));
         coolDown.Callback = cb;
         _coolDownTimers[type] = coolDown;
     }
@@ -128,4 +132,33 @@ public class PlayerCooldownController : NetworkBehaviour {
         int index = _pairs.ToList().IndexOf(temp);
         _pairs[index] = pair;
     }
+
+    public static IEnumerator FlashRenderer(MeshRenderer renderer, float interval, float duration)
+        {
+
+        Color colorNow = renderer.material.color;
+        Color minColor = colorNow;
+        Color maxColor = new Color(1f,1f,1f,1f);
+
+        float currentInterval = 0;
+        while (duration > 0)
+        {
+            float tColor = currentInterval / interval;
+            renderer.material.color = Color.Lerp(colorNow, maxColor, tColor);
+
+            currentInterval += Time.deltaTime;
+            if (currentInterval >= interval)
+            {
+                Color temp = minColor;
+                minColor = maxColor;
+                maxColor = temp;
+                currentInterval = currentInterval - interval;
+            }
+            duration -= Time.deltaTime;
+            yield return null;
+        }
+
+        renderer.material.color = colorNow;
+    }
+
 }
