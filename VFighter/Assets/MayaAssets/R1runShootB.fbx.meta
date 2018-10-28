@@ -119,7 +119,7 @@ ModelImporter:
     3300000: Gun
     4300000: robotMesh
     4300002: Gun
-    7400000: B1RunBack
+    7400000: B1runShootB
     9500000: //RootNode
     13700000: robotMesh
   externalObjects: {}
@@ -151,7 +151,7 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: B1RunBack
+      name: B1runShootB
       takeName: Take 001
       firstFrame: 1
       lastFrame: 22
@@ -201,7 +201,7 @@ ModelImporter:
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
     useFileScale: 1
-    previousCalculatedGlobalScale: 0.049999997
+    previousCalculatedGlobalScale: 0.01
     hasPreviousCalculatedGlobalScale: 1
   tangentSpace:
     normalSmoothAngle: 60

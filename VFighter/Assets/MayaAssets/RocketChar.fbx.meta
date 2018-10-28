@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 2f4f5ad4541af4a0c8b1cbfe97535dbd
+guid: c5732e4dc65a14e798d19d99e19bef19
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
@@ -43,7 +43,7 @@ ModelImporter:
     100074: l_toe_be
     100076: l_wrist_bn
     100078: nurbsCircle1
-    100080: //RootNode
+    100080: polySurface36
     100082: r_angle_bn
     100084: r_forearm_bn
     100086: r_hand_bn
@@ -57,7 +57,8 @@ ModelImporter:
     100102: r_thumbtip_be
     100104: r_toe_be
     100106: r_wrist_bn
-    100108: robotMesh
+    100108: //RootNode
+    100110: pasted__Gun
     400000: anim_l_IK
     400002: anim_r_IK
     400004: c_chest_bn
@@ -98,7 +99,7 @@ ModelImporter:
     400074: l_toe_be
     400076: l_wrist_bn
     400078: nurbsCircle1
-    400080: //RootNode
+    400080: polySurface36
     400082: r_angle_bn
     400084: r_forearm_bn
     400086: r_hand_bn
@@ -112,16 +113,18 @@ ModelImporter:
     400102: r_thumbtip_be
     400104: r_toe_be
     400106: r_wrist_bn
-    400108: robotMesh
-    2100000: phong1
-    2100002: lambert1
-    2300000: Gun
-    3300000: Gun
-    4300000: robotMesh
-    4300002: Gun
-    7400000: B1runShootU
+    400108: //RootNode
+    400110: pasted__Gun
+    2100000: lambert1
+    2100002: phong2
+    2300000: pasted__Gun
+    3300000: pasted__Gun
+    4300000: Gun
+    4300002: pasted__Gun
+    4300004: polySurface36
     9500000: //RootNode
-    13700000: robotMesh
+    13700000: Gun
+    13700002: polySurface36
   externalObjects: {}
   materials:
     importMaterials: 1
@@ -149,35 +152,7 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties: []
-    clipAnimations:
-    - serializedVersion: 16
-      name: B1runShootU
-      takeName: Take 001
-      firstFrame: 1
-      lastFrame: 22
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 1
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
+    clipAnimations: []
     isReadable: 1
   meshes:
     lODScreenPercentages: []
@@ -185,7 +160,7 @@ ModelImporter:
     meshCompression: 0
     addColliders: 0
     importVisibility: 1
-    importBlendShapes: 0
+    importBlendShapes: 1
     importCameras: 0
     importLights: 0
     swapUVChannels: 0
@@ -201,7 +176,7 @@ ModelImporter:
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
     useFileScale: 1
-    previousCalculatedGlobalScale: 0.01
+    previousCalculatedGlobalScale: 0.049999997
     hasPreviousCalculatedGlobalScale: 1
   tangentSpace:
     normalSmoothAngle: 60

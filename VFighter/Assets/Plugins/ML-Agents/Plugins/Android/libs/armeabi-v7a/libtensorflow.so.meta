@@ -1,7 +1,5 @@
 fileFormatVersion: 2
-guid: 65eabb799a268424e8fc4058ad6ac454
-timeCreated: 1501539073
-licenseType: Free
+guid: c11440df4ec7c4345b4d9549b8147908
 PluginImporter:
   externalObjects: {}
   serializedVersion: 2
@@ -11,15 +9,9 @@ PluginImporter:
   isOverridable: 0
   platformData:
   - first:
-      Android: Android
-    second:
-      enabled: 1
-      settings:
-        CPU: ARMv7
-  - first:
       Any: 
     second:
-      enabled: 0
+      enabled: 1
       settings: {}
   - first:
       Editor: Editor
