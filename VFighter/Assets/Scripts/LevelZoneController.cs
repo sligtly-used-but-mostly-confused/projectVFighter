@@ -12,11 +12,19 @@ public class LevelZoneController : MonoBehaviour {
     public Vector3 emptySize;
     public Vector3 occupiedSize;
 
+    public AudioSource enterSound;
+
+    private void Start()
+    {
+        enterSound = GetComponent<AudioSource>();
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.GetComponent<PlayerController>())
         {
             ++playersInside;
+            enterSound.Play();
         }
     }
 
