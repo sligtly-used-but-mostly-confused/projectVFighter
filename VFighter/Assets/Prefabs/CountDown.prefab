@@ -232,6 +232,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playerCardPrefab: {fileID: 1724572634328144, guid: 00d7dabedfd9d0149b24030825c36055,
     type: 2}
+  PlayerCardContainer: {fileID: 1147965170852932}
   RoundNumberText: {fileID: 114925249139423056}
 --- !u!114 &114925249139423056
 MonoBehaviour:
@@ -309,7 +310,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0.874}
-  m_AnchoredPosition: {x: 0, y: -0.5999985}
+  m_AnchoredPosition: {x: 0, y: -0.6000061}
   m_SizeDelta: {x: 0, y: -1.300003}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224351864620591018
