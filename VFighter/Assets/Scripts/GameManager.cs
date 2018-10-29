@@ -21,7 +21,10 @@ public class GameManager : NetworkBehaviour {
     public bool CurrentlyInGame = false;
     [SyncVar]
     public float TimeScale = 1;
-
+    [SyncVar]
+    public int RoundNumber = 0;
+    [SyncVar]
+    public int NumRounds = 0;
     void Awake () {
         if(_instance)
         {
@@ -35,7 +38,9 @@ public class GameManager : NetworkBehaviour {
 
     public void StartGame(List<string> roundStages)
     {
+        RoundNumber = 1;
         _roundLevelNames = roundStages;
+        NumRounds = _roundLevelNames.Count();
         CheckHeartBeatThenCallback(LoadNewLevel);
         CurrentlyInGame = true;
     }
@@ -72,6 +77,7 @@ public class GameManager : NetworkBehaviour {
         var players = FindObjectsOfType<PlayerController>().ToList();
         if(_roundLevelNames.Count > 0)
         {
+            RoundNumber++;
             players.Where(x => !x.IsDead).ToList().ForEach(x => x.ControlledPlayer.NumRoundWins++);
             LoadNewLevel();
         }
