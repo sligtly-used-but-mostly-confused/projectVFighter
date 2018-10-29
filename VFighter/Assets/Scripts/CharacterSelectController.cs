@@ -71,6 +71,10 @@ public class CharacterSelectController : NetworkBehaviour {
     }
 
     void Update() {
+        if(!GameManager.Instance.CanChangeCharacters)
+        {
+            return;
+        }
 
         timeOnSelection += Time.deltaTime;
 

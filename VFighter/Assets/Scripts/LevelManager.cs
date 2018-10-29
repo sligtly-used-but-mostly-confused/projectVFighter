@@ -69,7 +69,7 @@ public class LevelManager : NetworkBehaviour
         }
     }
 
-    private void Update()
+    public virtual void Update()
     {
         if(isServer && !GameManager.Instance.CurrentlyChangingScenes)
         {

@@ -13,7 +13,7 @@ public class KeyboardPlayerController : PlayerController
         
         Move(this.InputDevice.GetAxis2DCircleClamp(MappedAxis.Horizontal, MappedAxis.Vertical));
 
-        if (InputDevice.GetButtonDown(MappedButton.Ready) && !GameManager.Instance.CurrentlyInGame)
+        if (InputDevice.GetButtonDown(MappedButton.Ready))
         {
             ToggleReady();
         }

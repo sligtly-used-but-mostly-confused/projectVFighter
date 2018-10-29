@@ -111,6 +111,11 @@ public class GravityObjectRigidBody : NetworkBehaviour {
                 _rB.velocity += velocity.Value * GameManager.Instance.TimeScale;
             }
         }
+
+        if(!CanMove && GetComponent<GravityObjectRigidBody>().IsSimulatedOnThisConnection && _rB)
+        {
+            _rB.velocity = Vector3.zero;
+        }
     }
 
     private void DoDrag()

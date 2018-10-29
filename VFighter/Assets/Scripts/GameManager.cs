@@ -19,7 +19,7 @@ public class GameManager : NetworkBehaviour {
     public bool DebugScene = false;
     public bool CurrentlyChangingScenes = false;
     public float ProgressionThroughGame = 1;
-    public bool CurrentlyInGame = false;
+    public bool CanChangeCharacters = true;
     [SyncVar]
     public float TimeScale = 1;
     [SyncVar]
@@ -43,7 +43,7 @@ public class GameManager : NetworkBehaviour {
         _roundLevelNames = roundStages;
         NumRounds = _roundLevelNames.Count();
         CheckHeartBeatThenCallback(LoadNewLevel);
-        CurrentlyInGame = true;
+        CanChangeCharacters = false;
     }
 
     public void LoadEndScoreScreen()
@@ -52,7 +52,7 @@ public class GameManager : NetworkBehaviour {
         {
             CurrentlyChangingScenes = true;
             NetworkManager.singleton.ServerChangeScene(EndScoreScreen);
-            CurrentlyInGame = false;
+            CanChangeCharacters = false;
         });
     }
 
@@ -64,7 +64,7 @@ public class GameManager : NetworkBehaviour {
             players.ForEach(x => x.ControlledPlayer.ResetForNewGame());
             CurrentlyChangingScenes = true;
             NetworkManager.singleton.ServerChangeScene(LevelSelect);
-            CurrentlyInGame = false;
+            CanChangeCharacters = true;
         });
     }
 

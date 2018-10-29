@@ -448,6 +448,8 @@ MonoBehaviour:
   _gravityScaleGradientRate: 0.1
   _hasGameStarted: 1
   JailTransform: {fileID: 0}
+  _playerReadyIndicatorPrefab: {fileID: 1574300143994424, guid: 50239be1e91c0ce48b9f24ef90027d08,
+    type: 2}
 --- !u!114 &492105116
 MonoBehaviour:
   m_ObjectHideFlags: 0
