@@ -1374,12 +1374,13 @@ MonoBehaviour:
   areaWidth: 16
   timer: {fileID: 2048904424}
   selectTime: 1
-  numLivesPerPlayer: 2
+  numLivesPerPlayer: 1
   _playerReadyIndicatorPrefab: {fileID: 1574300143994424, guid: 50239be1e91c0ce48b9f24ef90027d08,
     type: 2}
   _isWaitingForReady: 1
   timeRemaining: 0
   _minPlayers: 2
+  _numRounds: 1
 --- !u!114 &559351040
 MonoBehaviour:
   m_ObjectHideFlags: 0

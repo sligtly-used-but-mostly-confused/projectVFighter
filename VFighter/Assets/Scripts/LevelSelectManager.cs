@@ -37,6 +37,8 @@ public class LevelSelectManager : NetworkBehaviour
     private int timeRemaining;
     [SerializeField]
     private int _minPlayers = 2;
+    [SerializeField]
+    private int _numRounds = 1;
 
     private void Awake()
     {
@@ -83,7 +85,7 @@ public class LevelSelectManager : NetworkBehaviour
     private List<string> LeadingLevels(){
         var copy = new List<LevelZoneController>(zones);
         copy.Sort((x,y) => { return x.playersInside.CompareTo(y.playersInside); });
-        return copy.Select(x => x.levelName).Reverse().Take(3).ToList();
+        return copy.Select(x => x.levelName).Reverse().Take(_numRounds).ToList();
     }
 
     public void StartTimer()

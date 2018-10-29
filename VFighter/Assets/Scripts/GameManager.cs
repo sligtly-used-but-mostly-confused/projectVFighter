@@ -10,6 +10,7 @@ public class GameManager : NetworkBehaviour {
     public static GameManager Instance { get { return _instance; } }
 
     private const string LevelSelect = "ControllerSelect";
+    private const string EndScoreScreen = "EndScoreScreen";
 
     [SerializeField]
     private string _levelName;
@@ -43,6 +44,16 @@ public class GameManager : NetworkBehaviour {
         NumRounds = _roundLevelNames.Count();
         CheckHeartBeatThenCallback(LoadNewLevel);
         CurrentlyInGame = true;
+    }
+
+    public void LoadEndScoreScreen()
+    {
+        CheckHeartBeatThenCallback(() =>
+        {
+            CurrentlyChangingScenes = true;
+            NetworkManager.singleton.ServerChangeScene(EndScoreScreen);
+            CurrentlyInGame = false;
+        });
     }
 
     public void EndGame()
@@ -83,7 +94,8 @@ public class GameManager : NetworkBehaviour {
         }
         else
         {
-            EndGame();
+            //EndGame();
+            LoadEndScoreScreen();
         }
     }
     

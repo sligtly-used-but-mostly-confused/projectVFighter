@@ -48,6 +48,7 @@ public class GravityObjectRigidBody : NetworkBehaviour {
     public bool CanBeSelected = true;
     public bool KillsPlayer = true;
     public bool IsSimulatedOnThisConnection = false;
+    [SyncVar]
     public bool CanMove = true;
     public PlayerController Owner;
 
