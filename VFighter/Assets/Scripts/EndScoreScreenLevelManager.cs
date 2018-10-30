@@ -22,6 +22,7 @@ public class EndScoreScreenLevelManager : LevelManager {
 
     protected override void SpawnPlayers()
     {
+        Debug.Log("here1");
         var players = FindObjectsOfType<PlayerController>().ToList();
 
         players.Sort
@@ -34,10 +35,12 @@ public class EndScoreScreenLevelManager : LevelManager {
 
     public override void SpawnPlayer(PlayerController player)
     {
+        Debug.Log("here");
         var indicator = Instantiate(_playerReadyIndicatorPrefab);
         indicator.GetComponent<PlayerReadyIndicatorController>().AttachedPlayer = player;
         int index = 0;
         SpawnPosition position = _spawnPositions[index];
+        Debug.Log(position);
         _spawnPositions.RemoveAt(index);
         player.InitializeForStartLevel(position.gameObject.transform.position, false);
         player.IsReady = false;

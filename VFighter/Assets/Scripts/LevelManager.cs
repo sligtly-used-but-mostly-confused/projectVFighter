@@ -43,7 +43,7 @@ public class LevelManager : NetworkBehaviour
         //StartCoroutine(Init());
         GameManager.Instance.CheckHeartBeatThenCallback(() => 
         {
-            _spawnPositions = new List<SpawnPosition>(FindObjectsOfType<PlayerSpawnPosition>());
+            //_spawnPositions = new List<SpawnPosition>(FindObjectsOfType<PlayerSpawnPosition>());
 
             SpawnPlayers();
             var objectSpawns = new List<SpawnPosition>(FindObjectsOfType<ObjectSpawnPosition>());
