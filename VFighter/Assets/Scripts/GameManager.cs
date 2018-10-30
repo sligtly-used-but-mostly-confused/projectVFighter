@@ -94,7 +94,6 @@ public class GameManager : NetworkBehaviour {
         }
         else
         {
-            //EndGame();
             LoadEndScoreScreen();
         }
     }

@@ -24,7 +24,6 @@ public class EndScoreScreenLevelManager : LevelManager {
     {
         var players = FindObjectsOfType<PlayerController>().ToList();
 
-
         players.Sort
         ( 
             (x, y) => x.ControlledPlayer.NumRoundWins.CompareTo(y.ControlledPlayer.NumRoundWins) 
@@ -35,7 +34,6 @@ public class EndScoreScreenLevelManager : LevelManager {
 
     public override void SpawnPlayer(PlayerController player)
     {
-
         var indicator = Instantiate(_playerReadyIndicatorPrefab);
         indicator.GetComponent<PlayerReadyIndicatorController>().AttachedPlayer = player;
         int index = 0;
