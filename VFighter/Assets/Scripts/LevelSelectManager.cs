@@ -63,6 +63,9 @@ public class LevelSelectManager : NetworkBehaviour
 
             x.IsReady = false;
         });
+
+        _numRounds = GameRoundSettingsController.Instance.NumRounds;
+        numLivesPerPlayer = GameRoundSettingsController.Instance.NumLivesPerRound;
     }
 
     private void Update()
