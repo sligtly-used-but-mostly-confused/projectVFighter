@@ -48,6 +48,7 @@ public class GravityObjectRigidBody : NetworkBehaviour {
     public bool CanBeSelected = true;
     public bool KillsPlayer = true;
     public bool IsSimulatedOnThisConnection = false;
+    [SyncVar]
     public bool CanMove = true;
     public PlayerController Owner;
 
@@ -109,6 +110,11 @@ public class GravityObjectRigidBody : NetworkBehaviour {
             {
                 _rB.velocity += velocity.Value * GameManager.Instance.TimeScale;
             }
+        }
+
+        if(!CanMove && GetComponent<GravityObjectRigidBody>().IsSimulatedOnThisConnection && _rB)
+        {
+            _rB.velocity = Vector3.zero;
         }
     }
 
