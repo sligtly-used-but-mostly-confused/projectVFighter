@@ -5165,6 +5165,63 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!1001 &2042008519
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4833213813268176, guid: e374f4c8486ac4c4a925cbf6ea2036f3, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4833213813268176, guid: e374f4c8486ac4c4a925cbf6ea2036f3, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4833213813268176, guid: e374f4c8486ac4c4a925cbf6ea2036f3, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4833213813268176, guid: e374f4c8486ac4c4a925cbf6ea2036f3, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 4833213813268176, guid: e374f4c8486ac4c4a925cbf6ea2036f3, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4833213813268176, guid: e374f4c8486ac4c4a925cbf6ea2036f3, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4833213813268176, guid: e374f4c8486ac4c4a925cbf6ea2036f3, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 4833213813268176, guid: e374f4c8486ac4c4a925cbf6ea2036f3, type: 2}
+      propertyPath: m_RootOrder
+      value: 19
+      objectReference: {fileID: 0}
+    - target: {fileID: 198819948395059936, guid: e374f4c8486ac4c4a925cbf6ea2036f3,
+        type: 2}
+      propertyPath: ShapeModule.m_Scale.x
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 198819948395059936, guid: e374f4c8486ac4c4a925cbf6ea2036f3,
+        type: 2}
+      propertyPath: InitialModule.startSize.scalar
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 198176792423961332, guid: e374f4c8486ac4c4a925cbf6ea2036f3,
+        type: 2}
+      propertyPath: InitialModule.startSize.scalar
+      value: 0.5
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: e374f4c8486ac4c4a925cbf6ea2036f3, type: 2}
+  m_IsPrefabAsset: 0
 --- !u!1 &2044579156
 GameObject:
   m_ObjectHideFlags: 0

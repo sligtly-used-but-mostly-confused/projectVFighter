@@ -13,7 +13,7 @@ public class RocketProjectileController : GravityGunProjectileController
     protected override void ReturnToPool()
     {
         var blast = Instantiate(RocketBlastPrefab);
-        blast.transform.position = this.transform.position;
+        blast.transform.position = this.transform.position + Vector3.back * 2;
         NetworkServer.Spawn(blast);
         base.ReturnToPool();
     }
