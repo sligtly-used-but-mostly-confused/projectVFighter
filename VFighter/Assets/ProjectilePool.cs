@@ -59,7 +59,8 @@ public class ProjectilePool : NetworkBehaviour {
     {
         _projectilePools[type].Add(projectile);
         projectile.transform.rotation = Quaternion.identity;
-
+        projectile.GetComponent<GravityObjectRigidBody>().ClearAllVelocities();
+        projectile.GetComponent<GravityObjectRigidBody>().ChangeGravityDirection(Vector2.zero);
         projectile.transform.position = new Vector3(1000000, 1000000, 0);
     }
 

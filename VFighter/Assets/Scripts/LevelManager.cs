@@ -79,7 +79,6 @@ public class LevelManager : NetworkBehaviour
                 if (alive.Count() > 0)
                 {
                     alive.First().ControlledPlayer.NumWins++;
-                    alive.First().ControlledPlayer.NumOverallKills++;
                     alive.First().SetDirtyBit(0xFFFFFFFF);
                 }
 
