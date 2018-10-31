@@ -124,15 +124,16 @@ public class CharacterSelectController : NetworkBehaviour {
 
         if(GetComponent<PlayerController>().InputDevice.GetIsAxisTapped(MappedAxis.ChangeCharacter))
         {
-            Debug.Log("changing character");
             float ChangeCharacterDir = GetComponent<PlayerController>().InputDevice.GetAxis(MappedAxis.ChangeCharacter);
             ChangeToNextCharacterType(ChangeCharacterDir > 0 ? 1 : -1);
         }
 
-        if(GetComponent<GravityObjectRigidBody>().GravityDirection.y < 0){
+        if(GetComponent<GravityObjectRigidBody>().GravityDirection.y < 0)
+        {
             descriptionCanvas.transform.localPosition = Vector3.up * 4 + new Vector3(0, 0, -3);
         }
-        else{
+        else
+        {
             descriptionCanvas.transform.localPosition = Vector3.down * 5 + new Vector3(0, 0, -3);
         }
 

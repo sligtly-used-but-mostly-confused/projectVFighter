@@ -6,7 +6,6 @@ using System.Linq;
 [CreateAssetMenu]
 public class KeyboardIconMappings : ScriptableObject
 {
-
     public List<ButtonIconMapping> buttonMappings = new List<ButtonIconMapping>();
     public List<AxisIconMapping> axisMappings = new List<AxisIconMapping>();
 
@@ -39,18 +38,11 @@ public class KeyboardIconMappings : ScriptableObject
         public KeyCode[] Keys;
         public Sprite Icon;
     }
-
-    // This kind of needs to parallel the gamepad
+    
     [System.Serializable]
     public class AxisIconMapping
     {
         public KeyboardAxis[] Axes;
         public Sprite Icon;
-        //public MappedAxis target;
-        //public KeyboardAxis[] axes;
-        //public KeyboardButton[] buttonsPositive;
-        //public KeyboardButton[] buttonsNegative;
-        //public bool inverted;
-
     }
 }

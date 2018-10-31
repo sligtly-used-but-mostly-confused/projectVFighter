@@ -19,6 +19,7 @@ public class MouseInputMapping : ScriptableObject
 
 		return null;
 	}
+
 	public AxisMapping GetMouseAxisMapping(MappedAxis target)
 	{
 		for (int i = 0; i < mouseAxisMappings.Count; i++)
@@ -29,19 +30,7 @@ public class MouseInputMapping : ScriptableObject
 
 		return null;
 	}
-    //----------------------------------------------------
-    //public Sprite GetButtonIcon(MappedButton target)
-    //{
-    //    ButtonMapping button = GetMouseButtonMapping(target);
-    //    return MouseIconMappings.GetMouseButtonIconMapping(button.mouseButtonId).Icon;
-    //}
 
-    //public Sprite GetAxisIcon(MappedAxis target)
-    //{
-    //    var button = GetMouseAxisMapping(target);
-    //    return MouseIconMappings.GetAxisMapping(button.mouseAxisId).Icon;
-    //}
-    //----------------------------------------------------
     [System.Serializable]
 	public class ButtonMapping
 	{

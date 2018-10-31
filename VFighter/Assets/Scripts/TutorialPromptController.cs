@@ -5,11 +5,12 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-public class TutorialPromptController : MonoBehaviour {
-
+public class TutorialPromptController : MonoBehaviour
+{
     public InputDevice Controller;
     public List<TutorialPrompt> Prompts;
     public PlayerController AttachedPlayer;
+
     [System.Serializable]
     public struct TutorialPrompt
     {
@@ -59,9 +60,7 @@ public class TutorialPromptController : MonoBehaviour {
     private Sprite GetSpriteFromPrompt(TutorialPrompt prompt)
     {
         Sprite icon = null;
-
-        Debug.Log(prompt.MappedAxis + " " + prompt.MappedButton);
-
+        
         if(prompt.MappedButton != MappedButton.None)
         {
             icon = Controller.GetButtonIcon(prompt.MappedButton);
