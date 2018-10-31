@@ -19,8 +19,8 @@ TagManager:
   - GravityPulse
   - TronTail
   - PostProcessing
-  - 
-  - 
+  - IgnoreReflection
+  - CameraIgnore
   - 
   - 
   - 

@@ -725,7 +725,8 @@ MonoBehaviour:
     CharacterType: 1
   - characterMaterial: {fileID: 2100000, guid: 04d126ba1f0d0478f801292308bbc946, type: 2}
     IconMaterial: {fileID: 2100000, guid: b2a8a02c59a65284d9aae1c3dd996a45, type: 2}
-    description: A single projectile that gains speed the further it travels.
+    description: Shoots a projectile that explodes on collision, which knocks back
+      anything within the blast.
     CharacterType: 2
 --- !u!114 &114642983415842072
 MonoBehaviour:
