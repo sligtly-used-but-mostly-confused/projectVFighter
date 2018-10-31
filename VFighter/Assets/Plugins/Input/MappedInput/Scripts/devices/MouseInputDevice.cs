@@ -30,8 +30,11 @@ public class MouseInputDevice : InputDevice
         var mapping = MappedInput.Instance.MouseInputMapping.GetMouseButtonMapping(button);
         if (mapping != null)
         {
-            return MappedInput.Instance.MouseInputMapping.MouseIconMappings.GetMouseButtonIconMapping(mapping.mouseButtonId).Icon;
+            var iconMapping = MappedInput.Instance.MouseInputMapping.MouseIconMappings.GetMouseButtonIconMapping(mapping.mouseButtonId);
+            if (iconMapping != null)
+                return iconMapping.Icon;
         }
+
         return null;
     }
 
@@ -91,7 +94,9 @@ public class MouseInputDevice : InputDevice
 				rawVal = Input.mousePosition.x;
 			else if (mapping.mouseAxisId == 1)
 				rawVal = Input.mousePosition.y;
-			else
+            else if (mapping.mouseAxisId == 2)
+                rawVal = Input.mousePosition.y;
+            else
 				throw new UnityException ("Mouse axis " + mapping.mouseAxisId + " not found");
 		}
 

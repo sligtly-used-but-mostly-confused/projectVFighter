@@ -117,6 +117,21 @@ public abstract class InputDevice : MonoBehaviour
 
 		axisButtonsActive [(int)axis] = (AxisDirection)dir;
 
+        float val = GetAxis(axis);
+
+        if (!PastAxisVals.ContainsKey(axis))
+        {
+            PastAxisVals.Add(axis, new List<float>());
+        }
+
+        PastAxisVals[axis].Add(val);
+
+        if (PastAxisVals[axis].Count > 3)
+        {
+            PastAxisVals[axis].RemoveAt(0);
+        }
+
+
         return changed;
 	}
 
@@ -155,20 +170,6 @@ public abstract class InputDevice : MonoBehaviour
 
     public virtual bool GetIsAxisTapped(MappedAxis axis)
     {
-        float val = GetAxis(axis);
-
-        if (!PastAxisVals.ContainsKey(axis))
-        {
-            PastAxisVals.Add(axis, new List<float>());
-        }
-
-        PastAxisVals[axis].Add(val);
-
-        if (PastAxisVals[axis].Count > 3)
-        {
-            PastAxisVals[axis].RemoveAt(0);
-        }
-
         if (PastAxisVals[axis].Count < 3)
         {
             return false;

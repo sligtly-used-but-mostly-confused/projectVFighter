@@ -11,5 +11,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad3a92e3ecdc42a49b320abb25cea621, type: 3}
   m_Name: MouseIconMappings
   m_EditorClassIdentifier: 
-  buttonMappings: []
-  axisMappings: []
+  buttonMappings:
+  - mouseButtonIds: 00000000
+    Icon: {fileID: 21300000, guid: 04ff72a0059def84ea5f7b6cbc32df2f, type: 3}
+  - mouseButtonIds: 01000000
+    Icon: {fileID: 21300000, guid: 845fb3a8139705f4cb7b582293a9e498, type: 3}
+  axisMappings:
+  - mouseAxisIds: 00000000
+    Icon: {fileID: 21300022, guid: e21cc2b9df86453438ba1228d9127211, type: 3}
+  - mouseAxisIds: 01000000
+    Icon: {fileID: 21300024, guid: e21cc2b9df86453438ba1228d9127211, type: 3}

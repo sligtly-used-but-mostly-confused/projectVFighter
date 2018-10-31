@@ -1,13 +1,15 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class TutorialPromptController : MonoBehaviour {
 
     public InputDevice Controller;
     public List<TutorialPrompt> Prompts;
-
+    public PlayerController AttachedPlayer;
     [System.Serializable]
     public struct TutorialPrompt
     {
@@ -16,34 +18,46 @@ public class TutorialPromptController : MonoBehaviour {
         [SerializeField]
         public MappedAxis MappedAxis;
     }
-
     public void Start()
     {
         Controller = MappedInput.InputDevices[2];
-        //Controller = controller;
         GetComponent<Image>().sprite = GetSpriteFromPrompt(Prompts[0]);
     }
 
     void Update () {
+
+        if(!Controller)
+        {
+            Controller = AttachedPlayer.InputDevice;
+        }
         
-        if(Prompts[0].MappedButton != MappedButton.None)
+        if (Controller && Prompts[0].MappedButton != MappedButton.None)
         {
             if (Controller.GetButton(Prompts[0].MappedButton))
             {
-                GetComponent<Image>().sprite = GetSpriteFromPrompt(Prompts[1]);
-                Prompts.RemoveAt(0);
+                OnPromtNext();
             }
         }
-
-        if (Prompts[0].MappedAxis != MappedAxis.None)
+        
+        if (Controller && Prompts[0].MappedAxis != MappedAxis.None)
         {
             if (Controller.GetIsAxisTapped(Prompts[0].MappedAxis))
             {
-                GetComponent<Image>().sprite = GetSpriteFromPrompt(Prompts[1]);
-                Prompts.RemoveAt(0);
+                OnPromtNext();
             }
         }
-            
+    }
+
+    private void OnPromtNext()
+    {
+        if (Prompts.Count == 1)
+        {
+            gameObject.SetActive(false);
+            return;
+        }
+
+        GetComponent<Image>().sprite = GetSpriteFromPrompt(Prompts[1]);
+        Prompts.RemoveAt(0);
     }
 
     private Sprite GetSpriteFromPrompt(TutorialPrompt prompt)

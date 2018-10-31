@@ -43,10 +43,6 @@ public class CharacterSelectController : NetworkBehaviour {
     private bool _hasFoundReticle = false;
     private float timeOnSelection;
 
-    // Show Character Select button mapping images
-    public InputDevice Controller;
-    public List<TutorialPrompt> Prompts;
-
     [System.Serializable]
     public struct TutorialPrompt
     {
@@ -60,10 +56,6 @@ public class CharacterSelectController : NetworkBehaviour {
 
     private void Awake()
     {
-        Controller = MappedInput.InputDevices[3];
-        //GetComponent<Image>().sprite = GetSpriteFromPrompt(Prompts[0]);
-
-        //CharacterTypeMaterialMappingsInternal.ForEach(x => CharacterTypeMaterialMappings.Add(x.CharacterType, x.Material));
         playerController = GetComponent<PlayerController>();
 
         characterDataList.ForEach(x => CharacterTypeMaterialMappings.Add(x.CharacterType, x.characterMaterial));
@@ -119,8 +111,6 @@ public class CharacterSelectController : NetworkBehaviour {
             return;
         }
 
-        //CheckTutorialPrompts();
-
         if (!_hasFoundReticle && GetComponent<PlayerController>().Reticle)
         {
             _hasFoundReticle = true;
@@ -134,6 +124,7 @@ public class CharacterSelectController : NetworkBehaviour {
 
         if(GetComponent<PlayerController>().InputDevice.GetIsAxisTapped(MappedAxis.ChangeCharacter))
         {
+            Debug.Log("changing character");
             float ChangeCharacterDir = GetComponent<PlayerController>().InputDevice.GetAxis(MappedAxis.ChangeCharacter);
             ChangeToNextCharacterType(ChangeCharacterDir > 0 ? 1 : -1);
         }
@@ -157,27 +148,6 @@ public class CharacterSelectController : NetworkBehaviour {
     public void CmdChangeToNextCharacterType(int dir)
     {
         ChangeToNextCharacterTypeInternal(dir);
-    }
-
-    private void CheckTutorialPrompts()
-    {
-        if (Prompts[0].MappedButton != MappedButton.None)
-        {
-            if (Controller.GetButton(Prompts[0].MappedButton))
-            {
-                GetComponent<Image>().sprite = GetSpriteFromPrompt(Prompts[1]);
-                Prompts.RemoveAt(0);
-            }
-        }
-
-        if (Prompts[0].MappedAxis != MappedAxis.None)
-        {
-            if (Controller.GetIsAxisTapped(Prompts[0].MappedAxis))
-            {
-                GetComponent<Image>().sprite = GetSpriteFromPrompt(Prompts[1]);
-                Prompts.RemoveAt(0);
-            }
-        }
     }
 
     private void ChangeToNextCharacterTypeInternal(int dir)
@@ -209,22 +179,5 @@ public class CharacterSelectController : NetworkBehaviour {
         descriptionCanvas.transform.GetChild(0).transform.GetChild(0).GetComponent<UnityEngine.UI.Text>().text = CharacterTypeDescriptionMappings[GetComponent<PlayerController>().CharacterType];
         timeOnSelection = 0;
         descriptionCanvas.SetActive(false);
-    }
-
-    private Sprite GetSpriteFromPrompt(TutorialPrompt prompt)
-    {
-        Sprite icon = null;
-
-        if (prompt.MappedButton != MappedButton.None)
-        {
-            icon = Controller.GetButtonIcon(prompt.MappedButton);
-        }
-
-        if (prompt.MappedAxis != MappedAxis.None && icon == null)
-        {
-            icon = Controller.GetAxisIcon(prompt.MappedAxis);
-        }
-
-        return icon;
     }
 }
