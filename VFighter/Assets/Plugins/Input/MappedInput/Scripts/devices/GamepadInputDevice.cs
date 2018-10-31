@@ -39,7 +39,20 @@ public class GamepadInputDevice : InputDevice
     public override Sprite GetAxisIcon(MappedAxis axis)
     {
         var mapping = MappedInput.Instance.GamepadInputMapping.GetGamepadAxisMapping(axis);
-        return MappedInput.Instance.GamepadInputMapping.IconMapping.GetGamepadAxisIconMapping(mapping.axes[0]).Icon;
+        if(mapping.axes.Count() > 0)
+        {
+            return MappedInput.Instance.GamepadInputMapping.IconMapping.GetGamepadAxisIconMapping(mapping.axes[0]).Icon;
+        }
+        else if(mapping.buttonsNegative.Count() > 0)
+        {
+            return MappedInput.Instance.GamepadInputMapping.IconMapping.GetGamepadAxisIconMapping(mapping.buttonsNegative[0]).Icon;
+        }
+        else if (mapping.buttonsPositive.Count() > 0)
+        {
+            return MappedInput.Instance.GamepadInputMapping.IconMapping.GetGamepadAxisIconMapping(mapping.buttonsPositive[0]).Icon;
+        }
+
+        return null;
     }
 
     public override bool GetButton(MappedButton button)

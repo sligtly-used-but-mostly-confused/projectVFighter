@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-
+using System.Linq;
 public class GamepadInputMapping : ScriptableObject
 {	
 	public List<ButtonMapping> buttonMappings = new List<ButtonMapping> ();
@@ -19,6 +19,7 @@ public class GamepadInputMapping : ScriptableObject
 		
 		return null;
 	}
+
 	public AxisMapping GetGamepadAxisMapping(MappedAxis target)
 	{
 		for (int i = 0; i < axisMappings.Count; i++)
@@ -30,7 +31,7 @@ public class GamepadInputMapping : ScriptableObject
 		return null;
 	}
 
-	[System.Serializable]
+    [System.Serializable]
 	public class ButtonMapping
 	{
 		public MappedButton target;

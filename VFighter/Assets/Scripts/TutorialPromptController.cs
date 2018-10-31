@@ -12,8 +12,6 @@ public class TutorialPromptController : MonoBehaviour {
     public struct TutorialPrompt
     {
         [SerializeField]
-        public bool IsButton;
-        [SerializeField]
         public MappedButton MappedButton;
         [SerializeField]
         public MappedAxis MappedAxis;
