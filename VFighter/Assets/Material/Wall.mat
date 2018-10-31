@@ -7,14 +7,15 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: Wall
-  m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
-  m_ShaderKeywords: 
-  m_LightmapFlags: 4
+  m_Shader: {fileID: 4800000, guid: a7de4bf0f370ca243b4604b8cd314ffc, type: 3}
+  m_ShaderKeywords: _EMISSION _SPECULAR_COLOR
+  m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
   stringTagMap: {}
-  disabledShaderPasses: []
+  disabledShaderPasses:
+  - SHADOWCASTER
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -69,25 +70,36 @@ Material:
     - _Cull: 2
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
-    - _DstBlend: 0
+    - _DstBlend: 10
     - _GlossMapScale: 1
     - _Glossiness: 0.5
+    - _GlossinessSource: 1
     - _GlossyReflections: 1
     - _Glow: 1
+    - _MaxTriSize: 25
     - _Metallic: 0.103
     - _Mode: 0
     - _OcclusionStrength: 1
     - _OutlineWidth: 1.1
     - _Parallax: 0.02
+    - _SampleGI: 0
+    - _Shininess: 0.399
     - _SmoothnessTextureChannel: 0
+    - _SpecSource: 0
     - _SpecularHighlights: 1
-    - _SrcBlend: 1
-    - _Surface: 0
+    - _SrcBlend: 5
+    - _Surface: 1
     - _UVSec: 0
+    - _WireSmoothness: 3
+    - _WireThickness: 100
     - _WorkflowMode: 1
-    - _ZWrite: 1
+    - _ZWrite: 0
     m_Colors:
-    - _Color: {r: 0.990566, g: 0.75262326, b: 0.4906105, a: 1}
-    - _EmissionColor: {r: 0.5566038, g: 0.09931385, b: 0, a: 1}
+    - Color_90BD083A: {r: 0.495283, g: 1, b: 0.6586596, a: 0}
+    - Color_E9DC1FD4: {r: 0, g: 0.3773585, b: 0.1185166, a: 0}
+    - _BaseColor: {r: 0, g: 0, b: 0, a: 1}
+    - _Color: {r: 0.9150707, g: 0.495283, b: 1, a: 1}
+    - _EmissionColor: {r: 0.1372549, g: 0.8486587, b: 1, a: 1}
     - _OutlineColor: {r: 0.4811321, g: 0.4811321, b: 0.4811321, a: 1}
-    - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
+    - _SpecColor: {r: 0.3018868, g: 0.3018868, b: 0.3018868, a: 1}
+    - _WireColor: {r: 0, g: 1, b: 0, a: 1}

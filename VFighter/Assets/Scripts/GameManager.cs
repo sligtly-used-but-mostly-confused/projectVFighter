@@ -10,17 +10,22 @@ public class GameManager : NetworkBehaviour {
     public static GameManager Instance { get { return _instance; } }
 
     private const string LevelSelect = "ControllerSelect";
+    private const string EndScoreScreen = "EndScoreScreen";
 
     [SerializeField]
     private string _levelName;
+    [SerializeField]
+    private List<string> _roundLevelNames = new List<string>();
     public bool DebugScene = false;
-
     public bool CurrentlyChangingScenes = false;
     public float ProgressionThroughGame = 1;
-
+    public bool CanChangeCharacters = true;
     [SyncVar]
     public float TimeScale = 1;
-
+    [SyncVar]
+    public int RoundNumber = 0;
+    [SyncVar]
+    public int NumRounds = 0;
     void Awake () {
         if(_instance)
         {
@@ -32,10 +37,35 @@ public class GameManager : NetworkBehaviour {
         DontDestroyOnLoad(this);
 	}
 
-    public void StartGame(string levelName)
+    public void StartGame(List<string> roundStages)
     {
-        _levelName = levelName;
-        LoadNextStage();
+        RoundNumber = 1;
+        _roundLevelNames = roundStages;
+        NumRounds = _roundLevelNames.Count();
+        CheckHeartBeatThenCallback(LoadNewLevel);
+        CanChangeCharacters = false;
+    }
+
+    public void LoadEndScoreScreen()
+    {
+        CheckHeartBeatThenCallback(() =>
+        {
+            CurrentlyChangingScenes = true;
+            NetworkManager.singleton.ServerChangeScene(EndScoreScreen);
+            CanChangeCharacters = false;
+        });
+    }
+
+    public void EndGame()
+    {
+        var players = FindObjectsOfType<PlayerController>().ToList();
+        CheckHeartBeatThenCallback(() =>
+        {
+            players.ForEach(x => x.ControlledPlayer.ResetForNewGame());
+            CurrentlyChangingScenes = true;
+            NetworkManager.singleton.ServerChangeScene(LevelSelect);
+            CanChangeCharacters = true;
+        });
     }
 
     public void LoadNextStage()
@@ -45,18 +75,36 @@ public class GameManager : NetworkBehaviour {
 
         if (alive.Count() <= 1 && !DebugScene)
         {
-            CheckHeartBeatThenCallback(() =>
-            {
-                players.ForEach(x => x.ControlledPlayer.Reset());
-                CurrentlyChangingScenes = true;
-                NetworkManager.singleton.ServerChangeScene(LevelSelect);
-            });
-
+            CheckHeartBeatThenCallback(StartNewRound);
         }
         else
         {
             CheckHeartBeatThenCallback(StartNewLevel);
         }
+    }
+
+    private void StartNewRound()
+    {
+        var players = FindObjectsOfType<PlayerController>().ToList();
+        if(_roundLevelNames.Count > 0)
+        {
+            RoundNumber++;
+            players.Where(x => !x.IsDead).ToList().ForEach(x => x.ControlledPlayer.NumRoundWins++);
+            LoadNewLevel();
+        }
+        else
+        {
+            LoadEndScoreScreen();
+        }
+    }
+    
+    private void LoadNewLevel()
+    {
+        var players = FindObjectsOfType<PlayerController>().ToList();
+        _levelName = _roundLevelNames[0];
+        _roundLevelNames.RemoveAt(0);
+        players.ForEach(x => x.ControlledPlayer.Reset());
+        CheckHeartBeatThenCallback(StartNewLevel);
     }
 
     private void StartNewLevel()

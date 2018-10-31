@@ -18,10 +18,17 @@ MonoBehaviour:
     Icon: {fileID: 21300018, guid: e21cc2b9df86453438ba1228d9127211, type: 3}
   axisMappings:
   - Axes: 00000000
+    Buttons: 
     Icon: {fileID: 21300028, guid: e21cc2b9df86453438ba1228d9127211, type: 3}
   - Axes: 0200000003000000
+    Buttons: 
     Icon: {fileID: 21300030, guid: e21cc2b9df86453438ba1228d9127211, type: 3}
   - Axes: 05000000
+    Buttons: 
     Icon: {fileID: 21300002, guid: e21cc2b9df86453438ba1228d9127211, type: 3}
   - Axes: 04000000
+    Buttons: 
     Icon: {fileID: 21300000, guid: e21cc2b9df86453438ba1228d9127211, type: 3}
+  - Axes: 
+    Buttons: 0700000009000000
+    Icon: {fileID: 21300000, guid: 40763c4e9c308c04f808509bb3c91e9d, type: 3}

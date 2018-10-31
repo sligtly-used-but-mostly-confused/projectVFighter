@@ -14,6 +14,12 @@ public struct Player {
     public int NumLives;
     [SerializeField]
     public int NumKills;
+    [SerializeField]
+    public int NumOverallKills;
+    [SerializeField]
+    public int NumOverallDeaths;
+    [SerializeField]
+    public int NumRoundWins;
 
     public Player(int numLives, int numWins = 0, int numDeaths = 0)
     {
@@ -22,6 +28,9 @@ public struct Player {
         NumLives = numLives;
         NumKills = 0;
         NetworkControllerId = 0;
+        NumOverallKills = 0;
+        NumOverallDeaths = 0;
+        NumRoundWins = 0;
     }
 
     public void Reset()
@@ -29,5 +38,15 @@ public struct Player {
         NumWins = 0;
         NumDeaths = 0;
         NumKills = 0;
+    }
+
+    public void ResetForNewGame()
+    {
+        NumWins = 0;
+        NumDeaths = 0;
+        NumKills = 0;
+        NumOverallKills = 0;
+        NumOverallDeaths = 0;
+        NumRoundWins = 0;
     }
 }

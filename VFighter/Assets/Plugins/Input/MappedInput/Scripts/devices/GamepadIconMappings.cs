@@ -24,6 +24,18 @@ public class GamepadIconMappings : ScriptableObject
         {
             if (axisMappings[i].Axes.Any(x => x == target))
                 return axisMappings[i];
+
+        }
+
+        return null;
+    }
+
+    public AxisIconMapping GetGamepadAxisIconMapping(GamepadButton target)
+    {
+        for (int i = 0; i < axisMappings.Count; i++)
+        {
+            if (axisMappings[i].Buttons.Any(x => x == target))
+                return axisMappings[i];
         }
 
         return null;
@@ -40,6 +52,7 @@ public class GamepadIconMappings : ScriptableObject
     public class AxisIconMapping
     {
         public GamepadAxis[] Axes;
+        public GamepadButton[] Buttons;
         public Sprite Icon;
     }
 }

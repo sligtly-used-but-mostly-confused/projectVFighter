@@ -13,7 +13,7 @@ public class LevelManager : NetworkBehaviour
     public List<PlayerController> Players;
     public bool PlayersCanDieInThisLevel = true;
     [SerializeField]
-    private List<SpawnPosition> _spawnPositions;
+    protected List<SpawnPosition> _spawnPositions;
     [SerializeField]
     private bool _startNextLevelWinCondition = true;
     [SerializeField]
@@ -43,10 +43,9 @@ public class LevelManager : NetworkBehaviour
         //StartCoroutine(Init());
         GameManager.Instance.CheckHeartBeatThenCallback(() => 
         {
-            _spawnPositions = new List<SpawnPosition>(FindObjectsOfType<PlayerSpawnPosition>());
+            //_spawnPositions = new List<SpawnPosition>(FindObjectsOfType<PlayerSpawnPosition>());
 
-            var players = FindObjectsOfType<PlayerController>().ToList();
-            players.ForEach(x => SpawnPlayer(x));
+            SpawnPlayers();
             var objectSpawns = new List<SpawnPosition>(FindObjectsOfType<ObjectSpawnPosition>());
 
             foreach (var objectSpawn in objectSpawns)
@@ -70,7 +69,7 @@ public class LevelManager : NetworkBehaviour
         }
     }
 
-    private void Update()
+    public virtual void Update()
     {
         if(isServer && !GameManager.Instance.CurrentlyChangingScenes)
         {
@@ -103,16 +102,23 @@ public class LevelManager : NetworkBehaviour
         _hasGameStarted = true;
     }
 
-    public void SpawnPlayer(PlayerController player)
+    protected virtual void SpawnPlayers()
     {
+        var players = FindObjectsOfType<PlayerController>().ToList();
+        players.ForEach(x => SpawnPlayer(x));
+    }
+
+    public virtual void SpawnPlayer(PlayerController player)
+    {
+        if(player.ControlledPlayer.NumLives - player.ControlledPlayer.NumDeaths <= 0)
+        {
+            player.InitializeForStartLevel(JailTransform.position, true);
+            return;
+        }
+
         int index = (int)(Random.value * (_spawnPositions.Count - 1));
         SpawnPosition position = _spawnPositions[index];
         _spawnPositions.RemoveAt(index);
-        player.InitializeForStartLevel(position.gameObject.transform.position);
-    }
-
-    public void ResetLevel()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        player.InitializeForStartLevel(position.gameObject.transform.position, false);
     }
 }

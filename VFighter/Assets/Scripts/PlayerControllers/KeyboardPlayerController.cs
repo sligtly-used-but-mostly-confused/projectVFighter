@@ -47,14 +47,14 @@ public class KeyboardPlayerController : PlayerController
 
         AimReticle(aimVector);
 
-        if (InputDevice.GetButtonDown(MappedButton.ChangeGrav))
+        if (InputDevice.GetButtonDown(MappedButton.ChangeGrav) && IsReady)
         {
             FlipGravity();
         }
 
         if (InputDevice.GetButtonDown(MappedButton.ShootGravGun))
         {
-            ShootGravityGun(aimVector);
+            ShootGravityGun(aimVector, ProjectileControllerType.Normal);
         }
 
         if (InputDevice.GetButtonDown(MappedButton.OpenMenu))
@@ -68,22 +68,33 @@ public class KeyboardPlayerController : PlayerController
         }
     }
 
+    private Vector2 _lastAimDir;
+
     private void Gamepad()
     {
         float rightSitckX = InputDevice.GetAxisRaw(MappedAxis.AimX);
         float rightSitckY = InputDevice.GetAxisRaw(MappedAxis.AimY);
 
         Vector2 aimDir = new Vector2(rightSitckX, rightSitckY);
+        if(aimDir == Vector2.zero)
+        {
+            aimDir = _lastAimDir;
+        }
+        else
+        {
+            _lastAimDir = aimDir;
+        }
+
         AimReticle(aimDir);
 
-        if (InputDevice.GetIsAxisTapped(MappedAxis.ChangeGrav) && InputDevice.GetAxis(MappedAxis.ChangeGrav) > 0)
+        if (InputDevice.GetIsAxisTapped(MappedAxis.ChangeGrav) && InputDevice.GetAxis(MappedAxis.ChangeGrav) > 0 && IsReady)
         {
             FlipGravity();
         }
 
         if (InputDevice.GetIsAxisTapped(MappedAxis.ShootGravGun) && aimDir.magnitude > 0)
         {
-            ShootGravityGun(aimDir);
+            ShootGravityGun(aimDir, ProjectileControllerType.Normal);
         }
 
         if (InputDevice.GetButtonDown(MappedButton.Special))

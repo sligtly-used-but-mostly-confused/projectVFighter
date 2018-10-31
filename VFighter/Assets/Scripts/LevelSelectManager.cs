@@ -10,7 +10,13 @@ public class LevelSelectManager : NetworkBehaviour
 {
     public static LevelSelectManager Instance;
 
-    public List<string> levels;
+    [System.Serializable]
+    public struct levelData{
+        public string levelName;
+        public Material previewMaterial;
+    }
+
+    public List<levelData> levels;
     public GameObject platform;
     public GameObject levelZone;
     public float areaWidth;
@@ -31,6 +37,8 @@ public class LevelSelectManager : NetworkBehaviour
     private int timeRemaining;
     [SerializeField]
     private int _minPlayers = 2;
+    [SerializeField]
+    private int _numRounds = 1;
 
     private void Awake()
     {
@@ -55,6 +63,9 @@ public class LevelSelectManager : NetworkBehaviour
 
             x.IsReady = false;
         });
+
+        _numRounds = GameRoundSettingsController.Instance.NumRounds;
+        numLivesPerPlayer = GameRoundSettingsController.Instance.NumLivesPerRound;
     }
 
     private void Update()
@@ -74,17 +85,10 @@ public class LevelSelectManager : NetworkBehaviour
         }
     }
 
-    private string LeadingLevel(){
-        LevelZoneController leader = zones[0];
-        int mostVotes = 0;
-        foreach(LevelZoneController zone in zones){
-            if (zone.playersInside > mostVotes){
-                leader = zone;
-                mostVotes = zone.playersInside;
-            }
-        }
-
-        return leader.levelName;
+    private List<string> LeadingLevels(){
+        var copy = new List<LevelZoneController>(zones);
+        copy.Sort((x,y) => { return x.playersInside.CompareTo(y.playersInside); });
+        return copy.Select(x => x.levelName).Reverse().Take(_numRounds).ToList();
     }
 
     public void StartTimer()
@@ -125,7 +129,7 @@ public class LevelSelectManager : NetworkBehaviour
         }
 
         yield return new WaitForSeconds(1);
-        GameManager.Instance.StartGame(LeadingLevel());
+        GameManager.Instance.StartGame(LeadingLevels());
     }
 
     private void SpawnLevelPlatforms()
@@ -152,7 +156,8 @@ public class LevelSelectManager : NetworkBehaviour
                     zonePos += new Vector3(0, y * 1.25f, 0);
                     LevelZoneController zone = Instantiate(levelZone, zonePos, Quaternion.identity).GetComponent<LevelZoneController>();
                     zones.Add(zone);
-                    zone.levelName = levels[levelIndex];
+                    zone.levelName = levels[levelIndex].levelName;
+                    zone.GetComponent<MeshRenderer>().material = levels[levelIndex].previewMaterial;
                     ++levelIndex;
                     --levelsRemaining;
                 }
@@ -163,7 +168,8 @@ public class LevelSelectManager : NetworkBehaviour
                 zonePos += new Vector3(0, 1.25f, 0);
                 LevelZoneController zone = Instantiate(levelZone, zonePos, Quaternion.identity).GetComponent<LevelZoneController>();
                 zones.Add(zone);
-                zone.levelName = levels[levelIndex];
+                zone.levelName = levels[levelIndex].levelName;
+                zone.GetComponent<MeshRenderer>().material = levels[levelIndex].previewMaterial;
                 ++levelIndex;
                 --levelsRemaining;
             }
