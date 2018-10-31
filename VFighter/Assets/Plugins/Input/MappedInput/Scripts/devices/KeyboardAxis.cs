@@ -6,5 +6,6 @@ public enum KeyboardAxis
     HorizontalButtons,
     VerticalButtons,
     HorizontalArrows,
-    VerticalArrows
+    VerticalArrows,
+    SpaceBar
 }

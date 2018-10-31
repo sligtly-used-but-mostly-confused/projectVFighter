@@ -17,10 +17,10 @@ public class TutorialPromptController : MonoBehaviour {
         public MappedAxis MappedAxis;
     }
 
-    public void StartTutorial(InputDevice controller)
+    public void Start()
     {
-        //Controller = MappedInput.InputDevices[2];
-        Controller = controller;
+        Controller = MappedInput.InputDevices[2];
+        //Controller = controller;
         GetComponent<Image>().sprite = GetSpriteFromPrompt(Prompts[0]);
     }
 
@@ -49,6 +49,8 @@ public class TutorialPromptController : MonoBehaviour {
     private Sprite GetSpriteFromPrompt(TutorialPrompt prompt)
     {
         Sprite icon = null;
+
+        Debug.Log(prompt.MappedAxis + " " + prompt.MappedButton);
 
         if(prompt.MappedButton != MappedButton.None)
         {

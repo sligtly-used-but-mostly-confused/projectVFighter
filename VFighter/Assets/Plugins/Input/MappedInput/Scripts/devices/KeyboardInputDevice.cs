@@ -40,6 +40,7 @@ public class KeyboardInputDevice : InputDevice
     {
         //This needs to be able to return both the positive and negative button icon
         var mapping = MappedInput.Instance.KeyboardInputMapping.GetKeyboardAxisMapping(axis);
+
        return MappedInput.Instance.KeyboardInputMapping.IconMappings.GetKeyboardAxisIconMapping(mapping.axes[0]).Icon;
     }
 
