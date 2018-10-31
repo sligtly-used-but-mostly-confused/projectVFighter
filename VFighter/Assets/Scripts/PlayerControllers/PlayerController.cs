@@ -348,6 +348,7 @@ public abstract class PlayerController : NetworkBehaviour {
         projectileClone.SecondsUntilDestroy = secondsUntilDestroy;
         ChangeGORBGravityDirection(projectileClone.GetComponent<GravityObjectRigidBody>(), dir);
         projectileClone.GetComponent<GravityObjectRigidBody>().ChangeGravityScale(ShootSpeed);
+        projectileClone.GetComponent<GravityObjectRigidBody>().ClearAllVelocities();
         projectileClone.transform.Rotate(0, 0, angle);
         projectileClone.OnShot();
     }
