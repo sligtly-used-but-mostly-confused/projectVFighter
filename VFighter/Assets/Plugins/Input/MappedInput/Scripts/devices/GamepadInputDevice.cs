@@ -32,6 +32,11 @@ public class GamepadInputDevice : InputDevice
     public override Sprite GetButtonIcon(MappedButton button)
     {
         var mapping = MappedInput.Instance.GamepadInputMapping.GetGamepadButtonMapping(button);
+        if(mapping == null || mapping.buttons.Length == 0)
+        {
+            return null;
+        }
+
         var IconMapping = MappedInput.Instance.GamepadInputMapping.IconMapping.GetGamepadButtonIconMapping(mapping.buttons[0]);
         return IconMapping == null ? null : IconMapping.Icon;
     }

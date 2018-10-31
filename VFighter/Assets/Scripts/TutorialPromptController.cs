@@ -26,10 +26,8 @@ public class TutorialPromptController : MonoBehaviour {
 
     void Update () {
 
-        if(!Controller)
-        {
-            Controller = AttachedPlayer.InputDevice;
-        }
+        Controller = AttachedPlayer.InputDevice;
+        
         
         if (Controller && Prompts[0].MappedButton != MappedButton.None)
         {

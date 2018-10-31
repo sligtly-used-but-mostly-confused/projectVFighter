@@ -134,8 +134,11 @@ MonoBehaviour:
     MappedAxis: 5
   - MappedButton: 1
     MappedAxis: 4
+  - MappedButton: 1
+    MappedAxis: 4
   - MappedButton: 5
     MappedAxis: 7
+  AttachedPlayer: {fileID: 0}
 --- !u!222 &222630835438228412
 CanvasRenderer:
   m_ObjectHideFlags: 1
