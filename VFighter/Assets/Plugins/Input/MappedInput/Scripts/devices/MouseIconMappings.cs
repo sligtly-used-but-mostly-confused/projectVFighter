@@ -6,10 +6,10 @@ using UnityEngine;
 [CreateAssetMenu]
 public class MouseIconMappings : ScriptableObject
 {
-    public List<ButtonMapping> buttonMappings;
-    public List<AxisMapping> axisMappings;
+    public List<ButtonIconMapping> buttonMappings = new List<ButtonIconMapping>();
+    public List<AxisIconMapping> axisMappings = new List<AxisIconMapping>();
 
-    public ButtonMapping GetButtonMapping(int target)
+    public ButtonIconMapping GetMouseButtonIconMapping(int target)
     {
         for (int i = 0; i < buttonMappings.Count; i++)
         {
@@ -19,7 +19,7 @@ public class MouseIconMappings : ScriptableObject
 
         return null;
     }
-    public AxisMapping GetAxisMapping(int target)
+    public AxisIconMapping GetMouseAxisIconMapping(int target)
     {
         for (int i = 0; i < axisMappings.Count; i++)
         {
@@ -31,14 +31,14 @@ public class MouseIconMappings : ScriptableObject
     }
 
     [System.Serializable]
-    public class ButtonMapping
+    public class ButtonIconMapping
     {
         public int[] mouseButtonIds;
         public Sprite Icon;
     }
 
     [System.Serializable]
-    public class AxisMapping
+    public class AxisIconMapping
     {
         public int[] mouseAxisIds;
         public Sprite Icon;

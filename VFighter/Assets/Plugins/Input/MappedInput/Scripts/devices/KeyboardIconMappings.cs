@@ -20,9 +20,6 @@ public class KeyboardIconMappings : ScriptableObject
 
         return null;
     }
-
-    // I'm not sure that we need this at all because the keyboard doesn't really
-    // have an axis
     
     public AxisIconMapping GetKeyboardAxisIconMapping(KeyboardAxis target)
     {

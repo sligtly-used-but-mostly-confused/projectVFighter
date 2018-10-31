@@ -52,7 +52,7 @@ MonoBehaviour:
     buttonsNegative: 
     inverted: 0
   - target: 6
-    axes: 
+    axes: 00000000
     buttonsPositive: 07000000
     buttonsNegative: 09000000
     inverted: 0
