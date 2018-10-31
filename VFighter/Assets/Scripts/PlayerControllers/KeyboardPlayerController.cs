@@ -50,6 +50,8 @@ public class KeyboardPlayerController : PlayerController
         if (InputDevice.GetButtonDown(MappedButton.ChangeGrav) && IsReady)
         {
             FlipGravity();
+            gc.gravityChange = !gc.gravityChange;
+            
         }
 
         if (InputDevice.GetButtonDown(MappedButton.ShootGravGun))
@@ -90,6 +92,8 @@ public class KeyboardPlayerController : PlayerController
         if (InputDevice.GetIsAxisTapped(MappedAxis.ChangeGrav) && InputDevice.GetAxis(MappedAxis.ChangeGrav) > 0 && IsReady)
         {
             FlipGravity();
+            gc.gravityChange = !gc.gravityChange;
+
         }
 
         if (InputDevice.GetIsAxisTapped(MappedAxis.ShootGravGun) && aimDir.magnitude > 0)

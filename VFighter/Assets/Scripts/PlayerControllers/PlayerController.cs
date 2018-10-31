@@ -54,6 +54,8 @@ public abstract class PlayerController : NetworkBehaviour {
     protected GameObject PlayerReadyIndicatorPrefab;
     [SerializeField]
     protected DashEffect de;
+    [SerializeField]
+    protected GravityChange gc;
 
     protected readonly Vector2[] _gravChangeDirections = { Vector2.up, Vector2.down };
 
@@ -103,6 +105,7 @@ public abstract class PlayerController : NetworkBehaviour {
         var indicator = Instantiate(PlayerReadyIndicatorPrefab);
         indicator.GetComponent<PlayerReadyIndicatorController>().AttachedPlayer = this;
         de = GetComponentInChildren<DashEffect>();
+        gc = GetComponentInChildren<GravityChange>();
         GetComponent<Renderer>().material = GetComponent<CharacterSelectController>().CharacterTypeMaterialMappings[CharacterType];
     }
 
