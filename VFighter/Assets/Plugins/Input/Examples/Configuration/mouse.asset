@@ -11,12 +11,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e705e99c00304f0399eff0c90ccff52, type: 3}
   m_Name: mouse
   m_EditorClassIdentifier: 
-  buttonMappings:
+  mouseButtonMappings:
   - target: 1
     mouseButtonId: 0
   - target: 5
     mouseButtonId: 1
-  axisMappings:
+  mouseAxisMappings:
   - target: 2
     mouseAxisId: 0
   - target: 3

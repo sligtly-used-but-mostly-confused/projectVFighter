@@ -70,7 +70,8 @@ public class LevelSelectManager : NetworkBehaviour
 
     private void Update()
     {
-        timer.text = timeRemaining.ToString();
+        if(timer != null)
+            timer.text = timeRemaining.ToString();
 
         //if all players are ready start the timer
         if (isServer && CheckForAllPlayersReady() && !Instance.IsTimerStarted)

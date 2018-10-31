@@ -63,26 +63,7 @@ public class CharacterSelectController : NetworkBehaviour {
         Controller = MappedInput.InputDevices[3];
         //GetComponent<Image>().sprite = GetSpriteFromPrompt(Prompts[0]);
 
-        CharacterTypeMaterialMappingsInternal.ForEach(x => CharacterTypeMaterialMappings.Add(x.CharacterType, x.Material));
-    }
-
-    void Update() {
-        if (Prompts[0].MappedButton != MappedButton.None)
-        {
-            if (Controller.GetButton(Prompts[0].MappedButton))
-            {
-                GetComponent<Image>().sprite = GetSpriteFromPrompt(Prompts[1]);
-                Prompts.RemoveAt(0);
-            }
-        }
-
-        if (Prompts[0].MappedAxis != MappedAxis.None)
-        {
-            if (Controller.GetIsAxisTapped(Prompts[0].MappedAxis))
-            {
-                GetComponent<Image>().sprite = GetSpriteFromPrompt(Prompts[1]);
-                Prompts.RemoveAt(0);
-            }
+        //CharacterTypeMaterialMappingsInternal.ForEach(x => CharacterTypeMaterialMappings.Add(x.CharacterType, x.Material));
         playerController = GetComponent<PlayerController>();
 
         characterDataList.ForEach(x => CharacterTypeMaterialMappings.Add(x.CharacterType, x.characterMaterial));
@@ -103,14 +84,15 @@ public class CharacterSelectController : NetworkBehaviour {
 
         descriptionCanvas = Instantiate(descriptionPrefab);
         descriptionCanvas.transform.SetParent(transform);
-        descriptionCanvas.transform.position = Vector3.down * 2 + new Vector3(0,0,-3);
+        descriptionCanvas.transform.position = Vector3.down * 2 + new Vector3(0, 0, -3);
 
         ChangeToNextCharacterTypeInternal(0);
         timeOnSelection = 0;
     }
 
     void Update() {
-        if(!GameManager.Instance.CanChangeCharacters)
+        
+        if (!GameManager.Instance.CanChangeCharacters)
         {
             return;
         }
@@ -136,8 +118,10 @@ public class CharacterSelectController : NetworkBehaviour {
         {
             return;
         }
-        
-        if(!_hasFoundReticle && GetComponent<PlayerController>().Reticle)
+
+        //CheckTutorialPrompts();
+
+        if (!_hasFoundReticle && GetComponent<PlayerController>().Reticle)
         {
             _hasFoundReticle = true;
             ChangeToNextCharacterType(1);
@@ -173,6 +157,27 @@ public class CharacterSelectController : NetworkBehaviour {
     public void CmdChangeToNextCharacterType(int dir)
     {
         ChangeToNextCharacterTypeInternal(dir);
+    }
+
+    private void CheckTutorialPrompts()
+    {
+        if (Prompts[0].MappedButton != MappedButton.None)
+        {
+            if (Controller.GetButton(Prompts[0].MappedButton))
+            {
+                GetComponent<Image>().sprite = GetSpriteFromPrompt(Prompts[1]);
+                Prompts.RemoveAt(0);
+            }
+        }
+
+        if (Prompts[0].MappedAxis != MappedAxis.None)
+        {
+            if (Controller.GetIsAxisTapped(Prompts[0].MappedAxis))
+            {
+                GetComponent<Image>().sprite = GetSpriteFromPrompt(Prompts[1]);
+                Prompts.RemoveAt(0);
+            }
+        }
     }
 
     private void ChangeToNextCharacterTypeInternal(int dir)
