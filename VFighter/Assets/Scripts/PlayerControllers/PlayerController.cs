@@ -8,7 +8,8 @@ using System;
 public enum PlayerCharacterType
 {
     ShotGun,
-    Dash
+    Dash,
+    Rocket
 }
 
 
@@ -19,15 +20,12 @@ public abstract class PlayerController : NetworkBehaviour {
     public GravityObjectRigidBody AttachedObject;
 
     [SerializeField]
-    protected float RechargeTime = 1f;
-    [SerializeField]
-    protected float ChangeGravityRechargeTime = .1f;
-    [SerializeField]
-    protected float DashCoolDownTime = .1f;
-    [SerializeField]
     protected float DurationOfNormalGravityProjectile = 1;
     [SerializeField]
     protected float DurationOfShotgunGravityProjectile = .25f;
+    [SerializeField]
+    protected float DurationOfRocketGravityProjectile = 1.5f;
+
     [SerializeField]
     protected float MoveSpeed = 1f;
     [SerializeField]
@@ -43,6 +41,10 @@ public abstract class PlayerController : NetworkBehaviour {
     [SerializeField]
     protected GameObject ProjectilePrefab;
     [SerializeField]
+    protected GameObject ShotGunProjectilePrefab;
+    [SerializeField]
+    protected GameObject RocketProjectilePrefab;
+    [SerializeField]
     protected GameObject AimingReticlePrefab;
     [SerializeField]
     public GameObject Reticle;
@@ -50,14 +52,22 @@ public abstract class PlayerController : NetworkBehaviour {
     protected GameObject ReticleParent;
     [SerializeField]
     protected GameObject PlayerReadyIndicatorPrefab;
-    
+    [SerializeField]
+    protected DashEffect de;
+
     protected readonly Vector2[] _gravChangeDirections = { Vector2.up, Vector2.down };
 
     public InputDevice InputDevice;
 
-    public bool IsCoolingDown = false;
-    public bool IsChangeGravityCoolingDown = false;
-    public bool IsDashCoolingDown = false;
+    //sound effects
+    public AudioSource[] channels = new AudioSource[4]; //ch0 - ggfire, ch1 - dash/sgfire, ch2 - changeGrav, ch3 - death
+    public AudioClip gravChange;
+    public AudioClip death;
+    public AudioClip dash;
+    public AudioClip[] gravGunFire;
+    public AudioClip[] gravGunFireCave;
+    public AudioClip[] shotGunFire;
+    public AudioClip[] shotGunFireCave;
 
     private static int _heartBeatId = 0;
     //THIS SHOULD ONLY BE USED FROM HEART BEAT FUNCTION
@@ -65,7 +75,8 @@ public abstract class PlayerController : NetworkBehaviour {
 
     private List<GameObject> GravityGunProjectiles = new List<GameObject>();
     private Coroutine GravGunCoolDownCoroutine;
-    
+    private PlayerCooldownController _cooldownController;
+
     [SyncVar]
     public short ReticleId = -1;
     [SyncVar]
@@ -81,10 +92,8 @@ public abstract class PlayerController : NetworkBehaviour {
 
     protected virtual void Awake()
     {
-        IsCoolingDown = false;
-        IsChangeGravityCoolingDown = false;
-        IsDashCoolingDown = false;
         IsDead = false;
+        _cooldownController = GetComponent<PlayerCooldownController>();
     }
 
     private void Start()
@@ -93,7 +102,7 @@ public abstract class PlayerController : NetworkBehaviour {
         StartCoroutine(FindReticle());
         var indicator = Instantiate(PlayerReadyIndicatorPrefab);
         indicator.GetComponent<PlayerReadyIndicatorController>().AttachedPlayer = this;
-
+        de = GetComponentInChildren<DashEffect>();
         GetComponent<Renderer>().material = GetComponent<CharacterSelectController>().CharacterTypeMaterialMappings[CharacterType];
     }
 
@@ -174,9 +183,10 @@ public abstract class PlayerController : NetworkBehaviour {
     {
         if (isLocalPlayer)
         {
-            if (!IsChangeGravityCoolingDown)
+            if (!_cooldownController.IsCoolingDown(CooldownType.ChangeGravity))
             {
                 ChangeGravity(GetComponent<GravityObjectRigidBody>().GravityDirection * -1);
+                PlaySingle(gravChange,2);
             }
         }
         else
@@ -202,11 +212,10 @@ public abstract class PlayerController : NetworkBehaviour {
 
     public void ChangeGravity(Vector2 dir)
     {
-        if (!IsChangeGravityCoolingDown)
+        if (!_cooldownController.IsCoolingDown(CooldownType.ChangeGravity))
         {
             ChangeGORBGravityDirection(GetComponent<GravityObjectRigidBody>(), dir);
-            IsChangeGravityCoolingDown = true;
-            StartCoroutine(ChangeGravityCoolDown());
+            _cooldownController.StartCooldown(CooldownType.ChangeGravity, () => { });
         }
     }
 
@@ -217,16 +226,20 @@ public abstract class PlayerController : NetworkBehaviour {
 
     public void Dash(Vector2 dir)
     {
-        if (!IsDashCoolingDown)
+        if (!_cooldownController.IsCoolingDown(CooldownType.Dash))
         {
+            de.dashOn = true;
             //need to account for gravity
             var dashVec = dir.normalized * DashSpeed;
-            var closestDir = ClosestDirection(dir, _gravChangeDirections);
-            ChangeGORBGravityDirection(GetComponent<GravityObjectRigidBody>(), closestDir);
-            GetComponent<GravityObjectRigidBody>().Dash(dashVec);
 
-            IsDashCoolingDown = true;
-            StartCoroutine(DashCoolDown());
+            var GORB = GetComponent<GravityObjectRigidBody>();
+            var compass = new List<Vector2> { GORB.GravityDirection, -GORB.GravityDirection };
+            ChangeGORBGravityDirection(GORB, ClosestDirection(dir, compass.ToArray(), GORB.GravityDirection));
+
+            GetComponent<GravityObjectRigidBody>().Dash(dashVec, _cooldownController.GetCooldownTime(CooldownType.Dash) * .5f);
+            PlaySingle(dash,1);
+
+            _cooldownController.StartCooldown(CooldownType.Dash, () => { de.dashOn = false; Debug.Log("callback"); });
         }
 
     }
@@ -268,68 +281,76 @@ public abstract class PlayerController : NetworkBehaviour {
         }
     }
 
-    public void ShootGravityGun(Vector2 dir)
+    public void ShootGravityGun(Vector2 dir, ProjectileControllerType type)
     {
         if (isLocalPlayer && !IsDead)
         {
             dir = dir.normalized;
-            if (!IsCoolingDown)
+
+            if (type == ProjectileControllerType.Normal)
             {
-                if (AttachedObject == null)
+                if (!_cooldownController.IsCoolingDown(CooldownType.NormalShot))
                 {
-                    CmdSpawnProjectile(dir, DurationOfNormalGravityProjectile, false);
-                    StartGravGunCoolDown();
+                    if (AttachedObject == null)
+                    {
+
+                        CmdSpawnProjectile(dir, DurationOfNormalGravityProjectile, ProjectileControllerType.Normal);
+                        RandomizeSfx(gravGunFire, gravGunFireCave, 0);
+                        _cooldownController.StartCooldown(CooldownType.NormalShot, () => { });
+                    }
+                    else
+                    {
+                        ChangeGORBGravityDirection(AttachedObject, dir);
+                        AttachedObject.GetComponent<ControllableGravityObjectRigidBody>().LaunchSfx();
+                        DetachReticle();
+                    }
                 }
-                else
+            }
+            else if (type == ProjectileControllerType.Shotgun)
+            {
+                if (!_cooldownController.IsCoolingDown(CooldownType.ShotGunShot))
                 {
-                    ChangeGORBGravityDirection(AttachedObject, dir);
-                    DetachReticle();
+                    ShotGunBlast(dir);
+                    _cooldownController.StartCooldown(CooldownType.ShotGunShot, () => { });
+                }
+            }
+            else if (type == ProjectileControllerType.Rocket)
+            {
+                if (!_cooldownController.IsCoolingDown(CooldownType.Rocket))
+                {
+                    CmdSpawnProjectile(dir, DurationOfRocketGravityProjectile, ProjectileControllerType.Rocket);
+                    _cooldownController.StartCooldown(CooldownType.Rocket, () => { });
                 }
             }
         }
     }
 
-    public void ShotGunBlast(Vector2 dir)
+    private void ShotGunBlast(Vector2 dir)
     {
-        if (isLocalPlayer && !IsDead)
-        {
-            dir = dir.normalized;
-            if (!IsCoolingDown)
-            {
-                if (AttachedObject == null)
-                {
-                    CmdSpawnProjectile(dir, DurationOfShotgunGravityProjectile, true);
-                    CmdSpawnProjectile(Quaternion.Euler(0, 0, 30) * new Vector3(dir.x, dir.y, 0), DurationOfShotgunGravityProjectile, true);
-                    CmdSpawnProjectile(Quaternion.Euler(0, 0, -30) * new Vector3(dir.x, dir.y, 0), DurationOfShotgunGravityProjectile, true);
-                    CmdSpawnProjectile(Quaternion.Euler(0, 0, 15) * new Vector3(dir.x, dir.y, 0), DurationOfShotgunGravityProjectile, true);
-                    CmdSpawnProjectile(Quaternion.Euler(0, 0, -15) * new Vector3(dir.x, dir.y, 0), DurationOfShotgunGravityProjectile, true);
-                    StartGravGunCoolDown();
-                    //GetComponent<GravityObjectRigidBody>().AddVelocity(VelocityType.OtherPhysics, -dir * ShotGunKickBackForce);
-                    GetComponent<GravityObjectRigidBody>().Dash(-dir * ShotGunKickBackForce);
-                }
-                else
-                {
-                    ChangeGORBGravityDirection(AttachedObject, dir);
-                    DetachReticle();
-                }
-            }
-        }
+        CmdSpawnProjectile(dir, DurationOfShotgunGravityProjectile, ProjectileControllerType.Shotgun);
+        CmdSpawnProjectile(Quaternion.Euler(0, 0, 30) * new Vector3(dir.x, dir.y, 0), DurationOfShotgunGravityProjectile, ProjectileControllerType.Shotgun);
+        CmdSpawnProjectile(Quaternion.Euler(0, 0, -30) * new Vector3(dir.x, dir.y, 0), DurationOfShotgunGravityProjectile, ProjectileControllerType.Shotgun);
+        CmdSpawnProjectile(Quaternion.Euler(0, 0, 15) * new Vector3(dir.x, dir.y, 0), DurationOfShotgunGravityProjectile, ProjectileControllerType.Shotgun);
+        CmdSpawnProjectile(Quaternion.Euler(0, 0, -15) * new Vector3(dir.x, dir.y, 0), DurationOfShotgunGravityProjectile, ProjectileControllerType.Shotgun);
+        GetComponent<GravityObjectRigidBody>().Dash(-dir * ShotGunKickBackForce, _cooldownController.GetCooldownTime(CooldownType.ShotGunShot) * .25f);  
+        RandomizeSfx(shotGunFire, shotGunFireCave, 1);    
     }
 
     [Command]
-    public void CmdSpawnProjectile(Vector2 dir, float secondsUntilDestroy, bool isFromShotgun)
+    public void CmdSpawnProjectile(Vector2 dir, float secondsUntilDestroy, ProjectileControllerType type)
     {
         float xValue = dir.x;
         float yVlaue = dir.y;
         float angle = Mathf.Rad2Deg * Mathf.Atan2(dir.y, dir.x);
-        GameObject projectileClone = Instantiate(ProjectilePrefab, Reticle.transform.position, Reticle.transform.rotation);
-        projectileClone.GetComponent<GravityGunProjectileController>().Owner = this;
-        projectileClone.GetComponent<GravityGunProjectileController>().SecondsUntilDestroy = secondsUntilDestroy;
-        projectileClone.GetComponent<GravityGunProjectileController>().IsShotgunProjectile = isFromShotgun;
+        GravityGunProjectileController projectileClone = ProjectilePool.Instance.GetProjectile(ProjectilePool.ConvertProjectileControllerTypeToType(type));
+        projectileClone.transform.position = transform.position + new Vector3(dir.x, dir.y, 0);
+        projectileClone.Owner = this;
+        projectileClone.SecondsUntilDestroy = secondsUntilDestroy;
         ChangeGORBGravityDirection(projectileClone.GetComponent<GravityObjectRigidBody>(), dir);
         projectileClone.GetComponent<GravityObjectRigidBody>().ChangeGravityScale(ShootSpeed);
+        projectileClone.GetComponent<GravityObjectRigidBody>().ClearAllVelocities();
         projectileClone.transform.Rotate(0, 0, angle);
-        NetworkServer.Spawn(projectileClone);
+        projectileClone.OnShot();
     }
 
     #region attach reticle
@@ -380,44 +401,6 @@ public abstract class PlayerController : NetworkBehaviour {
         ReticleParent = gameObject;
     }
 
-    public void StartGravGunCoolDown()
-    {
-        if (GravGunCoolDownCoroutine == null)
-        {
-            GravGunCoolDownCoroutine = StartCoroutine(GravGunCoolDown());
-        }
-    }
-
-    public IEnumerator GravGunCoolDown()
-    {
-        IsCoolingDown = true;
-        yield return new WaitForSeconds(RechargeTime);
-        IsCoolingDown = false;
-        GravGunCoolDownCoroutine = null;
-    }
-
-    IEnumerator ChangeGravityCoolDown()
-    {
-        yield return new WaitForSeconds(ChangeGravityRechargeTime);
-        IsChangeGravityCoolingDown = false;
-    }
-
-    IEnumerator DashCoolDown()
-    {
-        IsDashCoolingDown = true;
-        CmdSetDashCoolDown(true);
-        yield return new WaitForSeconds(DashCoolDownTime);
-        IsDashCoolingDown = false;
-        CmdSetDashCoolDown(false);
-    }
-
-    [Command]
-    private void CmdSetDashCoolDown(bool isCoolingDown)
-    {
-        //need to set dash cool down on server so that they player collision counts as a kill
-        IsDashCoolingDown = isCoolingDown;
-    }
-
     private void OnCollisionEnter2D(Collision2D collision)
     {
         float otherMass = 1;
@@ -432,12 +415,14 @@ public abstract class PlayerController : NetworkBehaviour {
         {
             if(collision.collider.GetComponent<PlayerController>())
             {
-                if(IsDashCoolingDown)
+                if(_cooldownController.IsCoolingDown(CooldownType.Dash))
                 {
                     ControlledPlayer.NumKills++;
+                    ControlledPlayer.NumOverallKills++;
                     SetDirtyBit(0xFFFFFFFF);
                     //kill the other player
                     collision.collider.GetComponent<PlayerController>().Kill();
+                    Recoil();
                     return;
                 }
 
@@ -445,13 +430,13 @@ public abstract class PlayerController : NetworkBehaviour {
                 return;
             }
 
-            if(IsDashCoolingDown)
+            if(_cooldownController.IsCoolingDown(CooldownType.Dash))
             {
                 //if we dash into an object push it
                 var dashVel = GetComponent<Rigidbody2D>().velocity;
                 ChangeGORBGravityDirection(GORB, dashVel.normalized);
-                RpcClearVelocities(gameObject);
-                IsDashCoolingDown = false;
+                Recoil();
+                _cooldownController.StopCooldown(CooldownType.Dash);
                 return;
             }
             
@@ -461,11 +446,24 @@ public abstract class PlayerController : NetworkBehaviour {
             {
                 var otherPlayer = NetworkServer.FindLocalObject((GORB as ControllableGravityObjectRigidBody).LastShotBy).GetComponent<PlayerController>();
                 otherPlayer.ControlledPlayer.NumKills++;
+                otherPlayer.ControlledPlayer.NumOverallKills++;
                 otherPlayer.SetDirtyBit(0xFFFFFFFF);
             }
 
             Kill();
         }
+    }
+
+    //must be on server
+    private void Recoil()
+    {
+        var GORB = GetComponent<GravityObjectRigidBody>();
+        var vel = GetComponent<Rigidbody2D>().velocity;
+        RpcClearVelocities(gameObject);
+        RpcUpdateGORBVelocity(gameObject,VelocityType.OtherPhysics, -vel * 10);
+        var compass = new List<Vector2> { GORB.GravityDirection, -GORB.GravityDirection };
+        
+        ChangeGORBGravityDirection(GORB, ClosestDirection(-vel, compass.ToArray(), GORB.GravityDirection));
     }
 
     public static Vector2 ClosestDirection(Vector2 v, Vector2[] compass)
@@ -482,6 +480,30 @@ public abstract class PlayerController : NetworkBehaviour {
                 maxDot = t;
             }
         }
+        
+        return ret;
+    }
+
+    public static Vector2 ClosestDirection(Vector2 v, Vector2[] compass, Vector3 defaultDir, float threshold = .1f)
+    {
+        v = v.normalized;
+        var maxDot = -Mathf.Infinity;
+        var ret = Vector3.zero;
+
+        foreach (var dir in compass)
+        {
+            var t = Vector3.Dot(v, dir);
+            if (t > maxDot)
+            {
+                ret = dir;
+                maxDot = t;
+            }
+        }
+        
+        if (maxDot < threshold)
+        {
+            return defaultDir;
+        }
 
         return ret;
     }
@@ -497,8 +519,9 @@ public abstract class PlayerController : NetworkBehaviour {
         {
             IsDead = true;
             ControlledPlayer.NumDeaths++;
+            ControlledPlayer.NumOverallDeaths++;
         }
-        
+        PlaySingle(death, 3);
         SetDirtyBit(0xFFFFFFFF);
         if (isLocalPlayer)
         {
@@ -534,6 +557,40 @@ public abstract class PlayerController : NetworkBehaviour {
     public void CmdToggleReady()
     {
         IsReady = !IsReady;
+    }
+
+    public void UpdateGORBVelocity(GravityObjectRigidBody GORB, VelocityType type, Vector2 dir)
+    {
+        if (GORB.IsSimulatedOnThisConnection)
+        {
+            GORB.UpdateVelocity(type, dir);
+        }
+        else
+        {
+            CmdUpdateGORBVelocity(GORB.gameObject, type, dir);
+        }
+    }
+
+    [Command]
+    public void CmdUpdateGORBVelocity(GameObject GORB, VelocityType type, Vector2 dir)
+    {
+        if (GORB.GetComponent<GravityObjectRigidBody>().IsSimulatedOnThisConnection)
+        {
+            GORB.GetComponent<GravityObjectRigidBody>().UpdateVelocity(type, dir);
+        }
+        else
+        {
+            RpcUpdateGORBVelocity(GORB, type, dir);
+        }
+    }
+
+    [ClientRpc]
+    public void RpcUpdateGORBVelocity(GameObject GORB, VelocityType type, Vector2 dir)
+    {
+        if (GORB.GetComponent<GravityObjectRigidBody>().IsSimulatedOnThisConnection)
+        {
+            GORB.GetComponent<GravityObjectRigidBody>().UpdateVelocity(type, dir);
+        }
     }
 
     #region changGORB gravity dir
@@ -581,45 +638,45 @@ public abstract class PlayerController : NetworkBehaviour {
         }
     }
 
-    public void InitializeForStartLevel(Vector3 spawnPoint)
+    public void InitializeForStartLevel(Vector3 spawnPoint, bool isDead)
     {
         if (isLocalPlayer)
         {
-            InitializeForStartLevelInternal(spawnPoint);
+            InitializeForStartLevelInternal(spawnPoint, isDead);
         }
         else
         {
-            CmdInitializeForStartLevel(spawnPoint);
+            CmdInitializeForStartLevel(spawnPoint, isDead);
         }
     }
 
-    public void InitializeForStartLevelInternal(Vector3 spawnPoint)
+    public void InitializeForStartLevelInternal(Vector3 spawnPoint, bool isDead)
     {
         transform.position = spawnPoint;
         GetComponent<GravityObjectRigidBody>().ClearAllVelocities();
         ChangeGORBGravityDirection(GetComponent<GravityObjectRigidBody>(), FindDirToClosestWall());
-        IsDead = false;
+        IsDead = isDead;
     }
 
     [Command]
-    public void CmdInitializeForStartLevel(Vector3 spawnPoint)
+    public void CmdInitializeForStartLevel(Vector3 spawnPoint, bool isDead)
     {
         if (isLocalPlayer)
         {
-            InitializeForStartLevelInternal(spawnPoint);
+            InitializeForStartLevelInternal(spawnPoint, isDead);
         }
         else
         {
-            RpcInitializeForStartLevel(spawnPoint);
+            RpcInitializeForStartLevel(spawnPoint, isDead);
         }
     }
 
     [ClientRpc]
-    public void RpcInitializeForStartLevel(Vector3 spawnPoint)
+    public void RpcInitializeForStartLevel(Vector3 spawnPoint, bool isDead)
     {
         if (isLocalPlayer)
         {
-            InitializeForStartLevelInternal(spawnPoint);
+            InitializeForStartLevelInternal(spawnPoint, isDead);
         }
     }
 
@@ -658,7 +715,10 @@ public abstract class PlayerController : NetworkBehaviour {
         switch (CharacterType)
         {
             case PlayerCharacterType.ShotGun:
-                ShotGunBlast(aimVector);
+                ShootGravityGun(aimVector, ProjectileControllerType.Shotgun);
+                break;
+            case PlayerCharacterType.Rocket:
+                ShootGravityGun(aimVector, ProjectileControllerType.Rocket);
                 break;
             case PlayerCharacterType.Dash:
                 Dash(aimVector);
@@ -673,5 +733,41 @@ public abstract class PlayerController : NetworkBehaviour {
             GetComponent<Renderer>().material = GetComponent<CharacterSelectController>().CharacterTypeMaterialMappings[characterType];
             this.CharacterType = characterType;
         }
+    }
+
+    public void PlaySingle(AudioClip clip, int channel)
+    {
+        //Set the clip of our efxSource audio source to the clip passed in as a parameter.
+        channels[channel].clip = clip;
+
+        //Play the clip.
+        channels[channel].Play();
+    }
+
+
+    //RandomizeSfx chooses randomly between various audio clips
+    public void RandomizeSfx(AudioClip[] clips, AudioClip[] caveClips, int channel)
+    {
+        //Generate a random number between 0 and the length of our array of clips passed in.
+        int randomIndex;
+        if (AudioManager.instance.isCaveLevel)
+            randomIndex = UnityEngine.Random.Range(0, caveClips.Length);
+        else
+            randomIndex = UnityEngine.Random.Range(0, clips.Length);
+
+        //Choose a random pitch to play back our clip at between our high and low pitch ranges.
+        float randomPitch = UnityEngine.Random.Range(AudioManager.instance.lowPitchRange, AudioManager.instance.highPitchRange);
+
+        //Set the pitch of the audio source to the randomly chosen pitch.
+        channels[channel].pitch = randomPitch;
+
+        //Set the clip to the clip at our randomly chosen index.
+        if (AudioManager.instance.isCaveLevel)
+            channels[channel].clip = caveClips[randomIndex];
+        else
+            channels[channel].clip = clips[randomIndex];
+
+        //Play the clip.
+        channels[channel].Play();
     }
 }

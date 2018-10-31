@@ -22,6 +22,8 @@ GameObject:
   - component: {fileID: 33522369550703248}
   - component: {fileID: 23931268286873396}
   - component: {fileID: 61402130711215228}
+  - component: {fileID: 114464937660990188}
+  - component: {fileID: 114318509977048708}
   m_Layer: 8
   m_Name: RigidPlatform
   m_TagString: Untagged
@@ -57,7 +59,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: beca3248a2774554e8cbb395ebd5396e, type: 2}
+  - {fileID: 2100000, guid: efd13cd8cc5ef0b4992ab262bd2dc742, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -109,3 +111,59 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.99999994, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &114318509977048708
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1841537160547452}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72e227611bd16ec43923854f771b221f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _id: 0
+  _gravityScale: 1
+  _gravityDirection: {x: 0, y: -1}
+  _maxDefaultComponentSpeed: {x: 10, y: 10}
+  _maxComponentSpeeds: []
+  _stopObjectOnCollide: 1
+  _drag: 1
+  Bounciness: 0
+  CanBeSelected: 0
+  KillsPlayer: 0
+  IsSimulatedOnThisConnection: 0
+  CanMove: 0
+  Owner: {fileID: 0}
+--- !u!114 &114464937660990188
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1841537160547452}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 200
+    i1: 240
+    i2: 159
+    i3: 2
+    i4: 220
+    i5: 160
+    i6: 148
+    i7: 162
+    i8: 170
+    i9: 184
+    i10: 211
+    i11: 78
+    i12: 66
+    i13: 32
+    i14: 208
+    i15: 35
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0

@@ -23,8 +23,6 @@ public enum VelocityType
     OtherPhysics
 }
 
-[RequireComponent(typeof(Rigidbody2D))]
-[RequireComponent(typeof(Collider2D))]
 public class GravityObjectRigidBody : NetworkBehaviour {
     #region vars
     private static int _idCnt = 0;
@@ -42,8 +40,6 @@ public class GravityObjectRigidBody : NetworkBehaviour {
     [SerializeField]
     private bool _stopObjectOnCollide = true;
     [SerializeField]
-    private float _timeToDashStop = 1f;
-    [SerializeField]
     private float _drag = 1f;
 
     private Rigidbody2D _rB;
@@ -52,6 +48,7 @@ public class GravityObjectRigidBody : NetworkBehaviour {
     public bool CanBeSelected = true;
     public bool KillsPlayer = true;
     public bool IsSimulatedOnThisConnection = false;
+    [SyncVar]
     public bool CanMove = true;
     public PlayerController Owner;
 
@@ -93,25 +90,31 @@ public class GravityObjectRigidBody : NetworkBehaviour {
     }
 
     void Start() {
-        _rB.gravityScale = 0;
+        if(_rB)
+            _rB.gravityScale = 0;
     }
 
     void FixedUpdate() {
-        DoGravity();
-        DoDrag();
         ProcessVelocity();
     }
 
     private void ProcessVelocity()
     {
-        if (GetComponent<GravityObjectRigidBody>().IsSimulatedOnThisConnection && CanMove)
+        if (CanMove && GetComponent<GravityObjectRigidBody>().IsSimulatedOnThisConnection)
         {
+            DoGravity();
+            DoDrag();
             _rB.velocity = Vector2.zero;
 
             foreach (var velocity in _velocities)
             {
                 _rB.velocity += velocity.Value * GameManager.Instance.TimeScale;
             }
+        }
+
+        if(!CanMove && GetComponent<GravityObjectRigidBody>().IsSimulatedOnThisConnection && _rB)
+        {
+            _rB.velocity = Vector3.zero;
         }
     }
 
@@ -195,17 +198,17 @@ public class GravityObjectRigidBody : NetworkBehaviour {
         GravityScale = newGravityScale;
     }
 
-    public void Dash(Vector2 dashVec)
+    public void Dash(Vector2 dashVec, float timeToStop)
     {
-        StartCoroutine(StartDash(dashVec));
+        StartCoroutine(StartDash(dashVec, timeToStop));
     }
 
-    private IEnumerator StartDash(Vector2 dashVec)
+    private IEnumerator StartDash(Vector2 dashVec, float timeToStop)
     {
         ClearAllVelocities();
         GravityScale = 0;
         UpdateVelocity(VelocityType.Dash, dashVec);
-        yield return new WaitForSeconds(_timeToDashStop);
+        yield return new WaitForSeconds(timeToStop);
         GravityScale = 1;
         ClearAllVelocities();
     }
@@ -221,6 +224,7 @@ public class GravityObjectRigidBody : NetworkBehaviour {
 
     void OnCollisionEnter2D(Collision2D collision)
     {
+        /*
         if(collision.gameObject.GetComponent<GravityObjectRigidBody>())
         {
             var vel = _rB.velocity;
@@ -238,10 +242,11 @@ public class GravityObjectRigidBody : NetworkBehaviour {
             var reflectionVec = vel * reflectionCoef;
             UpdateVelocity(VelocityType.OtherPhysics, reflectionVec);
         }
-
+        */
         if (_stopObjectOnCollide && IsSimulatedOnThisConnection && !collision.gameObject.GetComponent<PlayerController>())
         {
             FindObjectOfType<PlayerController>().ChangeGORBGravityDirection(this, Vector2.zero);
         }
+        
     }
 }
