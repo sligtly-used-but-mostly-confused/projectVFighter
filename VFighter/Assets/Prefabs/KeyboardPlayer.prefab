@@ -646,6 +646,14 @@ MonoBehaviour:
     MappedAxis: 4
   - MappedButton: 5
     MappedAxis: 7
+  - MappedButton: 4
+    MappedAxis: 7
+  - MappedButton: 0
+    MappedAxis: 6
+  - MappedButton: 4
+    MappedAxis: 7
+  - MappedButton: 5
+    MappedAxis: 7
   AttachedPlayer: {fileID: 114155156425097820}
 --- !u!114 &114102103120925478
 MonoBehaviour:
@@ -10151,7 +10159,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1278448827168648}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -2}
   m_LocalScale: {x: 0.018518519, y: 0.018518519, z: 0.018518519}
   m_Children:
   - {fileID: 224689408716580396}
@@ -10160,7 +10168,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 2}
+  m_AnchoredPosition: {x: 0, y: -2}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224689408716580396

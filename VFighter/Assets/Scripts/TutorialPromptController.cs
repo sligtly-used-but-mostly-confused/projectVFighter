@@ -18,16 +18,14 @@ public class TutorialPromptController : MonoBehaviour {
         [SerializeField]
         public MappedAxis MappedAxis;
     }
-    public void Start()
-    {
-        Controller = MappedInput.InputDevices[2];
-        GetComponent<Image>().sprite = GetSpriteFromPrompt(Prompts[0]);
-    }
 
     void Update () {
 
         Controller = AttachedPlayer.InputDevice;
-        
+        if(Controller && GetComponent<Image>().sprite == null)
+        {
+            GetComponent<Image>().sprite = GetSpriteFromPrompt(Prompts[0]);
+        }
         
         if (Controller && Prompts[0].MappedButton != MappedButton.None)
         {
