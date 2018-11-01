@@ -35,14 +35,13 @@ public class AudioManager : MonoBehaviour
         else if (instance != this)
         {
             //Destroy this, this enforces our singleton pattern so there can only be one instance of SoundManager.
-            //Destroy(gameObject);
             Destroy(instance.gameObject);
             instance = this;
         }
 
         //Set SoundManager to DontDestroyOnLoad so that it won't be destroyed when reloading our scene.
         DontDestroyOnLoad(gameObject);
-        mainAudio.loop = false;
+        mainAudio.loop = !hasInit;
     }
     // Use this for initialization
     void Start()
