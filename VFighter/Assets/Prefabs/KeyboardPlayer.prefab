@@ -148,7 +148,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1595278416924834}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -2, z: -2}
+  m_LocalPosition: {x: 0, y: -2, z: -3}
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_Children: []
   m_Father: {fileID: 4986710107920854}
@@ -810,18 +810,16 @@ MonoBehaviour:
   characterDataList:
   - characterMaterial: {fileID: 2100000, guid: b2a8a02c59a65284d9aae1c3dd996a45, type: 2}
     IconMaterial: {fileID: 2100000, guid: 6fcced9f938a5a549b7ee8d34c8fd1c7, type: 2}
-    description: Blasts several projectiles at once with good coverage in front of
-      the player, but low range
+    description: Shoots several projectiles, which push players and objects on collision.
     CharacterType: 0
   - characterMaterial: {fileID: 2100000, guid: 1e01bbf040afb634ba0886e4aa75366d, type: 2}
     IconMaterial: {fileID: 2100000, guid: c15c4b8059261441fa6ac72c71454e30, type: 2}
-    description: 'Dash can bounce projectiles out of the way into the direction of
-      dash. '
+    description: Dash in the direction you aim. Pushes objects and kills players.
     CharacterType: 1
   - characterMaterial: {fileID: 2100000, guid: 04d126ba1f0d0478f801292308bbc946, type: 2}
     IconMaterial: {fileID: 2100000, guid: b2a8a02c59a65284d9aae1c3dd996a45, type: 2}
-    description: Shoots a projectile that explodes on collision, which knocks back
-      anything within the blast.
+    description: Shoots a projectile that explodes on collision, which pushes everything
+      within the blast.
     CharacterType: 2
 --- !u!114 &114642983415842072
 MonoBehaviour:
