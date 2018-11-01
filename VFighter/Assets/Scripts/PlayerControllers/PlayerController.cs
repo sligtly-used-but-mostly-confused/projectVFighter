@@ -769,7 +769,7 @@ public abstract class PlayerController : NetworkBehaviour {
             channels[channel].clip = caveClips[randomIndex];
         else
             channels[channel].clip = clips[randomIndex];
-
+        channels[channel].volume = 1.0f * AudioManager.SFXVol * AudioManager.MasterVol;
         //Play the clip.
         channels[channel].Play();
     }

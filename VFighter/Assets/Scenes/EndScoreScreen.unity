@@ -1564,8 +1564,18 @@ Prefab:
     - target: {fileID: 82298691421866628, guid: 8feb7bff09b2062429be2363b9a14dbf,
         type: 2}
       propertyPath: Mute
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 82298691421866628, guid: 8feb7bff09b2062429be2363b9a14dbf,
+        type: 2}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114682017336131632, guid: 8feb7bff09b2062429be2363b9a14dbf,
+        type: 2}
+      propertyPath: defaultRoundLoop
+      value: 
+      objectReference: {fileID: 8300000, guid: 953b20319d1d13948b8d787c40dae296, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8feb7bff09b2062429be2363b9a14dbf, type: 2}
   m_IsPrefabAsset: 0

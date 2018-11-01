@@ -85,7 +85,7 @@ public class TeleportZoneController : MonoBehaviour {
             sfxAudio.clip = TeleportSoundCave[randomIndex];
         else
             sfxAudio.clip = TeleportSound[randomIndex];
-
+        sfxAudio.volume = 1.0f * AudioManager.SFXVol * AudioManager.MasterVol;
         //Play the clip.
         sfxAudio.Play();
     }

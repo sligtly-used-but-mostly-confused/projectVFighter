@@ -24,6 +24,7 @@ public class LevelZoneController : MonoBehaviour {
         if (collision.gameObject.GetComponent<PlayerController>())
         {
             ++playersInside;
+            enterSound.volume = 1.0f * AudioManager.SFXVol * AudioManager.MasterVol;
             enterSound.Play();
         }
     }
