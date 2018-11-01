@@ -47,9 +47,11 @@ public class KeyboardPlayerController : PlayerController
 
         AimReticle(aimVector);
 
-        if (InputDevice.GetButtonDown(MappedButton.ChangeGrav) && IsReady)
+        if (InputDevice.GetButtonDown(MappedButton.ChangeGrav))
         {
             FlipGravity();
+            gc.gravityChange = !gc.gravityChange;
+            
         }
 
         if (InputDevice.GetButtonDown(MappedButton.ShootGravGun))
@@ -87,9 +89,11 @@ public class KeyboardPlayerController : PlayerController
 
         AimReticle(aimDir);
 
-        if (InputDevice.GetIsAxisTapped(MappedAxis.ChangeGrav) && InputDevice.GetAxis(MappedAxis.ChangeGrav) > 0 && IsReady)
+        if (InputDevice.GetIsAxisTapped(MappedAxis.ChangeGrav) && InputDevice.GetAxis(MappedAxis.ChangeGrav) > 0)
         {
             FlipGravity();
+            gc.gravityChange = !gc.gravityChange;
+
         }
 
         if (InputDevice.GetIsAxisTapped(MappedAxis.ShootGravGun) && aimDir.magnitude > 0)

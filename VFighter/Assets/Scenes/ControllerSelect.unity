@@ -1372,7 +1372,7 @@ MonoBehaviour:
   platform: {fileID: 1841537160547452, guid: c8f09f02dca094a2aab8d34e4220d023, type: 2}
   levelZone: {fileID: 1647109427917884, guid: c571407ca27484f0fb1de03b5a495f4b, type: 2}
   areaWidth: 16
-  timer: {fileID: 0}
+  timer: {fileID: 2048904424}
   selectTime: 1
   numLivesPerPlayer: 1
   _playerReadyIndicatorPrefab: {fileID: 1574300143994424, guid: 50239be1e91c0ce48b9f24ef90027d08,

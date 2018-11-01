@@ -23,9 +23,9 @@ public class TutorialPromptController : MonoBehaviour
     void Update () {
 
         Controller = AttachedPlayer.InputDevice;
-        if(Controller && GetComponent<Image>().sprite == null)
+        if(Controller && GetComponent<SpriteRenderer>().sprite == null)
         {
-            GetComponent<Image>().sprite = GetSpriteFromPrompt(Prompts[0]);
+            GetComponent<SpriteRenderer>().sprite = GetSpriteFromPrompt(Prompts[0]);
         }
         
         if (Controller && Prompts[0].MappedButton != MappedButton.None)
@@ -53,7 +53,7 @@ public class TutorialPromptController : MonoBehaviour
             return;
         }
 
-        GetComponent<Image>().sprite = GetSpriteFromPrompt(Prompts[1]);
+        GetComponent<SpriteRenderer>().sprite = GetSpriteFromPrompt(Prompts[1]);
         Prompts.RemoveAt(0);
     }
 
