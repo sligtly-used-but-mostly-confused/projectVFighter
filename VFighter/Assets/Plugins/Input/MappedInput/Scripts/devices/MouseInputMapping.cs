@@ -4,31 +4,34 @@ using System.Collections.Generic;
 
 public class MouseInputMapping : ScriptableObject
 {
-	public List<ButtonMapping> buttonMappings;
-	public List<AxisMapping> axisMappings;
+	public List<ButtonMapping> mouseButtonMappings = new List<ButtonMapping>();
+    public List<AxisMapping> mouseAxisMappings = new List<AxisMapping>();
 
-	public ButtonMapping GetButtonMapping(MappedButton target)
-	{
-		for (int i = 0; i < buttonMappings.Count; i++)
-		{
-			if( buttonMappings[i].target == target )
-				return buttonMappings[i];
-		}
+    public MouseIconMappings MouseIconMappings;
 
-		return null;
-	}
-	public AxisMapping GetAxisMapping(MappedAxis target)
+    public ButtonMapping GetMouseButtonMapping(MappedButton target)
 	{
-		for (int i = 0; i < axisMappings.Count; i++)
+		for (int i = 0; i < mouseButtonMappings.Count; i++)
 		{
-			if( axisMappings[i].target == target )
-				return axisMappings[i];
+			if( mouseButtonMappings[i].target == target )
+				return mouseButtonMappings[i];
 		}
 
 		return null;
 	}
 
-	[System.Serializable]
+	public AxisMapping GetMouseAxisMapping(MappedAxis target)
+	{
+		for (int i = 0; i < mouseAxisMappings.Count; i++)
+		{
+			if( mouseAxisMappings[i].target == target )
+				return mouseAxisMappings[i];
+		}
+
+		return null;
+	}
+
+    [System.Serializable]
 	public class ButtonMapping
 	{
 		public MappedButton target;

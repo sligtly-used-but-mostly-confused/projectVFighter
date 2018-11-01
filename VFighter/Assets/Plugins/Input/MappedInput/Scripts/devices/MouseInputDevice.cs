@@ -6,7 +6,7 @@ public class MouseInputDevice : InputDevice
 {	
 	public override string GetButtonName(MappedButton button)
 	{
-		var mapping = MappedInput.Instance.MouseInputMapping.GetButtonMapping (button);
+		var mapping = MappedInput.Instance.MouseInputMapping.GetMouseButtonMapping (button);
 		if (mapping != null)
 		{
 			return string.Format ("Mouse Button {0}", mapping.mouseButtonId);
@@ -17,7 +17,7 @@ public class MouseInputDevice : InputDevice
 
 	public override string GetAxisName(MappedAxis axis)
 	{
-		var mapping = MappedInput.Instance.MouseInputMapping.GetAxisMapping (axis);
+		var mapping = MappedInput.Instance.MouseInputMapping.GetMouseAxisMapping (axis);
 		if (mapping != null)
 		{
 			return string.Format ("Mouse Axis {0}", mapping.mouseAxisId);
@@ -25,9 +25,35 @@ public class MouseInputDevice : InputDevice
 		return "";
 	}
 
-	public override bool GetButton(MappedButton button)
+    public override Sprite GetButtonIcon(MappedButton button)
+    {
+        var mapping = MappedInput.Instance.MouseInputMapping.GetMouseButtonMapping(button);
+        if (mapping != null)
+        {
+            var iconMapping = MappedInput.Instance.MouseInputMapping.MouseIconMappings.GetMouseButtonIconMapping(mapping.mouseButtonId);
+            if (iconMapping != null)
+                return iconMapping.Icon;
+        }
+
+        return null;
+    }
+
+
+    public override Sprite GetAxisIcon(MappedAxis axis)
+    {
+        // This needs to be changed to reflect the mouse
+        var mapping = MappedInput.Instance.MouseInputMapping.GetMouseAxisMapping(axis);
+        if (mapping != null)
+        {
+            return MappedInput.Instance.MouseInputMapping.MouseIconMappings.GetMouseAxisIconMapping(mapping.mouseAxisId).Icon;
+        }
+        return null;
+        
+    }
+
+    public override bool GetButton(MappedButton button)
 	{
-		var mapping = MappedInput.Instance.MouseInputMapping.GetButtonMapping (button);
+		var mapping = MappedInput.Instance.MouseInputMapping.GetMouseButtonMapping (button);
 		if (mapping != null)
 		{
 			return Input.GetMouseButton (mapping.mouseButtonId);
@@ -37,7 +63,7 @@ public class MouseInputDevice : InputDevice
 
 	public override bool GetButtonDown(MappedButton button)
 	{
-		var mapping = MappedInput.Instance.MouseInputMapping.GetButtonMapping (button);
+		var mapping = MappedInput.Instance.MouseInputMapping.GetMouseButtonMapping (button);
 		if (mapping != null)
 		{
 			return Input.GetMouseButtonDown (mapping.mouseButtonId);
@@ -48,7 +74,7 @@ public class MouseInputDevice : InputDevice
 
 	public override bool GetButtonUp(MappedButton button)
 	{
-		var mapping = MappedInput.Instance.MouseInputMapping.GetButtonMapping (button);
+		var mapping = MappedInput.Instance.MouseInputMapping.GetMouseButtonMapping (button);
 		if (mapping != null)
 		{
 			return Input.GetMouseButtonUp (mapping.mouseButtonId);
@@ -60,7 +86,7 @@ public class MouseInputDevice : InputDevice
 	protected override float GetAxisValueRaw (MappedAxis axis)
 	{
 		float rawVal = 0;
-		var mapping = MappedInput.Instance.MouseInputMapping.GetAxisMapping (axis);
+		var mapping = MappedInput.Instance.MouseInputMapping.GetMouseAxisMapping (axis);
 
 		if (mapping != null)
 		{
@@ -68,7 +94,9 @@ public class MouseInputDevice : InputDevice
 				rawVal = Input.mousePosition.x;
 			else if (mapping.mouseAxisId == 1)
 				rawVal = Input.mousePosition.y;
-			else
+            else if (mapping.mouseAxisId == 2)
+                rawVal = Input.mousePosition.y;
+            else
 				throw new UnityException ("Mouse axis " + mapping.mouseAxisId + " not found");
 		}
 

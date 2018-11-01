@@ -29,7 +29,38 @@ public class GamepadInputDevice : InputDevice
 		return "";
 	}
 
-	public override bool GetButton(MappedButton button)
+    public override Sprite GetButtonIcon(MappedButton button)
+    {
+        var mapping = MappedInput.Instance.GamepadInputMapping.GetGamepadButtonMapping(button);
+        if(mapping == null || mapping.buttons.Length == 0)
+        {
+            return null;
+        }
+
+        var IconMapping = MappedInput.Instance.GamepadInputMapping.IconMapping.GetGamepadButtonIconMapping(mapping.buttons[0]);
+        return IconMapping == null ? null : IconMapping.Icon;
+    }
+
+    public override Sprite GetAxisIcon(MappedAxis axis)
+    {
+        var mapping = MappedInput.Instance.GamepadInputMapping.GetGamepadAxisMapping(axis);
+        if(mapping.axes.Count() > 0)
+        {
+            return MappedInput.Instance.GamepadInputMapping.IconMapping.GetGamepadAxisIconMapping(mapping.axes[0]).Icon;
+        }
+        else if(mapping.buttonsNegative.Count() > 0)
+        {
+            return MappedInput.Instance.GamepadInputMapping.IconMapping.GetGamepadAxisIconMapping(mapping.buttonsNegative[0]).Icon;
+        }
+        else if (mapping.buttonsPositive.Count() > 0)
+        {
+            return MappedInput.Instance.GamepadInputMapping.IconMapping.GetGamepadAxisIconMapping(mapping.buttonsPositive[0]).Icon;
+        }
+
+        return null;
+    }
+
+    public override bool GetButton(MappedButton button)
 	{
 		var mapping = MappedInput.Instance.GamepadInputMapping.GetGamepadButtonMapping (button);
 		if (mapping != null)
