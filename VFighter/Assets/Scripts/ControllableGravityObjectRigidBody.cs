@@ -15,7 +15,6 @@ public class ControllableGravityObjectRigidBody : GravityObjectRigidBody {
 
     //Audio
     public AudioSource sfxAudio;
-    public AudioSource collAudio;
     public AudioClip[] LaunchSound;
     public AudioClip[] LaunchSoundCave;
 
