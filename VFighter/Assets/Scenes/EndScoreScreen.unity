@@ -90,7 +90,7 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaAO: 1
     m_ShowResolutionOverlay: 1
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -1575,7 +1575,7 @@ Prefab:
         type: 2}
       propertyPath: defaultRoundLoop
       value: 
-      objectReference: {fileID: 8300000, guid: 953b20319d1d13948b8d787c40dae296, type: 3}
+      objectReference: {fileID: 8300000, guid: 84350b22ff442334a91e8a8d218918d6, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8feb7bff09b2062429be2363b9a14dbf, type: 2}
   m_IsPrefabAsset: 0

@@ -62,10 +62,12 @@ public abstract class PlayerController : NetworkBehaviour {
     public InputDevice InputDevice;
 
     //sound effects
-    public AudioSource[] channels = new AudioSource[4]; //ch0 - ggfire, ch1 - dash/sgfire, ch2 - changeGrav, ch3 - death
+    public AudioSource[] channels = new AudioSource[4]; //ch0 - ggfire, ch1 - dash/sgfire/rlaunch, ch2 - changeGrav, ch3 - death
     public AudioClip gravChange;
     public AudioClip death;
     public AudioClip dash;
+    public AudioClip[] rocketLaunch;
+    public AudioClip[] rocketLaunchCave;
     public AudioClip[] gravGunFire;
     public AudioClip[] gravGunFireCave;
     public AudioClip[] shotGunFire;
@@ -322,6 +324,7 @@ public abstract class PlayerController : NetworkBehaviour {
                 if (!_cooldownController.IsCoolingDown(CooldownType.Rocket))
                 {
                     CmdSpawnProjectile(dir, DurationOfRocketGravityProjectile, ProjectileControllerType.Rocket);
+                    RandomizeSfx(rocketLaunch, rocketLaunchCave, 1);
                     _cooldownController.StartCooldown(CooldownType.Rocket, () => { });
                 }
             }

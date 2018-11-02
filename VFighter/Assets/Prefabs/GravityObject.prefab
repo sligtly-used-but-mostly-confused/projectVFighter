@@ -336,9 +336,9 @@ MonoBehaviour:
   _maxSpeedMultiplier: 2
   sfxAudio: {fileID: 82144942733576756}
   LaunchSound:
-  - {fileID: 8300000, guid: 149e04db1685d28429e00b64800f83d6, type: 3}
+  - {fileID: 8300000, guid: 5fcdcec881f76d9409bb4ee2f5a166b3, type: 3}
   LaunchSoundCave:
-  - {fileID: 8300000, guid: 2dd810638c7cdc84c8312717a17b61c3, type: 3}
+  - {fileID: 8300000, guid: 00341a7eae16f7645ada938d42966a7b, type: 3}
 --- !u!114 &114251008964941468
 MonoBehaviour:
   m_ObjectHideFlags: 1
