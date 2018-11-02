@@ -191,13 +191,21 @@ public abstract class PlayerController : NetworkBehaviour {
             if (!_cooldownController.IsCoolingDown(CooldownType.ChangeGravity))
             {
                 ChangeGravity(GetComponent<GravityObjectRigidBody>().GravityDirection * -1);
-                PlaySingle(gravChange,2);
+                gc.PlayEffect(GetComponent<GravityObjectRigidBody>());
             }
         }
         else
         {
             CmdBroadcastFlipGravity();
         }
+    }
+
+    public void ChangeGravityTowardsDir(Vector2 dir)
+    {
+        var GORB = GetComponent<GravityObjectRigidBody>();
+        var compass = new List<Vector2> { GORB.GravityDirection, -GORB.GravityDirection };
+        ChangeGravity(ClosestDirection(dir, compass.ToArray()));
+        gc.PlayEffect(GetComponent<GravityObjectRigidBody>());
     }
 
     [Command]
@@ -221,6 +229,7 @@ public abstract class PlayerController : NetworkBehaviour {
         {
             ChangeGORBGravityDirection(GetComponent<GravityObjectRigidBody>(), dir);
             _cooldownController.StartCooldown(CooldownType.ChangeGravity, () => { });
+            PlaySingle(gravChange, 2);
         }
     }
 
@@ -307,6 +316,7 @@ public abstract class PlayerController : NetworkBehaviour {
                     {
                         ChangeGORBGravityDirection(AttachedObject, dir);
                         AttachedObject.GetComponent<ControllableGravityObjectRigidBody>().LaunchSfx();
+                        AttachedObject.GetComponent<ConnectionToPlayerController>().DisconnectPlayer();
                         DetachReticle();
                     }
                 }

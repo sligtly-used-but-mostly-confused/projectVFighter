@@ -45,6 +45,11 @@ public class GravityGunProjectileController : NetworkBehaviour {
             {
                 (GORB as ControllableGravityObjectRigidBody).StepMultiplier();
                 (GORB as ControllableGravityObjectRigidBody).LastShotBy = Owner.netId;
+                var connectionToPlayer = GORB.GetComponent<ConnectionToPlayerController>();
+                //if(connectionToPlayer)
+                {
+                    connectionToPlayer.ConnectToPlayer(Owner);
+                }
             }
 
             Owner.AttachReticle(GORB);
