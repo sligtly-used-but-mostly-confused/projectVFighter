@@ -756,7 +756,11 @@ MonoBehaviour:
   - {fileID: 82163953289816958}
   gravChange: {fileID: 8300000, guid: 9df04c4bdabbc7640abea203e3c5d2a7, type: 3}
   death: {fileID: 8300000, guid: 4f6517b59e1e2c04e916beae8d9112e2, type: 3}
-  dash: {fileID: 8300000, guid: 3cf0c9b8b5ed6ba4588ab9e55cb2606a, type: 3}
+  dash: {fileID: 8300000, guid: e38d5013601049f45b15f2f1fd71a938, type: 3}
+  rocketLaunch:
+  - {fileID: 8300000, guid: fde75c4a8a9152042bb9a8c6813053f5, type: 3}
+  rocketLaunchCave:
+  - {fileID: 8300000, guid: f8229e047b3595246a4f6aed30a9c550, type: 3}
   gravGunFire:
   - {fileID: 8300000, guid: 7bf6bf0f4c9d88841a3ca2bef98bdd23, type: 3}
   - {fileID: 8300000, guid: 1b58fc692024a0045be1c7abe445b85f, type: 3}
