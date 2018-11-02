@@ -25,6 +25,10 @@ public class AudioManager : MonoBehaviour
     public bool hasInit;
     public bool hasFinRndVer;
 
+    //Global Collision Clips
+    public AudioClip[] Coll;
+    public AudioClip[] CollCave;
+
     void Awake()
     {
         //Check if there is already an instance of SoundManager
