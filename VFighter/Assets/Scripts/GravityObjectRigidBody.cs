@@ -246,6 +246,7 @@ public class GravityObjectRigidBody : NetworkBehaviour {
         if (_stopObjectOnCollide && IsSimulatedOnThisConnection && !collision.gameObject.GetComponent<PlayerController>())
         {
             FindObjectOfType<PlayerController>().ChangeGORBGravityDirection(this, Vector2.zero);
+            AudioManager.instance.RandomizeSfx(AudioManager.instance.Coll, AudioManager.instance.CollCave, GetComponent<ControllableGravityObjectRigidBody>().collAudio);
         }
         
     }
