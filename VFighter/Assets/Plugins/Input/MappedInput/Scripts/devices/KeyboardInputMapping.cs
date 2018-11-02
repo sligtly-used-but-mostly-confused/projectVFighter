@@ -7,7 +7,9 @@ public class KeyboardInputMapping : ScriptableObject
 	public List<ButtonMapping> keyboardButtonMapping = new List<ButtonMapping> ();
 	public List<AxisMapping> keyboardAxisMapping = new List<AxisMapping> ();
 
-	public ButtonMapping GetButtonMapping(MappedButton target)
+    public KeyboardIconMappings IconMappings;
+
+    public ButtonMapping GetKeyboardButtonMapping(MappedButton target)
 	{
 		for (int i = 0; i < keyboardButtonMapping.Count; i++)
 		{
@@ -17,7 +19,7 @@ public class KeyboardInputMapping : ScriptableObject
 		
 		return null;
 	}
-	public AxisMapping GetAxisMapping(MappedAxis target)
+	public AxisMapping GetKeyboardAxisMapping(MappedAxis target)
 	{
 		for (int i = 0; i < keyboardAxisMapping.Count; i++)
 		{
@@ -40,8 +42,10 @@ public class KeyboardInputMapping : ScriptableObject
 	public class AxisMapping
 	{
 		public MappedAxis target;
+        public KeyboardAxis[] axes;
 		public KeyCode[] buttonsPositive;
 		public KeyCode[] buttonsNegative;
+        public bool inverted;
 	}
 }
 

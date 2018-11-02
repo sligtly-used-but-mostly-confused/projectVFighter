@@ -70,7 +70,8 @@ public class LevelSelectManager : NetworkBehaviour
 
     private void Update()
     {
-        timer.text = timeRemaining.ToString();
+        if(timer != null)
+            timer.text = timeRemaining.ToString();
 
         //if all players are ready start the timer
         if (isServer && CheckForAllPlayersReady() && !Instance.IsTimerStarted)
@@ -122,7 +123,8 @@ public class LevelSelectManager : NetworkBehaviour
 
     private IEnumerator CountDown()
     {
-        timer.text = timeRemaining.ToString();
+        if (timer)
+            timer.text = timeRemaining.ToString();
         while (timeRemaining > 0){
             yield return new WaitForSeconds(1);
             --timeRemaining;

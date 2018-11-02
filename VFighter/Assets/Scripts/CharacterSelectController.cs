@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(PlayerController))]
 
@@ -42,6 +43,17 @@ public class CharacterSelectController : NetworkBehaviour {
     private bool _hasFoundReticle = false;
     private float timeOnSelection;
 
+    [System.Serializable]
+    public struct TutorialPrompt
+    {
+        [SerializeField]
+        public bool IsButton;
+        [SerializeField]
+        public MappedButton MappedButton;
+        [SerializeField]
+        public MappedAxis MappedAxis;
+    }
+
     private void Awake()
     {
         playerController = GetComponent<PlayerController>();
@@ -64,14 +76,15 @@ public class CharacterSelectController : NetworkBehaviour {
 
         descriptionCanvas = Instantiate(descriptionPrefab);
         descriptionCanvas.transform.SetParent(transform);
-        descriptionCanvas.transform.position = Vector3.down * 2 + new Vector3(0,0,-3);
+        descriptionCanvas.transform.position = Vector3.down * 2 + new Vector3(0, 0, -3);
 
         ChangeToNextCharacterTypeInternal(0);
         timeOnSelection = 0;
     }
 
     void Update() {
-        if(!GameManager.Instance.CanChangeCharacters)
+        
+        if (!GameManager.Instance.CanChangeCharacters)
         {
             return;
         }
@@ -97,8 +110,8 @@ public class CharacterSelectController : NetworkBehaviour {
         {
             return;
         }
-        
-        if(!_hasFoundReticle && GetComponent<PlayerController>().Reticle)
+
+        if (!_hasFoundReticle && GetComponent<PlayerController>().Reticle)
         {
             _hasFoundReticle = true;
             ChangeToNextCharacterType(1);
@@ -115,10 +128,12 @@ public class CharacterSelectController : NetworkBehaviour {
             ChangeToNextCharacterType(ChangeCharacterDir > 0 ? 1 : -1);
         }
 
-        if(GetComponent<GravityObjectRigidBody>().GravityDirection.y < 0){
+        if(GetComponent<GravityObjectRigidBody>().GravityDirection.y < 0)
+        {
             descriptionCanvas.transform.localPosition = Vector3.up * 4 + new Vector3(0, 0, -3);
         }
-        else{
+        else
+        {
             descriptionCanvas.transform.localPosition = Vector3.down * 5 + new Vector3(0, 0, -3);
         }
 

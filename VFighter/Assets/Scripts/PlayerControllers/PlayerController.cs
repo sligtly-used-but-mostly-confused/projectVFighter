@@ -73,6 +73,8 @@ public abstract class PlayerController : NetworkBehaviour {
     public AudioClip[] shotGunFire;
     public AudioClip[] shotGunFireCave;
 
+    public Action OnHitObjectWithNormalProjectile;
+
     private static int _heartBeatId = 0;
     //THIS SHOULD ONLY BE USED FROM HEART BEAT FUNCTION
     public Dictionary<int, bool> HeartBeats = new Dictionary<int, bool>();

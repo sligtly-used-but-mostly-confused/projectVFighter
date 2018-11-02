@@ -24,6 +24,23 @@ public class KeyboardMouseInputDevice : InputDevice
         return MouseMapping || KeyboardMapping;
     }
 
+    public override Sprite GetButtonIcon(MappedButton button)
+    {
+        var KeyboardMapping = MappedInput.KeyBoard.GetButtonIcon(button);
+        var MouseMapping = MappedInput.Mouse.GetButtonIcon(button);
+
+        return MouseMapping ?? KeyboardMapping;
+        
+    }
+
+    public override Sprite GetAxisIcon(MappedAxis axis)
+    {
+        var KeyboardMapping = MappedInput.KeyBoard.GetAxisIcon(axis);
+        var MouseMapping = MappedInput.Mouse.GetAxisIcon(axis);
+
+        return MouseMapping ?? KeyboardMapping;
+    }
+
     public override bool GetButtonDown(MappedButton button)
     {
         var MouseMapping = MappedInput.Mouse.GetButtonDown(button);

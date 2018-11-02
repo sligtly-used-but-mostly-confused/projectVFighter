@@ -44,6 +44,7 @@ public class GameManager : NetworkBehaviour {
         NumRounds = _roundLevelNames.Count();
         CheckHeartBeatThenCallback(LoadNewLevel);
         CanChangeCharacters = false;
+        GameObject.FindObjectsOfType<TutorialPromptController>().ToList().ForEach(x => x.gameObject.SetActive(false));
     }
 
     public void LoadEndScoreScreen()

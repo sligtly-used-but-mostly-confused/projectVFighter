@@ -22,11 +22,28 @@ MonoBehaviour:
     buttons: 0d000000
   keyboardAxisMapping:
   - target: 0
+    axes: 00000000
     buttonsPositive: 64000000
     buttonsNegative: 61000000
+    inverted: 0
   - target: 1
+    axes: 01000000
     buttonsPositive: 77000000
     buttonsNegative: 73000000
+    inverted: 0
   - target: 6
+    axes: 02000000
     buttonsPositive: 13010000
     buttonsNegative: 14010000
+    inverted: 0
+  - target: 5
+    axes: 04000000
+    buttonsPositive: 20000000
+    buttonsNegative: 
+    inverted: 0
+  - target: 2
+    axes: 04000000
+    buttonsPositive: 20000000
+    buttonsNegative: 
+    inverted: 0
+  IconMappings: {fileID: 11400000, guid: 8eb6ae3ef622356459f8739fbe6f3d14, type: 2}

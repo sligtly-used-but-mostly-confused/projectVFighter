@@ -55,7 +55,10 @@ public abstract class InputDevice : MonoBehaviour
 	public abstract string GetButtonName (MappedButton button);	
 	public abstract string GetAxisName (MappedAxis axis);
 
-	public abstract bool GetButton (MappedButton button);
+    public abstract Sprite GetButtonIcon(MappedButton button);
+    public abstract Sprite GetAxisIcon(MappedAxis axis);
+
+    public abstract bool GetButton (MappedButton button);
 	public abstract bool GetButtonDown (MappedButton button);
 	public abstract bool GetButtonUp (MappedButton button);
 
@@ -114,6 +117,21 @@ public abstract class InputDevice : MonoBehaviour
 
 		axisButtonsActive [(int)axis] = (AxisDirection)dir;
 
+        float val = GetAxis(axis);
+
+        if (!PastAxisVals.ContainsKey(axis))
+        {
+            PastAxisVals.Add(axis, new List<float>());
+        }
+
+        PastAxisVals[axis].Add(val);
+
+        if (PastAxisVals[axis].Count > 3)
+        {
+            PastAxisVals[axis].RemoveAt(0);
+        }
+
+
         return changed;
 	}
 
@@ -152,20 +170,6 @@ public abstract class InputDevice : MonoBehaviour
 
     public virtual bool GetIsAxisTapped(MappedAxis axis)
     {
-        float val = GetAxis(axis);
-
-        if (!PastAxisVals.ContainsKey(axis))
-        {
-            PastAxisVals.Add(axis, new List<float>());
-        }
-
-        PastAxisVals[axis].Add(val);
-
-        if (PastAxisVals[axis].Count > 3)
-        {
-            PastAxisVals[axis].RemoveAt(0);
-        }
-
         if (PastAxisVals[axis].Count < 3)
         {
             return false;
