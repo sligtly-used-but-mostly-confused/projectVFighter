@@ -30,7 +30,12 @@ public class PlayerLivesIndicatorGroupController : MonoBehaviour {
             var indicator = Instantiate(PlayerLifeIndicatorPrefab);
             _indicators.Add(indicator);
             indicator.transform.SetParent(transform);
-            float y = Mathf.Lerp(bottom, top, i / (float)(AttachedPlayer.ControlledPlayer.NumLives - 1));
+            float y = 0;
+            if (AttachedPlayer.ControlledPlayer.NumLives != 1)
+            {
+                y = Mathf.Lerp(bottom, top, i / (float)(AttachedPlayer.ControlledPlayer.NumLives - 1));
+            }
+                
             indicator.transform.localPosition = new Vector3(.75f, y, 0);
             indicator.transform.localScale = new Vector3(.25f,indicatorSize,.25f);
         }
