@@ -27,6 +27,6 @@ public class PlayerCardController : MonoBehaviour {
 
         _overallDeathsText.text = "" + player.ControlledPlayer.NumOverallDeaths;
         _overallKillsText.text = "" + player.ControlledPlayer.NumOverallKills;
-        _overallWinsText.text = "" + player.ControlledPlayer.NumRoundWins;
+        _overallWinsText.text = "" + player.ControlledPlayer.NumStageWins;
     }
 }

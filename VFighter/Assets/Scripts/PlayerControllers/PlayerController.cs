@@ -128,12 +128,14 @@ public abstract class PlayerController : NetworkBehaviour {
         ReticleParent = gameObject;
 
         ControlledPlayer.NumLives = LevelSelectManager.Instance.numLivesPerPlayer;
+
+
     }
 
     public override void OnStartLocalPlayer()
     {
         StartCoroutine(AttachInputDeviceToPlayer());
-        LevelManager.Instance.SpawnPlayer(this);
+        LevelManager.Instance.SpawnPlayerDestructive(this);
         GetComponent<GravityObjectRigidBody>().CanMove = false;
     }
 
@@ -535,15 +537,14 @@ public abstract class PlayerController : NetworkBehaviour {
     {
         if(LevelManager.Instance.PlayersCanDieInThisLevel)
         {
-            IsDead = true;
             ControlledPlayer.NumDeaths++;
             ControlledPlayer.NumOverallDeaths++;
         }
-        PlaySingle(death, 3);
+        
         SetDirtyBit(0xFFFFFFFF);
         if (isLocalPlayer)
         {
-            transform.position = LevelManager.Instance.JailTransform.position;
+            InternalKill();
         }
         else
         {
@@ -556,7 +557,22 @@ public abstract class PlayerController : NetworkBehaviour {
     {
         if(isLocalPlayer)
         {
+            InternalKill();
+        }
+    }
+
+    private void InternalKill()
+    {
+        PlaySingle(death, 3);
+
+        if (ControlledPlayer.NumDeaths >= ControlledPlayer.NumLives)
+        {
+            IsDead = true;
             transform.position = LevelManager.Instance.JailTransform.position;
+        }
+        else
+        {
+            LevelManager.Instance.SpawnPlayer(this);
         }
     }
 

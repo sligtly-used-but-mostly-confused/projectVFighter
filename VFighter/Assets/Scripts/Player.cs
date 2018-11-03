@@ -6,47 +6,46 @@ using UnityEngine;
 public struct Player {
     [SerializeField]
     public short NetworkControllerId;
-    [SerializeField]
-    public int NumWins;
+
+    //kept track on a per stage basis
     [SerializeField]
     public int NumDeaths;
     [SerializeField]
     public int NumLives;
     [SerializeField]
     public int NumKills;
+
+    //kept track over the couse of the entire game
     [SerializeField]
     public int NumOverallKills;
     [SerializeField]
     public int NumOverallDeaths;
     [SerializeField]
-    public int NumRoundWins;
+    public int NumStageWins;
 
-    public Player(int numLives, int numWins = 0, int numDeaths = 0)
+    public Player(int numLives, int numDeaths = 0)
     {
-        NumWins = numWins;
         NumDeaths = numDeaths;
         NumLives = numLives;
         NumKills = 0;
         NetworkControllerId = 0;
         NumOverallKills = 0;
         NumOverallDeaths = 0;
-        NumRoundWins = 0;
+        NumStageWins = 0;
     }
 
     public void Reset()
     {
-        NumWins = 0;
         NumDeaths = 0;
         NumKills = 0;
     }
 
     public void ResetForNewGame()
     {
-        NumWins = 0;
         NumDeaths = 0;
         NumKills = 0;
         NumOverallKills = 0;
         NumOverallDeaths = 0;
-        NumRoundWins = 0;
+        NumStageWins = 0;
     }
 }
