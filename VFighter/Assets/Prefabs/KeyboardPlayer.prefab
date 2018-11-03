@@ -723,6 +723,7 @@ MonoBehaviour:
     type: 2}
   AliveMaterial: {fileID: 2100000, guid: 04d126ba1f0d0478f801292308bbc946, type: 2}
   DeadMaterial: {fileID: 2100000, guid: c15c4b8059261441fa6ac72c71454e30, type: 2}
+  AttachedPlayer: {fileID: 114155156425097820}
 --- !u!114 &114124901692973594
 MonoBehaviour:
   m_ObjectHideFlags: 1
