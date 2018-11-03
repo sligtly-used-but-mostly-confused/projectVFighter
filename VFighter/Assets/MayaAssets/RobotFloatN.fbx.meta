@@ -1,0 +1,483 @@
+fileFormatVersion: 2
+guid: f554d4cbf3b77474e94cdfea51c1ef50
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: anim_l_IK
+    100002: anim_r_IK
+    100004: c_chest_bn
+    100006: c_head_be
+    100008: c_head_bn
+    100010: c_hip_bn
+    100012: c_pelvis_bn
+    100014: c_torso_bn
+    100016: control_c_hip
+    100018: control_c_torso
+    100020: control_c_universal
+    100022: control_l_foot
+    100024: control_l_forearm
+    100026: control_l_knee
+    100028: control_l_shoulder
+    100030: control_l_wrist
+    100032: control_r_foot
+    100034: control_r_forearm
+    100036: control_r_knee
+    100038: control_r_shoulder
+    100040: control_r_wrist
+    100042: Gun
+    100044: IK_l_foot
+    100046: IK_l_leg
+    100048: IK_r_foot
+    100050: IK_r_leg
+    100052: l_angle_bn
+    100054: l_forearm_bn
+    100056: l_hand_bn
+    100058: l_handtip_be
+    100060: l_knee_bn
+    100062: l_knuckle_bn
+    100064: l_leg_bn
+    100066: l_shoulder_bn
+    100068: l_thumb_bn
+    100070: l_thumbKnuckle_bn
+    100072: l_thumbtip_be
+    100074: l_toe_be
+    100076: l_wrist_bn
+    100078: nurbsCircle1
+    100080: r_angle_bn
+    100082: r_forearm_bn
+    100084: r_hand_bn
+    100086: r_handtip_be
+    100088: r_knee_bn
+    100090: r_knuckle_bn
+    100092: r_leg_bn
+    100094: r_shoulder_bn
+    100096: r_thumb_bn
+    100098: r_thumbKnuckle_bn
+    100100: r_thumbtip_be
+    100102: r_toe_be
+    100104: r_wrist_bn
+    100106: //RootNode
+    100108: robotMesh
+    400000: anim_l_IK
+    400002: anim_r_IK
+    400004: c_chest_bn
+    400006: c_head_be
+    400008: c_head_bn
+    400010: c_hip_bn
+    400012: c_pelvis_bn
+    400014: c_torso_bn
+    400016: control_c_hip
+    400018: control_c_torso
+    400020: control_c_universal
+    400022: control_l_foot
+    400024: control_l_forearm
+    400026: control_l_knee
+    400028: control_l_shoulder
+    400030: control_l_wrist
+    400032: control_r_foot
+    400034: control_r_forearm
+    400036: control_r_knee
+    400038: control_r_shoulder
+    400040: control_r_wrist
+    400042: Gun
+    400044: IK_l_foot
+    400046: IK_l_leg
+    400048: IK_r_foot
+    400050: IK_r_leg
+    400052: l_angle_bn
+    400054: l_forearm_bn
+    400056: l_hand_bn
+    400058: l_handtip_be
+    400060: l_knee_bn
+    400062: l_knuckle_bn
+    400064: l_leg_bn
+    400066: l_shoulder_bn
+    400068: l_thumb_bn
+    400070: l_thumbKnuckle_bn
+    400072: l_thumbtip_be
+    400074: l_toe_be
+    400076: l_wrist_bn
+    400078: nurbsCircle1
+    400080: r_angle_bn
+    400082: r_forearm_bn
+    400084: r_hand_bn
+    400086: r_handtip_be
+    400088: r_knee_bn
+    400090: r_knuckle_bn
+    400092: r_leg_bn
+    400094: r_shoulder_bn
+    400096: r_thumb_bn
+    400098: r_thumbKnuckle_bn
+    400100: r_thumbtip_be
+    400102: r_toe_be
+    400104: r_wrist_bn
+    400106: //RootNode
+    400108: robotMesh
+    2100000: phong1
+    2100002: lambert1
+    2300000: Gun
+    3300000: Gun
+    4300000: robotMesh
+    4300002: Gun
+    7400000: FloatTrans
+    7400002: FloatLoop
+    9500000: //RootNode
+    13700000: robotMesh
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: FloatTrans
+      takeName: Take 001
+      firstFrame: 1
+      lastFrame: 13
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: c_pelvis_bn
+        weight: 1
+      - path: c_pelvis_bn/c_hip_bn
+        weight: 1
+      - path: c_pelvis_bn/c_hip_bn/c_torso_bn
+        weight: 0
+      - path: c_pelvis_bn/c_hip_bn/c_torso_bn/c_chest_bn
+        weight: 0
+      - path: c_pelvis_bn/c_hip_bn/c_torso_bn/c_chest_bn/c_head_bn
+        weight: 0
+      - path: c_pelvis_bn/c_hip_bn/c_torso_bn/c_chest_bn/c_head_bn/c_head_be
+        weight: 0
+      - path: c_pelvis_bn/c_hip_bn/c_torso_bn/c_chest_bn/l_shoulder_bn
+        weight: 0
+      - path: c_pelvis_bn/c_hip_bn/c_torso_bn/c_chest_bn/l_shoulder_bn/l_forearm_bn
+        weight: 0
+      - path: c_pelvis_bn/c_hip_bn/c_torso_bn/c_chest_bn/l_shoulder_bn/l_forearm_bn/l_wrist_bn
+        weight: 0
+      - path: c_pelvis_bn/c_hip_bn/c_torso_bn/c_chest_bn/l_shoulder_bn/l_forearm_bn/l_wrist_bn/l_knuckle_bn
+        weight: 0
+      - path: c_pelvis_bn/c_hip_bn/c_torso_bn/c_chest_bn/l_shoulder_bn/l_forearm_bn/l_wrist_bn/l_knuckle_bn/l_hand_bn
+        weight: 0
+      - path: c_pelvis_bn/c_hip_bn/c_torso_bn/c_chest_bn/l_shoulder_bn/l_forearm_bn/l_wrist_bn/l_knuckle_bn/l_hand_bn/l_handtip_be
+        weight: 0
+      - path: c_pelvis_bn/c_hip_bn/c_torso_bn/c_chest_bn/l_shoulder_bn/l_forearm_bn/l_wrist_bn/l_thumbKnuckle_bn
+        weight: 0
+      - path: c_pelvis_bn/c_hip_bn/c_torso_bn/c_chest_bn/l_shoulder_bn/l_forearm_bn/l_wrist_bn/l_thumbKnuckle_bn/l_thumb_bn
+        weight: 0
+      - path: c_pelvis_bn/c_hip_bn/c_torso_bn/c_chest_bn/l_shoulder_bn/l_forearm_bn/l_wrist_bn/l_thumbKnuckle_bn/l_thumb_bn/l_thumbtip_be
+        weight: 0
+      - path: c_pelvis_bn/c_hip_bn/c_torso_bn/c_chest_bn/r_shoulder_bn
+        weight: 0
+      - path: c_pelvis_bn/c_hip_bn/c_torso_bn/c_chest_bn/r_shoulder_bn/r_forearm_bn
+        weight: 0
+      - path: c_pelvis_bn/c_hip_bn/c_torso_bn/c_chest_bn/r_shoulder_bn/r_forearm_bn/r_wrist_bn
+        weight: 0
+      - path: c_pelvis_bn/c_hip_bn/c_torso_bn/c_chest_bn/r_shoulder_bn/r_forearm_bn/r_wrist_bn/Gun
+        weight: 0
+      - path: c_pelvis_bn/c_hip_bn/c_torso_bn/c_chest_bn/r_shoulder_bn/r_forearm_bn/r_wrist_bn/r_knuckle_bn
+        weight: 0
+      - path: c_pelvis_bn/c_hip_bn/c_torso_bn/c_chest_bn/r_shoulder_bn/r_forearm_bn/r_wrist_bn/r_knuckle_bn/r_hand_bn
+        weight: 0
+      - path: c_pelvis_bn/c_hip_bn/c_torso_bn/c_chest_bn/r_shoulder_bn/r_forearm_bn/r_wrist_bn/r_knuckle_bn/r_hand_bn/r_handtip_be
+        weight: 0
+      - path: c_pelvis_bn/c_hip_bn/c_torso_bn/c_chest_bn/r_shoulder_bn/r_forearm_bn/r_wrist_bn/r_thumbKnuckle_bn
+        weight: 0
+      - path: c_pelvis_bn/c_hip_bn/c_torso_bn/c_chest_bn/r_shoulder_bn/r_forearm_bn/r_wrist_bn/r_thumbKnuckle_bn/r_thumb_bn
+        weight: 0
+      - path: c_pelvis_bn/c_hip_bn/c_torso_bn/c_chest_bn/r_shoulder_bn/r_forearm_bn/r_wrist_bn/r_thumbKnuckle_bn/r_thumb_bn/r_thumbtip_be
+        weight: 0
+      - path: c_pelvis_bn/l_leg_bn
+        weight: 1
+      - path: c_pelvis_bn/l_leg_bn/l_knee_bn
+        weight: 1
+      - path: c_pelvis_bn/l_leg_bn/l_knee_bn/l_angle_bn
+        weight: 1
+      - path: c_pelvis_bn/l_leg_bn/l_knee_bn/l_angle_bn/l_toe_be
+        weight: 1
+      - path: c_pelvis_bn/r_leg_bn
+        weight: 1
+      - path: c_pelvis_bn/r_leg_bn/r_knee_bn
+        weight: 1
+      - path: c_pelvis_bn/r_leg_bn/r_knee_bn/r_angle_bn
+        weight: 1
+      - path: c_pelvis_bn/r_leg_bn/r_knee_bn/r_angle_bn/r_toe_be
+        weight: 1
+      - path: control_c_universal
+        weight: 1
+      - path: control_c_universal/anim_l_IK
+        weight: 1
+      - path: control_c_universal/anim_l_IK/control_l_foot
+        weight: 1
+      - path: control_c_universal/anim_l_IK/control_l_knee
+        weight: 1
+      - path: control_c_universal/anim_r_IK
+        weight: 1
+      - path: control_c_universal/anim_r_IK/control_r_foot
+        weight: 1
+      - path: control_c_universal/anim_r_IK/control_r_knee
+        weight: 1
+      - path: control_c_universal/control_c_hip
+        weight: 1
+      - path: control_c_universal/control_c_hip/control_c_torso
+        weight: 1
+      - path: control_c_universal/control_c_hip/control_c_torso/control_l_shoulder
+        weight: 1
+      - path: control_c_universal/control_c_hip/control_c_torso/control_l_shoulder/control_l_forearm
+        weight: 1
+      - path: control_c_universal/control_c_hip/control_c_torso/control_l_shoulder/control_l_forearm/control_l_wrist
+        weight: 1
+      - path: control_c_universal/control_c_hip/control_c_torso/control_r_shoulder
+        weight: 1
+      - path: control_c_universal/control_c_hip/control_c_torso/control_r_shoulder/control_r_forearm
+        weight: 1
+      - path: control_c_universal/control_c_hip/control_c_torso/control_r_shoulder/control_r_forearm/control_r_wrist
+        weight: 1
+      - path: control_c_universal/control_c_hip/control_c_torso/nurbsCircle1
+        weight: 1
+      - path: IK_l_leg
+        weight: 1
+      - path: IK_l_leg/IK_l_foot
+        weight: 1
+      - path: IK_r_leg
+        weight: 1
+      - path: IK_r_leg/IK_r_foot
+        weight: 1
+      - path: robotMesh
+        weight: 0
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: FloatLoop
+      takeName: Take 001
+      firstFrame: 9
+      lastFrame: 19
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: c_pelvis_bn
+        weight: 1
+      - path: c_pelvis_bn/c_hip_bn
+        weight: 1
+      - path: c_pelvis_bn/c_hip_bn/c_torso_bn
+        weight: 0
+      - path: c_pelvis_bn/c_hip_bn/c_torso_bn/c_chest_bn
+        weight: 0
+      - path: c_pelvis_bn/c_hip_bn/c_torso_bn/c_chest_bn/c_head_bn
+        weight: 0
+      - path: c_pelvis_bn/c_hip_bn/c_torso_bn/c_chest_bn/c_head_bn/c_head_be
+        weight: 0
+      - path: c_pelvis_bn/c_hip_bn/c_torso_bn/c_chest_bn/l_shoulder_bn
+        weight: 0
+      - path: c_pelvis_bn/c_hip_bn/c_torso_bn/c_chest_bn/l_shoulder_bn/l_forearm_bn
+        weight: 0
+      - path: c_pelvis_bn/c_hip_bn/c_torso_bn/c_chest_bn/l_shoulder_bn/l_forearm_bn/l_wrist_bn
+        weight: 0
+      - path: c_pelvis_bn/c_hip_bn/c_torso_bn/c_chest_bn/l_shoulder_bn/l_forearm_bn/l_wrist_bn/l_knuckle_bn
+        weight: 0
+      - path: c_pelvis_bn/c_hip_bn/c_torso_bn/c_chest_bn/l_shoulder_bn/l_forearm_bn/l_wrist_bn/l_knuckle_bn/l_hand_bn
+        weight: 0
+      - path: c_pelvis_bn/c_hip_bn/c_torso_bn/c_chest_bn/l_shoulder_bn/l_forearm_bn/l_wrist_bn/l_knuckle_bn/l_hand_bn/l_handtip_be
+        weight: 0
+      - path: c_pelvis_bn/c_hip_bn/c_torso_bn/c_chest_bn/l_shoulder_bn/l_forearm_bn/l_wrist_bn/l_thumbKnuckle_bn
+        weight: 0
+      - path: c_pelvis_bn/c_hip_bn/c_torso_bn/c_chest_bn/l_shoulder_bn/l_forearm_bn/l_wrist_bn/l_thumbKnuckle_bn/l_thumb_bn
+        weight: 0
+      - path: c_pelvis_bn/c_hip_bn/c_torso_bn/c_chest_bn/l_shoulder_bn/l_forearm_bn/l_wrist_bn/l_thumbKnuckle_bn/l_thumb_bn/l_thumbtip_be
+        weight: 0
+      - path: c_pelvis_bn/c_hip_bn/c_torso_bn/c_chest_bn/r_shoulder_bn
+        weight: 0
+      - path: c_pelvis_bn/c_hip_bn/c_torso_bn/c_chest_bn/r_shoulder_bn/r_forearm_bn
+        weight: 0
+      - path: c_pelvis_bn/c_hip_bn/c_torso_bn/c_chest_bn/r_shoulder_bn/r_forearm_bn/r_wrist_bn
+        weight: 0
+      - path: c_pelvis_bn/c_hip_bn/c_torso_bn/c_chest_bn/r_shoulder_bn/r_forearm_bn/r_wrist_bn/Gun
+        weight: 0
+      - path: c_pelvis_bn/c_hip_bn/c_torso_bn/c_chest_bn/r_shoulder_bn/r_forearm_bn/r_wrist_bn/r_knuckle_bn
+        weight: 0
+      - path: c_pelvis_bn/c_hip_bn/c_torso_bn/c_chest_bn/r_shoulder_bn/r_forearm_bn/r_wrist_bn/r_knuckle_bn/r_hand_bn
+        weight: 0
+      - path: c_pelvis_bn/c_hip_bn/c_torso_bn/c_chest_bn/r_shoulder_bn/r_forearm_bn/r_wrist_bn/r_knuckle_bn/r_hand_bn/r_handtip_be
+        weight: 0
+      - path: c_pelvis_bn/c_hip_bn/c_torso_bn/c_chest_bn/r_shoulder_bn/r_forearm_bn/r_wrist_bn/r_thumbKnuckle_bn
+        weight: 0
+      - path: c_pelvis_bn/c_hip_bn/c_torso_bn/c_chest_bn/r_shoulder_bn/r_forearm_bn/r_wrist_bn/r_thumbKnuckle_bn/r_thumb_bn
+        weight: 0
+      - path: c_pelvis_bn/c_hip_bn/c_torso_bn/c_chest_bn/r_shoulder_bn/r_forearm_bn/r_wrist_bn/r_thumbKnuckle_bn/r_thumb_bn/r_thumbtip_be
+        weight: 0
+      - path: c_pelvis_bn/l_leg_bn
+        weight: 1
+      - path: c_pelvis_bn/l_leg_bn/l_knee_bn
+        weight: 1
+      - path: c_pelvis_bn/l_leg_bn/l_knee_bn/l_angle_bn
+        weight: 1
+      - path: c_pelvis_bn/l_leg_bn/l_knee_bn/l_angle_bn/l_toe_be
+        weight: 1
+      - path: c_pelvis_bn/r_leg_bn
+        weight: 1
+      - path: c_pelvis_bn/r_leg_bn/r_knee_bn
+        weight: 1
+      - path: c_pelvis_bn/r_leg_bn/r_knee_bn/r_angle_bn
+        weight: 1
+      - path: c_pelvis_bn/r_leg_bn/r_knee_bn/r_angle_bn/r_toe_be
+        weight: 1
+      - path: control_c_universal
+        weight: 1
+      - path: control_c_universal/anim_l_IK
+        weight: 1
+      - path: control_c_universal/anim_l_IK/control_l_foot
+        weight: 1
+      - path: control_c_universal/anim_l_IK/control_l_knee
+        weight: 1
+      - path: control_c_universal/anim_r_IK
+        weight: 1
+      - path: control_c_universal/anim_r_IK/control_r_foot
+        weight: 1
+      - path: control_c_universal/anim_r_IK/control_r_knee
+        weight: 1
+      - path: control_c_universal/control_c_hip
+        weight: 1
+      - path: control_c_universal/control_c_hip/control_c_torso
+        weight: 1
+      - path: control_c_universal/control_c_hip/control_c_torso/control_l_shoulder
+        weight: 1
+      - path: control_c_universal/control_c_hip/control_c_torso/control_l_shoulder/control_l_forearm
+        weight: 1
+      - path: control_c_universal/control_c_hip/control_c_torso/control_l_shoulder/control_l_forearm/control_l_wrist
+        weight: 1
+      - path: control_c_universal/control_c_hip/control_c_torso/control_r_shoulder
+        weight: 1
+      - path: control_c_universal/control_c_hip/control_c_torso/control_r_shoulder/control_r_forearm
+        weight: 1
+      - path: control_c_universal/control_c_hip/control_c_torso/control_r_shoulder/control_r_forearm/control_r_wrist
+        weight: 1
+      - path: control_c_universal/control_c_hip/control_c_torso/nurbsCircle1
+        weight: 1
+      - path: IK_l_leg
+        weight: 1
+      - path: IK_l_leg/IK_l_foot
+        weight: 1
+      - path: IK_r_leg
+        weight: 1
+      - path: IK_r_leg/IK_r_foot
+        weight: 1
+      - path: robotMesh
+        weight: 0
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 5
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 0.049999997
+    hasPreviousCalculatedGlobalScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
