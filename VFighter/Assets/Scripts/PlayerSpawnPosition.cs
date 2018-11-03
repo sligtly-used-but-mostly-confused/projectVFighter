@@ -6,7 +6,7 @@ public class PlayerSpawnPosition : SpawnPosition {
 
     public GameObject prompt;
 
-    public override void Spawn()
+    public virtual void Spawn(PlayerController player)
     {
         if(prompt)
         {

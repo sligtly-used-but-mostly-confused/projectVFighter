@@ -837,6 +837,7 @@ MonoBehaviour:
     NumOverallDeaths: 0
     NumStageWins: 0
   IsDead: 0
+  IsInvincible: 0
   CharacterType: 0
 --- !u!114 &114313954095473740
 MonoBehaviour:
@@ -896,6 +897,9 @@ MonoBehaviour:
     IsCoolingDown: 0
   - Type: 4
     CooldownTime: 0.25
+    IsCoolingDown: 0
+  - Type: 5
+    CooldownTime: 1
     IsCoolingDown: 0
   cooldownFlashInterval: 0
 --- !u!114 &114662783024654882
