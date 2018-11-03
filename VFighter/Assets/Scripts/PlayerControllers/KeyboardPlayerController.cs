@@ -50,9 +50,18 @@ public class KeyboardPlayerController : PlayerController
         if (InputDevice.GetButtonDown(MappedButton.ChangeGrav))
         {
             FlipGravity();
-            gc.gravityChange = !gc.gravityChange;
-            
         }
+
+        if (InputDevice.GetIsAxisTappedPos(MappedAxis.ChangeGravAxis))
+        {
+            ChangeGravityTowardsDir(Vector2.up);
+        }
+
+        if (InputDevice.GetIsAxisTappedNeg(MappedAxis.ChangeGravAxis))
+        {
+            ChangeGravityTowardsDir(Vector2.down);
+        }
+
 
         if (InputDevice.GetButtonDown(MappedButton.ShootGravGun))
         {
@@ -89,14 +98,22 @@ public class KeyboardPlayerController : PlayerController
 
         AimReticle(aimDir);
 
-        if (InputDevice.GetIsAxisTapped(MappedAxis.ChangeGrav) && InputDevice.GetAxis(MappedAxis.ChangeGrav) > 0)
+        if (InputDevice.GetIsAxisTappedPos(MappedAxis.ChangeGravAxis, .5f))
         {
-            FlipGravity();
-            gc.gravityChange = !gc.gravityChange;
-
+            ChangeGravityTowardsDir(Vector2.up);
         }
 
-        if (InputDevice.GetIsAxisTapped(MappedAxis.ShootGravGun) && aimDir.magnitude > 0)
+        if (InputDevice.GetIsAxisTappedNeg(MappedAxis.ChangeGravAxis, -.5f))
+        {
+            ChangeGravityTowardsDir(Vector2.down);
+        }
+
+        if (InputDevice.GetIsAxisTappedPos(MappedAxis.ChangeGrav) && InputDevice.GetAxis(MappedAxis.ChangeGrav) > 0)
+        {
+            FlipGravity();
+        }
+
+        if (InputDevice.GetIsAxisTappedPos(MappedAxis.ShootGravGun) && aimDir.magnitude > 0)
         {
             ShootGravityGun(aimDir, ProjectileControllerType.Normal);
         }

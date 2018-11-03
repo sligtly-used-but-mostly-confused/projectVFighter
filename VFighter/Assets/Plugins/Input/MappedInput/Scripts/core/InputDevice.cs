@@ -18,14 +18,18 @@ public abstract class InputDevice : MonoBehaviour
 	protected float[] prevAxes = new float[System.Enum.GetValues(typeof(MappedAxis)).Length];
 	protected float[] axes = new float[System.Enum.GetValues(typeof(MappedAxis)).Length];
 	protected float[] axesRaw = new float[System.Enum.GetValues(typeof(MappedAxis)).Length];
-	protected AxisDirection[] prevAxisButtonsActive = new AxisDirection[System.Enum.GetValues(typeof(MappedAxis)).Length];
+    protected float[] prevAxesRaw = new float[System.Enum.GetValues(typeof(MappedAxis)).Length];
+    protected AxisDirection[] prevAxisButtonsActive = new AxisDirection[System.Enum.GetValues(typeof(MappedAxis)).Length];
 	protected AxisDirection[] axisButtonsActive = new AxisDirection[System.Enum.GetValues(typeof(MappedAxis)).Length];
 	protected float axisButtonResetThreshold = 0.2f;
 	protected float axisButtonActivateThreshold = 0.4f;
 	protected float sensitivity = 3;
 	protected float lastKeyPressTime;
     protected Dictionary<MappedAxis, List<float>> PastAxisVals = new Dictionary<MappedAxis, List<float>>();
-
+    //protected Dictionary<MappedAxis, bool> AxisTappedPos = new Dictionary<MappedAxis, bool>();
+    //protected Dictionary<MappedAxis, bool> AxisTappedNeg = new Dictionary<MappedAxis, bool>();
+    protected bool[] AxisTappedPos = new bool[System.Enum.GetValues(typeof(MappedAxis)).Length];
+    protected bool[] AxisTappedNeg = new bool[System.Enum.GetValues(typeof(MappedAxis)).Length];
     public Vector3 Center; 
 
 	void Awake()
@@ -94,8 +98,9 @@ public abstract class InputDevice : MonoBehaviour
 	bool UpdateAxis(MappedAxis axis)
 	{
 		bool changed = false;
+        prevAxesRaw[(int)axis] = axesRaw[(int)axis];
 
-		axesRaw[(int)axis] = GetAxisValueRaw (axis);
+        axesRaw[(int)axis] = GetAxisValueRaw (axis);
 		prevAxes [(int)axis] = axes [(int)axis];
 
         axes [(int)axis] = GetSmoothValue (axes [(int)axis],axesRaw [(int)axis],sensitivity);
@@ -117,21 +122,17 @@ public abstract class InputDevice : MonoBehaviour
 
 		axisButtonsActive [(int)axis] = (AxisDirection)dir;
 
-        float val = GetAxis(axis);
 
-        if (!PastAxisVals.ContainsKey(axis))
+        /*
+        if (prevAxesRaw[(int)axis] > -.9f && val < -.9f)
         {
-            PastAxisVals.Add(axis, new List<float>());
+            AxisTappedNeg[(int)axis] = true;
         }
-
-        PastAxisVals[axis].Add(val);
-
-        if (PastAxisVals[axis].Count > 3)
+        else
         {
-            PastAxisVals[axis].RemoveAt(0);
+            AxisTappedNeg[(int)axis] = false;
         }
-
-
+        */
         return changed;
 	}
 
@@ -168,14 +169,17 @@ public abstract class InputDevice : MonoBehaviour
 		return currentVal;
 	}
 
-    public virtual bool GetIsAxisTapped(MappedAxis axis)
+    public virtual bool GetIsAxisTappedPos(MappedAxis axis, float threshold = .9f)
     {
-        if (PastAxisVals[axis].Count < 3)
-        {
-            return false;
-        }
+        float val = axesRaw[(int)axis];
 
-        return PastAxisVals[axis][0] >= PastAxisVals[axis][1] && PastAxisVals[axis][1] < PastAxisVals[axis][2];
+        return prevAxesRaw[(int)axis] < threshold && val > threshold;
+    }
+
+    public virtual bool GetIsAxisTappedNeg(MappedAxis axis, float threshold = -.9f)
+    {
+        float val = axesRaw[(int)axis];
+        return prevAxesRaw[(int)axis] > threshold && val < threshold;
     }
 }
 
