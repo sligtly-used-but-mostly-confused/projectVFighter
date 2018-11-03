@@ -11,7 +11,8 @@ public enum CooldownType
     ShotGunShot,
     Dash,
     Rocket,
-    ChangeGravity
+    ChangeGravity,
+    Invincibility
 }
 
 public class PlayerCooldownController : NetworkBehaviour {

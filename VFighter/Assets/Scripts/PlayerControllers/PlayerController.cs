@@ -93,6 +93,8 @@ public abstract class PlayerController : NetworkBehaviour {
     public Player ControlledPlayer;
     [SyncVar]
     public bool IsDead;
+    [SyncVar]
+    public bool IsInvincible;
     [SyncVar(hook = "ChangeMaterial")]
     public PlayerCharacterType CharacterType;
 
@@ -133,7 +135,7 @@ public abstract class PlayerController : NetworkBehaviour {
     public override void OnStartLocalPlayer()
     {
         StartCoroutine(AttachInputDeviceToPlayer());
-        LevelManager.Instance.SpawnPlayer(this);
+        LevelManager.Instance.SpawnPlayerDestructive(this);
         GetComponent<GravityObjectRigidBody>().CanMove = false;
     }
 
@@ -433,7 +435,7 @@ public abstract class PlayerController : NetworkBehaviour {
         {
             if(collision.collider.GetComponent<PlayerController>())
             {
-                if(_cooldownController.IsCoolingDown(CooldownType.Dash))
+                if(_cooldownController.IsCoolingDown(CooldownType.Dash) && !collision.collider.GetComponent<PlayerController>().IsInvincible)
                 {
                     ControlledPlayer.NumKills++;
                     ControlledPlayer.NumOverallKills++;
@@ -455,6 +457,13 @@ public abstract class PlayerController : NetworkBehaviour {
                 ChangeGORBGravityDirection(GORB, dashVel.normalized);
                 Recoil();
                 _cooldownController.StopCooldown(CooldownType.Dash);
+                return;
+            }
+
+            //the rest happens if we run into an object 
+            if(IsInvincible)
+            {
+                //dont kill us if we are invincible
                 return;
             }
             
@@ -535,15 +544,14 @@ public abstract class PlayerController : NetworkBehaviour {
     {
         if(LevelManager.Instance.PlayersCanDieInThisLevel)
         {
-            IsDead = true;
             ControlledPlayer.NumDeaths++;
             ControlledPlayer.NumOverallDeaths++;
         }
-        PlaySingle(death, 3);
+        
         SetDirtyBit(0xFFFFFFFF);
         if (isLocalPlayer)
         {
-            transform.position = LevelManager.Instance.JailTransform.position;
+            InternalKill();
         }
         else
         {
@@ -556,8 +564,38 @@ public abstract class PlayerController : NetworkBehaviour {
     {
         if(isLocalPlayer)
         {
+            InternalKill();
+        }
+    }
+
+    private void InternalKill()
+    {
+        PlaySingle(death, 3);
+
+        if (ControlledPlayer.NumDeaths >= ControlledPlayer.NumLives)
+        {
+            IsDead = true;
             transform.position = LevelManager.Instance.JailTransform.position;
         }
+        else
+        {
+            //respawning player
+            LevelManager.Instance.SpawnPlayer(this);
+            ChangeInvincibility(true);
+            _cooldownController.StartCooldown(CooldownType.Invincibility, () => { ChangeInvincibility(false); });
+        }
+    }
+
+    private void ChangeInvincibility(bool isInvincible)
+    {
+        IsInvincible = isInvincible;
+        CmdChangeInvincibility(isInvincible);
+    }
+
+    [Command]
+    private void CmdChangeInvincibility(bool isInvincible)
+    {
+        IsInvincible = isInvincible;
     }
 
     public void DestroyAllGravGunProjectiles()
