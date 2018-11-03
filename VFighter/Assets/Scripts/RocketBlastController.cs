@@ -11,8 +11,9 @@ public class RocketBlastController : NetworkBehaviour {
 
     public bool IsStillExploding = true;
 
-	// Use this for initialization
-	void Start () {
+
+    // Use this for initialization
+    void Start () {
         StartCoroutine(DestroyOnTimer());
 	}
 	

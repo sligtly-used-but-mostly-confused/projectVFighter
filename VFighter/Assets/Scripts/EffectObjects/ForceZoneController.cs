@@ -61,7 +61,7 @@ public class ForceZoneController : MonoBehaviour
             sfxAudio.clip = ForceSoundCave[randomIndex];
         else
             sfxAudio.clip = ForceSound[randomIndex];
-
+        sfxAudio.volume = 1.0f * AudioManager.SFXVol * AudioManager.MasterVol;
         //Play the clip.
         sfxAudio.Play();
     }
