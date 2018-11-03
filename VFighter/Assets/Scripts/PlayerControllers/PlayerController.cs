@@ -130,8 +130,6 @@ public abstract class PlayerController : NetworkBehaviour {
         ReticleParent = gameObject;
 
         ControlledPlayer.NumLives = LevelSelectManager.Instance.numLivesPerPlayer;
-
-
     }
 
     public override void OnStartLocalPlayer()
