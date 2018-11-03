@@ -24,6 +24,7 @@ public class ConnectionToPlayerController : MonoBehaviour {
         if (_attachedPlayer)
         {
             positions = new Vector3[] { transform.position, _attachedPlayer.transform.position };
+            _connectionToAttachedPlayer.material = _attachedPlayer.GetComponentInChildren<PlayerIdentifier>().GetComponent<Renderer>().material;
         }
         else
         {

@@ -1095,10 +1095,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerIdentifierMaterials:
-  - {fileID: 2100000, guid: 4c6256945b0519843a113d5cae9c28dd, type: 2}
-  - {fileID: 2100000, guid: ff365f165a5f29e48bd8cd49dc2dac98, type: 2}
-  - {fileID: 2100000, guid: c738e7b389eaae9409ab7058be4dfecb, type: 2}
+  - {fileID: 2100000, guid: f90c0b31947fdcb4289c0969e54c37c5, type: 2}
   - {fileID: 2100000, guid: fee112da274ff914e96e89f8b0fb1c9b, type: 2}
+  - {fileID: 2100000, guid: e58892e4a94abf248b1ba43b83fb58f1, type: 2}
+  - {fileID: 2100000, guid: c738e7b389eaae9409ab7058be4dfecb, type: 2}
   MaterialIndex: 2
 --- !u!114 &114949913573940146
 MonoBehaviour:
