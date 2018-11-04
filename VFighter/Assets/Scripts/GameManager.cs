@@ -80,10 +80,11 @@ public class GameManager : NetworkBehaviour {
     private void StartNewRound()
     {
         var players = FindObjectsOfType<PlayerController>().ToList();
-        if(_roundLevelNames.Count > 0)
+        players.Where(x => !x.IsDead).ToList().ForEach(x => x.ControlledPlayer.NumStageWins++);
+
+        if (_roundLevelNames.Count > 0)
         {
             RoundNumber++;
-            players.Where(x => !x.IsDead).ToList().ForEach(x => x.ControlledPlayer.NumStageWins++);
             LoadNewLevel();
         }
         else

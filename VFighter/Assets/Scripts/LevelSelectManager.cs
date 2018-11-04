@@ -89,7 +89,12 @@ public class LevelSelectManager : NetworkBehaviour
     private List<string> LeadingLevels(){
         var copy = new List<LevelZoneController>(zones);
         copy.Sort((x,y) => { return x.playersInside.CompareTo(y.playersInside); });
-        return copy.Select(x => x.levelName).Reverse().Take(_numRounds).ToList();
+        if(copy.Last().playersInside == 0)
+        {
+            return copy.Select(x => x.levelName).Take(_numRounds).ToList();
+        }
+        var sorted = copy.Select(x => x.levelName).Reverse();
+        return sorted.Take(_numRounds).ToList();
     }
 
     public void StartTimer()
