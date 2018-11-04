@@ -169,6 +169,11 @@ public abstract class InputDevice : MonoBehaviour
 		return currentVal;
 	}
 
+    public virtual bool GetIsAxisTapped(MappedAxis axis, float threshold = .9f)
+    {
+        return GetIsAxisTappedPos(axis, threshold) || GetIsAxisTappedNeg(axis, -threshold);
+    }
+
     public virtual bool GetIsAxisTappedPos(MappedAxis axis, float threshold = .9f)
     {
         float val = axesRaw[(int)axis];
