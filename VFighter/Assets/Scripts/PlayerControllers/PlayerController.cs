@@ -56,6 +56,10 @@ public abstract class PlayerController : NetworkBehaviour {
     protected DashEffect de;
     [SerializeField]
     protected GravityChange gc;
+    [SerializeField]
+    protected GameObject character;
+    [SerializeField]
+    protected GameObject characterContainer;
 
     protected readonly Vector2[] _gravChangeDirections = { Vector2.up, Vector2.down };
 
@@ -82,6 +86,7 @@ public abstract class PlayerController : NetworkBehaviour {
     private List<GameObject> GravityGunProjectiles = new List<GameObject>();
     private Coroutine GravGunCoolDownCoroutine;
     private PlayerCooldownController _cooldownController;
+    //private bool 
 
     [SyncVar]
     public short ReticleId = -1;
@@ -112,6 +117,7 @@ public abstract class PlayerController : NetworkBehaviour {
         indicator.GetComponent<PlayerReadyIndicatorController>().AttachedPlayer = this;
         de = GetComponentInChildren<DashEffect>();
         gc = GetComponentInChildren<GravityChange>();
+        Animator m_animator = character.GetComponent<Animator>();
         GetComponent<Renderer>().material = GetComponent<CharacterSelectController>().CharacterTypeMaterialMappings[CharacterType];
     }
 
@@ -186,6 +192,7 @@ public abstract class PlayerController : NetworkBehaviour {
         fixedDir = new Vector2(Mathf.Abs(fixedDir.x), Mathf.Abs(fixedDir.y));
        
         GetComponent<GravityObjectRigidBody>().UpdateVelocity(VelocityType.Movement, Vector3.Project(dir, fixedDir) * MoveSpeed);
+
     }
 
     public void FlipGravity()
@@ -194,8 +201,16 @@ public abstract class PlayerController : NetworkBehaviour {
         {
             if (!_cooldownController.IsCoolingDown(CooldownType.ChangeGravity))
             {
+                
                 ChangeGravity(GetComponent<GravityObjectRigidBody>().GravityDirection * -1);
                 gc.PlayEffect(GetComponent<GravityObjectRigidBody>());
+                var rotY = 180f;
+                if(GetComponent<GravityObjectRigidBody>().GravityDirection.y < 0)
+                {
+                    rotY = 0;
+                }
+               // Vector3 angles = characterContainer.transform.rotation.eulerAngles;
+                characterContainer.transform.rotation = Quaternion.Euler(rotY,0,0);
             }
         }
         else
@@ -210,6 +225,13 @@ public abstract class PlayerController : NetworkBehaviour {
         var compass = new List<Vector2> { GORB.GravityDirection, -GORB.GravityDirection };
         ChangeGravity(ClosestDirection(dir, compass.ToArray()));
         gc.PlayEffect(GetComponent<GravityObjectRigidBody>());
+
+        var rotY = 180f;
+        if (GetComponent<GravityObjectRigidBody>().GravityDirection.y < 0)
+        {
+            rotY = 0;
+        }
+        characterContainer.transform.rotation = Quaternion.Euler(rotY, characterContainer.transform.rotation.y, 0);
     }
 
     [Command]
@@ -295,6 +317,18 @@ public abstract class PlayerController : NetworkBehaviour {
             {
                 var normalizedDir = dir.normalized;
                 Reticle.transform.position = ReticleParent.transform.position + new Vector3(normalizedDir.x, normalizedDir.y, 0);
+                //Debug.Log(normalizedDir);
+                character.GetComponent<Animator>().SetFloat("Horizontal", normalizedDir.x);
+                if (GetComponent<GravityObjectRigidBody>().GravityDirection.y < 0)
+                {
+                    character.GetComponent<Animator>().SetFloat("Vertical", normalizedDir.y);
+                }
+                else{
+                    character.GetComponent<Animator>().SetFloat("Vertical", -normalizedDir.y);
+                }
+                //m_animator.SetFloat("Horizontal", normalizedDir.x);
+                //m_animator.SetFloat("Vertical", normalizedDir.y);
+
             }
         }
     }

@@ -1227,7 +1227,7 @@ MonoBehaviour:
   m_AutoCreatePlayer: 0
   m_PlayerSpawnMethod: 0
   m_OfflineScene: MainMenu
-  m_OnlineScene: ControllerSelect
+  m_OnlineScene: ControllerSelect 1
   m_SpawnPrefabs:
   - {fileID: 1553312605624202, guid: 7b549a10b0a7a4de4843efb95d3176eb, type: 2}
   - {fileID: 1904020002216382, guid: fee8c362ea81b684890d6767eaf66389, type: 2}

@@ -19,7 +19,7 @@ public class GravityChange : MonoBehaviour
     //1 for up, -1 for down
     public void PlayEffect(GravityObjectRigidBody GORB)
     {
-        Debug.Log("effect");
+        //Debug.Log("effect");
         int dir = GORB.GravityDirection.y > 0 ? 1 : -1;
 
         if(_playEffectCoroutine != null)
