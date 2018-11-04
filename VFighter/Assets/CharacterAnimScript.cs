@@ -43,7 +43,15 @@ public class CharacterAnimScript : MonoBehaviour {
         else{
             m_animator.SetFloat("Horizontal", -m_animator.GetFloat("Horizontal"));
         }
-        //Vector3 angles = characterContainer.transform.rotation.eulerAngles;
-        characterContainer.transform.rotation = Quaternion.Euler(characterContainer.transform.localRotation.x, angleY, 0);
-	}
+
+        var rotX = 180f;
+        if (GetComponent<GravityObjectRigidBody>().GravityDirection.y < 0)
+        {
+            rotX = 0;
+        }
+
+        var newRotX = Quaternion.Euler(new Vector3(rotX, 0, 0));
+        var newRotY = Quaternion.Euler(new Vector3(0, angleY, 0));
+        characterContainer.transform.rotation = newRotX * newRotY;
+    }
 }

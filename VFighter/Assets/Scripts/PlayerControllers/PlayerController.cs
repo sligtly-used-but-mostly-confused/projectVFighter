@@ -204,13 +204,6 @@ public abstract class PlayerController : NetworkBehaviour {
                 
                 ChangeGravity(GetComponent<GravityObjectRigidBody>().GravityDirection * -1);
                 gc.PlayEffect(GetComponent<GravityObjectRigidBody>());
-                var rotY = 180f;
-                if(GetComponent<GravityObjectRigidBody>().GravityDirection.y < 0)
-                {
-                    rotY = 0;
-                }
-               // Vector3 angles = characterContainer.transform.rotation.eulerAngles;
-                characterContainer.transform.rotation = Quaternion.Euler(rotY,characterContainer.transform.localRotation.y,0);
             }
         }
         else
@@ -231,7 +224,7 @@ public abstract class PlayerController : NetworkBehaviour {
         {
             rotY = 0;
         }
-        characterContainer.transform.rotation = Quaternion.Euler(rotY, characterContainer.transform.rotation.y, 0);
+        //characterContainer.transform.rotation = Quaternion.Euler(rotY, characterContainer.transform.rotation.y, 0);
     }
 
     [Command]
