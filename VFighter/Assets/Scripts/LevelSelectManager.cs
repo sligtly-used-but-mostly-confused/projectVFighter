@@ -155,7 +155,7 @@ public class LevelSelectManager : NetworkBehaviour
                 for (int y = 1; y > -2; y -= 2)
                 {
                     Vector3 zonePos = pos;
-                    zonePos += new Vector3(0, y * 1.25f, 0);
+                    zonePos += new Vector3(0, y * 1.25f, 1);
                     LevelZoneController zone = Instantiate(levelZone, zonePos, Quaternion.identity).GetComponent<LevelZoneController>();
                     zones.Add(zone);
                     zone.levelName = levels[levelIndex].levelName;

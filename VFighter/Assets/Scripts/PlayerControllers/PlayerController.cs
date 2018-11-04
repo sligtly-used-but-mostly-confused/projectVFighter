@@ -37,6 +37,8 @@ public abstract class PlayerController : NetworkBehaviour {
     [SerializeField]
     protected float DashSpeed = 10f;
     [SerializeField]
+    protected float DashDurationTime = .25f;
+    [SerializeField]
     protected float ShotGunKickBackForce = 10f;
     [SerializeField]
     protected GameObject ProjectilePrefab;
@@ -254,10 +256,10 @@ public abstract class PlayerController : NetworkBehaviour {
             var compass = new List<Vector2> { GORB.GravityDirection, -GORB.GravityDirection };
             ChangeGORBGravityDirection(GORB, ClosestDirection(dir, compass.ToArray(), GORB.GravityDirection));
 
-            GetComponent<GravityObjectRigidBody>().Dash(dashVec, _cooldownController.GetCooldownTime(CooldownType.Dash) * .5f);
+            GetComponent<GravityObjectRigidBody>().Dash(dashVec, DashDurationTime);
             PlaySingle(dash,1);
 
-            _cooldownController.StartCooldown(CooldownType.Dash, () => { de.dashOn = false; Debug.Log("callback"); });
+            _cooldownController.StartCooldown(CooldownType.Dash, () => { de.dashOn = false;});
         }
 
     }
