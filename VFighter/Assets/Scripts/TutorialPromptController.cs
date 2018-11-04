@@ -38,7 +38,7 @@ public class TutorialPromptController : MonoBehaviour
         
         if (Controller && Prompts[0].MappedAxis != MappedAxis.None)
         {
-            if (Controller.GetIsAxisTappedPos(Prompts[0].MappedAxis))
+            if (Controller.GetIsAxisTapped(Prompts[0].MappedAxis))
             {
                 OnPromtNext();
             }
