@@ -44,6 +44,6 @@ public class CharacterAnimScript : MonoBehaviour {
             m_animator.SetFloat("Horizontal", -m_animator.GetFloat("Horizontal"));
         }
         //Vector3 angles = characterContainer.transform.rotation.eulerAngles;
-        characterContainer.transform.rotation = Quaternion.Euler(0, angleY, 0);
+        characterContainer.transform.rotation = Quaternion.Euler(characterContainer.transform.localRotation.x, angleY, 0);
 	}
 }

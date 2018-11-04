@@ -210,7 +210,7 @@ public abstract class PlayerController : NetworkBehaviour {
                     rotY = 0;
                 }
                // Vector3 angles = characterContainer.transform.rotation.eulerAngles;
-                characterContainer.transform.rotation = Quaternion.Euler(rotY,0,0);
+                characterContainer.transform.rotation = Quaternion.Euler(rotY,characterContainer.transform.localRotation.y,0);
             }
         }
         else
