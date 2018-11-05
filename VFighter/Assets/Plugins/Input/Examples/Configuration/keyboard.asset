@@ -42,8 +42,23 @@ MonoBehaviour:
     buttonsNegative: 
     inverted: 0
   - target: 2
-    axes: 04000000
-    buttonsPositive: 20000000
+    axes: 05000000
+    buttonsPositive: 
+    buttonsNegative: 
+    inverted: 0
+  - target: 3
+    axes: 06000000
+    buttonsPositive: 
+    buttonsNegative: 
+    inverted: 0
+  - target: 4
+    axes: 08000000
+    buttonsPositive: 43010000
+    buttonsNegative: 
+    inverted: 0
+  - target: 7
+    axes: 
+    buttonsPositive: 
     buttonsNegative: 
     inverted: 0
   IconMappings: {fileID: 11400000, guid: 8eb6ae3ef622356459f8739fbe6f3d14, type: 2}

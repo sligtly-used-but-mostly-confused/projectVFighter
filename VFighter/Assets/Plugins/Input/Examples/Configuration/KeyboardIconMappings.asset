@@ -31,3 +31,9 @@ MonoBehaviour:
     Icon: {fileID: 21300000, guid: 046e0689a8e934664814bd88de80425f, type: 3}
   - Axes: 04000000
     Icon: {fileID: 21300008, guid: afb43938db215c640a6900ae2fb947ed, type: 3}
+  - Axes: 05000000
+    Icon: {fileID: 21300000, guid: 5f9a32c9b1e82496c900499d914bef40, type: 3}
+  - Axes: 06000000
+    Icon: {fileID: 21300000, guid: 5f9a32c9b1e82496c900499d914bef40, type: 3}
+  - Axes: 08000000
+    Icon: {fileID: 21300000, guid: 845fb3a8139705f4cb7b582293a9e498, type: 3}
