@@ -4,39 +4,59 @@ using UnityEngine;
 
 public class GravityChange : MonoBehaviour
 {
-
-    public bool gravityChange = true;
    [SerializeField]
     public ParticleSystem gP;
     [SerializeField]
     public GravityObjectRigidBody rd;
-    // Use this for initialization;
-    bool prevState = true;
-    float angle = 180f;
     float pos = -1.5f;
+    private Coroutine _playEffectCoroutine;
     void Start()
     {
         gP = GetComponent<ParticleSystem>();
         rd = GetComponentInParent<GravityObjectRigidBody>();
     }
-    // Update is called once per frame
-    void Update()
+
+    //1 for up, -1 for down
+    public void PlayEffect(GravityObjectRigidBody GORB)
     {
+        Debug.Log("effect");
+        int dir = GORB.GravityDirection.y > 0 ? 1 : -1;
+
+        if(_playEffectCoroutine != null)
+        {
+            StopCoroutine(_playEffectCoroutine);
+            if (!gP.isPlaying)
+            {
+                gP.Stop();
+            }
+        }
+
+        _playEffectCoroutine = StartCoroutine(PlayEffectOvertime(dir));
+    }
+
+    private IEnumerator PlayEffectOvertime(int dir)
+    {
+        var angle = 0f;
+        if (dir == -1)
+        {
+            angle = 180;
+        }
+
         float gDir = rd.GravityDirection.x;
         var main = gP.main;
-        if (gravityChange != prevState)
-        {
-            angle *= -1;
-            pos *= -1;
-            gP.Play();
-            this.transform.Rotate(angle, 0.0f, 0.0f);
-            this.transform.localPosition = new Vector3(0.0f, pos, 0.0f);
 
+        gP.Play();
+        //this.transform.localPosition = new Vector3(0.0f, 0.0f, 0.0f);
+        this.transform.rotation = Quaternion.Euler(angle, 0, 0);
+
+        yield return new WaitForSeconds(.5f);
+
+        gP.Stop();
+
+        if (!gP.isPlaying)
+        {
+            Debug.Log("stop");
+            
         }
-        if(!gP.isPlaying){
-            gP.Stop();
-        }
-        prevState = gravityChange;
-        
     }
 }

@@ -70,7 +70,7 @@ public class ControllableGravityObjectRigidBody : GravityObjectRigidBody {
             sfxAudio.clip = LaunchSoundCave[randomIndex];
         else
             sfxAudio.clip = LaunchSound[randomIndex];
-
+        sfxAudio.volume = 1.0f * AudioManager.SFXVol * AudioManager.MasterVol;
         //Play the clip.
         sfxAudio.Play();
     }

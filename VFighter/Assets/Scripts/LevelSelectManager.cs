@@ -89,7 +89,12 @@ public class LevelSelectManager : NetworkBehaviour
     private List<string> LeadingLevels(){
         var copy = new List<LevelZoneController>(zones);
         copy.Sort((x,y) => { return x.playersInside.CompareTo(y.playersInside); });
-        return copy.Select(x => x.levelName).Reverse().Take(_numRounds).ToList();
+        if(copy.Last().playersInside == 0)
+        {
+            return copy.Select(x => x.levelName).Take(_numRounds).ToList();
+        }
+        var sorted = copy.Select(x => x.levelName).Reverse();
+        return sorted.Take(_numRounds).ToList();
     }
 
     public void StartTimer()
@@ -155,7 +160,7 @@ public class LevelSelectManager : NetworkBehaviour
                 for (int y = 1; y > -2; y -= 2)
                 {
                     Vector3 zonePos = pos;
-                    zonePos += new Vector3(0, y * 1.25f, 0);
+                    zonePos += new Vector3(0, y * 1.25f, 1);
                     LevelZoneController zone = Instantiate(levelZone, zonePos, Quaternion.identity).GetComponent<LevelZoneController>();
                     zones.Add(zone);
                     zone.levelName = levels[levelIndex].levelName;

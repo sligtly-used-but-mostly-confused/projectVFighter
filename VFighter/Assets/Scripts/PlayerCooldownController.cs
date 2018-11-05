@@ -11,7 +11,8 @@ public enum CooldownType
     ShotGunShot,
     Dash,
     Rocket,
-    ChangeGravity
+    ChangeGravity,
+    Invincibility
 }
 
 public class PlayerCooldownController : NetworkBehaviour {
@@ -44,9 +45,12 @@ public class PlayerCooldownController : NetworkBehaviour {
 
     public SyncListCooldownPairs _pairs = new SyncListCooldownPairs();
 
+    private Coroutine _flashCoroutine;
+    private Color _defaultColor;
     private void Start()
     {
         Enum.GetValues(typeof(CooldownType)).Cast<CooldownType>().ToList().ForEach(x => _coolDownTimers.Add(x, null));
+        _flashCoroutine = null;
     }
 
     public override void OnStartServer()
@@ -78,10 +82,16 @@ public class PlayerCooldownController : NetworkBehaviour {
         temp.IsCoolingDown = true;
         _pairs[index] = temp;
         CmdChangeCooldownState(temp);
+        if(_flashCoroutine != null)
+        {
+            GetComponent<Renderer>().material.color = _defaultColor;
+            StopCoroutine(_flashCoroutine);
+        }
+
         var coolDown = new CooldownCoroutineCallbackPair();
 
         coolDown.CooldownTimer = StartCoroutine(CooldownInternal(type, temp.CooldownTime, cb));
-        StartCoroutine(FlashRenderer(GetComponent<MeshRenderer>(), cooldownFlashInterval, temp.CooldownTime));
+        _flashCoroutine = StartCoroutine(FlashRenderer(cooldownFlashInterval, temp.CooldownTime));
         coolDown.Callback = cb;
         _coolDownTimers[type] = coolDown;
     }
@@ -133,18 +143,18 @@ public class PlayerCooldownController : NetworkBehaviour {
         _pairs[index] = pair;
     }
 
-    public static IEnumerator FlashRenderer(MeshRenderer renderer, float interval, float duration)
-        {
-
-        Color colorNow = renderer.material.color;
-        Color minColor = colorNow;
+    public IEnumerator FlashRenderer(float interval, float duration)
+    {
+        var renderer = GetComponent<Renderer>();
+        _defaultColor = renderer.material.color;
+        Color minColor = _defaultColor;
         Color maxColor = new Color(1f,1f,1f,1f);
 
         float currentInterval = 0;
         while (duration > 0)
         {
             float tColor = currentInterval / interval;
-            renderer.material.color = Color.Lerp(colorNow, maxColor, tColor);
+            renderer.material.color = Color.Lerp(_defaultColor, maxColor, tColor);
 
             currentInterval += Time.deltaTime;
             if (currentInterval >= interval)
@@ -158,7 +168,7 @@ public class PlayerCooldownController : NetworkBehaviour {
             yield return null;
         }
 
-        renderer.material.color = colorNow;
+        renderer.material.color = _defaultColor;
     }
 
 }

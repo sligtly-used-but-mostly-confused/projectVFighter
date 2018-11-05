@@ -9,16 +9,30 @@ public class ScorePanelController : MonoBehaviour {
     [SerializeField]
     private GameObject _playerCardPrefab;
     [SerializeField]
+    private GameObject _emptyCardPrefab;
+    [SerializeField]
     private GameObject PlayerCardContainer;
     [SerializeField]
     private Text RoundNumberText;
 	// Use this for initialization
 	void Start () {
-        FindObjectsOfType<PlayerController>().ToList().ForEach(x => {
+
+        List<PlayerController> players = FindObjectsOfType<PlayerController>().ToList();
+        int i = 0;
+        for(; i < players.Count; i++)
+        {
+            var x = players[i];
             var card = Instantiate(_playerCardPrefab);
             card.transform.SetParent(PlayerCardContainer.transform);
             card.GetComponent<PlayerCardController>().AttachToPlayer(x);
-        });
+        }
+        
+        for(; i < 4; i++)
+        {
+            var card = Instantiate(_emptyCardPrefab);
+            card.transform.SetParent(PlayerCardContainer.transform);
+        }
+
 
         RoundNumberText.text = "Round " + GameManager.Instance.RoundNumber + " of " + GameManager.Instance.NumRounds;
     }

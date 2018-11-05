@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-
 public class AudioManager : MonoBehaviour
 {
+    public static float MusicVol;
+    public static float SFXVol;
+    public static float MasterVol;
+
     public AudioSource mainAudio;                   //Used for music
     public AudioSource sfxAudio;                    //Used for sound FX
     public static AudioManager instance = null;
@@ -13,6 +16,18 @@ public class AudioManager : MonoBehaviour
     public bool isCaveLevel = false;                // set to true when reverberated sound effects should be used
     public float lowPitchRange = .95f;              //The lowest a sound effect will be randomly pitched.
     public float highPitchRange = 1.05f;            //The highest a sound effect will be randomly pitched.
+
+    //Music
+    public AudioClip defaultRoundInit;
+    public AudioClip defaultRoundLoop;
+    public AudioClip finalRoundInit;
+    public AudioClip finalRoundLoop;
+    public bool hasInit;
+    public bool hasFinRndVer;
+
+    //Global Collision Clips
+    public AudioClip[] Coll;
+    public AudioClip[] CollCave;
 
     void Awake()
     {
@@ -22,19 +37,59 @@ public class AudioManager : MonoBehaviour
             instance = this;
         //If instance already exists:
         else if (instance != this)
+        {
             //Destroy this, this enforces our singleton pattern so there can only be one instance of SoundManager.
-            Destroy(gameObject);
+            Destroy(instance.gameObject);
+            instance = this;
+        }
 
         //Set SoundManager to DontDestroyOnLoad so that it won't be destroyed when reloading our scene.
         DontDestroyOnLoad(gameObject);
-        mainAudio.loop = true;
+        mainAudio.loop = !hasInit;
     }
     // Use this for initialization
     void Start()
     {
-        mainAudio.volume = 0.4f;
+        if (MasterVol == 0.0f)
+        {
+            MusicVol = 1.0f;
+            SFXVol = 1.0f;
+            MasterVol = 1.0f;
+        }
+        
+        mainAudio.volume = 0.4f * MusicVol * MasterVol;
+        if(hasFinRndVer && (GameManager.Instance.NumRounds == GameManager.Instance.RoundNumber))
+        {
+            //play final round version
+            if (hasInit)
+                mainAudio.clip = finalRoundInit;
+            else
+                mainAudio.clip = finalRoundLoop;
+        }
+        else
+        {
+            if (hasInit)
+                mainAudio.clip = defaultRoundInit;
+            else
+                mainAudio.clip = defaultRoundLoop;
+        }
         mainAudio.Play();
        
+    }
+
+    void Update()
+    {
+        if (!mainAudio.isPlaying)
+        {
+            if (hasFinRndVer && (GameManager.Instance.NumRounds == GameManager.Instance.RoundNumber))
+                mainAudio.clip = finalRoundLoop;
+            else
+                mainAudio.clip = defaultRoundLoop;
+            mainAudio.loop = true;
+            mainAudio.Play();
+        }
+        mainAudio.volume = 0.4f * MusicVol * MasterVol;
+        sfxAudio.volume = 1.0f * SFXVol * MasterVol;
     }
 
     // Sound FX functions
@@ -49,7 +104,7 @@ public class AudioManager : MonoBehaviour
     }
 
 
-    //RandomizeSfx chooses randomly between various audio clips
+    //RandomizeSfx chooses randomly between various audio clips using the global audio channel
     public void RandomizeSfx(AudioClip[] clips, AudioClip[] caveClips)
     {
         //Generate a random number between 0 and the length of our array of clips passed in.
@@ -75,13 +130,44 @@ public class AudioManager : MonoBehaviour
         sfxAudio.Play();
     }
 
-    public void ChangeMusic(AudioClip clip)
+    public void SetMasterVol(float v)
     {
-        //Set the clip of our efxSource audio source to the clip passed in as a parameter.
-        mainAudio.clip = clip;
-
-        //Play the clip.
-        mainAudio.Play();
+        MasterVol = v;
     }
 
+    public void SetMusicVol(float v)
+    {
+        MusicVol = v;
+    }
+
+    public void SetSFXVol(float v)
+    {
+        SFXVol = v;
+    }
+
+    // same as above except you can specify an audio source (used for collisions)
+    public void RandomizeSfx(AudioClip[] def, AudioClip[] cave, AudioSource src)
+    {
+        //Generate a random number between 0 and the length of our array of clips passed in.
+        int randomIndex;
+        if (AudioManager.instance.isCaveLevel)
+            randomIndex = Random.Range(0, cave.Length);
+        else
+            randomIndex = Random.Range(0, def.Length);
+
+        //Choose a random pitch to play back our clip at between our high and low pitch ranges.
+        float randomPitch = Random.Range(AudioManager.instance.lowPitchRange, AudioManager.instance.highPitchRange);
+
+        //Set the pitch of the audio source to the randomly chosen pitch.
+        src.pitch = randomPitch;
+
+        //Set the clip to the clip at our randomly chosen index.
+        if (AudioManager.instance.isCaveLevel)
+            src.clip = cave[randomIndex];
+        else
+            src.clip = def[randomIndex];
+        src.volume = 1.0f * AudioManager.SFXVol * AudioManager.MasterVol;
+        //Play the clip.
+        src.Play();
+    }
 }
