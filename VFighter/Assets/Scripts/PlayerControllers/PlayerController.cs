@@ -58,7 +58,8 @@ public abstract class PlayerController : NetworkBehaviour {
     protected DashEffect de;
     [SerializeField]
     protected GravityChange gc;
-
+    [SerializeField]
+    protected deatheffect dth; 
     protected readonly Vector2[] _gravChangeDirections = { Vector2.up, Vector2.down };
 
     public InputDevice InputDevice;
@@ -114,6 +115,7 @@ public abstract class PlayerController : NetworkBehaviour {
         indicator.GetComponent<PlayerReadyIndicatorController>().AttachedPlayer = this;
         de = GetComponentInChildren<DashEffect>();
         gc = GetComponentInChildren<GravityChange>();
+        dth = GetComponentInChildren<deatheffect>();
         GetComponent<Renderer>().material = GetComponent<CharacterSelectController>().CharacterTypeMaterialMappings[CharacterType];
     }
 
@@ -581,10 +583,12 @@ public abstract class PlayerController : NetworkBehaviour {
         }
         else
         {
+            dth.isDead = true;
             //respawning player
             LevelManager.Instance.SpawnPlayer(this);
             ChangeInvincibility(true);
             _cooldownController.StartCooldown(CooldownType.Invincibility, () => { ChangeInvincibility(false); });
+          
         }
     }
 
