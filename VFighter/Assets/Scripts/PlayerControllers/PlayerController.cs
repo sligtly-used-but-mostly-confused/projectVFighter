@@ -117,7 +117,6 @@ public abstract class PlayerController : NetworkBehaviour {
         indicator.GetComponent<PlayerReadyIndicatorController>().AttachedPlayer = this;
         de = GetComponentInChildren<DashEffect>();
         gc = GetComponentInChildren<GravityChange>();
-        Animator m_animator = character.GetComponent<Animator>();
         GetComponent<Renderer>().material = GetComponent<CharacterSelectController>().CharacterTypeMaterialMappings[CharacterType];
     }
 
@@ -310,8 +309,10 @@ public abstract class PlayerController : NetworkBehaviour {
             {
                 var normalizedDir = dir.normalized;
                 Reticle.transform.position = ReticleParent.transform.position + new Vector3(normalizedDir.x, normalizedDir.y, 0);
-                //Debug.Log(normalizedDir);
+
                 character.GetComponent<Animator>().SetFloat("Horizontal", normalizedDir.x);
+                Animator cAnim = character.GetComponent<CharacterAnimScript>().currentAnimator;
+
                 if (GetComponent<GravityObjectRigidBody>().GravityDirection.y < 0)
                 {
                     character.GetComponent<Animator>().SetFloat("Vertical", normalizedDir.y);
@@ -319,9 +320,6 @@ public abstract class PlayerController : NetworkBehaviour {
                 else{
                     character.GetComponent<Animator>().SetFloat("Vertical", -normalizedDir.y);
                 }
-                //m_animator.SetFloat("Horizontal", normalizedDir.x);
-                //m_animator.SetFloat("Vertical", normalizedDir.y);
-
             }
         }
     }
