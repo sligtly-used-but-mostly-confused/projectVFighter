@@ -258,10 +258,10 @@ public abstract class PlayerController : NetworkBehaviour {
             var compass = new List<Vector2> { GORB.GravityDirection, -GORB.GravityDirection };
             ChangeGORBGravityDirection(GORB, ClosestDirection(dir, compass.ToArray(), GORB.GravityDirection));
 
-            GetComponent<GravityObjectRigidBody>().Dash(dashVec, DashDurationTime);
+            GetComponent<GravityObjectRigidBody>().Dash(dashVec, DashDurationTime, () => { de.dashOn = false; });
             PlaySingle(dash,1);
 
-            _cooldownController.StartCooldown(CooldownType.Dash, () => { de.dashOn = false;});
+            _cooldownController.StartCooldown(CooldownType.Dash, () => {});
         }
 
     }
@@ -356,7 +356,7 @@ public abstract class PlayerController : NetworkBehaviour {
         CmdSpawnProjectile(Quaternion.Euler(0, 0, -30) * new Vector3(dir.x, dir.y, 0), DurationOfShotgunGravityProjectile, ProjectileControllerType.Shotgun);
         CmdSpawnProjectile(Quaternion.Euler(0, 0, 15) * new Vector3(dir.x, dir.y, 0), DurationOfShotgunGravityProjectile, ProjectileControllerType.Shotgun);
         CmdSpawnProjectile(Quaternion.Euler(0, 0, -15) * new Vector3(dir.x, dir.y, 0), DurationOfShotgunGravityProjectile, ProjectileControllerType.Shotgun);
-        GetComponent<GravityObjectRigidBody>().Dash(-dir * ShotGunKickBackForce, _cooldownController.GetCooldownTime(CooldownType.ShotGunShot) * .25f);  
+        GetComponent<GravityObjectRigidBody>().Dash(-dir * ShotGunKickBackForce, _cooldownController.GetCooldownTime(CooldownType.ShotGunShot) * .25f, () => { });  
         RandomizeSfx(shotGunFire, shotGunFireCave, 1);    
     }
 

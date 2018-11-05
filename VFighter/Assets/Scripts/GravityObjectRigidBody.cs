@@ -200,12 +200,12 @@ public class GravityObjectRigidBody : NetworkBehaviour {
         GravityScale = newGravityScale;
     }
 
-    public void Dash(Vector2 dashVec, float timeToStop)
+    public void Dash(Vector2 dashVec, float timeToStop, Action onFinish)
     {
-        StartCoroutine(StartDash(dashVec, timeToStop));
+        StartCoroutine(StartDash(dashVec, timeToStop, onFinish));
     }
 
-    private IEnumerator StartDash(Vector2 dashVec, float timeToStop)
+    private IEnumerator StartDash(Vector2 dashVec, float timeToStop, Action onFinish)
     {
         ClearAllVelocities();
         GravityScale = 0;
@@ -213,6 +213,7 @@ public class GravityObjectRigidBody : NetworkBehaviour {
         yield return new WaitForSeconds(timeToStop);
         GravityScale = 1;
         ClearAllVelocities();
+        onFinish();
     }
 
     public void ClearAllVelocities()
