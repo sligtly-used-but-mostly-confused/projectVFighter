@@ -5030,7 +5030,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1865601022989246}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.1883116, y: 0.32566178, z: 0}
+  m_LocalPosition: {x: -3.9145408, y: -2.0348237, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children:
   - {fileID: 4168538984013150}
@@ -5884,15 +5884,18 @@ MonoBehaviour:
     IconMaterial: {fileID: 2100000, guid: 6fcced9f938a5a549b7ee8d34c8fd1c7, type: 2}
     description: Shoots several projectiles, which push players and objects on collision.
     CharacterType: 0
+    AnimatorGameObject: {fileID: 1592770561894356}
   - characterMaterial: {fileID: 2100000, guid: 1e01bbf040afb634ba0886e4aa75366d, type: 2}
     IconMaterial: {fileID: 2100000, guid: c15c4b8059261441fa6ac72c71454e30, type: 2}
     description: Dash in the direction you aim. Pushes objects and kills players.
     CharacterType: 1
+    AnimatorGameObject: {fileID: 1900485259206474}
   - characterMaterial: {fileID: 2100000, guid: 04d126ba1f0d0478f801292308bbc946, type: 2}
     IconMaterial: {fileID: 2100000, guid: b2a8a02c59a65284d9aae1c3dd996a45, type: 2}
     description: Shoots a projectile that explodes on collision, which pushes everything
       within the blast.
     CharacterType: 2
+    AnimatorGameObject: {fileID: 1811993763232220}
 --- !u!114 &114642983415842072
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -31,6 +31,7 @@ public class CharacterSelectController : NetworkBehaviour {
         public Material IconMaterial;
         public string description;
         public PlayerCharacterType CharacterType;
+        public GameObject AnimatorGameObject;
     }
 
     [SerializeField]
@@ -39,6 +40,7 @@ public class CharacterSelectController : NetworkBehaviour {
     public Dictionary<PlayerCharacterType, Material> CharacterTypeMaterialMappings = new Dictionary<PlayerCharacterType, Material>();
     public Dictionary<PlayerCharacterType, Material> CharacterTypeIconMappings = new Dictionary<PlayerCharacterType, Material>();
     public Dictionary<PlayerCharacterType, string> CharacterTypeDescriptionMappings = new Dictionary<PlayerCharacterType, string>();
+    public Dictionary<PlayerCharacterType, GameObject> characterTypeAnimatorGOMappings = new Dictionary<PlayerCharacterType, GameObject>();
 
     private bool _hasFoundReticle = false;
     private float timeOnSelection;
@@ -61,6 +63,7 @@ public class CharacterSelectController : NetworkBehaviour {
         characterDataList.ForEach(x => CharacterTypeMaterialMappings.Add(x.CharacterType, x.characterMaterial));
         characterDataList.ForEach(x => CharacterTypeIconMappings.Add(x.CharacterType, x.IconMaterial));
         characterDataList.ForEach(x => CharacterTypeDescriptionMappings.Add(x.CharacterType, x.description));
+        characterDataList.ForEach(x => characterTypeAnimatorGOMappings.Add(x.CharacterType, x.AnimatorGameObject));
 
         previousCharacterPreview = Instantiate(previewPrefab);
         previousCharacterPreview.transform.SetParent(transform);
@@ -161,10 +164,12 @@ public class CharacterSelectController : NetworkBehaviour {
         indexRight = (index + 1 + CharacterTypes.Count) % CharacterTypes.Count;
         indexLeft  = (index - 1 + CharacterTypes.Count) % CharacterTypes.Count;
 
-        //set the current prefab material
+        //set the current character
         GetComponent<PlayerController>().CharacterType = CharacterTypes[index];
         GetComponent<PlayerController>().ChangeMaterial(GetComponent<PlayerController>().CharacterType);
-        currentIcon.GetComponent<Renderer>().material = CharacterTypeIconMappings[GetComponent<PlayerController>().CharacterType];
+        characterDataList.ForEach(x => x.AnimatorGameObject.SetActive(false));
+        GetComponent<CharacterAnimScript>().currentAnimator = characterTypeAnimatorGOMappings[GetComponent<PlayerController>().CharacterType].GetComponent<Animator>();
+        characterTypeAnimatorGOMappings[CharacterTypes[index]].SetActive(true);
 
         //set the right character preview
         PlayerCharacterType nextCharacterType = CharacterTypes[indexRight];

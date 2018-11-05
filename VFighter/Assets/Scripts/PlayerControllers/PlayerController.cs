@@ -310,15 +310,15 @@ public abstract class PlayerController : NetworkBehaviour {
                 var normalizedDir = dir.normalized;
                 Reticle.transform.position = ReticleParent.transform.position + new Vector3(normalizedDir.x, normalizedDir.y, 0);
 
-                character.GetComponent<Animator>().SetFloat("Horizontal", normalizedDir.x);
-                Animator cAnim = character.GetComponent<CharacterAnimScript>().currentAnimator;
-
+                //set animation details
+                Animator currentAnimator = GetComponent<CharacterAnimScript>().currentAnimator;
+                currentAnimator.SetFloat("Horizontal", normalizedDir.x);
                 if (GetComponent<GravityObjectRigidBody>().GravityDirection.y < 0)
                 {
-                    character.GetComponent<Animator>().SetFloat("Vertical", normalizedDir.y);
+                    currentAnimator.SetFloat("Vertical", normalizedDir.y);
                 }
                 else{
-                    character.GetComponent<Animator>().SetFloat("Vertical", -normalizedDir.y);
+                    currentAnimator.SetFloat("Vertical", -normalizedDir.y);
                 }
             }
         }
