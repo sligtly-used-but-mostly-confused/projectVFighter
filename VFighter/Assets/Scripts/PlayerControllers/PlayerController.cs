@@ -37,6 +37,8 @@ public abstract class PlayerController : NetworkBehaviour {
     [SerializeField]
     protected float DashSpeed = 10f;
     [SerializeField]
+    protected float DashDurationTime = .25f;
+    [SerializeField]
     protected float ShotGunKickBackForce = 10f;
     [SerializeField]
     protected GameObject ProjectilePrefab;
@@ -56,7 +58,8 @@ public abstract class PlayerController : NetworkBehaviour {
     protected DashEffect de;
     [SerializeField]
     protected GravityChange gc;
-
+    [SerializeField]
+    protected deatheffect dth; 
     protected readonly Vector2[] _gravChangeDirections = { Vector2.up, Vector2.down };
 
     public InputDevice InputDevice;
@@ -112,6 +115,7 @@ public abstract class PlayerController : NetworkBehaviour {
         indicator.GetComponent<PlayerReadyIndicatorController>().AttachedPlayer = this;
         de = GetComponentInChildren<DashEffect>();
         gc = GetComponentInChildren<GravityChange>();
+        dth = GetComponentInChildren<deatheffect>();
         GetComponent<Renderer>().material = GetComponent<CharacterSelectController>().CharacterTypeMaterialMappings[CharacterType];
     }
 
@@ -254,10 +258,10 @@ public abstract class PlayerController : NetworkBehaviour {
             var compass = new List<Vector2> { GORB.GravityDirection, -GORB.GravityDirection };
             ChangeGORBGravityDirection(GORB, ClosestDirection(dir, compass.ToArray(), GORB.GravityDirection));
 
-            GetComponent<GravityObjectRigidBody>().Dash(dashVec, _cooldownController.GetCooldownTime(CooldownType.Dash) * .5f);
+            GetComponent<GravityObjectRigidBody>().Dash(dashVec, DashDurationTime, () => { de.dashOn = false; });
             PlaySingle(dash,1);
 
-            _cooldownController.StartCooldown(CooldownType.Dash, () => { de.dashOn = false; Debug.Log("callback"); });
+            _cooldownController.StartCooldown(CooldownType.Dash, () => {});
         }
 
     }
@@ -352,7 +356,7 @@ public abstract class PlayerController : NetworkBehaviour {
         CmdSpawnProjectile(Quaternion.Euler(0, 0, -30) * new Vector3(dir.x, dir.y, 0), DurationOfShotgunGravityProjectile, ProjectileControllerType.Shotgun);
         CmdSpawnProjectile(Quaternion.Euler(0, 0, 15) * new Vector3(dir.x, dir.y, 0), DurationOfShotgunGravityProjectile, ProjectileControllerType.Shotgun);
         CmdSpawnProjectile(Quaternion.Euler(0, 0, -15) * new Vector3(dir.x, dir.y, 0), DurationOfShotgunGravityProjectile, ProjectileControllerType.Shotgun);
-        GetComponent<GravityObjectRigidBody>().Dash(-dir * ShotGunKickBackForce, _cooldownController.GetCooldownTime(CooldownType.ShotGunShot) * .25f);  
+        GetComponent<GravityObjectRigidBody>().Dash(-dir * ShotGunKickBackForce, _cooldownController.GetCooldownTime(CooldownType.ShotGunShot) * .25f, () => { });  
         RandomizeSfx(shotGunFire, shotGunFireCave, 1);    
     }
 
@@ -579,10 +583,12 @@ public abstract class PlayerController : NetworkBehaviour {
         }
         else
         {
+            dth.isDead = true;
             //respawning player
             LevelManager.Instance.SpawnPlayer(this);
             ChangeInvincibility(true);
             _cooldownController.StartCooldown(CooldownType.Invincibility, () => { ChangeInvincibility(false); });
+          
         }
     }
 

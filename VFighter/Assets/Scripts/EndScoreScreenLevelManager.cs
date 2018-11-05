@@ -22,13 +22,14 @@ public class EndScoreScreenLevelManager : LevelManager {
 
     protected override void SpawnPlayers()
     {
-        Debug.Log("here1");
         var players = FindObjectsOfType<PlayerController>().ToList();
 
         players.Sort
-        ( 
-            (x, y) => x.ControlledPlayer.NumStageWins.CompareTo(y.ControlledPlayer.NumStageWins) 
+        (
+            (x, y) => x.ControlledPlayer.NumStageWins.CompareTo(y.ControlledPlayer.NumStageWins)
         );
+        players.Reverse();
+
         List<PlayerSpawnPosition> spawnPositionsCopy = new List<PlayerSpawnPosition>(_spawnPositions);
         players.ForEach(x => SpawnPlayer(x, spawnPositionsCopy));
     }

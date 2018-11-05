@@ -10,6 +10,12 @@ public class CountDownTimer : MonoBehaviour {
     private Text _countDownText;
     [SerializeField]
     private float _timePerTick = 1;
+    [SerializeField]
+    private GameObject _countDownObjects;
+    [SerializeField]
+    private GameObject _getReadyImage;
+    [SerializeField]
+    private GameObject _terminateImage;
 
     private void Awake()
     {
@@ -36,7 +42,12 @@ public class CountDownTimer : MonoBehaviour {
         if (_countDownText)
             _countDownText.text = "1";
         yield return new WaitForSeconds(_timePerTick);
-        if(FindObjectOfType<PlayerController>().isServer)
+        _countDownObjects.SetActive(false);
+        _getReadyImage.SetActive(true);
+        yield return new WaitForSeconds(_timePerTick);
+        _terminateImage.SetActive(true);
+        yield return new WaitForSeconds(_timePerTick);
+        if (FindObjectOfType<PlayerController>().isServer)
             LevelManager.Instance.StartGame();
         if(gameObject)
             Destroy(gameObject);
