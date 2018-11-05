@@ -72,6 +72,8 @@ public class GravityObjectRigidBody : NetworkBehaviour {
         get { return _id; }
         private set { _id = value; }
     }
+
+    public AudioSource collAudio;
     #endregion
 
     private void Awake()
@@ -246,7 +248,14 @@ public class GravityObjectRigidBody : NetworkBehaviour {
         if (_stopObjectOnCollide && IsSimulatedOnThisConnection && !collision.gameObject.GetComponent<PlayerController>())
         {
             FindObjectOfType<PlayerController>().ChangeGORBGravityDirection(this, Vector2.zero);
+            AudioManager.instance.RandomizeSfx(AudioManager.instance.Coll, AudioManager.instance.CollCave, collAudio);
         }
-        
+        else if (_stopObjectOnCollide && IsSimulatedOnThisConnection)
+            //Replace with player-object collision sound fx?
+            AudioManager.instance.RandomizeSfx(AudioManager.instance.Coll, AudioManager.instance.CollCave, collAudio);
+        else if (GetComponent<PlayerController>()!= null && IsSimulatedOnThisConnection)
+            //Replace with player collision sound fx?
+            AudioManager.instance.RandomizeSfx(AudioManager.instance.Coll, AudioManager.instance.CollCave, collAudio);
+
     }
 }

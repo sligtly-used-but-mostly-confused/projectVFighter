@@ -25,6 +25,10 @@ public class AudioManager : MonoBehaviour
     public bool hasInit;
     public bool hasFinRndVer;
 
+    //Global Collision Clips
+    public AudioClip[] Coll;
+    public AudioClip[] CollCave;
+
     void Awake()
     {
         //Check if there is already an instance of SoundManager
@@ -100,7 +104,7 @@ public class AudioManager : MonoBehaviour
     }
 
 
-    //RandomizeSfx chooses randomly between various audio clips
+    //RandomizeSfx chooses randomly between various audio clips using the global audio channel
     public void RandomizeSfx(AudioClip[] clips, AudioClip[] caveClips)
     {
         //Generate a random number between 0 and the length of our array of clips passed in.
@@ -139,5 +143,31 @@ public class AudioManager : MonoBehaviour
     public void SetSFXVol(float v)
     {
         SFXVol = v;
+    }
+
+    // same as above except you can specify an audio source (used for collisions)
+    public void RandomizeSfx(AudioClip[] def, AudioClip[] cave, AudioSource src)
+    {
+        //Generate a random number between 0 and the length of our array of clips passed in.
+        int randomIndex;
+        if (AudioManager.instance.isCaveLevel)
+            randomIndex = Random.Range(0, cave.Length);
+        else
+            randomIndex = Random.Range(0, def.Length);
+
+        //Choose a random pitch to play back our clip at between our high and low pitch ranges.
+        float randomPitch = Random.Range(AudioManager.instance.lowPitchRange, AudioManager.instance.highPitchRange);
+
+        //Set the pitch of the audio source to the randomly chosen pitch.
+        src.pitch = randomPitch;
+
+        //Set the clip to the clip at our randomly chosen index.
+        if (AudioManager.instance.isCaveLevel)
+            src.clip = cave[randomIndex];
+        else
+            src.clip = def[randomIndex];
+        src.volume = 1.0f * AudioManager.SFXVol * AudioManager.MasterVol;
+        //Play the clip.
+        src.Play();
     }
 }
