@@ -371,6 +371,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playerCardPrefab: {fileID: 1724572634328144, guid: 00d7dabedfd9d0149b24030825c36055,
     type: 2}
+  _emptyCardPrefab: {fileID: 1633010188093480, guid: 7760fdfd446e72d4a9720529dfe6bc27,
+    type: 2}
   PlayerCardContainer: {fileID: 1147965170852932}
   RoundNumberText: {fileID: 114925249139423056}
 --- !u!114 &114925249139423056
