@@ -220,5 +220,5 @@ MonoBehaviour:
   levelName: 
   playersInside: 0
   emptySize: {x: 2, y: 2, z: 1}
-  occupiedSize: {x: 2.1, y: 2.1, z: 1}
+  occupiedSize: {x: 2.3, y: 2.3, z: 1}
   enterSound: {fileID: 0}
