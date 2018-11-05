@@ -22,28 +22,28 @@ public class EndScoreScreenLevelManager : LevelManager {
 
     protected override void SpawnPlayers()
     {
-        Debug.Log("here1");
         var players = FindObjectsOfType<PlayerController>().ToList();
 
         players.Sort
-        ( 
-            (x, y) => x.ControlledPlayer.NumRoundWins.CompareTo(y.ControlledPlayer.NumRoundWins) 
+        (
+            (x, y) => x.ControlledPlayer.NumStageWins.CompareTo(y.ControlledPlayer.NumStageWins)
         );
+        players.Reverse();
 
-        players.ForEach(x => SpawnPlayer(x));
+        List<PlayerSpawnPosition> spawnPositionsCopy = new List<PlayerSpawnPosition>(_spawnPositions);
+        players.ForEach(x => SpawnPlayer(x, spawnPositionsCopy));
     }
 
-    public override void SpawnPlayer(PlayerController player)
+    public override void SpawnPlayer(PlayerController player, List<PlayerSpawnPosition> spawnPositions)
     {
-        Debug.Log("here");
         var indicator = Instantiate(_playerReadyIndicatorPrefab);
         indicator.GetComponent<PlayerReadyIndicatorController>().AttachedPlayer = player;
         int index = 0;
-        SpawnPosition position = _spawnPositions[index];
-        Debug.Log(position);
-        _spawnPositions.RemoveAt(index);
+        PlayerSpawnPosition position = spawnPositions[index];
+        spawnPositions.RemoveAt(index);
         player.InitializeForStartLevel(position.gameObject.transform.position, false);
         player.IsReady = false;
         player.GetComponent<GravityObjectRigidBody>().CanMove = false;
+        position.Spawn(player);
     }
 }

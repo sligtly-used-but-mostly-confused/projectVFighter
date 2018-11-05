@@ -13,7 +13,7 @@ public class LevelManager : NetworkBehaviour
     public List<PlayerController> Players;
     public bool PlayersCanDieInThisLevel = true;
     [SerializeField]
-    protected List<SpawnPosition> _spawnPositions;
+    protected List<PlayerSpawnPosition> _spawnPositions;
     [SerializeField]
     private bool _startNextLevelWinCondition = true;
     [SerializeField]
@@ -78,7 +78,6 @@ public class LevelManager : NetworkBehaviour
             {
                 if (alive.Count() > 0)
                 {
-                    alive.First().ControlledPlayer.NumWins++;
                     alive.First().SetDirtyBit(0xFFFFFFFF);
                 }
 
@@ -105,10 +104,23 @@ public class LevelManager : NetworkBehaviour
     protected virtual void SpawnPlayers()
     {
         var players = FindObjectsOfType<PlayerController>().ToList();
-        players.ForEach(x => SpawnPlayer(x));
+        List<PlayerSpawnPosition> spawnPositionsCopy = new List<PlayerSpawnPosition>(_spawnPositions);
+        players.ForEach(x => SpawnPlayer(x, spawnPositionsCopy));
     }
 
     public virtual void SpawnPlayer(PlayerController player)
+    {
+        SpawnPlayer(player, new List<PlayerSpawnPosition>(_spawnPositions));
+    }
+
+    //makes it so that once a spawn position is used another player can not spawn there
+    //used on the controller select screen
+    public virtual void SpawnPlayerDestructive(PlayerController player)
+    {
+        SpawnPlayer(player, _spawnPositions);
+    }
+
+    public virtual void SpawnPlayer(PlayerController player, List<PlayerSpawnPosition> spawnPositions)
     {
         if(player.ControlledPlayer.NumLives - player.ControlledPlayer.NumDeaths <= 0)
         {
@@ -116,10 +128,10 @@ public class LevelManager : NetworkBehaviour
             return;
         }
 
-        int index = (int)(Random.value * (_spawnPositions.Count - 1));
-        SpawnPosition position = _spawnPositions[index];
-        _spawnPositions.RemoveAt(index);
+        int index = (int)(Random.value * (spawnPositions.Count - 1));
+        PlayerSpawnPosition position = spawnPositions[index];
+        spawnPositions.RemoveAt(index);
         player.InitializeForStartLevel(position.gameObject.transform.position, false);
-        position.Spawn();
+        position.Spawn(player);
     }
 }

@@ -20,7 +20,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4150259521998006}
   - component: {fileID: 114885362725202436}
-  - component: {fileID: 114194978255129350}
   m_Layer: 0
   m_Name: NetworkPlayer
   m_TagString: Untagged
@@ -41,21 +40,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114194978255129350
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1596458492531264}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 51f9aa318655954428c2f4276e78078a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _gamepadPlayerControllerPrefab: {fileID: 1503121510406556, guid: 9807f3b1172b88243a7ae3da48d1d3a4,
-    type: 2}
-  _keyboardPlayerControllerPrefab: {fileID: 1865601022989246, guid: 58fb49fb4a9055343934f6f995dac95a,
-    type: 2}
 --- !u!114 &114885362725202436
 MonoBehaviour:
   m_ObjectHideFlags: 1

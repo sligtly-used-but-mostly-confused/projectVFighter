@@ -74,23 +74,17 @@ public class GameManager : NetworkBehaviour {
         var players = FindObjectsOfType<PlayerController>().ToList();
         var alive = players.Where(x => { return (x.ControlledPlayer.NumLives - x.ControlledPlayer.NumDeaths) > 0; }).ToList();
 
-        if (alive.Count() <= 1 && !DebugScene)
-        {
-            CheckHeartBeatThenCallback(StartNewRound);
-        }
-        else
-        {
-            CheckHeartBeatThenCallback(StartNewLevel);
-        }
+        CheckHeartBeatThenCallback(StartNewRound);
     }
 
     private void StartNewRound()
     {
         var players = FindObjectsOfType<PlayerController>().ToList();
-        if(_roundLevelNames.Count > 0)
+        players.Where(x => !x.IsDead).ToList().ForEach(x => x.ControlledPlayer.NumStageWins++);
+
+        if (_roundLevelNames.Count > 0)
         {
             RoundNumber++;
-            players.Where(x => !x.IsDead).ToList().ForEach(x => x.ControlledPlayer.NumRoundWins++);
             LoadNewLevel();
         }
         else

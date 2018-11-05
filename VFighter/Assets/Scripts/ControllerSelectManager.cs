@@ -64,7 +64,7 @@ public class ControllerSelectManager : NetworkBehaviour {
         foreach (var inputDevice in MappedInput.InputDevices)
         {
             if (!_usedDevices.Contains(inputDevice) &&
-                (inputDevice.GetIsAxisTapped(MappedAxis.ShootGravGun) || inputDevice.GetButton(MappedButton.ShootGravGun)) &&
+                (inputDevice.GetIsAxisTappedPos(MappedAxis.ShootGravGun) || inputDevice.GetButton(MappedButton.ShootGravGun)) &&
                 !(inputDevice is KeyboardInputDevice || inputDevice is MouseInputDevice) &&
                 ClientScene.readyConnection != null)
             {

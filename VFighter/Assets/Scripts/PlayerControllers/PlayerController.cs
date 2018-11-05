@@ -37,6 +37,8 @@ public abstract class PlayerController : NetworkBehaviour {
     [SerializeField]
     protected float DashSpeed = 10f;
     [SerializeField]
+    protected float DashDurationTime = .25f;
+    [SerializeField]
     protected float ShotGunKickBackForce = 10f;
     [SerializeField]
     protected GameObject ProjectilePrefab;
@@ -56,7 +58,8 @@ public abstract class PlayerController : NetworkBehaviour {
     protected DashEffect de;
     [SerializeField]
     protected GravityChange gc;
-
+    [SerializeField]
+    protected deatheffect dth; 
     protected readonly Vector2[] _gravChangeDirections = { Vector2.up, Vector2.down };
 
     public InputDevice InputDevice;
@@ -93,6 +96,8 @@ public abstract class PlayerController : NetworkBehaviour {
     public Player ControlledPlayer;
     [SyncVar]
     public bool IsDead;
+    [SyncVar]
+    public bool IsInvincible;
     [SyncVar(hook = "ChangeMaterial")]
     public PlayerCharacterType CharacterType;
 
@@ -110,6 +115,7 @@ public abstract class PlayerController : NetworkBehaviour {
         indicator.GetComponent<PlayerReadyIndicatorController>().AttachedPlayer = this;
         de = GetComponentInChildren<DashEffect>();
         gc = GetComponentInChildren<GravityChange>();
+        dth = GetComponentInChildren<deatheffect>();
         GetComponent<Renderer>().material = GetComponent<CharacterSelectController>().CharacterTypeMaterialMappings[CharacterType];
     }
 
@@ -133,7 +139,7 @@ public abstract class PlayerController : NetworkBehaviour {
     public override void OnStartLocalPlayer()
     {
         StartCoroutine(AttachInputDeviceToPlayer());
-        LevelManager.Instance.SpawnPlayer(this);
+        LevelManager.Instance.SpawnPlayerDestructive(this);
         GetComponent<GravityObjectRigidBody>().CanMove = false;
     }
 
@@ -193,13 +199,21 @@ public abstract class PlayerController : NetworkBehaviour {
             if (!_cooldownController.IsCoolingDown(CooldownType.ChangeGravity))
             {
                 ChangeGravity(GetComponent<GravityObjectRigidBody>().GravityDirection * -1);
-                PlaySingle(gravChange,2);
+                gc.PlayEffect(GetComponent<GravityObjectRigidBody>());
             }
         }
         else
         {
             CmdBroadcastFlipGravity();
         }
+    }
+
+    public void ChangeGravityTowardsDir(Vector2 dir)
+    {
+        var GORB = GetComponent<GravityObjectRigidBody>();
+        var compass = new List<Vector2> { GORB.GravityDirection, -GORB.GravityDirection };
+        ChangeGravity(ClosestDirection(dir, compass.ToArray()));
+        gc.PlayEffect(GetComponent<GravityObjectRigidBody>());
     }
 
     [Command]
@@ -223,6 +237,7 @@ public abstract class PlayerController : NetworkBehaviour {
         {
             ChangeGORBGravityDirection(GetComponent<GravityObjectRigidBody>(), dir);
             _cooldownController.StartCooldown(CooldownType.ChangeGravity, () => { });
+            PlaySingle(gravChange, 2);
         }
     }
 
@@ -243,10 +258,10 @@ public abstract class PlayerController : NetworkBehaviour {
             var compass = new List<Vector2> { GORB.GravityDirection, -GORB.GravityDirection };
             ChangeGORBGravityDirection(GORB, ClosestDirection(dir, compass.ToArray(), GORB.GravityDirection));
 
-            GetComponent<GravityObjectRigidBody>().Dash(dashVec, _cooldownController.GetCooldownTime(CooldownType.Dash) * .5f);
+            GetComponent<GravityObjectRigidBody>().Dash(dashVec, DashDurationTime);
             PlaySingle(dash,1);
 
-            _cooldownController.StartCooldown(CooldownType.Dash, () => { de.dashOn = false; Debug.Log("callback"); });
+            _cooldownController.StartCooldown(CooldownType.Dash, () => { de.dashOn = false;});
         }
 
     }
@@ -309,6 +324,7 @@ public abstract class PlayerController : NetworkBehaviour {
                     {
                         ChangeGORBGravityDirection(AttachedObject, dir);
                         AttachedObject.GetComponent<ControllableGravityObjectRigidBody>().LaunchSfx();
+                        AttachedObject.GetComponent<ConnectionToPlayerController>().DisconnectPlayer();
                         DetachReticle();
                     }
                 }
@@ -423,7 +439,7 @@ public abstract class PlayerController : NetworkBehaviour {
         {
             if(collision.collider.GetComponent<PlayerController>())
             {
-                if(_cooldownController.IsCoolingDown(CooldownType.Dash))
+                if(_cooldownController.IsCoolingDown(CooldownType.Dash) && !collision.collider.GetComponent<PlayerController>().IsInvincible)
                 {
                     ControlledPlayer.NumKills++;
                     ControlledPlayer.NumOverallKills++;
@@ -445,6 +461,13 @@ public abstract class PlayerController : NetworkBehaviour {
                 ChangeGORBGravityDirection(GORB, dashVel.normalized);
                 Recoil();
                 _cooldownController.StopCooldown(CooldownType.Dash);
+                return;
+            }
+
+            //the rest happens if we run into an object 
+            if(IsInvincible)
+            {
+                //dont kill us if we are invincible
                 return;
             }
             
@@ -525,15 +548,14 @@ public abstract class PlayerController : NetworkBehaviour {
     {
         if(LevelManager.Instance.PlayersCanDieInThisLevel)
         {
-            IsDead = true;
             ControlledPlayer.NumDeaths++;
             ControlledPlayer.NumOverallDeaths++;
         }
-        PlaySingle(death, 3);
+        
         SetDirtyBit(0xFFFFFFFF);
         if (isLocalPlayer)
         {
-            transform.position = LevelManager.Instance.JailTransform.position;
+            InternalKill();
         }
         else
         {
@@ -546,8 +568,40 @@ public abstract class PlayerController : NetworkBehaviour {
     {
         if(isLocalPlayer)
         {
+            InternalKill();
+        }
+    }
+
+    private void InternalKill()
+    {
+        PlaySingle(death, 3);
+
+        if (ControlledPlayer.NumDeaths >= ControlledPlayer.NumLives)
+        {
+            IsDead = true;
             transform.position = LevelManager.Instance.JailTransform.position;
         }
+        else
+        {
+            dth.isDead = true;
+            //respawning player
+            LevelManager.Instance.SpawnPlayer(this);
+            ChangeInvincibility(true);
+            _cooldownController.StartCooldown(CooldownType.Invincibility, () => { ChangeInvincibility(false); });
+          
+        }
+    }
+
+    private void ChangeInvincibility(bool isInvincible)
+    {
+        IsInvincible = isInvincible;
+        CmdChangeInvincibility(isInvincible);
+    }
+
+    [Command]
+    private void CmdChangeInvincibility(bool isInvincible)
+    {
+        IsInvincible = isInvincible;
     }
 
     public void DestroyAllGravGunProjectiles()
