@@ -24,6 +24,8 @@ public class CustomNetworkManager : NetworkManager {
         {
             _playerMaterialIndexes.Add(i);
         }
+
+        logLevel = LogFilter.FilterLevel.Error;
     }
 
     public override void OnServerAddPlayer(NetworkConnection conn, short playerControllerId)
@@ -36,6 +38,24 @@ public class CustomNetworkManager : NetworkManager {
         player.GetComponent<PlayerController>().MaterialId = matIndex;
 
         NetworkServer.AddPlayerForConnection(conn, player, playerControllerId);
+    }
+
+    public override void OnClientDisconnect(NetworkConnection conn)
+    {
+        base.OnClientDisconnect(conn);
+        Debug.Log("Server is stopped from Manager");
+    }
+
+    public override void OnServerDisconnect(NetworkConnection conn)
+    {
+        base.OnServerDisconnect(conn);
+        Debug.Log("Client is stopped from Manager");
+    }
+
+    public override void OnStopHost()
+    {
+        base.OnStopHost();
+        Debug.Log("Host is stopped from Manager");
     }
 }
 
