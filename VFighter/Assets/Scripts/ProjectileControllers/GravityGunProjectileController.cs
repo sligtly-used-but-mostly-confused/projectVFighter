@@ -17,16 +17,19 @@ public class GravityGunProjectileController : NetworkBehaviour {
     public float SecondsUntilDestroy = 1;
     public PlayerController Owner;
 
+    protected GravityObjectRigidBody GORB;
+
     private void Awake()
     {
         DontDestroyOnLoad(gameObject);
+        GORB = GetComponent<GravityObjectRigidBody>();
     }
 
     public virtual void OnShot()
     {
         StartCoroutine(Onstart());
     }
-    
+
     IEnumerator Onstart () {
         yield return new WaitForSeconds(SecondsUntilDestroy);
         ReturnToPool();
@@ -37,22 +40,22 @@ public class GravityGunProjectileController : NetworkBehaviour {
         ProjectilePool.Instance.ReturnProjectile(this, this.GetType());
     }
 
-    public virtual void OnHitGORB(GravityObjectRigidBody GORB)
+    public virtual void OnHitGORB(GravityObjectRigidBody otherGORB)
     {
-        if (GORB.CanBeSelected)
+        if (otherGORB.CanBeSelected)
         {
-            if (GORB is ControllableGravityObjectRigidBody)
+            if (otherGORB is ControllableGravityObjectRigidBody)
             {
-                (GORB as ControllableGravityObjectRigidBody).StepMultiplier();
-                (GORB as ControllableGravityObjectRigidBody).LastShotBy = Owner.netId;
-                var connectionToPlayer = GORB.GetComponent<ConnectionToPlayerController>();
+                (otherGORB as ControllableGravityObjectRigidBody).StepMultiplier();
+                (otherGORB as ControllableGravityObjectRigidBody).LastShotBy = Owner.netId;
+                var connectionToPlayer = otherGORB.GetComponent<ConnectionToPlayerController>();
                 //if(connectionToPlayer)
                 {
                     connectionToPlayer.ConnectToPlayer(Owner);
                 }
             }
 
-            Owner.AttachReticle(GORB);
+            Owner.AttachReticle(otherGORB);
         }
     }
 
@@ -61,7 +64,7 @@ public class GravityGunProjectileController : NetworkBehaviour {
         var gravityObjectRB = collision.GetComponent<GravityObjectRigidBody>();
         if (gravityObjectRB && isServer)
         {
-            if(collision.GetComponent<PlayerController>())
+            if(collision.GetComponent<PlayerController>() && collision.GetComponent<PlayerController>() != Owner)
             {
                 collision.GetComponent<PlayerController>().FlipGravity();
                 ReturnToPool();

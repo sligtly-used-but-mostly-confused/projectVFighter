@@ -30,11 +30,11 @@ public class ProjectilePool : NetworkBehaviour {
 
     public override void OnStartServer()
     {
-        ProjectileTypeToPrefabMapping.Add(typeof(GravityGunProjectileController), NormalProjectilePrefab);
+        ProjectileTypeToPrefabMapping.Add(typeof(NormalGravityGunProjectile), NormalProjectilePrefab);
         ProjectileTypeToPrefabMapping.Add(typeof(RocketProjectileController), RocketProjectilePrefab);
         ProjectileTypeToPrefabMapping.Add(typeof(ShotgunProjectileController), ShotGunProjectilePrefab);
 
-        MakePool(NormalProjectilePrefab, typeof(GravityGunProjectileController));
+        MakePool(NormalProjectilePrefab, typeof(NormalGravityGunProjectile));
         MakePool(RocketProjectilePrefab, typeof(RocketProjectileController));
         MakePool(ShotGunProjectilePrefab, typeof(ShotgunProjectileController));
     }
@@ -95,7 +95,7 @@ public class ProjectilePool : NetworkBehaviour {
         }
         else
         {
-            return typeof(GravityGunProjectileController);
+            return typeof(NormalGravityGunProjectile);
         }
     }
 }
