@@ -6,9 +6,9 @@ Material:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: Bot3
+  m_Name: ShotGunP3
   m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
-  m_ShaderKeywords: _EMISSION
+  m_ShaderKeywords: _EMISSION _GLOSSYREFLECTIONS_OFF
   m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -39,11 +39,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
-        m_Texture: {fileID: 2800000, guid: 9ebd0a65f071440c7baaf1e18f0c893c, type: 3}
+        m_Texture: {fileID: 2800000, guid: ef4847300923e4539aea60a6a17c2c0d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 7c59f35f9af8345c5b9881d6a93fc057, type: 3}
+        m_Texture: {fileID: 2800000, guid: 50b612f93dce74f7c890a25d8572022e, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MaskMap:
@@ -83,7 +83,7 @@ Material:
     - _DstBlend: 0
     - _GlossMapScale: 1
     - _Glossiness: 0.69
-    - _GlossyReflections: 1
+    - _GlossyReflections: 0
     - _Metallic: 0.89
     - _OcclusionStrength: 1
     - _Parallax: 0.02
@@ -98,5 +98,5 @@ Material:
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _EmissionColor: {r: 1, g: 0.0967183, b: 0.07075471, a: 1}
+    - _EmissionColor: {r: 1, g: 0.28627455, b: 0.28627455, a: 1}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
