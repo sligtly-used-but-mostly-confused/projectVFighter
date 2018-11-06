@@ -5,8 +5,7 @@ using UnityEngine;
 public class NormalGravityGunProjectile : GravityGunProjectileController {
 
     public Collider2D MagnetCollider;
-
-    private float MagnetStrengthNormal = -25;
+    
     private float MagnetStrengthControllableTarget = 15;
     
     public void OnTriggerStay2D(Collider2D collision)
