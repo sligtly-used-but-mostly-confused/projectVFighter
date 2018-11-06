@@ -21,10 +21,9 @@ public class ProjectilePool : NetworkBehaviour {
     {
         if(Instance)
         {
-            Destroy(gameObject);
-            return;
+            Destroy(Instance.gameObject);
         }
-
+        
         Instance = this;
         DontDestroyOnLoad(gameObject);
     }
