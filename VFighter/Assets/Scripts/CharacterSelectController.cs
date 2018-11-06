@@ -173,13 +173,11 @@ public class CharacterSelectController : NetworkBehaviour {
 
         //set the right character preview
         PlayerCharacterType nextCharacterType = CharacterTypes[indexRight];
-        nextCharacterPreview.GetComponent<Renderer>().material = CharacterTypeMaterialMappings[nextCharacterType];
-        nextCharacterPreview.transform.GetChild(0).GetComponent<Renderer>().material = CharacterTypeIconMappings[nextCharacterType];
+        nextCharacterPreview.GetComponent<Renderer>().material = CharacterTypeIconMappings[nextCharacterType];
 
         //set the left character preview
         PlayerCharacterType previousCharacterType = CharacterTypes[indexLeft];
-        previousCharacterPreview.GetComponent<Renderer>().material = CharacterTypeMaterialMappings[previousCharacterType];
-        previousCharacterPreview.transform.GetChild(0).GetComponent<Renderer>().material = CharacterTypeIconMappings[previousCharacterType];
+        previousCharacterPreview.GetComponent<Renderer>().material = CharacterTypeIconMappings[previousCharacterType];
 
         //reset selection time and update description
         descriptionCanvas.transform.GetChild(0).transform.GetChild(0).GetComponent<UnityEngine.UI.Text>().text = CharacterTypeDescriptionMappings[GetComponent<PlayerController>().CharacterType];
