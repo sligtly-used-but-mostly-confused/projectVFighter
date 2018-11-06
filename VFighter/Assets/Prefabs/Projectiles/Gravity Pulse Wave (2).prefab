@@ -48,7 +48,7 @@ GameObject:
   - component: {fileID: 114918010818131692}
   m_Layer: 10
   m_Name: Gravity Pulse Wave (2)
-  m_TagString: Untagged
+  m_TagString: ProjectileBody
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -62,10 +62,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4157283484071610}
   - component: {fileID: 58745336886285666}
-  - component: {fileID: 50108040335019596}
   m_Layer: 10
   m_Name: magnetZone
-  m_TagString: Untagged
+  m_TagString: ProjectileMagnetZone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -162,26 +161,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!50 &50108040335019596
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1378924076265414}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 7
 --- !u!58 &58745336886285666
 CircleCollider2D:
   m_ObjectHideFlags: 1
@@ -196,7 +175,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 2.75
+  m_Radius: 5
 --- !u!58 &58755678779701514
 CircleCollider2D:
   m_ObjectHideFlags: 1
@@ -312,7 +291,9 @@ MonoBehaviour:
   _gravityScale: 1
   _gravityDirection: {x: 0, y: 0}
   _maxDefaultComponentSpeed: {x: 10, y: 10}
-  _maxComponentSpeeds: []
+  _maxComponentSpeeds:
+  - type: 3
+    Velocity: {x: 30, y: 30}
   _stopObjectOnCollide: 0
   _drag: 0
   Bounciness: 0

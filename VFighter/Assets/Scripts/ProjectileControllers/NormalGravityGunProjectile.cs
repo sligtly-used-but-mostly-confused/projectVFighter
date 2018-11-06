@@ -6,19 +6,53 @@ public class NormalGravityGunProjectile : GravityGunProjectileController {
 
     public Collider2D MagnetCollider;
 
-    public void Update()
+    private float MagnetStrengthNormal = -25;
+    private float MagnetStrengthControllableTarget = 50;
+    
+    public override void OnTriggerEnter2D(Collider2D collision)
     {
-        Collider2D[] res = new Collider2D[100];
-        var numRes = MagnetCollider.OverlapCollider(new ContactFilter2D(), res);
-        for(int i = 0; i < numRes; i++)
+        base.OnTriggerEnter2D(collision);
+        var gravityObjectRB = collision.GetComponent<GravityObjectRigidBody>();
+        if (gravityObjectRB && isServer)
         {
-            var obj = res[i];
-            Debug.Log(obj.transform.position - transform.position + " " + obj.name);
-            if (obj.GetComponent<ControllableGravityObjectRigidBody>())
+            if (gravityObjectRB.GetComponent<ControllableGravityObjectRigidBody>())
             {
-                Debug.Log(obj.transform.position - transform.position);
+                GORB.ChangeGravityScale(.1f);
+                GORB.UpdateVelocity(VelocityType.Gravity, Vector3.zero);
             }
         }
-        
+    }
+
+    public void OnTriggerExit2D(Collider2D collision)
+    {
+        var gravityObjectRB = collision.GetComponent<GravityObjectRigidBody>();
+        if (gravityObjectRB && isServer)
+        {
+            if (gravityObjectRB.GetComponent<ControllableGravityObjectRigidBody>())
+            {
+                GORB.ChangeGravityScale(1);
+                GORB.UpdateVelocity(VelocityType.Gravity, Vector3.zero);
+            }
+        }
+    }
+
+    public void OnTriggerStay2D(Collider2D collision)
+    {
+        var gravityObjectRB = collision.GetComponent<GravityObjectRigidBody>();
+        if (gravityObjectRB && isServer)
+        {
+            var dis = MagnetCollider.Distance(collision);
+            var dir = dis.normal * Mathf.Abs(dis.distance);
+            var forceVector = Vector3.zero;
+            if(gravityObjectRB.GetComponent<ControllableGravityObjectRigidBody>())
+            {
+                forceVector = (dir / (dis.distance * dis.distance)) * MagnetStrengthControllableTarget;
+                GORB.UpdateVelocity(VelocityType.Gravity, Vector3.zero);
+            }
+
+            forceVector *= Time.fixedDeltaTime;
+
+            GORB.AddVelocity(VelocityType.OtherPhysics, forceVector);
+        }
     }
 }

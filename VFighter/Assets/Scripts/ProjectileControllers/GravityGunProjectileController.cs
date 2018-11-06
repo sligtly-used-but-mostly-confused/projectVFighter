@@ -59,9 +59,25 @@ public class GravityGunProjectileController : NetworkBehaviour {
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    public virtual void OnTriggerEnter2D(Collider2D collision)
     {
         var gravityObjectRB = collision.GetComponent<GravityObjectRigidBody>();
+        //we have 2 colliders on some objects we only want this on tigger to deal with the main collider so check if it was actually the one that collided
+        Collider2D[] res = new Collider2D[100];
+
+        var numRes = collision.GetContacts(res);
+        bool isProjectileBodyFound = false;
+
+        for (int i = 0; i < numRes; i++)
+        {
+            isProjectileBodyFound |= res[i].tag == "ProjectileBody";
+        }
+
+        if(!isProjectileBodyFound)
+        {
+            return;
+        }
+
         if (gravityObjectRB && isServer)
         {
             if(collision.GetComponent<PlayerController>() && collision.GetComponent<PlayerController>() != Owner)
