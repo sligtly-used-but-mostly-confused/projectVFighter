@@ -100,7 +100,6 @@ public abstract class PlayerController : NetworkBehaviour {
     public bool IsDead;
     [SyncVar]
     public bool IsInvincible;
-    [SyncVar(hook = "ChangeMaterial")]
     public PlayerCharacterType CharacterType;
 
     protected virtual void Awake()
