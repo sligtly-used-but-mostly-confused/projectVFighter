@@ -7,35 +7,8 @@ public class NormalGravityGunProjectile : GravityGunProjectileController {
     public Collider2D MagnetCollider;
 
     private float MagnetStrengthNormal = -25;
-    private float MagnetStrengthControllableTarget = 50;
+    private float MagnetStrengthControllableTarget = 15;
     
-    public override void OnTriggerEnter2D(Collider2D collision)
-    {
-        base.OnTriggerEnter2D(collision);
-        var gravityObjectRB = collision.GetComponent<GravityObjectRigidBody>();
-        if (gravityObjectRB && isServer)
-        {
-            if (gravityObjectRB.GetComponent<ControllableGravityObjectRigidBody>())
-            {
-                GORB.ChangeGravityScale(.1f);
-                GORB.UpdateVelocity(VelocityType.Gravity, Vector3.zero);
-            }
-        }
-    }
-
-    public void OnTriggerExit2D(Collider2D collision)
-    {
-        var gravityObjectRB = collision.GetComponent<GravityObjectRigidBody>();
-        if (gravityObjectRB && isServer)
-        {
-            if (gravityObjectRB.GetComponent<ControllableGravityObjectRigidBody>())
-            {
-                GORB.ChangeGravityScale(1);
-                GORB.UpdateVelocity(VelocityType.Gravity, Vector3.zero);
-            }
-        }
-    }
-
     public void OnTriggerStay2D(Collider2D collision)
     {
         var gravityObjectRB = collision.GetComponent<GravityObjectRigidBody>();
@@ -46,13 +19,11 @@ public class NormalGravityGunProjectile : GravityGunProjectileController {
             var forceVector = Vector3.zero;
             if(gravityObjectRB.GetComponent<ControllableGravityObjectRigidBody>())
             {
-                forceVector = (dir / (dis.distance * dis.distance)) * MagnetStrengthControllableTarget;
-                GORB.UpdateVelocity(VelocityType.Gravity, Vector3.zero);
+                var changeInGravDirection = dir.normalized - GORB.GravityDirection;
+                var newGravDirection = GORB.GravityDirection + changeInGravDirection * MagnetStrengthControllableTarget * Time.deltaTime;
+
+                GORB.ChangeGravityDirectionInternal(newGravDirection.normalized);
             }
-
-            forceVector *= Time.fixedDeltaTime;
-
-            GORB.AddVelocity(VelocityType.OtherPhysics, forceVector);
         }
     }
 }
