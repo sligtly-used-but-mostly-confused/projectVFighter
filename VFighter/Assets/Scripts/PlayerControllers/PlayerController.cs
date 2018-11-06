@@ -117,7 +117,6 @@ public abstract class PlayerController : NetworkBehaviour {
         indicator.GetComponent<PlayerReadyIndicatorController>().AttachedPlayer = this;
         de = GetComponentInChildren<DashEffect>();
         gc = GetComponentInChildren<GravityChange>();
-        GetComponent<Renderer>().material = GetComponent<CharacterSelectController>().CharacterTypeMaterialMappings[CharacterType];
     }
 
     public override void OnStartServer()
@@ -128,8 +127,6 @@ public abstract class PlayerController : NetworkBehaviour {
         aimingReticle.GetComponent<AimingReticle>().Id = _aimingReticleIdCnt;
         aimingReticle.GetComponent<AimingReticle>().PlayerAttachedTo = netId;
         ReticleId = _aimingReticleIdCnt;
-
-        GetComponent<Renderer>().material = GetComponent<CharacterSelectController>().CharacterTypeMaterialMappings[CharacterType];
 
         NetworkServer.SpawnWithClientAuthority(aimingReticle, connectionToClient);
         ReticleParent = gameObject;
@@ -804,15 +801,6 @@ public abstract class PlayerController : NetworkBehaviour {
             case PlayerCharacterType.Dash:
                 Dash(aimVector);
                 break;
-        }
-    }
-
-    public void ChangeMaterial(PlayerCharacterType characterType)
-    {
-        if(GetComponent<CharacterSelectController>())
-        {
-            GetComponent<Renderer>().material = GetComponent<CharacterSelectController>().CharacterTypeMaterialMappings[characterType];
-            this.CharacterType = characterType;
         }
     }
 

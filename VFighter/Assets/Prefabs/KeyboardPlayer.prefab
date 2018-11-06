@@ -5872,7 +5872,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3c210d5e286a2f428e8d854e1ed1813, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  previewPrefab: {fileID: 1229535230974108, guid: 9c28717ae1c464a748c2444b7a36edea,
+  previewPrefab: {fileID: 1768628861392508, guid: 086093704d1c843d6a096c4d05af6d19,
     type: 2}
   currentIconGameObject: {fileID: 1907451986065098, guid: 2c11be1a2e2b94211b9bc171f7cf366b,
     type: 2}
@@ -5881,17 +5881,17 @@ MonoBehaviour:
   secondForCharacterTip: 0.25
   characterDataList:
   - characterMaterial: {fileID: 2100000, guid: b2a8a02c59a65284d9aae1c3dd996a45, type: 2}
-    IconMaterial: {fileID: 2100000, guid: 6fcced9f938a5a549b7ee8d34c8fd1c7, type: 2}
+    IconMaterial: {fileID: 2100000, guid: 6ac76df83ec42493d8e0b67f512c83e1, type: 2}
     description: Shoots several projectiles, which push players and objects on collision.
     CharacterType: 0
     AnimatorGameObject: {fileID: 1592770561894356}
   - characterMaterial: {fileID: 2100000, guid: 1e01bbf040afb634ba0886e4aa75366d, type: 2}
-    IconMaterial: {fileID: 2100000, guid: c15c4b8059261441fa6ac72c71454e30, type: 2}
+    IconMaterial: {fileID: 2100000, guid: 21b6171e8989f401ebd087ac2b2c0c07, type: 2}
     description: Dash in the direction you aim. Pushes objects and kills players.
     CharacterType: 1
     AnimatorGameObject: {fileID: 1900485259206474}
   - characterMaterial: {fileID: 2100000, guid: 04d126ba1f0d0478f801292308bbc946, type: 2}
-    IconMaterial: {fileID: 2100000, guid: b2a8a02c59a65284d9aae1c3dd996a45, type: 2}
+    IconMaterial: {fileID: 2100000, guid: 6df05f3c63a8948229a7952c2f0d9760, type: 2}
     description: Shoots a projectile that explodes on collision, which pushes everything
       within the blast.
     CharacterType: 2
