@@ -13,9 +13,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttonMappings:
   - mouseButtonIds: 00000000
-    Icon: {fileID: 21300000, guid: 04ff72a0059def84ea5f7b6cbc32df2f, type: 3}
+    Icon: {fileID: 21300000, guid: b76e264859e554b3f94a3290b7aeecfa, type: 3}
   - mouseButtonIds: 01000000
-    Icon: {fileID: 21300000, guid: 845fb3a8139705f4cb7b582293a9e498, type: 3}
+    Icon: {fileID: 21300000, guid: ede24ac72504a43669e7f77b9bf7284c, type: 3}
   axisMappings:
   - mouseAxisIds: 00000000
     Icon: {fileID: 21300022, guid: e21cc2b9df86453438ba1228d9127211, type: 3}

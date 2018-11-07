@@ -7,5 +7,9 @@ public enum KeyboardAxis
     VerticalButtons,
     HorizontalArrows,
     VerticalArrows,
-    SpaceBar
+    SpaceBar,
+    MouseX,
+    MouseY,
+    MouseClickRight,
+    MouseClickLeft
 }

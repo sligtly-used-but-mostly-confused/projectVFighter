@@ -1094,15 +1094,15 @@ MonoBehaviour:
   secondForCharacterTip: 0.25
   characterDataList:
   - characterMaterial: {fileID: 2100000, guid: b2a8a02c59a65284d9aae1c3dd996a45, type: 2}
-    IconMaterial: {fileID: 2100000, guid: 6fcced9f938a5a549b7ee8d34c8fd1c7, type: 2}
+    IconMaterial: {fileID: 2100000, guid: 24c020399e9c7494f976dbf0b7646b63, type: 2}
     description: Shoots several projectiles, which push players and objects on collision.
     CharacterType: 0
   - characterMaterial: {fileID: 2100000, guid: 1e01bbf040afb634ba0886e4aa75366d, type: 2}
-    IconMaterial: {fileID: 2100000, guid: c15c4b8059261441fa6ac72c71454e30, type: 2}
+    IconMaterial: {fileID: 2100000, guid: 9e547619e48ea48899c108f09ddfc6d2, type: 2}
     description: Dash in the direction you aim. Pushes objects and kills players.
     CharacterType: 1
   - characterMaterial: {fileID: 2100000, guid: 04d126ba1f0d0478f801292308bbc946, type: 2}
-    IconMaterial: {fileID: 2100000, guid: b2a8a02c59a65284d9aae1c3dd996a45, type: 2}
+    IconMaterial: {fileID: 2100000, guid: 648085898b3b0304ba0f0bbde33ff00f, type: 2}
     description: Shoots a projectile that explodes on collision, which pushes everything
       within the blast.
     CharacterType: 2
