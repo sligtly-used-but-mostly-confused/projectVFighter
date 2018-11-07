@@ -1514,6 +1514,8 @@ MonoBehaviour:
   timer: {fileID: 2048904424}
   selectTime: 5
   numLivesPerPlayer: 1
+  countdown: {fileID: 8300000, guid: d7216433c9f000346bc08ebc86e49352, type: 3}
+  countdownFinal: {fileID: 8300000, guid: e81d9bab7613db642bd0caac36e989ad, type: 3}
   _playerReadyIndicatorPrefab: {fileID: 1574300143994424, guid: 50239be1e91c0ce48b9f24ef90027d08,
     type: 2}
   _isWaitingForReady: 1
