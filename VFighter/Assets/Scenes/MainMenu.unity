@@ -548,7 +548,7 @@ VideoPlayer:
   m_RenderMode: 2
   m_AspectRatio: 1
   m_DataSource: 0
-  m_PlaybackSpeed: 0.15
+  m_PlaybackSpeed: 0.22
   m_AudioOutputMode: 2
   m_TargetAudioSources: []
   m_DirectAudioVolumes: []
