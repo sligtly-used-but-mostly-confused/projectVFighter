@@ -2,18 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ConnectionToPlayerController : MonoBehaviour {
+public class LightingLookAt : MonoBehaviour {
+ 
     [SerializeField]
-    ParticleSystem ps;
-
-    private float hSliderValue = 0.014f;
-
+    public float hSliderValue = 0.01f;
+    [SerializeField]
     public PlayerController _attachedPlayer;
-
-    void Start()
-    {
+    private ParticleSystem ps;
+    
+    // Use this for initialization
+    void Start () {
         ps = GetComponent<ParticleSystem>();
-        _attachedPlayer = GetComponentInParent<PlayerController>();
     }
 
     public void ConnectToPlayer(PlayerController player)
@@ -26,21 +25,19 @@ public class ConnectionToPlayerController : MonoBehaviour {
         _attachedPlayer = null;
     }
 
-    void Update()
-    {
+    // Update is called once per frame
+    void Update () {
         var main = ps.main;
         Vector3 positions;
         // Rotate the camera every frame so it keeps looking at the target
         if (_attachedPlayer)
         {
             positions = _attachedPlayer.transform.position;
-            ps.Play();
 
         }
         else
         {
-            positions = Vector3.zero;
-            ps.Stop();
+            positions =  Vector3.zero;
         }
         float dist = Vector3.Distance(this.transform.position, positions);
         main.startLifetime = hSliderValue * dist;
@@ -60,4 +57,8 @@ public class ConnectionToPlayerController : MonoBehaviour {
     }
 
 
+
+  
+
+ 
 }
