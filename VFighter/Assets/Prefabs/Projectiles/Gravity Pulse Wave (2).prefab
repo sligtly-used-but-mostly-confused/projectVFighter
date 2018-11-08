@@ -38,7 +38,6 @@ GameObject:
   - component: {fileID: 4181201909631404}
   - component: {fileID: 50086504613193108}
   - component: {fileID: 58755678779701514}
-  - component: {fileID: 114214724309785814}
   - component: {fileID: 114992691814861348}
   - component: {fileID: 114347273714513476}
   - component: {fileID: 114074985865123764}
@@ -46,9 +45,26 @@ GameObject:
   - component: {fileID: 95606028872242414}
   - component: {fileID: 198963514699206528}
   - component: {fileID: 199179493866913680}
+  - component: {fileID: 114918010818131692}
   m_Layer: 10
   m_Name: Gravity Pulse Wave (2)
-  m_TagString: Untagged
+  m_TagString: ProjectileBody
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1378924076265414
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4157283484071610}
+  - component: {fileID: 58745336886285666}
+  m_Layer: 10
+  m_Name: magnetZone
+  m_TagString: ProjectileMagnetZone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -70,6 +86,19 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!4 &4157283484071610
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1378924076265414}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4181201909631404}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4181201909631404
 Transform:
   m_ObjectHideFlags: 1
@@ -77,10 +106,11 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1308181843918824}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 10.05, y: -1.688, z: 0}
+  m_LocalPosition: {x: 3.75, y: -1.688, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_Children:
   - {fileID: 4383948940255888}
+  - {fileID: 4157283484071610}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -131,6 +161,21 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!58 &58745336886285666
+CircleCollider2D:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1378924076265414}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 5
 --- !u!58 &58755678779701514
 CircleCollider2D:
   m_ObjectHideFlags: 1
@@ -185,19 +230,6 @@ MonoBehaviour:
   m_SnapThreshold: 5
   m_InterpolateRotation: 1
   m_InterpolateMovement: 2
---- !u!114 &114214724309785814
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1308181843918824}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 57e2574cae4774e41bc033a2a627af30, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SecondsUntilDestroy: 1
-  Owner: {fileID: 0}
 --- !u!114 &114347273714513476
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -230,6 +262,20 @@ MonoBehaviour:
     i15: 77
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 0
+--- !u!114 &114918010818131692
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1308181843918824}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3246150df0c987e4c94901c1fbf676f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SecondsUntilDestroy: 1
+  Owner: {fileID: 0}
+  MagnetCollider: {fileID: 58745336886285666}
 --- !u!114 &114992691814861348
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -245,7 +291,9 @@ MonoBehaviour:
   _gravityScale: 1
   _gravityDirection: {x: 0, y: 0}
   _maxDefaultComponentSpeed: {x: 10, y: 10}
-  _maxComponentSpeeds: []
+  _maxComponentSpeeds:
+  - type: 3
+    Velocity: {x: 30, y: 30}
   _stopObjectOnCollide: 0
   _drag: 0
   Bounciness: 0
@@ -254,6 +302,7 @@ MonoBehaviour:
   IsSimulatedOnThisConnection: 1
   CanMove: 1
   Owner: {fileID: 0}
+  collAudio: {fileID: 0}
 --- !u!198 &198037884154010018
 ParticleSystem:
   m_ObjectHideFlags: 1

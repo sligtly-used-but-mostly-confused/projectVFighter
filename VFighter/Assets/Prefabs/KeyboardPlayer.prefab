@@ -1205,7 +1205,7 @@ MonoBehaviour:
   _stopObjectOnCollide: 0
   _drag: 0.5
   Bounciness: 0
-  CanBeSelected: 1
+  CanBeSelected: 0
   KillsPlayer: 1
   IsSimulatedOnThisConnection: 0
   CanMove: 1
