@@ -3283,7 +3283,7 @@ Prefab:
     - target: {fileID: 114227078285474836, guid: 55fe9360236ce094b8791837356c4d89,
         type: 2}
       propertyPath: _drag
-      value: 0.5
+      value: 0.05
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 55fe9360236ce094b8791837356c4d89, type: 2}
