@@ -6,7 +6,20 @@ using System.Linq;
 
 public class CustomNetworkManager : NetworkManager {
 
+
     public static CustomNetworkManager Instance = null;
+    private void Awake()
+    {
+        if (Instance != null)
+        {
+            Destroy(gameObject);
+        }
+
+        Instance = this;
+
+        logLevel = LogFilter.FilterLevel.Error;
+    }
+    /*
     [SerializeField]
     public List<Material> _playerMaterials = new List<Material>();
     private List<short> _playerMaterialIndexes = new List<short>();
@@ -57,5 +70,6 @@ public class CustomNetworkManager : NetworkManager {
         base.OnStopHost();
         Debug.Log("Host is stopped from Manager");
     }
-}
+    */
+    }
 

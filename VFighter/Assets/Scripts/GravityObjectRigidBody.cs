@@ -55,6 +55,9 @@ public class GravityObjectRigidBody : NetworkBehaviour {
     protected Dictionary<VelocityType, Vector2> _maxComponentVelocities = new Dictionary<VelocityType, Vector2>();
     protected Dictionary<VelocityType, Vector2> _velocities = new Dictionary<VelocityType, Vector2>();
 
+    [SerializeField]
+    protected List<VelocityTypePair> DebugVelocities;
+
     public float GravityScale
     {
         get { return _gravityScale; }
@@ -107,11 +110,20 @@ public class GravityObjectRigidBody : NetworkBehaviour {
             DoGravity();
             DoDrag();
             _rB.velocity = Vector2.zero;
-
+            DebugVelocities.Clear();
             foreach (var velocity in _velocities)
             {
+                DebugVelocities.Add(new VelocityTypePair()
+                {
+                    type = velocity.Key,
+                    Velocity = velocity.Value,
+                });
+
                 _rB.velocity += velocity.Value * GameManager.Instance.TimeScale;
             }
+
+            
+
         }
 
         if(!CanMove && GetComponent<GravityObjectRigidBody>().IsSimulatedOnThisConnection && _rB)

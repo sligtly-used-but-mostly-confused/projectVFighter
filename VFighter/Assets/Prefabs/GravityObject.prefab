@@ -451,18 +451,19 @@ MonoBehaviour:
   _maxDefaultComponentSpeed: {x: 10, y: 10}
   _maxComponentSpeeds: []
   _stopObjectOnCollide: 1
-  _drag: 0.5
+  _drag: 0.1
   Bounciness: 0
   CanBeSelected: 1
   KillsPlayer: 1
   IsSimulatedOnThisConnection: 0
   CanMove: 1
   Owner: {fileID: 0}
+  DebugVelocities: []
+  collAudio: {fileID: 82632569098369496}
   _speedMultiplier: 1
   _speedMultiplierStep: 0.1
   _maxSpeedMultiplier: 2
   sfxAudio: {fileID: 82144942733576756}
-  collAudio: {fileID: 82632569098369496}
   LaunchSound:
   - {fileID: 8300000, guid: 5fcdcec881f76d9409bb4ee2f5a166b3, type: 3}
   LaunchSoundCave:
