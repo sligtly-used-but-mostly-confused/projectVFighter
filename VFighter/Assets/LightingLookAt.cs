@@ -7,7 +7,7 @@ public class LightingLookAt : MonoBehaviour {
     [SerializeField]
     public float hSliderValue = 0.01f;
     [SerializeField]
-    public PlayerController _attachedPlayer;
+    public GameObject _attachedPlayer;
     private ParticleSystem ps;
     
     // Use this for initialization
@@ -15,15 +15,6 @@ public class LightingLookAt : MonoBehaviour {
         ps = GetComponent<ParticleSystem>();
     }
 
-    public void ConnectToPlayer(PlayerController player)
-    {
-        _attachedPlayer = player;
-    }
-
-    public void DisconnectPlayer()
-    {
-        _attachedPlayer = null;
-    }
 
     // Update is called once per frame
     void Update () {

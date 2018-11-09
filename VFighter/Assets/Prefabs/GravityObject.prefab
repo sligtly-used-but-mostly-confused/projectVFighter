@@ -81,7 +81,6 @@ GameObject:
   - component: {fileID: 4986034888586942}
   - component: {fileID: 198097823471213248}
   - component: {fileID: 199072669262356976}
-  - component: {fileID: 114183016762408180}
   m_Layer: 0
   m_Name: ConnectionToAttachedPlayer
   m_TagString: Untagged
@@ -352,19 +351,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hSliderValue: 0.01
   _attachedPlayer: {fileID: 0}
---- !u!114 &114183016762408180
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1955857009985408}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a2334669b5e382446ae2018c3eafec0c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ps: {fileID: 0}
-  _attachedPlayer: {fileID: 0}
 --- !u!114 &114227078285474836
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -456,7 +442,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1167609975392520}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a2334669b5e382446ae2018c3eafec0c, type: 3}
   m_Name: 

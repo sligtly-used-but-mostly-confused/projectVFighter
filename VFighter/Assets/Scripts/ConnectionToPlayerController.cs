@@ -12,7 +12,7 @@ public class ConnectionToPlayerController : MonoBehaviour {
 
     void Start()
     {
-        ps = GetComponent<ParticleSystem>();
+        ps = GetComponentInChildren<ParticleSystem>();
         _attachedPlayer = GetComponentInParent<PlayerController>();
     }
 
@@ -58,6 +58,5 @@ public class ConnectionToPlayerController : MonoBehaviour {
         ps.SetParticles(particles, num);
         transform.LookAt(_attachedPlayer.transform.position);
     }
-
 
 }
