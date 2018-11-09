@@ -7,7 +7,7 @@ public class GravityObjectPusher : NetworkBehaviour {
 
     public Collider2D MagnetCollider;
 
-    public float MagnetStrengthControllableTarget = 5;
+    public float MagnetStrengthControllableTarget = 10;
 
     public void OnTriggerStay2D(Collider2D collision)
     {
@@ -19,10 +19,11 @@ public class GravityObjectPusher : NetworkBehaviour {
             var forceVector = Vector3.zero;
             if (gravityObjectRB.GetComponent<ControllableGravityObjectRigidBody>())
             {
-                var changeInGravDirection = dir.normalized - gravityObjectRB.GravityDirection;
+                var changeInGravDirection = dir.normalized;
                 var newGravDirection = gravityObjectRB.GravityDirection + changeInGravDirection * MagnetStrengthControllableTarget * Time.deltaTime;
-
-                gravityObjectRB.ChangeGravityDirectionInternal(newGravDirection.normalized);
+                //Debug.Log(dir.normalized +" "+ gravityObjectRB.GravityDirection + " "+ changeInGravDirection * MagnetStrengthControllableTarget * Time.deltaTime + " "+changeInGravDirection + " "+newGravDirection);
+                gravityObjectRB.ChangeGravityDirectionInternal(newGravDirection);
+                
             }
         }
     }

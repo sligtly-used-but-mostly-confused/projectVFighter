@@ -207,6 +207,14 @@ public class GravityObjectRigidBody : NetworkBehaviour {
         }
     }
 
+    public void ChangeGravityDirectionLosslessInternal(Vector2 dir)
+    {
+        if (dir != GravityDirection)
+        {
+            GravityDirection = dir;
+        }
+    }
+
     public void ChangeGravityScale(float newGravityScale)
     {
         GravityScale = newGravityScale;
@@ -260,8 +268,8 @@ public class GravityObjectRigidBody : NetworkBehaviour {
         */
         if (_stopObjectOnCollide && IsSimulatedOnThisConnection && !collision.gameObject.GetComponent<PlayerController>())
         {
-            FindObjectOfType<PlayerController>().ChangeGORBGravityDirection(this, Vector2.zero);
-            AudioManager.instance.RandomizeSfx(AudioManager.instance.Coll, AudioManager.instance.CollCave, collAudio);
+            //FindObjectOfType<PlayerController>().ChangeGORBGravityDirection(this, Vector2.zero);
+            //AudioManager.instance.RandomizeSfx(AudioManager.instance.Coll, AudioManager.instance.CollCave, collAudio);
         }
         else if (_stopObjectOnCollide && IsSimulatedOnThisConnection)
             //Replace with player-object collision sound fx?

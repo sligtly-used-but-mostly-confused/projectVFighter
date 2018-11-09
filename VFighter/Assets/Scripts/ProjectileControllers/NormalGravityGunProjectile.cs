@@ -13,11 +13,11 @@ public class NormalGravityGunProjectile : GravityGunProjectileController {
         var gravityObjectRB = collision.GetComponent<GravityObjectRigidBody>();
         if (gravityObjectRB && isServer)
         {
-            var dis = MagnetCollider.Distance(collision);
-            var dir = dis.normal * Mathf.Abs(dis.distance);
-            var forceVector = Vector3.zero;
             if(gravityObjectRB.GetComponent<ControllableGravityObjectRigidBody>())
             {
+                var dis = MagnetCollider.Distance(collision);
+                var dir = dis.normal * Mathf.Abs(dis.distance);
+                var forceVector = Vector3.zero;
                 var changeInGravDirection = dir.normalized - GORB.GravityDirection;
                 var newGravDirection = GORB.GravityDirection + changeInGravDirection * MagnetStrengthControllableTarget * Time.deltaTime;
 
