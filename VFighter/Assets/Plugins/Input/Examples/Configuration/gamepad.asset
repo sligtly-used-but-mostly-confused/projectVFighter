@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Name: gamepad
   m_EditorClassIdentifier: 
   buttonMappings:
-  - target: 4
-    buttons: 05000000
   - target: 6
     buttons: 05000000
+  - target: 4
+    buttons: 00000000
   - target: 5
     buttons: 0c000000
   - target: 7
@@ -53,8 +53,8 @@ MonoBehaviour:
     inverted: 0
   - target: 6
     axes: 
-    buttonsPositive: 07000000
-    buttonsNegative: 09000000
+    buttonsPositive: 09000000
+    buttonsNegative: 07000000
     inverted: 0
   - target: 7
     axes: 

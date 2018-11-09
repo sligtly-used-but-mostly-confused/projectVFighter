@@ -116,7 +116,7 @@ public class CharacterSelectController : NetworkBehaviour {
             GetComponent<GravityObjectRigidBody>().CanMove = true;
         }
 
-        if(GetComponent<PlayerController>().InputDevice.GetIsAxisTappedPos(MappedAxis.ChangeCharacter))
+        if(GetComponent<PlayerController>().InputDevice.GetIsAxisTapped(MappedAxis.ChangeCharacter))
         {
             float ChangeCharacterDir = GetComponent<PlayerController>().InputDevice.GetAxis(MappedAxis.ChangeCharacter);
             ChangeToNextCharacterType(ChangeCharacterDir > 0 ? 1 : -1);

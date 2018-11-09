@@ -51,7 +51,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: ddb7bbe81b8fc234abbfbea78de78519, type: 3}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -248,3 +248,23 @@ MonoBehaviour:
   isCaveLevel: 0
   lowPitchRange: 0.95
   highPitchRange: 1.05
+  defaultRoundInit: {fileID: 0}
+  defaultRoundLoop: {fileID: 0}
+  finalRoundInit: {fileID: 0}
+  finalRoundLoop: {fileID: 0}
+  hasInit: 0
+  hasFinRndVer: 0
+  Coll:
+  - {fileID: 8300000, guid: 325bb26239631b144903c0e92af04bf5, type: 3}
+  - {fileID: 8300000, guid: 5bc517f96ce0f7d47aab36a950f86faf, type: 3}
+  - {fileID: 8300000, guid: 510465aacdf5e6d44804884c823642cc, type: 3}
+  - {fileID: 8300000, guid: a4b688da93106b144b03f6248873bd65, type: 3}
+  - {fileID: 8300000, guid: eb5f35c2ab0f43544b6f1d3ed5a51208, type: 3}
+  - {fileID: 8300000, guid: 86f764c67f85edc43a96dfc0d058abd8, type: 3}
+  CollCave:
+  - {fileID: 8300000, guid: f1f92925de7587f46aaff3ecf9003dfd, type: 3}
+  - {fileID: 8300000, guid: b93e6ed41516cf740a0f4cdacfe95f23, type: 3}
+  - {fileID: 8300000, guid: 813317be7f65d0e4f8065eb989cc6143, type: 3}
+  - {fileID: 8300000, guid: 202505e91a0e71c4ab72c980095d31a3, type: 3}
+  - {fileID: 8300000, guid: 48e944e867c981a4ebe38b0328de0ea1, type: 3}
+  - {fileID: 8300000, guid: 2d16ac73d901dd64fa5b7b73f2febbb1, type: 3}

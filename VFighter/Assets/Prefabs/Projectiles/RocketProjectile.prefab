@@ -83,7 +83,7 @@ GameObject:
   - component: {fileID: 82891851447777310}
   m_Layer: 10
   m_Name: RocketProjectile
-  m_TagString: Untagged
+  m_TagString: ProjectileBody
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -357,6 +357,7 @@ MonoBehaviour:
   IsSimulatedOnThisConnection: 1
   CanMove: 1
   Owner: {fileID: 0}
+  collAudio: {fileID: 0}
 --- !u!114 &114770715396034166
 MonoBehaviour:
   m_ObjectHideFlags: 1
