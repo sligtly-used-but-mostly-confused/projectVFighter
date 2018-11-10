@@ -57,7 +57,6 @@ public class LightingLookAt : MonoBehaviour {
         {
             positions =  Vector3.zero;
             ps.Stop();
-            print("Distance= " + "NONE");
         }
        
     }
