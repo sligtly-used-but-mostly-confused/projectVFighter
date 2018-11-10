@@ -59,6 +59,10 @@ public abstract class PlayerController : NetworkBehaviour {
     [SerializeField]
     protected GravityChange gc;
     [SerializeField]
+    protected GameObject character;
+    [SerializeField]
+    protected GameObject characterContainer;
+
     protected deatheffect dth; 
     protected readonly Vector2[] _gravChangeDirections = { Vector2.up, Vector2.down };
 
@@ -85,6 +89,7 @@ public abstract class PlayerController : NetworkBehaviour {
     private List<GameObject> GravityGunProjectiles = new List<GameObject>();
     private Coroutine GravGunCoolDownCoroutine;
     private PlayerCooldownController _cooldownController;
+    //private bool 
 
     [SyncVar]
     public short ReticleId = -1;
@@ -98,7 +103,6 @@ public abstract class PlayerController : NetworkBehaviour {
     public bool IsDead;
     [SyncVar]
     public bool IsInvincible;
-    [SyncVar(hook = "ChangeMaterial")]
     public PlayerCharacterType CharacterType;
 
     protected virtual void Awake()
@@ -127,8 +131,6 @@ public abstract class PlayerController : NetworkBehaviour {
         aimingReticle.GetComponent<AimingReticle>().Id = _aimingReticleIdCnt;
         aimingReticle.GetComponent<AimingReticle>().PlayerAttachedTo = netId;
         ReticleId = _aimingReticleIdCnt;
-
-        GetComponent<Renderer>().material = GetComponent<CharacterSelectController>().CharacterTypeMaterialMappings[CharacterType];
 
         NetworkServer.SpawnWithClientAuthority(aimingReticle, connectionToClient);
         ReticleParent = gameObject;
@@ -190,6 +192,7 @@ public abstract class PlayerController : NetworkBehaviour {
         fixedDir = new Vector2(Mathf.Abs(fixedDir.x), Mathf.Abs(fixedDir.y));
        
         GetComponent<GravityObjectRigidBody>().UpdateVelocity(VelocityType.Movement, Vector3.Project(dir, fixedDir) * MoveSpeed);
+
     }
 
     public void FlipGravity()
@@ -198,6 +201,7 @@ public abstract class PlayerController : NetworkBehaviour {
         {
             if (!_cooldownController.IsCoolingDown(CooldownType.ChangeGravity))
             {
+                
                 ChangeGravity(GetComponent<GravityObjectRigidBody>().GravityDirection * -1);
                 gc.PlayEffect(GetComponent<GravityObjectRigidBody>());
             }
@@ -214,6 +218,13 @@ public abstract class PlayerController : NetworkBehaviour {
         var compass = new List<Vector2> { GORB.GravityDirection, -GORB.GravityDirection };
         ChangeGravity(ClosestDirection(dir, compass.ToArray()));
         gc.PlayEffect(GetComponent<GravityObjectRigidBody>());
+
+        var rotY = 180f;
+        if (GetComponent<GravityObjectRigidBody>().GravityDirection.y < 0)
+        {
+            rotY = 0;
+        }
+        //characterContainer.transform.rotation = Quaternion.Euler(rotY, characterContainer.transform.rotation.y, 0);
     }
 
     [Command]
@@ -299,6 +310,17 @@ public abstract class PlayerController : NetworkBehaviour {
             {
                 var normalizedDir = dir.normalized;
                 Reticle.transform.position = ReticleParent.transform.position + new Vector3(normalizedDir.x, normalizedDir.y, 0);
+
+                //set animation details
+                Animator currentAnimator = GetComponent<CharacterAnimScript>().currentAnimator;
+                currentAnimator.SetFloat("Horizontal", normalizedDir.x);
+                if (GetComponent<GravityObjectRigidBody>().GravityDirection.y < 0)
+                {
+                    currentAnimator.SetFloat("Vertical", normalizedDir.y);
+                }
+                else{
+                    currentAnimator.SetFloat("Vertical", -normalizedDir.y);
+                }
             }
         }
     }
@@ -785,15 +807,6 @@ public abstract class PlayerController : NetworkBehaviour {
             case PlayerCharacterType.Dash:
                 Dash(aimVector);
                 break;
-        }
-    }
-
-    public void ChangeMaterial(PlayerCharacterType characterType)
-    {
-        if(GetComponent<CharacterSelectController>())
-        {
-            GetComponent<Renderer>().material = GetComponent<CharacterSelectController>().CharacterTypeMaterialMappings[characterType];
-            this.CharacterType = characterType;
         }
     }
 

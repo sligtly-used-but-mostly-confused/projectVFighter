@@ -48,7 +48,7 @@ GameObject:
   - component: {fileID: 199627538229253096}
   m_Layer: 10
   m_Name: ShotgunBlast
-  m_TagString: Untagged
+  m_TagString: ProjectileBody
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -188,6 +188,7 @@ MonoBehaviour:
   IsSimulatedOnThisConnection: 1
   CanMove: 1
   Owner: {fileID: 0}
+  collAudio: {fileID: 0}
 --- !u!114 &114362681693403836
 MonoBehaviour:
   m_ObjectHideFlags: 1

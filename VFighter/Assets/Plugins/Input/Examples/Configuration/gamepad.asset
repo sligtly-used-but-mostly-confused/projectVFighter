@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Name: gamepad
   m_EditorClassIdentifier: 
   buttonMappings:
-  - target: 4
-    buttons: 05000000
   - target: 6
     buttons: 05000000
+  - target: 4
+    buttons: 00000000
   - target: 5
     buttons: 0c000000
   - target: 7

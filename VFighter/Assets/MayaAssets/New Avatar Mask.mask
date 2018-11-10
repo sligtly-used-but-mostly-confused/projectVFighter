@@ -1,0 +1,120 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!319 &31900000
+AvatarMask:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: New Avatar Mask
+  m_Mask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+  m_Elements:
+  - m_Path: 
+    m_Weight: 1
+  - m_Path: c_pelvis_bn
+    m_Weight: 1
+  - m_Path: c_pelvis_bn/c_hip_bn
+    m_Weight: 1
+  - m_Path: c_pelvis_bn/c_hip_bn/c_torso_bn
+    m_Weight: 0
+  - m_Path: c_pelvis_bn/c_hip_bn/c_torso_bn/c_chest_bn
+    m_Weight: 0
+  - m_Path: c_pelvis_bn/c_hip_bn/c_torso_bn/c_chest_bn/c_head_bn
+    m_Weight: 0
+  - m_Path: c_pelvis_bn/c_hip_bn/c_torso_bn/c_chest_bn/c_head_bn/c_head_be
+    m_Weight: 0
+  - m_Path: c_pelvis_bn/c_hip_bn/c_torso_bn/c_chest_bn/l_shoulder_bn
+    m_Weight: 0
+  - m_Path: c_pelvis_bn/c_hip_bn/c_torso_bn/c_chest_bn/l_shoulder_bn/l_forearm_bn
+    m_Weight: 0
+  - m_Path: c_pelvis_bn/c_hip_bn/c_torso_bn/c_chest_bn/l_shoulder_bn/l_forearm_bn/l_wrist_bn
+    m_Weight: 0
+  - m_Path: c_pelvis_bn/c_hip_bn/c_torso_bn/c_chest_bn/l_shoulder_bn/l_forearm_bn/l_wrist_bn/l_knuckle_bn
+    m_Weight: 0
+  - m_Path: c_pelvis_bn/c_hip_bn/c_torso_bn/c_chest_bn/l_shoulder_bn/l_forearm_bn/l_wrist_bn/l_knuckle_bn/l_hand_bn
+    m_Weight: 0
+  - m_Path: c_pelvis_bn/c_hip_bn/c_torso_bn/c_chest_bn/l_shoulder_bn/l_forearm_bn/l_wrist_bn/l_knuckle_bn/l_hand_bn/l_handtip_be
+    m_Weight: 0
+  - m_Path: c_pelvis_bn/c_hip_bn/c_torso_bn/c_chest_bn/l_shoulder_bn/l_forearm_bn/l_wrist_bn/l_thumbKnuckle_bn
+    m_Weight: 0
+  - m_Path: c_pelvis_bn/c_hip_bn/c_torso_bn/c_chest_bn/l_shoulder_bn/l_forearm_bn/l_wrist_bn/l_thumbKnuckle_bn/l_thumb_bn
+    m_Weight: 0
+  - m_Path: c_pelvis_bn/c_hip_bn/c_torso_bn/c_chest_bn/l_shoulder_bn/l_forearm_bn/l_wrist_bn/l_thumbKnuckle_bn/l_thumb_bn/l_thumbtip_be
+    m_Weight: 0
+  - m_Path: c_pelvis_bn/c_hip_bn/c_torso_bn/c_chest_bn/r_shoulder_bn
+    m_Weight: 0
+  - m_Path: c_pelvis_bn/c_hip_bn/c_torso_bn/c_chest_bn/r_shoulder_bn/r_forearm_bn
+    m_Weight: 0
+  - m_Path: c_pelvis_bn/c_hip_bn/c_torso_bn/c_chest_bn/r_shoulder_bn/r_forearm_bn/r_wrist_bn
+    m_Weight: 0
+  - m_Path: c_pelvis_bn/c_hip_bn/c_torso_bn/c_chest_bn/r_shoulder_bn/r_forearm_bn/r_wrist_bn/r_knuckle_bn
+    m_Weight: 0
+  - m_Path: c_pelvis_bn/c_hip_bn/c_torso_bn/c_chest_bn/r_shoulder_bn/r_forearm_bn/r_wrist_bn/r_knuckle_bn/r_hand_bn
+    m_Weight: 0
+  - m_Path: c_pelvis_bn/c_hip_bn/c_torso_bn/c_chest_bn/r_shoulder_bn/r_forearm_bn/r_wrist_bn/r_knuckle_bn/r_hand_bn/r_handtip_be
+    m_Weight: 0
+  - m_Path: c_pelvis_bn/c_hip_bn/c_torso_bn/c_chest_bn/r_shoulder_bn/r_forearm_bn/r_wrist_bn/r_thumbKnuckle_bn
+    m_Weight: 0
+  - m_Path: c_pelvis_bn/c_hip_bn/c_torso_bn/c_chest_bn/r_shoulder_bn/r_forearm_bn/r_wrist_bn/r_thumbKnuckle_bn/r_thumb_bn
+    m_Weight: 0
+  - m_Path: c_pelvis_bn/c_hip_bn/c_torso_bn/c_chest_bn/r_shoulder_bn/r_forearm_bn/r_wrist_bn/r_thumbKnuckle_bn/r_thumb_bn/r_thumbtip_be
+    m_Weight: 0
+  - m_Path: c_pelvis_bn/l_leg_bn
+    m_Weight: 1
+  - m_Path: c_pelvis_bn/l_leg_bn/l_knee_bn
+    m_Weight: 1
+  - m_Path: c_pelvis_bn/l_leg_bn/l_knee_bn/l_angle_bn
+    m_Weight: 1
+  - m_Path: c_pelvis_bn/l_leg_bn/l_knee_bn/l_angle_bn/l_toe_be
+    m_Weight: 1
+  - m_Path: c_pelvis_bn/r_leg_bn
+    m_Weight: 1
+  - m_Path: c_pelvis_bn/r_leg_bn/r_knee_bn
+    m_Weight: 1
+  - m_Path: c_pelvis_bn/r_leg_bn/r_knee_bn/r_angle_bn
+    m_Weight: 1
+  - m_Path: c_pelvis_bn/r_leg_bn/r_knee_bn/r_angle_bn/r_toe_be
+    m_Weight: 1
+  - m_Path: control_c_universal
+    m_Weight: 1
+  - m_Path: control_c_universal/anim_l_IK
+    m_Weight: 1
+  - m_Path: control_c_universal/anim_l_IK/control_l_foot
+    m_Weight: 1
+  - m_Path: control_c_universal/anim_l_IK/control_l_knee
+    m_Weight: 1
+  - m_Path: control_c_universal/anim_r_IK
+    m_Weight: 1
+  - m_Path: control_c_universal/anim_r_IK/control_r_foot
+    m_Weight: 1
+  - m_Path: control_c_universal/anim_r_IK/control_r_knee
+    m_Weight: 1
+  - m_Path: control_c_universal/control_c_hip
+    m_Weight: 1
+  - m_Path: control_c_universal/control_c_hip/control_c_torso
+    m_Weight: 1
+  - m_Path: control_c_universal/control_c_hip/control_c_torso/control_l_shoulder
+    m_Weight: 1
+  - m_Path: control_c_universal/control_c_hip/control_c_torso/control_l_shoulder/control_l_forearm
+    m_Weight: 1
+  - m_Path: control_c_universal/control_c_hip/control_c_torso/control_l_shoulder/control_l_forearm/control_l_wrist
+    m_Weight: 1
+  - m_Path: control_c_universal/control_c_hip/control_c_torso/control_r_shoulder
+    m_Weight: 1
+  - m_Path: control_c_universal/control_c_hip/control_c_torso/control_r_shoulder/control_r_forearm
+    m_Weight: 1
+  - m_Path: control_c_universal/control_c_hip/control_c_torso/control_r_shoulder/control_r_forearm/control_r_wrist
+    m_Weight: 1
+  - m_Path: control_c_universal/control_c_hip/control_c_torso/nurbsCircle1
+    m_Weight: 1
+  - m_Path: Gun
+    m_Weight: 0
+  - m_Path: IK_l_leg
+    m_Weight: 1
+  - m_Path: IK_l_leg/IK_l_foot
+    m_Weight: 1
+  - m_Path: IK_r_leg
+    m_Weight: 1
+  - m_Path: IK_r_leg/IK_r_foot
+    m_Weight: 1
+  - m_Path: robotMesh
+    m_Weight: 0
