@@ -190,6 +190,7 @@ GameObject:
   - component: {fileID: 82366291016765584}
   - component: {fileID: 82163953289816958}
   - component: {fileID: 114642983415842072}
+  - component: {fileID: 114472531353009056}
   m_Layer: 0
   m_Name: KeyboardPlayer
   m_TagString: Untagged
@@ -1023,6 +1024,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isDead: 0
   pulse: {fileID: 0}
+--- !u!114 &114472531353009056
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1865601022989246}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ef1c318003afe7418ee6451b64944eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hSliderValue: 0.01
+  kp: {fileID: 0}
+  prefabLight: {fileID: 1237948039889980, guid: bf4037389a8f7fa418c79551fc3fbae2,
+    type: 2}
+  ps: {fileID: 0}
 --- !u!114 &114642983415842072
 MonoBehaviour:
   m_ObjectHideFlags: 1
