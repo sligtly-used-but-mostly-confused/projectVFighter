@@ -11,7 +11,7 @@ public class LightingLookAt : MonoBehaviour {
     [SerializeField]
     protected GameObject prefabLight;
     [SerializeField]
-    protected ParticleSystem ps;
+    protected ParticleSystem[] ps;
     private GameObject LObject;
     // Use this for initialization
   
@@ -21,7 +21,7 @@ public class LightingLookAt : MonoBehaviour {
         LObject = Instantiate(prefabLight);
         LObject.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z);
         DontDestroyOnLoad(LObject);
-        ps = LObject.GetComponent<ParticleSystem>();
+        ps = LObject.GetComponentsInChildren<ParticleSystem>();
         kp = GetComponent<KeyboardPlayerController>();
     }
 
@@ -29,7 +29,8 @@ public class LightingLookAt : MonoBehaviour {
     // Update is called once per frame
     void Update () {
       
-        var main = ps.main;
+        var main1 = ps[0].main;
+        var main2 = ps[1].main;
         LObject.transform.position = this.transform.position;
         Vector3 positions;
         // Rotate the camera every frame so it keeps looking at the target
@@ -37,26 +38,39 @@ public class LightingLookAt : MonoBehaviour {
         {
             positions = kp.AttachedObject.transform.position;
             float dist = Vector3.Distance(LObject.transform.position, positions);
-            main.startLifetime = hSliderValue * dist;
+            main1.startLifetime = hSliderValue * dist;
+            main2.startLifetime = hSliderValue * dist;
             // initialize an array the size of our current particle count
-            ParticleSystem.Particle[] particles = new ParticleSystem.Particle[ps.particleCount];
+            ParticleSystem.Particle[] particles = new ParticleSystem.Particle[ps[0].particleCount];
+            ParticleSystem.Particle[] particles1 = new ParticleSystem.Particle[ps[1].particleCount];
             // *pass* this array to GetParticles...
-            int num = ps.GetParticles(particles);
+            int num = ps[0].GetParticles(particles);
+           
             for (int i = 0; i < num; i++)
             {
                 float distParticle = Vector3.Distance(LObject.transform.position, particles[i].position);
                 if (distParticle > dist) // negative x: make it die
                     particles[i].remainingLifetime = 0;
             }
+            int num1 = ps[1].GetParticles(particles1);
+            for (int i = 0; i < num1; i++)
+            {
+                float distParticle = Vector3.Distance(LObject.transform.position, particles1[i].position);
+                if (distParticle > dist) // negative x: make it die
+                    particles1[i].remainingLifetime = 0;
+            }
             // re-assign modified array
-            ps.SetParticles(particles, num);
+            ps[0].SetParticles(particles, num);
+            ps[1].SetParticles(particles1, num1);
             LObject.transform.LookAt(kp.AttachedObject.transform.position);
-            ps.Play();
+            ps[0].Play();
+            ps[1].Play();
         }
         else
         {
             positions =  Vector3.zero;
-            ps.Stop();
+            ps[0].Stop();
+            ps[1].Stop();
         }
        
     }

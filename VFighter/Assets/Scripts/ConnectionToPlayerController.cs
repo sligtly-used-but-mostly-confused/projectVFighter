@@ -2,19 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ConnectionToPlayerController : MonoBehaviour {
+public class ConnectionToPlayerController : MonoBehaviour
+{
     [SerializeField]
-    ParticleSystem ps;
+    LineRenderer _connectionToAttachedPlayer;
 
-    private float hSliderValue = 0.014f;
-
-    public PlayerController _attachedPlayer;
-
-    void Start()
-    {
-        ps = GetComponentInChildren<ParticleSystem>();
-        _attachedPlayer = GetComponentInParent<PlayerController>();
-    }
+    private PlayerController _attachedPlayer;
 
     public void ConnectToPlayer(PlayerController player)
     {
@@ -26,37 +19,19 @@ public class ConnectionToPlayerController : MonoBehaviour {
         _attachedPlayer = null;
     }
 
-    void Update()
+    private void Update()
     {
-        var main = ps.main;
-        Vector3 positions;
-        // Rotate the camera every frame so it keeps looking at the target
+        Vector3[] positions;
         if (_attachedPlayer)
         {
-            positions = _attachedPlayer.transform.position;
-            ps.Play();
-
+            positions = new Vector3[] { transform.position, _attachedPlayer.transform.position };
+            _connectionToAttachedPlayer.material = _attachedPlayer.GetComponentInChildren<PlayerIdentifier>().GetComponent<Renderer>().material;
         }
         else
         {
-            positions = Vector3.zero;
-            ps.Stop();
+            positions = new Vector3[] { Vector3.zero, Vector3.zero };
         }
-        float dist = Vector3.Distance(this.transform.position, positions);
-        main.startLifetime = hSliderValue * dist;
-        // initialize an array the size of our current particle count
-        ParticleSystem.Particle[] particles = new ParticleSystem.Particle[ps.particleCount];
-        // *pass* this array to GetParticles...
-        int num = ps.GetParticles(particles);
-        for (int i = 0; i < num; i++)
-        {
-            float distParticle = Vector3.Distance(this.transform.position, particles[i].position);
-            if (distParticle > dist) // negative x: make it die
-                particles[i].remainingLifetime = 0;
-        }
-        // re-assign modified array
-        ps.SetParticles(particles, num);
-        transform.LookAt(_attachedPlayer.transform.position);
-    }
 
+        _connectionToAttachedPlayer.SetPositions(positions);
+    }
 }
