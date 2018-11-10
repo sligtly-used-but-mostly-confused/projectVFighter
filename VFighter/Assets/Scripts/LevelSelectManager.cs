@@ -24,6 +24,8 @@ public class LevelSelectManager : NetworkBehaviour
     public int selectTime;
     public bool IsTimerStarted { get { return _timerCoroutine != null; } }
     public int numLivesPerPlayer;
+    public AudioClip countdown;
+    public AudioClip countdownFinal;
 
     private List<LevelZoneController> zones = new List<LevelZoneController>();
     private Coroutine _timerCoroutine;
@@ -132,6 +134,10 @@ public class LevelSelectManager : NetworkBehaviour
             timer.text = timeRemaining.ToString();
         while (timeRemaining > 0){
             yield return new WaitForSeconds(1);
+            if (timeRemaining > 1)
+                AudioManager.instance.PlaySingle(countdown);
+            else
+                AudioManager.instance.PlaySingle(countdownFinal);
             --timeRemaining;
         }
 

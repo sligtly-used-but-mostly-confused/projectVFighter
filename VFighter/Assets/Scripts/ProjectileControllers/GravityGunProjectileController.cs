@@ -80,10 +80,16 @@ public class GravityGunProjectileController : NetworkBehaviour {
 
         if (gravityObjectRB && isServer)
         {
-            if(collision.GetComponent<PlayerController>() && collision.GetComponent<PlayerController>() != Owner)
+
+            if (collision.GetComponent<PlayerController>() && collision.GetComponent<PlayerController>() != Owner)
             {
                 collision.GetComponent<PlayerController>().FlipGravity();
                 ReturnToPool();
+                return;
+            }
+
+            if (collision.GetComponent<PlayerController>() && collision.GetComponent<PlayerController>() == Owner)
+            {
                 return;
             }
 
