@@ -32,7 +32,7 @@ public class LightingLookAt : MonoBehaviour {
       
         var main1 = ps[0].main;
         var main2 = ps[1].main;
-        var main3 = ps[1].main;
+        var main3 = ps[2].main;
         LObject.transform.position = this.transform.position;
         Vector3 positions;
         // Rotate the camera every frame so it keeps looking at the target
@@ -52,11 +52,21 @@ public class LightingLookAt : MonoBehaviour {
             for (int i = 0; i < num; i++)
             {
                 float distParticle = Vector3.Distance(LObject.transform.position, particles[i].position);
-                float distParticle1 = Vector3.Distance(LObject.transform.position, particles[i].position);
-                if (distParticle > dist) 
+                if (distParticle > dist)
+                {
                     particles[i].remainingLifetime = 0;
-                if (distParticle1 > dist) 
+                }
+             
+            }
+            int num2 = ps[2].GetParticles(particles2);
+            for (int i = 0; i < num; i++)
+            {
+                float distParticle = Vector3.Distance(LObject.transform.position, particles2[i].position);
+                if (distParticle > dist)
+                {
                     particles2[i].remainingLifetime = 0;
+                }
+
             }
             int num1 = ps[1].GetParticles(particles1);
             for (int i = 0; i < num1; i++)
@@ -65,10 +75,11 @@ public class LightingLookAt : MonoBehaviour {
                 if (distParticle > dist) // negative x: make it die
                     particles1[i].remainingLifetime = 0;
             }
+
             // re-assign modified array
             ps[0].SetParticles(particles, num);
             ps[1].SetParticles(particles1, num1);
-            ps[2].SetParticles(particles2, num);
+            ps[2].SetParticles(particles2, num2);
             LObject.transform.LookAt(kp.AttachedObject.transform.position);
             ps[0].Play();
             ps[1].Play();
