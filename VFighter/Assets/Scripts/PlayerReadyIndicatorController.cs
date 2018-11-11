@@ -15,7 +15,7 @@ public class PlayerReadyIndicatorController : MonoBehaviour {
     {
         if(AttachedPlayer)
         {
-            transform.position = AttachedPlayer.transform.position + Vector3.up * AttachedPlayer.transform.localScale.y;
+            transform.position = AttachedPlayer.transform.position + Vector3.up * AttachedPlayer.transform.localScale.y * 2;
         }
 
         if(AttachedPlayer && AttachedPlayer.IsReady)

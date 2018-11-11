@@ -9,6 +9,9 @@ public class AudioManager : MonoBehaviour
     public static float SFXVol;
     public static float MasterVol;
 
+    [SerializeField, Tooltip("If when the AM loads and another AM is present this AM will be kept and the other will be destroyed")]
+    private bool _defaultToThisAudioManager = true;
+
     public AudioSource mainAudio;                   //Used for music
     public AudioSource sfxAudio;                    //Used for sound FX
     public static AudioManager instance = null;
@@ -38,9 +41,18 @@ public class AudioManager : MonoBehaviour
         //If instance already exists:
         else if (instance != this)
         {
-            //Destroy this, this enforces our singleton pattern so there can only be one instance of SoundManager.
-            Destroy(instance.gameObject);
-            instance = this;
+            if(_defaultToThisAudioManager)
+            {
+                //Destroy this, this enforces our singleton pattern so there can only be one instance of SoundManager.
+                Destroy(instance.gameObject);
+                instance = this;
+            }
+            else
+            {
+
+                Destroy(gameObject);
+                return;
+            }
         }
 
         //Set SoundManager to DontDestroyOnLoad so that it won't be destroyed when reloading our scene.

@@ -17,10 +17,11 @@ public class CharacterSelectController : NetworkBehaviour {
 
     private readonly List<PlayerCharacterType> CharacterTypes = Enum.GetValues(typeof(PlayerCharacterType)).Cast<PlayerCharacterType>().ToList();
 
-    private GameObject previousCharacterPreview;
-    private GameObject nextCharacterPreview;
     private GameObject currentIcon;
     private GameObject descriptionCanvas;
+    private PlayerCharacterType currentCharacterType;
+    private PlayerCharacterType nextCharacterType;
+    private PlayerCharacterType previousCharacterType;
 
     private PlayerController playerController;
 
@@ -31,6 +32,7 @@ public class CharacterSelectController : NetworkBehaviour {
         public Material IconMaterial;
         public string description;
         public PlayerCharacterType CharacterType;
+        public GameObject AnimatorGameObject;
     }
 
     [SerializeField]
@@ -39,6 +41,7 @@ public class CharacterSelectController : NetworkBehaviour {
     public Dictionary<PlayerCharacterType, Material> CharacterTypeMaterialMappings = new Dictionary<PlayerCharacterType, Material>();
     public Dictionary<PlayerCharacterType, Material> CharacterTypeIconMappings = new Dictionary<PlayerCharacterType, Material>();
     public Dictionary<PlayerCharacterType, string> CharacterTypeDescriptionMappings = new Dictionary<PlayerCharacterType, string>();
+    public Dictionary<PlayerCharacterType, GameObject> characterTypeAnimatorGOMappings = new Dictionary<PlayerCharacterType, GameObject>();
 
     private bool _hasFoundReticle = false;
     private float timeOnSelection;
@@ -61,18 +64,7 @@ public class CharacterSelectController : NetworkBehaviour {
         characterDataList.ForEach(x => CharacterTypeMaterialMappings.Add(x.CharacterType, x.characterMaterial));
         characterDataList.ForEach(x => CharacterTypeIconMappings.Add(x.CharacterType, x.IconMaterial));
         characterDataList.ForEach(x => CharacterTypeDescriptionMappings.Add(x.CharacterType, x.description));
-
-        previousCharacterPreview = Instantiate(previewPrefab);
-        previousCharacterPreview.transform.SetParent(transform);
-        previousCharacterPreview.transform.position = Vector3.left + new Vector3(0, 0, -3);
-
-        nextCharacterPreview = Instantiate(previewPrefab);
-        nextCharacterPreview.transform.SetParent(transform);
-        nextCharacterPreview.transform.position = Vector3.right + new Vector3(0, 0, -3);
-
-        currentIcon = Instantiate(currentIconGameObject);
-        currentIcon.transform.SetParent(transform);
-        currentIcon.transform.position = Vector3.down + new Vector3(0, 0, -3);
+        characterDataList.ForEach(x => characterTypeAnimatorGOMappings.Add(x.CharacterType, x.AnimatorGameObject));
 
         descriptionCanvas = Instantiate(descriptionPrefab);
         descriptionCanvas.transform.SetParent(transform);
@@ -93,9 +85,11 @@ public class CharacterSelectController : NetworkBehaviour {
 
         bool ready = playerController.IsReady;
 
-        nextCharacterPreview.SetActive(!ready);
-        previousCharacterPreview.SetActive(!ready);
-        currentIcon.SetActive(false);
+        //set actives for different characters
+        characterTypeAnimatorGOMappings[nextCharacterType].SetActive(!ready);
+        characterTypeAnimatorGOMappings[previousCharacterType].SetActive(!ready);
+        characterTypeAnimatorGOMappings[currentCharacterType].SetActive(true);
+
         descriptionCanvas.SetActive(!ready && timeOnSelection > secondForCharacterTip); 
 
         GravityObjectRigidBody rb = GetComponent<GravityObjectRigidBody>();
@@ -161,20 +155,26 @@ public class CharacterSelectController : NetworkBehaviour {
         indexRight = (index + 1 + CharacterTypes.Count) % CharacterTypes.Count;
         indexLeft  = (index - 1 + CharacterTypes.Count) % CharacterTypes.Count;
 
-        //set the current prefab material
-        GetComponent<PlayerController>().CharacterType = CharacterTypes[index];
-        GetComponent<PlayerController>().ChangeMaterial(GetComponent<PlayerController>().CharacterType);
-        currentIcon.GetComponent<Renderer>().material = CharacterTypeIconMappings[GetComponent<PlayerController>().CharacterType];
+        //set the current character
+        currentCharacterType = CharacterTypes[index];
+        GetComponent<PlayerController>().CharacterType = currentCharacterType;
+        GameObject currentGO = characterTypeAnimatorGOMappings[currentCharacterType];
+        GetComponent<CharacterAnimScript>().currentAnimator = currentGO.GetComponent<Animator>();
+        currentGO.transform.localPosition = new Vector3(0, -1.33f, 0);
+        currentGO.transform.localScale = new Vector3(5, 5, 5);
+
 
         //set the right character preview
-        PlayerCharacterType nextCharacterType = CharacterTypes[indexRight];
-        nextCharacterPreview.GetComponent<Renderer>().material = CharacterTypeMaterialMappings[nextCharacterType];
-        nextCharacterPreview.transform.GetChild(0).GetComponent<Renderer>().material = CharacterTypeIconMappings[nextCharacterType];
+        nextCharacterType = CharacterTypes[indexRight];
+        GameObject nextGO = characterTypeAnimatorGOMappings[nextCharacterType];
+        nextGO.transform.localPosition = new Vector3(1.5f, -1.33f, 0);
+        nextGO.transform.localScale = new Vector3(3.5f, 3.5f, 3.5f);
 
         //set the left character preview
-        PlayerCharacterType previousCharacterType = CharacterTypes[indexLeft];
-        previousCharacterPreview.GetComponent<Renderer>().material = CharacterTypeMaterialMappings[previousCharacterType];
-        previousCharacterPreview.transform.GetChild(0).GetComponent<Renderer>().material = CharacterTypeIconMappings[previousCharacterType];
+        previousCharacterType = CharacterTypes[indexLeft];
+        GameObject previousGO = characterTypeAnimatorGOMappings[previousCharacterType];
+        previousGO.transform.localPosition = new Vector3(-1.5f, -1.33f, 0);
+        previousGO.transform.localScale = new Vector3(3.5f, 3.5f, 3.5f);
 
         //reset selection time and update description
         descriptionCanvas.transform.GetChild(0).transform.GetChild(0).GetComponent<UnityEngine.UI.Text>().text = CharacterTypeDescriptionMappings[GetComponent<PlayerController>().CharacterType];

@@ -52,11 +52,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levels:
-  - asdf
-  - asdfasdf
-  - asdasdfasdfasdfasdf
-  - asgasgasfhas
-  - asdfasdfasdfasdfasdfasdf
+  - levelName: 
+    previewMaterial: {fileID: 0}
+  - levelName: 
+    previewMaterial: {fileID: 0}
+  - levelName: 
+    previewMaterial: {fileID: 0}
+  - levelName: 
+    previewMaterial: {fileID: 0}
+  - levelName: 
+    previewMaterial: {fileID: 0}
   platform: {fileID: 1841537160547452, guid: c8f09f02dca094a2aab8d34e4220d023, type: 2}
   levelZone: {fileID: 1647109427917884, guid: c571407ca27484f0fb1de03b5a495f4b, type: 2}
   areaWidth: 5
+  timer: {fileID: 0}
+  selectTime: 0
+  numLivesPerPlayer: 0
+  countdown: {fileID: 8300000, guid: d7216433c9f000346bc08ebc86e49352, type: 3}
+  countdownFinal: {fileID: 8300000, guid: e81d9bab7613db642bd0caac36e989ad, type: 3}
+  _playerReadyIndicatorPrefab: {fileID: 0}
+  _isWaitingForReady: 1
+  timeRemaining: 0
+  _minPlayers: 2
+  _numRounds: 1
