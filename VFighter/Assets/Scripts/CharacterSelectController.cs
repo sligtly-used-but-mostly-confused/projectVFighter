@@ -26,7 +26,7 @@ public class CharacterSelectController : NetworkBehaviour {
     private PlayerController playerController;
 
     [System.Serializable]
-    public struct CaracterData
+    public struct CharacterData
     {
         public Material IconMaterial;
         public string description;
@@ -37,7 +37,7 @@ public class CharacterSelectController : NetworkBehaviour {
     }
 
     [SerializeField]
-    private List<CaracterData> characterDataList = new List<CaracterData>();
+    private List<CharacterData> characterDataList = new List<CharacterData>();
 
     public Dictionary<PlayerCharacterType, List<Material>> CharacterTypeMaterialMappings = new Dictionary<PlayerCharacterType, List<Material>>();
     public Dictionary<PlayerCharacterType, Material> CharacterTypeIconMappings = new Dictionary<PlayerCharacterType, Material>();
@@ -74,7 +74,12 @@ public class CharacterSelectController : NetworkBehaviour {
         descriptionCanvas.transform.position = Vector3.down * 2 + new Vector3(0, 0, -3);
 
         ChangeToNextCharacterTypeInternal(0);
-        ChangeMaterialType(0);
+
+        //initialize materials
+        foreach(CharacterData cd in characterDataList){
+            cd.AnimatorGameObject.GetComponentInChildren<SkinnedMeshRenderer>().material = cd.materials[cd.currentMaterialIndex];
+        }
+        
         timeOnSelection = 0;
     }
 
