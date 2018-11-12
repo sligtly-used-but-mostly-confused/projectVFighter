@@ -154,8 +154,8 @@ ModelImporter:
     - serializedVersion: 16
       name: FloatTrans
       takeName: Take 001
-      firstFrame: 1
-      lastFrame: 13
+      firstFrame: 0
+      lastFrame: 16
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -292,8 +292,8 @@ ModelImporter:
     - serializedVersion: 16
       name: FloatLoop
       takeName: Take 001
-      firstFrame: 9
-      lastFrame: 19
+      firstFrame: 0
+      lastFrame: 16
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -435,8 +435,8 @@ ModelImporter:
     addColliders: 0
     importVisibility: 1
     importBlendShapes: 1
-    importCameras: 1
-    importLights: 1
+    importCameras: 0
+    importLights: 0
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
