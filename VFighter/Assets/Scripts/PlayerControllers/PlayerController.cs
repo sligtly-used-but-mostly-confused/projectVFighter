@@ -120,7 +120,6 @@ public abstract class PlayerController : NetworkBehaviour {
         de = GetComponentInChildren<DashEffect>();
         gc = GetComponentInChildren<GravityChange>();
         dth = GetComponentInChildren<deatheffect>();
-        GetComponent<Renderer>().material = GetComponent<CharacterSelectController>().CharacterTypeMaterialMappings[CharacterType];
     }
 
     public override void OnStartServer()

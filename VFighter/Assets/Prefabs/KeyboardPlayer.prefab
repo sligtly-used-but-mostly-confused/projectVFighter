@@ -6102,22 +6102,37 @@ MonoBehaviour:
     type: 2}
   secondForCharacterTip: 0.25
   characterDataList:
-  - characterMaterial: {fileID: 2100000, guid: b2a8a02c59a65284d9aae1c3dd996a45, type: 2}
-    IconMaterial: {fileID: 2100000, guid: 6ac76df83ec42493d8e0b67f512c83e1, type: 2}
+  - IconMaterial: {fileID: 2100000, guid: 6ac76df83ec42493d8e0b67f512c83e1, type: 2}
     description: Shoots several projectiles, which push players and objects on collision.
     CharacterType: 0
     AnimatorGameObject: {fileID: 1804500084693902}
-  - characterMaterial: {fileID: 2100000, guid: 1e01bbf040afb634ba0886e4aa75366d, type: 2}
-    IconMaterial: {fileID: 2100000, guid: 21b6171e8989f401ebd087ac2b2c0c07, type: 2}
+    materials:
+    - {fileID: 2100000, guid: a69e083f7ee2e4d6d8eec19aaf9bcc52, type: 2}
+    - {fileID: 2100000, guid: d80dc501157c04476bcdfff643f74e44, type: 2}
+    - {fileID: 2100000, guid: 933dcf88b99434814994644244847a83, type: 2}
+    - {fileID: 2100000, guid: 64c269d71c67246cda474dbd449ce7f8, type: 2}
+    currentMaterialIndex: 0
+  - IconMaterial: {fileID: 2100000, guid: 21b6171e8989f401ebd087ac2b2c0c07, type: 2}
     description: Dash in the direction you aim. Pushes objects and kills players.
     CharacterType: 1
     AnimatorGameObject: {fileID: 1591057075356230}
-  - characterMaterial: {fileID: 2100000, guid: 04d126ba1f0d0478f801292308bbc946, type: 2}
-    IconMaterial: {fileID: 2100000, guid: 6df05f3c63a8948229a7952c2f0d9760, type: 2}
+    materials:
+    - {fileID: 2100000, guid: 09e0afa47c65a4bb69a79534898abec7, type: 2}
+    - {fileID: 2100000, guid: 07e23dcf5b4d443a5aebbf4e5f347a42, type: 2}
+    - {fileID: 2100000, guid: 751d895b57ac74c2095f4cf0ea4f91f6, type: 2}
+    - {fileID: 2100000, guid: a93881131c654482297a2669a294419a, type: 2}
+    currentMaterialIndex: 0
+  - IconMaterial: {fileID: 2100000, guid: 6df05f3c63a8948229a7952c2f0d9760, type: 2}
     description: Shoots a projectile that explodes on collision, which pushes everything
       within the blast.
     CharacterType: 2
     AnimatorGameObject: {fileID: 1666960800771304}
+    materials:
+    - {fileID: 2100000, guid: 217daa812bef64af88acd2dcbe69c23e, type: 2}
+    - {fileID: 2100000, guid: 3234f74efe2a2405eb0b9fb939056d61, type: 2}
+    - {fileID: 2100000, guid: a948278223d6e4af393f298fc7d7d228, type: 2}
+    - {fileID: 2100000, guid: 81d494a18e0d84ffcbfb77a025479b8c, type: 2}
+    currentMaterialIndex: 0
 --- !u!114 &114327189734623664
 MonoBehaviour:
   m_ObjectHideFlags: 1

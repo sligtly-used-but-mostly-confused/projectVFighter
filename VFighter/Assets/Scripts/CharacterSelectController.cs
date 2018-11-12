@@ -28,20 +28,22 @@ public class CharacterSelectController : NetworkBehaviour {
     [System.Serializable]
     public struct CaracterData
     {
-        public Material characterMaterial;
         public Material IconMaterial;
         public string description;
         public PlayerCharacterType CharacterType;
         public GameObject AnimatorGameObject;
+        public List<Material> materials;
+        public int currentMaterialIndex;
     }
 
     [SerializeField]
     private List<CaracterData> characterDataList = new List<CaracterData>();
 
-    public Dictionary<PlayerCharacterType, Material> CharacterTypeMaterialMappings = new Dictionary<PlayerCharacterType, Material>();
+    public Dictionary<PlayerCharacterType, List<Material>> CharacterTypeMaterialMappings = new Dictionary<PlayerCharacterType, List<Material>>();
     public Dictionary<PlayerCharacterType, Material> CharacterTypeIconMappings = new Dictionary<PlayerCharacterType, Material>();
     public Dictionary<PlayerCharacterType, string> CharacterTypeDescriptionMappings = new Dictionary<PlayerCharacterType, string>();
     public Dictionary<PlayerCharacterType, GameObject> characterTypeAnimatorGOMappings = new Dictionary<PlayerCharacterType, GameObject>();
+    public Dictionary<PlayerCharacterType, int> characterTypeCurrentMaterialIndexMappings = new Dictionary<PlayerCharacterType, int>();
 
     private bool _hasFoundReticle = false;
     private float timeOnSelection;
@@ -61,16 +63,18 @@ public class CharacterSelectController : NetworkBehaviour {
     {
         playerController = GetComponent<PlayerController>();
 
-        characterDataList.ForEach(x => CharacterTypeMaterialMappings.Add(x.CharacterType, x.characterMaterial));
+        characterDataList.ForEach(x => CharacterTypeMaterialMappings.Add(x.CharacterType, x.materials));
         characterDataList.ForEach(x => CharacterTypeIconMappings.Add(x.CharacterType, x.IconMaterial));
         characterDataList.ForEach(x => CharacterTypeDescriptionMappings.Add(x.CharacterType, x.description));
         characterDataList.ForEach(x => characterTypeAnimatorGOMappings.Add(x.CharacterType, x.AnimatorGameObject));
+        characterDataList.ForEach(x => characterTypeCurrentMaterialIndexMappings.Add(x.CharacterType, x.currentMaterialIndex));
 
         descriptionCanvas = Instantiate(descriptionPrefab);
         descriptionCanvas.transform.SetParent(transform);
         descriptionCanvas.transform.position = Vector3.down * 2 + new Vector3(0, 0, -3);
 
         ChangeToNextCharacterTypeInternal(0);
+        ChangeMaterialType(0);
         timeOnSelection = 0;
     }
 
@@ -122,7 +126,13 @@ public class CharacterSelectController : NetworkBehaviour {
             ChangeToNextCharacterType(ChangeCharacterDir > 0 ? 1 : -1);
         }
 
-        if(GetComponent<GravityObjectRigidBody>().GravityDirection.y < 0)
+        if (GetComponent<PlayerController>().InputDevice.GetIsAxisTapped(MappedAxis.ChangeMaterial))
+        {
+            float ChangeMaterialDir = GetComponent<PlayerController>().InputDevice.GetAxis(MappedAxis.ChangeMaterial);
+            ChangeMaterialType(ChangeMaterialDir > 0 ? 1 : -1);
+        }
+
+        if (GetComponent<GravityObjectRigidBody>().GravityDirection.y < 0)
         {
             descriptionCanvas.transform.localPosition = Vector3.up * 4 + new Vector3(0, 0, -3);
         }
@@ -168,17 +178,24 @@ public class CharacterSelectController : NetworkBehaviour {
         nextCharacterType = CharacterTypes[indexRight];
         GameObject nextGO = characterTypeAnimatorGOMappings[nextCharacterType];
         nextGO.transform.localPosition = new Vector3(1.5f, -1.33f, 0);
-        nextGO.transform.localScale = new Vector3(3.5f, 3.5f, 3.5f);
+        nextGO.transform.localScale = new Vector3(5f, 5f, 5f);
 
         //set the left character preview
         previousCharacterType = CharacterTypes[indexLeft];
         GameObject previousGO = characterTypeAnimatorGOMappings[previousCharacterType];
         previousGO.transform.localPosition = new Vector3(-1.5f, -1.33f, 0);
-        previousGO.transform.localScale = new Vector3(3.5f, 3.5f, 3.5f);
+        previousGO.transform.localScale = new Vector3(5f, 5f, 5f);
 
         //reset selection time and update description
         descriptionCanvas.transform.GetChild(0).transform.GetChild(0).GetComponent<UnityEngine.UI.Text>().text = CharacterTypeDescriptionMappings[GetComponent<PlayerController>().CharacterType];
         timeOnSelection = 0;
         descriptionCanvas.SetActive(false);
     }
+
+    private void ChangeMaterialType(int dir){
+        List<Material> currentMaterialOptions = CharacterTypeMaterialMappings[currentCharacterType];
+        characterTypeCurrentMaterialIndexMappings[currentCharacterType] = (characterTypeCurrentMaterialIndexMappings[currentCharacterType] + dir + currentMaterialOptions.Count) % currentMaterialOptions.Count;
+        characterTypeAnimatorGOMappings[currentCharacterType].GetComponentInChildren<SkinnedMeshRenderer>().material = currentMaterialOptions[characterTypeCurrentMaterialIndexMappings[currentCharacterType]];
+    }
+
 }

@@ -13,5 +13,6 @@ public enum MappedAxis
     ChangeGrav,
     ChangeCharacter,
     None,
-    ChangeGravAxis
+    ChangeGravAxis,
+    ChangeMaterial
 }
