@@ -5342,12 +5342,12 @@ Prefab:
     - target: {fileID: 198819948395059936, guid: e374f4c8486ac4c4a925cbf6ea2036f3,
         type: 2}
       propertyPath: InitialModule.startSize.scalar
-      value: 0.5
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 198176792423961332, guid: e374f4c8486ac4c4a925cbf6ea2036f3,
         type: 2}
       propertyPath: InitialModule.startSize.scalar
-      value: 0.5
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 198819948395059936, guid: e374f4c8486ac4c4a925cbf6ea2036f3,
         type: 2}
