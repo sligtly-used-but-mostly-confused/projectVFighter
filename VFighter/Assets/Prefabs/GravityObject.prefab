@@ -109,7 +109,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1167609975392520}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.05, y: 2.33, z: 0}
+  m_LocalPosition: {x: -10, y: -3, z: 0}
   m_LocalScale: {x: 0.75, y: 0.75, z: 0.75}
   m_Children:
   - {fileID: 4039944019626762}
@@ -451,13 +451,14 @@ MonoBehaviour:
   _maxDefaultComponentSpeed: {x: 10, y: 10}
   _maxComponentSpeeds: []
   _stopObjectOnCollide: 1
-  _drag: 0.5
+  _drag: 0.1
   Bounciness: 0
   CanBeSelected: 1
   KillsPlayer: 1
   IsSimulatedOnThisConnection: 0
   CanMove: 1
   Owner: {fileID: 0}
+  DebugVelocities: []
   collAudio: {fileID: 82632569098369496}
   _speedMultiplier: 1
   _speedMultiplierStep: 0.1

@@ -55,6 +55,9 @@ public class GravityObjectRigidBody : NetworkBehaviour {
     protected Dictionary<VelocityType, Vector2> _maxComponentVelocities = new Dictionary<VelocityType, Vector2>();
     protected Dictionary<VelocityType, Vector2> _velocities = new Dictionary<VelocityType, Vector2>();
 
+    [SerializeField]
+    protected List<VelocityTypePair> DebugVelocities;
+
     public float GravityScale
     {
         get { return _gravityScale; }
@@ -107,11 +110,20 @@ public class GravityObjectRigidBody : NetworkBehaviour {
             DoGravity();
             DoDrag();
             _rB.velocity = Vector2.zero;
-
+            DebugVelocities.Clear();
             foreach (var velocity in _velocities)
             {
+                DebugVelocities.Add(new VelocityTypePair()
+                {
+                    type = velocity.Key,
+                    Velocity = velocity.Value,
+                });
+
                 _rB.velocity += velocity.Value * GameManager.Instance.TimeScale;
             }
+
+            
+
         }
 
         if(!CanMove && GetComponent<GravityObjectRigidBody>().IsSimulatedOnThisConnection && _rB)
@@ -195,6 +207,14 @@ public class GravityObjectRigidBody : NetworkBehaviour {
         }
     }
 
+    public void ChangeGravityDirectionLosslessInternal(Vector2 dir)
+    {
+        if (dir != GravityDirection)
+        {
+            GravityDirection = dir;
+        }
+    }
+
     public void ChangeGravityScale(float newGravityScale)
     {
         GravityScale = newGravityScale;
@@ -248,8 +268,8 @@ public class GravityObjectRigidBody : NetworkBehaviour {
         */
         if (_stopObjectOnCollide && IsSimulatedOnThisConnection && !collision.gameObject.GetComponent<PlayerController>())
         {
-            FindObjectOfType<PlayerController>().ChangeGORBGravityDirection(this, Vector2.zero);
-            AudioManager.instance.RandomizeSfx(AudioManager.instance.Coll, AudioManager.instance.CollCave, collAudio);
+            //FindObjectOfType<PlayerController>().ChangeGORBGravityDirection(this, Vector2.zero);
+            //AudioManager.instance.RandomizeSfx(AudioManager.instance.Coll, AudioManager.instance.CollCave, collAudio);
         }
         else if (_stopObjectOnCollide && IsSimulatedOnThisConnection)
             //Replace with player-object collision sound fx?
