@@ -6,6 +6,7 @@ public class CharacterAnimScript : MonoBehaviour {
     public Animator currentAnimator;
     Rigidbody2D rb;
     bool facingRight;
+    bool interrupt;
 
     [SerializeField]
     protected GameObject characterContainer;
@@ -13,12 +14,27 @@ public class CharacterAnimScript : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         rb = GetComponent<Rigidbody2D>();
-        facingRight = true;
+        interrupt = false;
 	}
 	
 	// Update is called once per frame
 	void Update () {
         int angleY = 180;
+        if(rb.velocity.y > 5 || rb.velocity.y < -5 && (GetComponent<GravityObjectRigidBody>().GravityDirection.y > .97 || GetComponent<GravityObjectRigidBody>().GravityDirection.y < -.97) ){
+            currentAnimator.SetBool("IsFloating", true);
+            /*
+            if(interrupt && (currentAnimator.GetBool("IsFloating") == true)){
+
+                currentAnimator.SetTrigger("LandInterrupt");
+                interrupt = false;
+            }
+            currentAnimator.SetBool("IsFloating", false);
+            */
+        }
+        else{
+            currentAnimator.SetBool("IsFloating", false);
+            interrupt = true;
+        }
         if(rb.velocity.x < 0){
             facingRight = false;
         }

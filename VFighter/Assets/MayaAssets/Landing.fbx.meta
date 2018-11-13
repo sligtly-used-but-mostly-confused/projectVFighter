@@ -148,8 +148,8 @@ ModelImporter:
     - serializedVersion: 16
       name: LandingAnim
       takeName: Take 001
-      firstFrame: 4
-      lastFrame: 11
+      firstFrame: 3
+      lastFrame: 13
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
