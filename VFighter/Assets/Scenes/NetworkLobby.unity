@@ -1418,11 +1418,6 @@ MonoBehaviour:
   matchSize: 4
   isNetworkActive: 0
   matchMaker: {fileID: 0}
-  _playerMaterials:
-  - {fileID: 2100000, guid: f1a6e1fc3730df442be9feffac8c07c2, type: 2}
-  - {fileID: 2100000, guid: c15c4b8059261441fa6ac72c71454e30, type: 2}
-  - {fileID: 2100000, guid: d1a34e5e47473784cbc28a97a06f2299, type: 2}
-  - {fileID: 2100000, guid: b4c6db0e25b384a6d9cd876ddb0f0da9, type: 2}
 --- !u!114 &726304299
 MonoBehaviour:
   m_ObjectHideFlags: 0
