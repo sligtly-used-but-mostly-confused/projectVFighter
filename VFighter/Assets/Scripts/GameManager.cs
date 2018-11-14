@@ -26,10 +26,6 @@ public class GameManager : NetworkBehaviour {
     public int RoundNumber = 0;
     [SyncVar]
     public int NumRounds = 0;
-
-    public delegate void PlayerJoinCallback(PlayerController player);
-    public PlayerJoinCallback OnPlayerJoin;
-
     void Awake () {
         if(_instance)
         {
