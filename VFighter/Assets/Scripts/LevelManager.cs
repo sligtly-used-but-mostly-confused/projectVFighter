@@ -24,7 +24,8 @@ public class LevelManager : NetworkBehaviour
     private float _gravityScaleGradientRate = .1f;
     [SerializeField]
     private bool _hasGameStarted = false;
-
+    [SerializeField]
+    public bool ShowTutorialPrompt = false; 
     [SerializeField]
     public Transform JailTransform;
 
