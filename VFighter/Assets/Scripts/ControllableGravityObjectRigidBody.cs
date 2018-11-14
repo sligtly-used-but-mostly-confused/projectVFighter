@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Networking;
 
 public class ControllableGravityObjectRigidBody : GravityObjectRigidBody {
     [SerializeField]
@@ -11,7 +10,7 @@ public class ControllableGravityObjectRigidBody : GravityObjectRigidBody {
     [SerializeField]
     private float _maxSpeedMultiplier;
 
-    public NetworkInstanceId LastShotBy;
+    public PlayerController LastShotBy;
 
     //Audio
     public AudioSource sfxAudio;
@@ -20,7 +19,7 @@ public class ControllableGravityObjectRigidBody : GravityObjectRigidBody {
 
     public void Start()
     {
-        LastShotBy = NetworkInstanceId.Invalid;
+        LastShotBy = null;
     }
 
     public void StepMultiplier()

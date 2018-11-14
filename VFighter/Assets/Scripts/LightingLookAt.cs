@@ -13,8 +13,11 @@ public class LightingLookAt : MonoBehaviour {
     [SerializeField]
     protected ParticleSystem[] ps;
     private GameObject LObject;
+    [SerializeField]
+   public AudioSource ad;
+    private float globalDistance = 0;
     // Use this for initialization
-  
+
 
 
     void Start () {
@@ -24,12 +27,24 @@ public class LightingLookAt : MonoBehaviour {
         ps = LObject.GetComponentsInChildren<ParticleSystem>();
         kp = GetComponent<KeyboardPlayerController>();
         LObject.transform.position = this.transform.position;
+        ad.Play();
+        ad.Pause();
+
+
     }
 
 
     // Update is called once per frame
     void Update () {
-      
+        if(globalDistance > 0.5f){
+            ad.pitch = Random.Range(0.9f, 1.1f);
+            ad.UnPause();
+        }
+        else
+        {
+            ad.Pause();
+        }
+
         var main1 = ps[0].main;
         var main2 = ps[1].main;
         var main3 = ps[2].main;
@@ -38,8 +53,11 @@ public class LightingLookAt : MonoBehaviour {
         // Rotate the camera every frame so it keeps looking at the target
         if (kp.AttachedObject)
         {
+          
             positions = kp.AttachedObject.transform.position;
+
             float dist = Vector3.Distance(LObject.transform.position, positions);
+            globalDistance = dist;
             main1.startLifetime = hSliderValue * dist;
             main2.startLifetime = hSliderValue * dist;
             main3.startLifetime = hSliderValue * dist;
@@ -84,13 +102,16 @@ public class LightingLookAt : MonoBehaviour {
             ps[0].Play();
             ps[1].Play();
             ps[2].Play();
+      
         }
         else
         {
+            globalDistance = 0.0f;
             positions =  Vector3.zero;
             ps[0].Stop();
             ps[1].Stop();
             ps[2].Stop();
+      
         }
        
     }

@@ -1,9 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Networking;
 
-public class RocketBlastController : NetworkBehaviour {
+public class RocketBlastController : MonoBehaviour {
 
     public float SecondsOfExplosion = .5f;
     public float SecondsForEffect = 10f;
@@ -28,7 +27,7 @@ public class RocketBlastController : NetworkBehaviour {
     private void OnTriggerStay2D(Collider2D collision)
     {
         var GORB = collision.GetComponent<GravityObjectRigidBody>();
-        if (GORB && isServer && IsStillExploding)
+        if (GORB && IsStillExploding)
         {
             var dir = GORB.transform.position - transform.position;
             GORB.UpdateVelocity(VelocityType.OtherPhysics, dir * ExplosionVelocity);

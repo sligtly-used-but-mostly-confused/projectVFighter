@@ -11,7 +11,7 @@ public class NormalGravityGunProjectile : GravityGunProjectileController {
     public void OnTriggerStay2D(Collider2D collision)
     {
         var gravityObjectRB = collision.GetComponent<GravityObjectRigidBody>();
-        if (gravityObjectRB && isServer)
+        if (gravityObjectRB)
         {
             if(gravityObjectRB.GetComponent<ControllableGravityObjectRigidBody>())
             {

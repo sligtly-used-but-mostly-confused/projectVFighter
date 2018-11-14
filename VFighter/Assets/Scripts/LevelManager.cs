@@ -1,11 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 using System.Linq;
 
-public class LevelManager : NetworkBehaviour
+public class LevelManager : MonoBehaviour
 {
     private static LevelManager _instance;
     public static LevelManager Instance { get { return _instance; } }
@@ -38,49 +37,30 @@ public class LevelManager : NetworkBehaviour
         _instance = this;
     }
 
-    public override void OnStartServer()
+    public void Start()
     {
-        //StartCoroutine(Init());
-        GameManager.Instance.CheckHeartBeatThenCallback(() => 
+        SpawnPlayers();
+        var objectSpawns = new List<SpawnPosition>(FindObjectsOfType<ObjectSpawnPosition>());
+
+        foreach (var objectSpawn in objectSpawns)
         {
-            //_spawnPositions = new List<SpawnPosition>(FindObjectsOfType<PlayerSpawnPosition>());
-
-            SpawnPlayers();
-            var objectSpawns = new List<SpawnPosition>(FindObjectsOfType<ObjectSpawnPosition>());
-
-            foreach (var objectSpawn in objectSpawns)
-            {
-                objectSpawn.Spawn();
-            }
-
-            Players = FindObjectsOfType<PlayerController>().ToList();
-            GameManager.Instance.DoneChangingScenes();
-
-            if (CountDownTimer.Instance)
-                StartCoroutine(CountDownTimer.Instance.CountDown());
-        });
-    }
-
-    public override void OnStartClient()
-    {
-        if (CountDownTimer.Instance)
-        {
-            StartCoroutine(CountDownTimer.Instance.CountDown());
+            objectSpawn.Spawn();
         }
+
+        Players = FindObjectsOfType<PlayerController>().ToList();
+        GameManager.Instance.DoneChangingScenes();
+
+        if (CountDownTimer.Instance)
+            StartCoroutine(CountDownTimer.Instance.CountDown());
     }
 
     public virtual void Update()
     {
-        if(isServer && !GameManager.Instance.CurrentlyChangingScenes)
+        if(!GameManager.Instance.CurrentlyChangingScenes)
         {
             var alive = Players.Where(x => !x.IsDead);
             if (_startNextLevelWinCondition && alive.Count() <= 1)
             {
-                if (alive.Count() > 0)
-                {
-                    alive.First().SetDirtyBit(0xFFFFFFFF);
-                }
-
                 GameManager.Instance.LoadNextStage();
             }
         }
@@ -88,10 +68,10 @@ public class LevelManager : NetworkBehaviour
 
     private void FixedUpdate()
     {
-        if(_hasGameStarted && isServer)
+        if(_hasGameStarted)
         {
             GameManager.Instance.TimeScale += _gravityScaleGradientRate * Time.fixedDeltaTime;
-            GameManager.Instance.TimeScale = Mathf.Clamp(GameManager.Instance.TimeScale, _gravityScaleGradientStart, _gravityScaleGradientEnd);
+            GameManager.Instance.TimeScale = Mathf.Clamp(GameManager.Instance.TimeScale, 0, _gravityScaleGradientEnd);
         }
     }
 

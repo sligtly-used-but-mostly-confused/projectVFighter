@@ -2,9 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Networking;
 
-public class ProjectilePool : NetworkBehaviour {
+public class ProjectilePool : MonoBehaviour
+{
 
     public static ProjectilePool Instance;
 
@@ -26,10 +26,7 @@ public class ProjectilePool : NetworkBehaviour {
         
         Instance = this;
         DontDestroyOnLoad(gameObject);
-    }
 
-    public override void OnStartServer()
-    {
         ProjectileTypeToPrefabMapping.Add(typeof(NormalGravityGunProjectile), NormalProjectilePrefab);
         ProjectileTypeToPrefabMapping.Add(typeof(RocketProjectileController), RocketProjectilePrefab);
         ProjectileTypeToPrefabMapping.Add(typeof(ShotgunProjectileController), ShotGunProjectilePrefab);
@@ -77,7 +74,6 @@ public class ProjectilePool : NetworkBehaviour {
     {
         var obj = Instantiate(prefab);
         _projectilePools[type].Add(obj.GetComponent<GravityGunProjectileController>());
-        NetworkServer.Spawn(obj);
         //we cant just set it to be unactive because then it wouldent sync
         obj.transform.position = new Vector3(1000000, 1000000, 0);
 

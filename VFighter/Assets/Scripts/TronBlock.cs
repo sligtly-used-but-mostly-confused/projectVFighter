@@ -6,7 +6,8 @@ using System.Linq;
 
 [RequireComponent(typeof(GravityObjectRigidBody))]
 [RequireComponent(typeof(BoxCollider2D))]
-public class TronBlock : NetworkBehaviour {
+public class TronBlock : MonoBehaviour
+{
     private GravityObjectRigidBody _gORB;
 
     [SerializeField]
@@ -23,8 +24,7 @@ public class TronBlock : NetworkBehaviour {
 
     private void OnDestroy()
     {
-        if (isServer)
-            _tails.ForEach(x => Destroy(x));
+        _tails.ForEach(x => Destroy(x));
     }
 
     private void SpawnNewTail()
@@ -41,21 +41,18 @@ public class TronBlock : NetworkBehaviour {
 
     private void Update()
     {
-        if(isServer)
+        if (_lastTailPlaced == null)
         {
-            if (_lastTailPlaced == null)
+            SpawnNewTail();
+        }
+        else
+        {
+            var min = _lastTailPlaced.GetComponent<BoxCollider2D>().bounds.min;
+            var max = _lastTailPlaced.GetComponent<BoxCollider2D>().bounds.max;
+            float _tailSize = (max - min).sqrMagnitude;
+            if ((_lastTailPlaced.transform.position - transform.position).magnitude > _tailSize / 8)
             {
                 SpawnNewTail();
-            }
-            else
-            {
-                var min = _lastTailPlaced.GetComponent<BoxCollider2D>().bounds.min;
-                var max = _lastTailPlaced.GetComponent<BoxCollider2D>().bounds.max;
-                float _tailSize = (max - min).sqrMagnitude;
-                if ((_lastTailPlaced.transform.position - transform.position).magnitude > _tailSize / 8)
-                {
-                    SpawnNewTail();
-                }
             }
         }
     }

@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
-public class TronTail : NetworkBehaviour {
+public class TronTail : MonoBehaviour
+{
 
     public float SecondsForTailToSurvive;
 
     // Use this for initialization
-    public override void OnStartServer()
+    public void Start()
     {
-        base.OnStartServer();
         StartCoroutine(DestroyAfterWait());
     }
 

@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
-public class GravityObjectPusher : NetworkBehaviour {
+public class GravityObjectPusher : MonoBehaviour
+{
 
     public Collider2D MagnetCollider;
 
@@ -12,7 +13,7 @@ public class GravityObjectPusher : NetworkBehaviour {
     public void OnTriggerStay2D(Collider2D collision)
     {
         var gravityObjectRB = collision.GetComponent<GravityObjectRigidBody>();
-        if (gravityObjectRB && isServer)
+        if (gravityObjectRB)
         {
             var dis = MagnetCollider.Distance(collision);
             var dir = dis.normal * Mathf.Abs(dis.distance);
@@ -31,7 +32,7 @@ public class GravityObjectPusher : NetworkBehaviour {
     public void OnTriggerExit2D(Collider2D collision)
     {
         var gravityObjectRB = collision.GetComponent<GravityObjectRigidBody>();
-        if (gravityObjectRB && isServer)
+        if (gravityObjectRB)
         {
             if (gravityObjectRB.GetComponent<ControllableGravityObjectRigidBody>())
             {

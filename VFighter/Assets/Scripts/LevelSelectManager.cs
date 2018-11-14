@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using UnityEngine.Networking;
 using System.Linq;
 
-public class LevelSelectManager : NetworkBehaviour
+public class LevelSelectManager : MonoBehaviour
 {
     public static LevelSelectManager Instance;
 
@@ -33,9 +32,9 @@ public class LevelSelectManager : NetworkBehaviour
     [SerializeField]
     private GameObject _playerReadyIndicatorPrefab;
     
-    [SerializeField, SyncVar]
+    [SerializeField]
     private bool _isWaitingForReady = true;
-    [SerializeField, SyncVar]
+    [SerializeField]
     private int timeRemaining;
     [SerializeField]
     private int _minPlayers = 2;
@@ -76,13 +75,13 @@ public class LevelSelectManager : NetworkBehaviour
             timer.text = timeRemaining.ToString();
 
         //if all players are ready start the timer
-        if (isServer && CheckForAllPlayersReady() && !Instance.IsTimerStarted)
+        if (CheckForAllPlayersReady() && !Instance.IsTimerStarted)
         {
             Instance.StartTimer();
         }
 
         //if all players are not ready stop timer
-        if (isServer && !CheckForAllPlayersReady() && Instance.IsTimerStarted)
+        if (!CheckForAllPlayersReady() && Instance.IsTimerStarted)
         {
             Instance.StopTimer();
         }
@@ -118,14 +117,8 @@ public class LevelSelectManager : NetworkBehaviour
     
     private bool CheckForAllPlayersReady()
     {
-        bool allplayersReady = FindObjectsOfType<PlayerController>().Count() >= _minPlayers;
-
-        if (isServer)
-        {
-            return allplayersReady && FindObjectsOfType<PlayerController>().All(x => x.IsReady);
-        }
-
-        return false;
+        bool enoughPlayersToStart = FindObjectsOfType<PlayerController>().Count() >= _minPlayers;
+        return enoughPlayersToStart && FindObjectsOfType<PlayerController>().All(x => x.IsReady);
     }
 
     private IEnumerator CountDown()

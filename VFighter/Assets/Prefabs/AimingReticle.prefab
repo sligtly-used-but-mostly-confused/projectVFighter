@@ -23,8 +23,6 @@ GameObject:
   - component: {fileID: 23508514767581656}
   - component: {fileID: 135531742499296810}
   - component: {fileID: 114215640177908872}
-  - component: {fileID: 114498440542071702}
-  - component: {fileID: 114890747680057606}
   m_Layer: 0
   m_Name: AimingReticle
   m_TagString: Untagged
@@ -99,59 +97,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Id: 0
---- !u!114 &114498440542071702
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1904020002216382}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SceneId:
-    m_Value: 0
-  m_AssetId:
-    i0: 254
-    i1: 232
-    i2: 195
-    i3: 98
-    i4: 234
-    i5: 129
-    i6: 182
-    i7: 132
-    i8: 137
-    i9: 13
-    i10: 103
-    i11: 103
-    i12: 234
-    i13: 246
-    i14: 99
-    i15: 137
-  m_ServerOnly: 0
-  m_LocalPlayerAuthority: 1
---- !u!114 &114890747680057606
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1904020002216382}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -1768714887, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_TransformSyncMode: 1
-  m_SendInterval: 0.083333336
-  m_SyncRotationAxis: 7
-  m_RotationSyncCompression: 0
-  m_SyncSpin: 0
-  m_MovementTheshold: 0.001
-  m_VelocityThreshold: 0.0001
-  m_SnapThreshold: 0.5
-  m_InterpolateRotation: 1
-  m_InterpolateMovement: 1
+  PlayerAttachedTo: {fileID: 0}
 --- !u!135 &135531742499296810
 SphereCollider:
   m_ObjectHideFlags: 1
