@@ -79,6 +79,8 @@ public class CharacterSelectController : NetworkBehaviour {
         foreach(CharacterData cd in characterDataList){
             cd.AnimatorGameObject.GetComponentInChildren<SkinnedMeshRenderer>().material = cd.materials[cd.currentMaterialIndex];
         }
+
+        ChangeMaterialType(0);
         
         timeOnSelection = 0;
     }
@@ -198,9 +200,27 @@ public class CharacterSelectController : NetworkBehaviour {
     }
 
     private void ChangeMaterialType(int dir){
+
+        //get a list of all currently active characterselectcontroller
+        CharacterSelectController[] characterSelectControllerArray = FindObjectsOfType<CharacterSelectController>();
+        List<CharacterSelectController> characterSelectControllers = new List<CharacterSelectController>(characterSelectControllerArray);
+
+        //find remaining available materials, based color regardless of what character type;
+        List<int> takenMaterialIndexes= new List<int>();
+        foreach(CharacterSelectController c in characterSelectControllers){
+            takenMaterialIndexes.Add(c.characterTypeCurrentMaterialIndexMappings[c.currentCharacterType]);
+        }
+
+
         List<Material> currentMaterialOptions = CharacterTypeMaterialMappings[currentCharacterType];
+
+        //update the current character material index, taking into account whats available
         characterTypeCurrentMaterialIndexMappings[currentCharacterType] = (characterTypeCurrentMaterialIndexMappings[currentCharacterType] + dir + currentMaterialOptions.Count) % currentMaterialOptions.Count;
+        while(takenMaterialIndexes.Contains(characterTypeCurrentMaterialIndexMappings[currentCharacterType])){
+            characterTypeCurrentMaterialIndexMappings[currentCharacterType] = (characterTypeCurrentMaterialIndexMappings[currentCharacterType] + 1 + currentMaterialOptions.Count) % currentMaterialOptions.Count;
+        }
+
+        //set the material to the decided up index
         characterTypeAnimatorGOMappings[currentCharacterType].GetComponentInChildren<SkinnedMeshRenderer>().material = currentMaterialOptions[characterTypeCurrentMaterialIndexMappings[currentCharacterType]];
     }
-
 }
