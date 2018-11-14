@@ -41,7 +41,6 @@ GameObject:
   - component: {fileID: 198476239047764988}
   - component: {fileID: 199757999396397274}
   - component: {fileID: 114813203632851190}
-  - component: {fileID: 114028661445992202}
   - component: {fileID: 114194171573538130}
   - component: {fileID: 23493697281988968}
   - component: {fileID: 33270024340947046}
@@ -244,38 +243,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.5, y: 0.5}
   m_EdgeRadius: 0
---- !u!114 &114028661445992202
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1559421529888734}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SceneId:
-    m_Value: 0
-  m_AssetId:
-    i0: 182
-    i1: 241
-    i2: 191
-    i3: 103
-    i4: 180
-    i5: 253
-    i6: 39
-    i7: 180
-    i8: 249
-    i9: 204
-    i10: 96
-    i11: 90
-    i12: 181
-    i13: 140
-    i14: 27
-    i15: 48
-  m_ServerOnly: 0
-  m_LocalPlayerAuthority: 0
 --- !u!114 &114036408542322480
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -637,7 +604,6 @@ MonoBehaviour:
   Bounciness: 0
   CanBeSelected: 0
   KillsPlayer: 0
-  IsSimulatedOnThisConnection: 0
   CanMove: 0
   Owner: {fileID: 0}
   DebugVelocities: []

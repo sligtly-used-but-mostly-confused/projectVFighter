@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Networking;
 using System.Linq;
 using System;
 
@@ -14,7 +13,8 @@ public enum PlayerCharacterType
 
 
 [RequireComponent(typeof(GravityObjectRigidBody))]
-public abstract class PlayerController : NetworkBehaviour {
+public abstract class PlayerController : MonoBehaviour
+{
     private static short _aimingReticleIdCnt = 0;
 
     public GravityObjectRigidBody AttachedObject;
@@ -63,7 +63,7 @@ public abstract class PlayerController : NetworkBehaviour {
     [SerializeField]
     protected GameObject characterContainer;
 
-    protected deatheffect dth; 
+    protected deatheffect dth;
     protected readonly Vector2[] _gravChangeDirections = { Vector2.up, Vector2.down };
 
     public InputDevice InputDevice;
@@ -83,26 +83,15 @@ public abstract class PlayerController : NetworkBehaviour {
 
     public Action OnHitObjectWithNormalProjectile;
 
-    private static int _heartBeatId = 0;
-    //THIS SHOULD ONLY BE USED FROM HEART BEAT FUNCTION
-    public Dictionary<int, bool> HeartBeats = new Dictionary<int, bool>();
-
     private List<GameObject> GravityGunProjectiles = new List<GameObject>();
     private Coroutine GravGunCoolDownCoroutine;
     private PlayerCooldownController _cooldownController;
-    //private bool 
 
-    [SyncVar]
     public short ReticleId = -1;
-    [SyncVar]
     public short MaterialId = -1;
-    [SyncVar]
     public bool IsReady = false;
-    [SyncVar]
     public Player ControlledPlayer;
-    [SyncVar]
     public bool IsDead;
-    [SyncVar]
     public bool IsInvincible;
     public PlayerCharacterType CharacterType;
 
@@ -110,7 +99,7 @@ public abstract class PlayerController : NetworkBehaviour {
     {
         IsDead = false;
         _cooldownController = GetComponent<PlayerCooldownController>();
-        
+
     }
 
     private void Start()
@@ -123,21 +112,27 @@ public abstract class PlayerController : NetworkBehaviour {
         gc = GetComponentInChildren<GravityChange>();
         dth = GetComponentInChildren<deatheffect>();
         GameManager.Instance.OnPlayerJoin(this);
-    }
 
-    public override void OnStartServer()
-    {
-        base.OnStartServer();
         GameObject aimingReticle = Instantiate(AimingReticlePrefab);
         _aimingReticleIdCnt++;
         aimingReticle.GetComponent<AimingReticle>().Id = _aimingReticleIdCnt;
-        aimingReticle.GetComponent<AimingReticle>().PlayerAttachedTo = netId;
+        aimingReticle.GetComponent<AimingReticle>().PlayerAttachedTo = this;
         ReticleId = _aimingReticleIdCnt;
 
-        NetworkServer.SpawnWithClientAuthority(aimingReticle, connectionToClient);
+        //NetworkServer.SpawnWithClientAuthority(aimingReticle, connectionToClient);
         ReticleParent = gameObject;
 
         ControlledPlayer.NumLives = LevelSelectManager.Instance.numLivesPerPlayer;
+
+        StartCoroutine(AttachInputDeviceToPlayer());
+        LevelManager.Instance.SpawnPlayerDestructive(this);
+        GetComponent<GravityObjectRigidBody>().CanMove = false;
+    }
+    /*
+    public override void OnStartServer()
+    {
+        base.OnStartServer();
+
     }
 
     public override void OnStartLocalPlayer()
@@ -146,23 +141,19 @@ public abstract class PlayerController : NetworkBehaviour {
         LevelManager.Instance.SpawnPlayerDestructive(this);
         GetComponent<GravityObjectRigidBody>().CanMove = false;
     }
+    */
 
     IEnumerator AttachInputDeviceToPlayer()
     {
-        GetComponent<GravityObjectRigidBody>().IsSimulatedOnThisConnection = isLocalPlayer;
-
-        if (isLocalPlayer)
+        if (ControllerSelectManager.Instance.DevicesWaitingForPlayer.Count > 0)
         {
-            if (ControllerSelectManager.Instance.DevicesWaitingForPlayer.Count > 0)
-            {
-                InputDevice = ControllerSelectManager.Instance.DevicesWaitingForPlayer[0];
-                ControllerSelectManager.Instance.DevicesWaitingForPlayer.RemoveAt(0);
-            }
-            else
-            {
-                yield return new WaitForEndOfFrame();
-                yield return AttachInputDeviceToPlayer();
-            }
+            InputDevice = ControllerSelectManager.Instance.DevicesWaitingForPlayer[0];
+            ControllerSelectManager.Instance.DevicesWaitingForPlayer.RemoveAt(0);
+        }
+        else
+        {
+            yield return new WaitForEndOfFrame();
+            yield return AttachInputDeviceToPlayer();
         }
     }
 
@@ -192,25 +183,18 @@ public abstract class PlayerController : NetworkBehaviour {
     {
         var fixedDir = Vector2.Perpendicular(GetComponent<GravityObjectRigidBody>().GravityDirection);
         fixedDir = new Vector2(Mathf.Abs(fixedDir.x), Mathf.Abs(fixedDir.y));
-       
+
         GetComponent<GravityObjectRigidBody>().UpdateVelocity(VelocityType.Movement, Vector3.Project(dir, fixedDir) * MoveSpeed);
 
     }
 
     public void FlipGravity()
     {
-        if (isLocalPlayer)
+        if (!_cooldownController.IsCoolingDown(CooldownType.ChangeGravity))
         {
-            if (!_cooldownController.IsCoolingDown(CooldownType.ChangeGravity))
-            {
-                
-                ChangeGravity(GetComponent<GravityObjectRigidBody>().GravityDirection * -1);
-                gc.PlayEffect(GetComponent<GravityObjectRigidBody>());
-            }
-        }
-        else
-        {
-            CmdBroadcastFlipGravity();
+
+            ChangeGravity(GetComponent<GravityObjectRigidBody>().GravityDirection * -1);
+            gc.PlayEffect(GetComponent<GravityObjectRigidBody>());
         }
     }
 
@@ -227,21 +211,6 @@ public abstract class PlayerController : NetworkBehaviour {
             rotY = 0;
         }
         //characterContainer.transform.rotation = Quaternion.Euler(rotY, characterContainer.transform.rotation.y, 0);
-    }
-
-    [Command]
-    public void CmdBroadcastFlipGravity()
-    {
-        RpcBroadcastFilpGravity();
-    }
-
-    [ClientRpc]
-    public void RpcBroadcastFilpGravity()
-    {
-        if (isLocalPlayer)
-        {
-            FlipGravity();
-        }
     }
 
     public void ChangeGravity(Vector2 dir)
@@ -272,9 +241,9 @@ public abstract class PlayerController : NetworkBehaviour {
             ChangeGORBGravityDirection(GORB, ClosestDirection(dir, compass.ToArray(), GORB.GravityDirection));
 
             GetComponent<GravityObjectRigidBody>().Dash(dashVec, DashDurationTime, () => { de.dashOn = false; });
-            PlaySingle(dash,1);
+            PlaySingle(dash, 1);
 
-            _cooldownController.StartCooldown(CooldownType.Dash, () => {});
+            _cooldownController.StartCooldown(CooldownType.Dash, () => { });
         }
 
     }
@@ -301,35 +270,33 @@ public abstract class PlayerController : NetworkBehaviour {
 
     public void AimReticle(Vector2 dir)
     {
-        if (isLocalPlayer)
+        if (!ReticleParent)
         {
-            if(!ReticleParent)
+            ReticleParent = gameObject;
+        }
+
+        if (Reticle)
+        {
+            var normalizedDir = dir.normalized;
+            Reticle.transform.position = ReticleParent.transform.position + new Vector3(normalizedDir.x, normalizedDir.y, 0);
+
+            //set animation details
+            Animator currentAnimator = GetComponent<CharacterAnimScript>().currentAnimator;
+            currentAnimator.SetFloat("Horizontal", normalizedDir.x);
+            if (GetComponent<GravityObjectRigidBody>().GravityDirection.y < 0)
             {
-                ReticleParent = gameObject;
+                currentAnimator.SetFloat("Vertical", normalizedDir.y);
             }
-
-            if (Reticle)
+            else
             {
-                var normalizedDir = dir.normalized;
-                Reticle.transform.position = ReticleParent.transform.position + new Vector3(normalizedDir.x, normalizedDir.y, 0);
-
-                //set animation details
-                Animator currentAnimator = GetComponent<CharacterAnimScript>().currentAnimator;
-                currentAnimator.SetFloat("Horizontal", normalizedDir.x);
-                if (GetComponent<GravityObjectRigidBody>().GravityDirection.y < 0)
-                {
-                    currentAnimator.SetFloat("Vertical", normalizedDir.y);
-                }
-                else{
-                    currentAnimator.SetFloat("Vertical", -normalizedDir.y);
-                }
+                currentAnimator.SetFloat("Vertical", -normalizedDir.y);
             }
         }
     }
 
     public void ShootGravityGun(Vector2 dir, ProjectileControllerType type)
     {
-        if (isLocalPlayer && !IsDead)
+        if (!IsDead)
         {
             dir = dir.normalized;
 
@@ -340,7 +307,7 @@ public abstract class PlayerController : NetworkBehaviour {
                     if (AttachedObject == null)
                     {
 
-                        CmdSpawnProjectile(dir, DurationOfNormalGravityProjectile, ProjectileControllerType.Normal);
+                        SpawnProjectile(dir, DurationOfNormalGravityProjectile, ProjectileControllerType.Normal);
                         RandomizeSfx(gravGunFire, gravGunFireCave, 0);
                         _cooldownController.StartCooldown(CooldownType.NormalShot, () => { });
                     }
@@ -365,7 +332,7 @@ public abstract class PlayerController : NetworkBehaviour {
             {
                 if (!_cooldownController.IsCoolingDown(CooldownType.Rocket))
                 {
-                    CmdSpawnProjectile(dir, DurationOfRocketGravityProjectile, ProjectileControllerType.Rocket);
+                    SpawnProjectile(dir, DurationOfRocketGravityProjectile, ProjectileControllerType.Rocket);
                     RandomizeSfx(rocketLaunch, rocketLaunchCave, 1);
                     _cooldownController.StartCooldown(CooldownType.Rocket, () => { });
                 }
@@ -375,17 +342,16 @@ public abstract class PlayerController : NetworkBehaviour {
 
     private void ShotGunBlast(Vector2 dir)
     {
-        CmdSpawnProjectile(dir, DurationOfShotgunGravityProjectile, ProjectileControllerType.Shotgun);
-        CmdSpawnProjectile(Quaternion.Euler(0, 0, 30) * new Vector3(dir.x, dir.y, 0), DurationOfShotgunGravityProjectile, ProjectileControllerType.Shotgun);
-        CmdSpawnProjectile(Quaternion.Euler(0, 0, -30) * new Vector3(dir.x, dir.y, 0), DurationOfShotgunGravityProjectile, ProjectileControllerType.Shotgun);
-        CmdSpawnProjectile(Quaternion.Euler(0, 0, 15) * new Vector3(dir.x, dir.y, 0), DurationOfShotgunGravityProjectile, ProjectileControllerType.Shotgun);
-        CmdSpawnProjectile(Quaternion.Euler(0, 0, -15) * new Vector3(dir.x, dir.y, 0), DurationOfShotgunGravityProjectile, ProjectileControllerType.Shotgun);
-        GetComponent<GravityObjectRigidBody>().Dash(-dir * ShotGunKickBackForce, _cooldownController.GetCooldownTime(CooldownType.ShotGunShot) * .25f, () => { });  
-        RandomizeSfx(shotGunFire, shotGunFireCave, 1);    
+        SpawnProjectile(dir, DurationOfShotgunGravityProjectile, ProjectileControllerType.Shotgun);
+        SpawnProjectile(Quaternion.Euler(0, 0, 30) * new Vector3(dir.x, dir.y, 0), DurationOfShotgunGravityProjectile, ProjectileControllerType.Shotgun);
+        SpawnProjectile(Quaternion.Euler(0, 0, -30) * new Vector3(dir.x, dir.y, 0), DurationOfShotgunGravityProjectile, ProjectileControllerType.Shotgun);
+        SpawnProjectile(Quaternion.Euler(0, 0, 15) * new Vector3(dir.x, dir.y, 0), DurationOfShotgunGravityProjectile, ProjectileControllerType.Shotgun);
+        SpawnProjectile(Quaternion.Euler(0, 0, -15) * new Vector3(dir.x, dir.y, 0), DurationOfShotgunGravityProjectile, ProjectileControllerType.Shotgun);
+        GetComponent<GravityObjectRigidBody>().Dash(-dir * ShotGunKickBackForce, _cooldownController.GetCooldownTime(CooldownType.ShotGunShot) * .25f, () => { });
+        RandomizeSfx(shotGunFire, shotGunFireCave, 1);
     }
 
-    [Command]
-    public void CmdSpawnProjectile(Vector2 dir, float secondsUntilDestroy, ProjectileControllerType type)
+    public void SpawnProjectile(Vector2 dir, float secondsUntilDestroy, ProjectileControllerType type)
     {
         float xValue = dir.x;
         float yVlaue = dir.y;
@@ -401,19 +367,13 @@ public abstract class PlayerController : NetworkBehaviour {
         projectileClone.OnShot();
     }
 
-    #region attach reticle
     public void AttachReticle(GravityObjectRigidBody gravityObjectRB)
     {
-        if (isLocalPlayer)
-        {
-            AttachReticleInternal(gravityObjectRB);
-        }
-        else
-        {
-            CmdBroadCastAttachReticle(gravityObjectRB.netId);
-        }
+        AttachedObject = gravityObjectRB;
+        ReticleParent = AttachedObject.gameObject;
     }
 
+    /*
     [Command]
     public void CmdBroadCastAttachReticle(NetworkInstanceId gravityObjectId)
     {
@@ -435,13 +395,14 @@ public abstract class PlayerController : NetworkBehaviour {
             AttachReticleInternal(ClientScene.FindLocalObject(gravityObjectId).GetComponent<GravityObjectRigidBody>());
         }
     }
+    
 
     public void AttachReticleInternal(GravityObjectRigidBody gravityObjectRB)
     {
         AttachedObject = gravityObjectRB;
         ReticleParent = AttachedObject.gameObject;
     }
-    #endregion
+    */
 
     public void DetachReticle()
     {
@@ -461,16 +422,14 @@ public abstract class PlayerController : NetworkBehaviour {
 
         var impulse = (collision.relativeVelocity * otherMass).magnitude;
         var GORB = collision.collider.GetComponent<GravityObjectRigidBody>();
-        if (impulse > ImpulseToKill && GORB && GORB.KillsPlayer && isServer)
+        if (impulse > ImpulseToKill && GORB && GORB.KillsPlayer)
         {
-            if(collision.collider.GetComponent<PlayerController>())
+            if (collision.collider.GetComponent<PlayerController>())
             {
-                if(_cooldownController.IsCoolingDown(CooldownType.Dash) && !collision.collider.GetComponent<PlayerController>().IsInvincible)
+                if (_cooldownController.IsCoolingDown(CooldownType.Dash) && !collision.collider.GetComponent<PlayerController>().IsInvincible)
                 {
-                   
                     ControlledPlayer.NumKills++;
                     ControlledPlayer.NumOverallKills++;
-                    SetDirtyBit(0xFFFFFFFF);
                     //kill the other player
                     collision.collider.GetComponent<PlayerController>().Kill();
                     Recoil();
@@ -481,7 +440,7 @@ public abstract class PlayerController : NetworkBehaviour {
                 return;
             }
 
-            if(_cooldownController.IsCoolingDown(CooldownType.Dash))
+            if (_cooldownController.IsCoolingDown(CooldownType.Dash))
             {
                 //if we dash into an object push it
                 var dashVel = GetComponent<Rigidbody2D>().velocity;
@@ -492,20 +451,18 @@ public abstract class PlayerController : NetworkBehaviour {
             }
 
             //the rest happens if we run into an object 
-            if(IsInvincible)
+            if (IsInvincible)
             {
                 //dont kill us if we are invincible
                 return;
             }
-            
-            if(GORB is ControllableGravityObjectRigidBody && 
-                (GORB as ControllableGravityObjectRigidBody).LastShotBy != NetworkInstanceId.Invalid &&
-                (GORB as ControllableGravityObjectRigidBody).LastShotBy != netId) 
+
+            if (GORB is ControllableGravityObjectRigidBody &&
+                (GORB as ControllableGravityObjectRigidBody).LastShotBy)
             {
-                var otherPlayer = NetworkServer.FindLocalObject((GORB as ControllableGravityObjectRigidBody).LastShotBy).GetComponent<PlayerController>();
+                var otherPlayer = (GORB as ControllableGravityObjectRigidBody).LastShotBy;
                 otherPlayer.ControlledPlayer.NumKills++;
                 otherPlayer.ControlledPlayer.NumOverallKills++;
-                otherPlayer.SetDirtyBit(0xFFFFFFFF);
             }
 
             Kill();
@@ -517,10 +474,10 @@ public abstract class PlayerController : NetworkBehaviour {
     {
         var GORB = GetComponent<GravityObjectRigidBody>();
         var vel = GetComponent<Rigidbody2D>().velocity;
-        RpcClearVelocities(gameObject);
-        RpcUpdateGORBVelocity(gameObject,VelocityType.OtherPhysics, -vel * 10);
+        ClearVelocities(gameObject);
+        UpdateGORBVelocity(GORB, VelocityType.OtherPhysics, -vel * 10);
         var compass = new List<Vector2> { GORB.GravityDirection, -GORB.GravityDirection };
-        
+
         ChangeGORBGravityDirection(GORB, ClosestDirection(-vel, compass.ToArray(), GORB.GravityDirection));
     }
 
@@ -538,7 +495,7 @@ public abstract class PlayerController : NetworkBehaviour {
                 maxDot = t;
             }
         }
-        
+
         return ret;
     }
 
@@ -557,7 +514,7 @@ public abstract class PlayerController : NetworkBehaviour {
                 maxDot = t;
             }
         }
-        
+
         if (maxDot < threshold)
         {
             return defaultDir;
@@ -568,26 +525,37 @@ public abstract class PlayerController : NetworkBehaviour {
 
     public virtual void Kill()
     {
-        CmdKill();
-    }
-
-    public void CmdKill()
-    {
-        if(LevelManager.Instance.PlayersCanDieInThisLevel)
+        if (LevelManager.Instance.PlayersCanDieInThisLevel)
         {
             ControlledPlayer.NumDeaths++;
             ControlledPlayer.NumOverallDeaths++;
         }
-        
-        SetDirtyBit(0xFFFFFFFF);
-        if (isLocalPlayer)
+
+        PlaySingle(death, 3);
+
+        if (ControlledPlayer.NumDeaths >= ControlledPlayer.NumLives)
         {
-            InternalKill();
+            IsDead = true;
+            transform.position = LevelManager.Instance.JailTransform.position;
         }
         else
         {
-            RpcKill();
+
+            dth.isDead = true;
+
+            //respawning player
+            LevelManager.Instance.SpawnPlayer(this);
+            ChangeInvincibility(true);
+            _cooldownController.StartCooldown(CooldownType.Invincibility, () => { ChangeInvincibility(false); });
+
         }
+    }
+
+    /*
+    public void CmdKill()
+    {
+        
+        
     }
 
     [ClientRpc]
@@ -599,37 +567,13 @@ public abstract class PlayerController : NetworkBehaviour {
             InternalKill();
         }
     }
-
+    
     private void InternalKill()
     {
-        PlaySingle(death, 3);
-
-        if (ControlledPlayer.NumDeaths >= ControlledPlayer.NumLives)
-        {
-            IsDead = true;
-            transform.position = LevelManager.Instance.JailTransform.position;
-        }
-        else
-        {
-      
-            dth.isDead = true;
-            
-            //respawning player
-            LevelManager.Instance.SpawnPlayer(this);
-            ChangeInvincibility(true);
-            _cooldownController.StartCooldown(CooldownType.Invincibility, () => { ChangeInvincibility(false); });
-          
-        }
-    }
+        
+    }*/
 
     private void ChangeInvincibility(bool isInvincible)
-    {
-        IsInvincible = isInvincible;
-        CmdChangeInvincibility(isInvincible);
-    }
-
-    [Command]
-    private void CmdChangeInvincibility(bool isInvincible)
     {
         IsInvincible = isInvincible;
     }
@@ -642,27 +586,15 @@ public abstract class PlayerController : NetworkBehaviour {
 
     public void ToggleReady()
     {
-        CmdToggleReady();
-    }
-
-    [Command]
-    public void CmdToggleReady()
-    {
         IsReady = !IsReady;
     }
 
     public void UpdateGORBVelocity(GravityObjectRigidBody GORB, VelocityType type, Vector2 dir)
     {
-        if (GORB.IsSimulatedOnThisConnection)
-        {
-            GORB.UpdateVelocity(type, dir);
-        }
-        else
-        {
-            CmdUpdateGORBVelocity(GORB.gameObject, type, dir);
-        }
+        GORB.UpdateVelocity(type, dir);
     }
 
+    /*
     [Command]
     public void CmdUpdateGORBVelocity(GameObject GORB, VelocityType type, Vector2 dir)
     {
@@ -684,20 +616,14 @@ public abstract class PlayerController : NetworkBehaviour {
             GORB.GetComponent<GravityObjectRigidBody>().UpdateVelocity(type, dir);
         }
     }
+    */
 
-    #region changGORB gravity dir
     public void ChangeGORBGravityDirection(GravityObjectRigidBody GORB, Vector2 dir)
     {
-        if (GORB.IsSimulatedOnThisConnection)
-        {
-            GORB.ChangeGravityDirectionInternal(dir);
-        }
-        else
-        {
-            CmdChangeGORBGravityDirection(GORB.gameObject, dir);
-        }
+        GORB.ChangeGravityDirectionInternal(dir);
     }
 
+    /*
     [Command]
     public void CmdChangeGORBGravityDirection(GameObject GORB, Vector2 dir)
     {
@@ -719,87 +645,19 @@ public abstract class PlayerController : NetworkBehaviour {
             GORB.GetComponent<GravityObjectRigidBody>().ChangeGravityDirectionInternal(dir);
         }
     }
-    #endregion
+    */
 
-    [ClientRpc]
-    public void RpcClearVelocities(GameObject GORB)
+    public void ClearVelocities(GameObject GORB)
     {
-        if (GORB.GetComponent<GravityObjectRigidBody>().IsSimulatedOnThisConnection)
-        {
-            GORB.GetComponent<GravityObjectRigidBody>().ClearAllVelocities();
-        }
+        GORB.GetComponent<GravityObjectRigidBody>().ClearAllVelocities();
     }
 
     public void InitializeForStartLevel(Vector3 spawnPoint, bool isDead)
-    {
-        if (isLocalPlayer)
-        {
-            InitializeForStartLevelInternal(spawnPoint, isDead);
-        }
-        else
-        {
-            CmdInitializeForStartLevel(spawnPoint, isDead);
-        }
-    }
-
-    public void InitializeForStartLevelInternal(Vector3 spawnPoint, bool isDead)
     {
         transform.position = spawnPoint;
         GetComponent<GravityObjectRigidBody>().ClearAllVelocities();
         ChangeGORBGravityDirection(GetComponent<GravityObjectRigidBody>(), FindDirToClosestWall());
         IsDead = isDead;
-    }
-
-    [Command]
-    public void CmdInitializeForStartLevel(Vector3 spawnPoint, bool isDead)
-    {
-        if (isLocalPlayer)
-        {
-            InitializeForStartLevelInternal(spawnPoint, isDead);
-        }
-        else
-        {
-            RpcInitializeForStartLevel(spawnPoint, isDead);
-        }
-    }
-
-    [ClientRpc]
-    public void RpcInitializeForStartLevel(Vector3 spawnPoint, bool isDead)
-    {
-        if (isLocalPlayer)
-        {
-            InitializeForStartLevelInternal(spawnPoint, isDead);
-        }
-    }
-
-    //call this to make sure that a command is synced up
-    //MUST BE CALLED FROM SERVER
-    public int GetHeartBeat()
-    {
-        int heartBeatId = _heartBeatId++;
-        if(isLocalPlayer)
-        {
-            HeartBeats[heartBeatId] = true;
-        }
-        else
-        {
-            HeartBeats[heartBeatId] = false;
-            RpcHeartBeat(heartBeatId);
-        }
-
-        return heartBeatId;
-    }
-
-    [Command]
-    public void CmdHeartBeat(int heartBeatId)
-    {
-        HeartBeats[heartBeatId] = true;
-    }
-
-    [ClientRpc]
-    public void RpcHeartBeat(int heartBeatId)
-    {
-        CmdHeartBeat(heartBeatId);
     }
 
     protected void DoSpecial(Vector2 aimVector)

@@ -3,12 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.Networking;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(PlayerController))]
 
-public class CharacterSelectController : NetworkBehaviour {
+public class CharacterSelectController : MonoBehaviour
+{
 
     public GameObject previewPrefab;
     public GameObject currentIconGameObject;
@@ -73,7 +73,7 @@ public class CharacterSelectController : NetworkBehaviour {
         descriptionCanvas.transform.SetParent(transform);
         descriptionCanvas.transform.position = Vector3.down * 2 + new Vector3(0, 0, -3);
 
-        ChangeToNextCharacterTypeInternal(0);
+        ChangeToNextCharacterType(0);
 
         //initialize materials
         foreach(CharacterData cd in characterDataList){
@@ -152,25 +152,13 @@ public class CharacterSelectController : NetworkBehaviour {
 
     public void ChangeToNextCharacterType(int dir)
     {
-        if(!playerController.IsReady)
-            CmdChangeToNextCharacterType(dir);
-    }
-
-    [Command]
-    public void CmdChangeToNextCharacterType(int dir)
-    {
-        ChangeToNextCharacterTypeInternal(dir);
-    }
-
-    private void ChangeToNextCharacterTypeInternal(int dir)
-    {
         //get the indexing right
         int index = CharacterTypes.IndexOf(GetComponent<PlayerController>().CharacterType);
         int indexRight, indexLeft;
         index += dir;
         index = (index + CharacterTypes.Count) % CharacterTypes.Count;
         indexRight = (index + 1 + CharacterTypes.Count) % CharacterTypes.Count;
-        indexLeft  = (index - 1 + CharacterTypes.Count) % CharacterTypes.Count;
+        indexLeft = (index - 1 + CharacterTypes.Count) % CharacterTypes.Count;
 
         //set the current character
         currentCharacterType = CharacterTypes[index];
@@ -198,7 +186,7 @@ public class CharacterSelectController : NetworkBehaviour {
         timeOnSelection = 0;
         descriptionCanvas.SetActive(false);
     }
-
+    
     private void ChangeMaterialType(int dir){
 
         //get a list of all currently active characterselectcontroller
@@ -210,7 +198,6 @@ public class CharacterSelectController : NetworkBehaviour {
         foreach(CharacterSelectController c in characterSelectControllers){
             takenMaterialIndexes.Add(c.characterTypeCurrentMaterialIndexMappings[c.currentCharacterType]);
         }
-
 
         List<Material> currentMaterialOptions = CharacterTypeMaterialMappings[currentCharacterType];
 

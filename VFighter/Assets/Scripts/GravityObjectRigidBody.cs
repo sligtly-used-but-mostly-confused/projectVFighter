@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Networking;
 using System.Linq;
 
 
@@ -23,7 +22,8 @@ public enum VelocityType
     OtherPhysics
 }
 
-public class GravityObjectRigidBody : NetworkBehaviour {
+public class GravityObjectRigidBody : MonoBehaviour
+{
     #region vars
     private static int _idCnt = 0;
 
@@ -47,8 +47,6 @@ public class GravityObjectRigidBody : NetworkBehaviour {
     public float Bounciness = 0f;
     public bool CanBeSelected = true;
     public bool KillsPlayer = true;
-    public bool IsSimulatedOnThisConnection = false;
-    [SyncVar]
     public bool CanMove = true;
     public PlayerController Owner;
 
@@ -86,14 +84,6 @@ public class GravityObjectRigidBody : NetworkBehaviour {
         _maxComponentSpeeds.ForEach(x => _maxComponentVelocities.Add(x.type, x.Velocity));
     }
 
-    public override void OnStartServer()
-    {
-        if (!GetComponent<PlayerController>())
-        {
-            IsSimulatedOnThisConnection = isServer;
-        }
-    }
-
     void Start() {
         if(_rB)
             _rB.gravityScale = 0;
@@ -105,7 +95,7 @@ public class GravityObjectRigidBody : NetworkBehaviour {
 
     private void ProcessVelocity()
     {
-        if (CanMove && GetComponent<GravityObjectRigidBody>().IsSimulatedOnThisConnection)
+        if (CanMove)
         {
             DoGravity();
             DoDrag();
@@ -126,7 +116,7 @@ public class GravityObjectRigidBody : NetworkBehaviour {
 
         }
 
-        if(!CanMove && GetComponent<GravityObjectRigidBody>().IsSimulatedOnThisConnection && _rB)
+        if(!CanMove && _rB)
         {
             _rB.velocity = Vector3.zero;
         }
@@ -266,15 +256,15 @@ public class GravityObjectRigidBody : NetworkBehaviour {
             UpdateVelocity(VelocityType.OtherPhysics, reflectionVec);
         }
         */
-        if (_stopObjectOnCollide && IsSimulatedOnThisConnection && !collision.gameObject.GetComponent<PlayerController>())
+        if (_stopObjectOnCollide && !collision.gameObject.GetComponent<PlayerController>())
         {
             //FindObjectOfType<PlayerController>().ChangeGORBGravityDirection(this, Vector2.zero);
             //AudioManager.instance.RandomizeSfx(AudioManager.instance.Coll, AudioManager.instance.CollCave, collAudio);
         }
-        else if (_stopObjectOnCollide && IsSimulatedOnThisConnection)
+        else if (_stopObjectOnCollide)
             //Replace with player-object collision sound fx?
             AudioManager.instance.RandomizeSfx(AudioManager.instance.Coll, AudioManager.instance.CollCave, collAudio);
-        else if (GetComponent<PlayerController>()!= null && IsSimulatedOnThisConnection)
+        else if (GetComponent<PlayerController>()!= null)
             //Replace with player collision sound fx?
             AudioManager.instance.RandomizeSfx(AudioManager.instance.Coll, AudioManager.instance.CollCave, collAudio);
 

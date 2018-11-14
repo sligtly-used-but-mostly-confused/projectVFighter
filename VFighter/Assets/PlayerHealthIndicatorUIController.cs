@@ -12,7 +12,7 @@ public class PlayerHealthIndicatorUIController : MonoBehaviour {
 	void Start () {
         GameManager.Instance.OnPlayerJoin += MakeHealthDisplay;
         var players = FindObjectsOfType<PlayerController>().ToList();
-        players = players.OrderBy(x => x.netId.Value).ToList();
+        //players = players.OrderBy(x => x.GetInstanceID).ToList();
         players.ForEach(x => MakeHealthDisplay(x));
 	}
 
