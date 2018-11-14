@@ -79,7 +79,6 @@ public abstract class PlayerController : NetworkBehaviour {
     public AudioClip[] gravGunFireCave;
     public AudioClip[] shotGunFire;
     public AudioClip[] shotGunFireCave;
-    public Transform deathLocation;
 
     public Action OnHitObjectWithNormalProjectile;
 
@@ -451,8 +450,6 @@ public abstract class PlayerController : NetworkBehaviour {
     private void OnCollisionEnter2D(Collision2D collision)
     {
         float otherMass = 1;
-        deathLocation = transform;
-        deathLocation.position = this.transform.position;
         if (collision.rigidbody)
         {
             otherMass = collision.rigidbody.mass;
@@ -466,7 +463,6 @@ public abstract class PlayerController : NetworkBehaviour {
             {
                 if(_cooldownController.IsCoolingDown(CooldownType.Dash) && !collision.collider.GetComponent<PlayerController>().IsInvincible)
                 {
-                   
                     ControlledPlayer.NumKills++;
                     ControlledPlayer.NumOverallKills++;
                     SetDirtyBit(0xFFFFFFFF);
@@ -594,7 +590,6 @@ public abstract class PlayerController : NetworkBehaviour {
     {
         if(isLocalPlayer)
         {
-        
             InternalKill();
         }
     }
@@ -610,9 +605,7 @@ public abstract class PlayerController : NetworkBehaviour {
         }
         else
         {
-      
             dth.isDead = true;
-            
             //respawning player
             LevelManager.Instance.SpawnPlayer(this);
             ChangeInvincibility(true);

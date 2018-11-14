@@ -21,7 +21,6 @@ GameObject:
   - component: {fileID: 4144290133752252}
   - component: {fileID: 198441892448358822}
   - component: {fileID: 199357189204034196}
-  - component: {fileID: 114822929080350774}
   m_Layer: 0
   m_Name: Lightning
   m_TagString: Untagged
@@ -104,19 +103,6 @@ Transform:
   m_Father: {fileID: 4144290133752252}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114822929080350774
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1237948039889980}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e1fe919664c6a4336b05151f24e3631c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ps: {fileID: 0}
-  ad: {fileID: 0}
 --- !u!198 &198173534831560098
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -4898,7 +4884,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.3
+      scalar: 0.25
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -9431,7 +9417,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.3
+      scalar: 0.25
       minScalar: 1
       maxCurve:
         serializedVersion: 2

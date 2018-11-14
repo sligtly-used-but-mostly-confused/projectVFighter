@@ -7,46 +7,22 @@ public class deatheffect : MonoBehaviour {
     public bool isDead = false;
     [SerializeField]
     public ParticleSystem pulse;
-    [SerializeField]
-    public KeyboardPlayerController kp;
-    [SerializeField]
-    public GameObject DeathPrefab;
-    [SerializeField]
-    public BoxCollider2D bc;
-    private GameObject cloneObject;
-    private Transform location;
     // Use this for initialization;
+
     void Start()
     {
-        kp = GetComponent<KeyboardPlayerController>();
-        bc = GetComponent<BoxCollider2D>();
+        pulse = GetComponent<ParticleSystem>();
     }
-  
     // Update is called once per frame
     void Update()
     {
-        
-         
-        if(pulse != null)
+        if (isDead && !pulse.isPlaying)
         {
-            if (!pulse.isPlaying)
-            {
-                Destroy(cloneObject);
-            }
+            pulse.Play();
+            isDead = false;
         }
       
     }
-  void OnCollisionEnter2D(Collision2D other)
-    {
-       
-        if(other.collider.tag == "projectile")
-        {
-            cloneObject = Instantiate(DeathPrefab);
-            cloneObject.transform.position = other.transform.position;
-            pulse = cloneObject.GetComponent<ParticleSystem>();
-            pulse.Play();
-        }
-     
-    }
+  
 
 }
