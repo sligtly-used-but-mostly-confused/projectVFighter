@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.Rendering.PostProcessing;
 
 public class SlowdownEffectController : MonoBehaviour {
 
@@ -28,7 +29,12 @@ public class SlowdownEffectController : MonoBehaviour {
         IsSlowDownCurrentlyRunning = true;
         var prevTimeScale = GameManager.Instance.TimeScale;
         GameManager.Instance.TimeScale = _slowdownTimeScale;
+        PostProcessVolume vol = FindObjectOfType<PostProcessVolume>();
+        Bloom bloom = null;
+        vol.profile.TryGetSettings(out bloom);
+        bloom.intensity.value = 15;
         yield return new WaitForSeconds(_slowdownDuration);
+        bloom.intensity.value = 7.5f;
         GameManager.Instance.TimeScale = prevTimeScale;
         IsSlowDownCurrentlyRunning = false;
     }
