@@ -13,8 +13,10 @@ public class LightingLookAt : MonoBehaviour {
     [SerializeField]
     protected ParticleSystem[] ps;
     private GameObject LObject;
+    [SerializeField]
+    public AudioSource ad;
     // Use this for initialization
-  
+
 
 
     void Start () {
@@ -24,6 +26,10 @@ public class LightingLookAt : MonoBehaviour {
         ps = LObject.GetComponentsInChildren<ParticleSystem>();
         kp = GetComponent<KeyboardPlayerController>();
         LObject.transform.position = this.transform.position;
+
+ 
+
+
     }
 
 
@@ -31,6 +37,14 @@ public class LightingLookAt : MonoBehaviour {
     void Update () {
       
         var main1 = ps[0].main;
+        if (ps[0].isPlaying)
+        {
+            ad.Play();
+        }
+        if(ps[0].isStopped)
+        {
+            ad.Pause();
+        }
         var main2 = ps[1].main;
         var main3 = ps[2].main;
         LObject.transform.position = this.transform.position;
@@ -84,6 +98,7 @@ public class LightingLookAt : MonoBehaviour {
             ps[0].Play();
             ps[1].Play();
             ps[2].Play();
+      
         }
         else
         {
@@ -91,6 +106,7 @@ public class LightingLookAt : MonoBehaviour {
             ps[0].Stop();
             ps[1].Stop();
             ps[2].Stop();
+      
         }
        
     }
