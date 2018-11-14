@@ -40,11 +40,8 @@ public class LevelManager : NetworkBehaviour
 
     public override void OnStartServer()
     {
-        //StartCoroutine(Init());
         GameManager.Instance.CheckHeartBeatThenCallback(() => 
         {
-            //_spawnPositions = new List<SpawnPosition>(FindObjectsOfType<PlayerSpawnPosition>());
-
             SpawnPlayers();
             var objectSpawns = new List<SpawnPosition>(FindObjectsOfType<ObjectSpawnPosition>());
 
@@ -88,13 +85,11 @@ public class LevelManager : NetworkBehaviour
 
     private void FixedUpdate()
     {
-        
         if(_hasGameStarted && isServer)
         {
             GameManager.Instance.TimeScale += _gravityScaleGradientRate * Time.fixedDeltaTime;
             GameManager.Instance.TimeScale = Mathf.Clamp(GameManager.Instance.TimeScale, 0, _gravityScaleGradientEnd);
         }
-        
     }
 
     public void StartGame()
