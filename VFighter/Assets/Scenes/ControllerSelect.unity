@@ -1535,7 +1535,7 @@ MonoBehaviour:
   - levelName: LongLevel
     previewMaterial: {fileID: 2100000, guid: 37062a5117345db49a98e29d33c1bb43, type: 2}
   - levelName: TeleporterLoopLevel
-    previewMaterial: {fileID: 2100000, guid: 54ab12148d5bc3247a26770f01a220e3, type: 2}
+    previewMaterial: {fileID: 2100000, guid: 46d95528b0d544dfaa47ffc50c4fc3f8, type: 2}
   - levelName: TeleporterLoopLevel
     previewMaterial: {fileID: 2100000, guid: 54ab12148d5bc3247a26770f01a220e3, type: 2}
   platform: {fileID: 1841537160547452, guid: c8f09f02dca094a2aab8d34e4220d023, type: 2}
