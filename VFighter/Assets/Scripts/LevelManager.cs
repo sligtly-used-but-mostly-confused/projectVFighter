@@ -88,11 +88,13 @@ public class LevelManager : NetworkBehaviour
 
     private void FixedUpdate()
     {
+        
         if(_hasGameStarted && isServer)
         {
             GameManager.Instance.TimeScale += _gravityScaleGradientRate * Time.fixedDeltaTime;
-            GameManager.Instance.TimeScale = Mathf.Clamp(GameManager.Instance.TimeScale, _gravityScaleGradientStart, _gravityScaleGradientEnd);
+            GameManager.Instance.TimeScale = Mathf.Clamp(GameManager.Instance.TimeScale, 0, _gravityScaleGradientEnd);
         }
+        
     }
 
     public void StartGame()
