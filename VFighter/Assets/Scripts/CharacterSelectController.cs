@@ -66,9 +66,12 @@ public class CharacterSelectController : NetworkBehaviour {
         characterDataList.ForEach(x => CharacterTypeDescriptionMappings.Add(x.CharacterType, x.description));
         characterDataList.ForEach(x => characterTypeAnimatorGOMappings.Add(x.CharacterType, x.AnimatorGameObject));
 
-        descriptionCanvas = Instantiate(descriptionPrefab);
-        descriptionCanvas.transform.SetParent(transform);
-        descriptionCanvas.transform.position = Vector3.down * 2 + new Vector3(0, 0, -3);
+        if (LevelManager.Instance.ShowTutorialPrompt == true)
+        {
+            descriptionCanvas = Instantiate(descriptionPrefab);
+            descriptionCanvas.transform.SetParent(transform);
+            descriptionCanvas.transform.position = Vector3.down * 2 + new Vector3(0, 0, -3);
+        }
 
         ChangeToNextCharacterTypeInternal(0);
         timeOnSelection = 0;
@@ -90,7 +93,10 @@ public class CharacterSelectController : NetworkBehaviour {
         characterTypeAnimatorGOMappings[previousCharacterType].SetActive(!ready);
         characterTypeAnimatorGOMappings[currentCharacterType].SetActive(true);
 
-        descriptionCanvas.SetActive(!ready && timeOnSelection > secondForCharacterTip); 
+        if (LevelManager.Instance.ShowTutorialPrompt == true)
+        {
+            descriptionCanvas.SetActive(!ready && timeOnSelection > secondForCharacterTip);
+        }
 
         GravityObjectRigidBody rb = GetComponent<GravityObjectRigidBody>();
         rb.CanMove = ready;
@@ -122,13 +128,16 @@ public class CharacterSelectController : NetworkBehaviour {
             ChangeToNextCharacterType(ChangeCharacterDir > 0 ? 1 : -1);
         }
 
-        if(GetComponent<GravityObjectRigidBody>().GravityDirection.y < 0)
+        if (LevelManager.Instance.ShowTutorialPrompt == true)
         {
-            descriptionCanvas.transform.localPosition = Vector3.up * 4 + new Vector3(0, 0, -3);
-        }
-        else
-        {
-            descriptionCanvas.transform.localPosition = Vector3.down * 5 + new Vector3(0, 0, -3);
+            if (GetComponent<GravityObjectRigidBody>().GravityDirection.y < 0)
+            {
+                descriptionCanvas.transform.localPosition = Vector3.up * 4 + new Vector3(0, 0, -3);
+            }
+            else
+            {
+                descriptionCanvas.transform.localPosition = Vector3.down * 5 + new Vector3(0, 0, -3);
+            }
         }
 
     }
@@ -176,9 +185,12 @@ public class CharacterSelectController : NetworkBehaviour {
         previousGO.transform.localPosition = new Vector3(-1.5f, -1.33f, 0);
         previousGO.transform.localScale = new Vector3(3.5f, 3.5f, 3.5f);
 
-        //reset selection time and update description
-        descriptionCanvas.transform.GetChild(0).transform.GetChild(0).GetComponent<UnityEngine.UI.Text>().text = CharacterTypeDescriptionMappings[GetComponent<PlayerController>().CharacterType];
-        timeOnSelection = 0;
-        descriptionCanvas.SetActive(false);
+        if (LevelManager.Instance.ShowTutorialPrompt == true)
+        {
+            //reset selection time and update description
+            descriptionCanvas.transform.GetChild(0).transform.GetChild(0).GetComponent<UnityEngine.UI.Text>().text = CharacterTypeDescriptionMappings[GetComponent<PlayerController>().CharacterType];
+            timeOnSelection = 0;
+            descriptionCanvas.SetActive(false);
+        }
     }
 }
