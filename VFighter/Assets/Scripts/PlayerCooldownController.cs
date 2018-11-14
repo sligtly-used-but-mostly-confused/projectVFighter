@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Networking;
 using System.Linq;
 using System;
 
@@ -15,7 +14,8 @@ public enum CooldownType
     Invincibility
 }
 
-public class PlayerCooldownController : NetworkBehaviour {
+public class PlayerCooldownController : MonoBehaviour
+{
     [System.Serializable]
     public struct CooldownTimePair
     {
@@ -40,22 +40,12 @@ public class PlayerCooldownController : NetworkBehaviour {
     [SerializeField]
     private float cooldownFlashInterval;
 
-    [System.Serializable]
-    public class SyncListCooldownPairs : SyncListStruct<CooldownTimePair>{}
-
-    public SyncListCooldownPairs _pairs = new SyncListCooldownPairs();
-
     private Coroutine _flashCoroutine;
     private Color _defaultColor;
     private void Start()
     {
         Enum.GetValues(typeof(CooldownType)).Cast<CooldownType>().ToList().ForEach(x => _coolDownTimers.Add(x, null));
         _flashCoroutine = null;
-    }
-
-    public override void OnStartServer()
-    {
-        _coolDowns.ForEach(x => _pairs.Add(x));
     }
 
     public bool TryStartCooldown(CooldownType type)
@@ -76,12 +66,12 @@ public class PlayerCooldownController : NetworkBehaviour {
 
     public void StartCooldown(CooldownType type, Action cb)
     {
-        var temp = _pairs.ToList().Find(x => x.Type == type);
-        int index = _pairs.ToList().IndexOf(temp);
+        var temp = _coolDowns.Find(x => x.Type == type);
+        int index = _coolDowns.IndexOf(temp);
 
         temp.IsCoolingDown = true;
-        _pairs[index] = temp;
-        CmdChangeCooldownState(temp);
+        _coolDowns[index] = temp;
+        ChangeCooldownState(temp);
         if(_flashCoroutine != null)
         {
             GetComponent<Renderer>().material.color = _defaultColor;
@@ -98,19 +88,19 @@ public class PlayerCooldownController : NetworkBehaviour {
 
     public bool IsCoolingDown(CooldownType type)
     {
-        var temp = _pairs.ToList().Find(x => x.Type == type);
+        var temp = _coolDowns.Find(x => x.Type == type);
         return temp.IsCoolingDown;
     }
 
     public float GetCooldownTime(CooldownType type)
     {
-        return _pairs.ToList().Find(x => x.Type == type).CooldownTime;
+        return _coolDowns.Find(x => x.Type == type).CooldownTime;
     }
 
     public void StopCooldown(CooldownType type)
     {
-        var temp = _pairs.ToList().Find(x => x.Type == type);
-        int index = _pairs.ToList().IndexOf(temp);
+        var temp = _coolDowns.Find(x => x.Type == type);
+        int index = _coolDowns.IndexOf(temp);
         if(_coolDownTimers[type] != null)
         {
             StopCoroutine(_coolDownTimers[type].CooldownTimer);
@@ -119,28 +109,27 @@ public class PlayerCooldownController : NetworkBehaviour {
         }
 
         temp.IsCoolingDown = false;
-        _pairs[index] = temp;
-        CmdChangeCooldownState(temp);
+        _coolDowns[index] = temp;
+        ChangeCooldownState(temp);
     }
 
     private IEnumerator CooldownInternal(CooldownType type, float time, Action cb)
     {
-        var temp = _pairs.ToList().Find(x => x.Type == type);
-        int index = _pairs.ToList().IndexOf(temp);
+        var temp = _coolDowns.Find(x => x.Type == type);
+        int index = _coolDowns.IndexOf(temp);
         yield return new WaitForSeconds(time);
         _coolDownTimers[type] = null;
         temp.IsCoolingDown = false;
-        _pairs[index] = temp;
-        CmdChangeCooldownState(temp);
+        _coolDowns[index] = temp;
+        ChangeCooldownState(temp);
         cb();
     }
-
-    [Command]
-    private void CmdChangeCooldownState(CooldownTimePair pair)
+    
+    private void ChangeCooldownState(CooldownTimePair pair)
     {
-        var temp = _pairs.ToList().Find(x => x.Type == pair.Type);
-        int index = _pairs.ToList().IndexOf(temp);
-        _pairs[index] = pair;
+        var temp = _coolDowns.Find(x => x.Type == pair.Type);
+        int index = _coolDowns.IndexOf(temp);
+        _coolDowns[index] = pair;
     }
 
     public IEnumerator FlashRenderer(float interval, float duration)

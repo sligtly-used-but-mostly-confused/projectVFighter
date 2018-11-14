@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Networking;
 
 public enum ProjectileControllerType
 {
@@ -11,7 +10,8 @@ public enum ProjectileControllerType
 }
 
 [RequireComponent(typeof(Collider2D))]
-public class GravityGunProjectileController : NetworkBehaviour {
+public class GravityGunProjectileController : MonoBehaviour
+{
 
     [SerializeField]
     public float SecondsUntilDestroy = 1;
@@ -47,7 +47,7 @@ public class GravityGunProjectileController : NetworkBehaviour {
             if (otherGORB is ControllableGravityObjectRigidBody)
             {
                 (otherGORB as ControllableGravityObjectRigidBody).StepMultiplier();
-                (otherGORB as ControllableGravityObjectRigidBody).LastShotBy = Owner.netId;
+                (otherGORB as ControllableGravityObjectRigidBody).LastShotBy = Owner;
                 var connectionToPlayer = otherGORB.GetComponent<ConnectionToPlayerController>();
                 //if(connectionToPlayer)
                 {
@@ -78,7 +78,7 @@ public class GravityGunProjectileController : NetworkBehaviour {
             return;
         }
 
-        if (gravityObjectRB && isServer)
+        if (gravityObjectRB)
         {
 
             if (collision.GetComponent<PlayerController>() && collision.GetComponent<PlayerController>() != Owner)

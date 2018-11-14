@@ -26,11 +26,6 @@ public class KeyboardPlayerController : PlayerController
         {
             Gamepad();
         }
-
-        if (InputDevice.GetButtonDown(MappedButton.OpenMenu))
-        {
-            InGameMenuUIManager.Instance.ToggleMenu();
-        }
     }
 
     private void Keyboard()
@@ -67,9 +62,15 @@ public class KeyboardPlayerController : PlayerController
             ChangeGravityTowardsDir(Vector2.down);
         }
 
+
         if (InputDevice.GetButtonDown(MappedButton.ShootGravGun))
         {
             ShootGravityGun(aimVector, ProjectileControllerType.Normal);
+        }
+
+        if (InputDevice.GetButtonDown(MappedButton.OpenMenu))
+        {
+            InGameMenuUIManager.Instance.ToggleMenu();
         }
 
         if (InputDevice.GetButtonDown(MappedButton.Special))

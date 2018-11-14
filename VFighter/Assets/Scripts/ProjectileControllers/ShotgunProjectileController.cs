@@ -11,7 +11,7 @@ public class ShotgunProjectileController : GravityGunProjectileController
             if (GORB is ControllableGravityObjectRigidBody)
             {
                 (GORB as ControllableGravityObjectRigidBody).StepMultiplier();
-                (GORB as ControllableGravityObjectRigidBody).LastShotBy = Owner.netId;
+                (GORB as ControllableGravityObjectRigidBody).LastShotBy = Owner;
             }
 
             GORB.ChangeGravityDirectionInternal(GetComponent<GravityObjectRigidBody>().GetVelocity(VelocityType.Gravity));

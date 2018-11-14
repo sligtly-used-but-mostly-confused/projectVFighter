@@ -3,12 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.Networking;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(PlayerController))]
 
-public class CharacterSelectController : NetworkBehaviour {
+public class CharacterSelectController : MonoBehaviour
+{
 
     public GameObject previewPrefab;
     public GameObject currentIconGameObject;
@@ -26,22 +26,24 @@ public class CharacterSelectController : NetworkBehaviour {
     private PlayerController playerController;
 
     [System.Serializable]
-    public struct CaracterData
+    public struct CharacterData
     {
-        public Material characterMaterial;
         public Material IconMaterial;
         public string description;
         public PlayerCharacterType CharacterType;
         public GameObject AnimatorGameObject;
+        public List<Material> materials;
+        public int currentMaterialIndex;
     }
 
     [SerializeField]
-    private List<CaracterData> characterDataList = new List<CaracterData>();
+    private List<CharacterData> characterDataList = new List<CharacterData>();
 
-    public Dictionary<PlayerCharacterType, Material> CharacterTypeMaterialMappings = new Dictionary<PlayerCharacterType, Material>();
+    public Dictionary<PlayerCharacterType, List<Material>> CharacterTypeMaterialMappings = new Dictionary<PlayerCharacterType, List<Material>>();
     public Dictionary<PlayerCharacterType, Material> CharacterTypeIconMappings = new Dictionary<PlayerCharacterType, Material>();
     public Dictionary<PlayerCharacterType, string> CharacterTypeDescriptionMappings = new Dictionary<PlayerCharacterType, string>();
     public Dictionary<PlayerCharacterType, GameObject> characterTypeAnimatorGOMappings = new Dictionary<PlayerCharacterType, GameObject>();
+    public Dictionary<PlayerCharacterType, int> characterTypeCurrentMaterialIndexMappings = new Dictionary<PlayerCharacterType, int>();
 
     private bool _hasFoundReticle = false;
     private float timeOnSelection;
@@ -61,10 +63,11 @@ public class CharacterSelectController : NetworkBehaviour {
     {
         playerController = GetComponent<PlayerController>();
 
-        characterDataList.ForEach(x => CharacterTypeMaterialMappings.Add(x.CharacterType, x.characterMaterial));
+        characterDataList.ForEach(x => CharacterTypeMaterialMappings.Add(x.CharacterType, x.materials));
         characterDataList.ForEach(x => CharacterTypeIconMappings.Add(x.CharacterType, x.IconMaterial));
         characterDataList.ForEach(x => CharacterTypeDescriptionMappings.Add(x.CharacterType, x.description));
         characterDataList.ForEach(x => characterTypeAnimatorGOMappings.Add(x.CharacterType, x.AnimatorGameObject));
+        characterDataList.ForEach(x => characterTypeCurrentMaterialIndexMappings.Add(x.CharacterType, x.currentMaterialIndex));
 
         if (LevelManager.Instance.ShowTutorialPrompt == true)
         {
@@ -73,7 +76,15 @@ public class CharacterSelectController : NetworkBehaviour {
             descriptionCanvas.transform.position = Vector3.down * 2 + new Vector3(0, 0, -3);
         }
 
-        ChangeToNextCharacterTypeInternal(0);
+        ChangeToNextCharacterType(0);
+
+        //initialize materials
+        foreach(CharacterData cd in characterDataList){
+            cd.AnimatorGameObject.GetComponentInChildren<SkinnedMeshRenderer>().material = cd.materials[cd.currentMaterialIndex];
+        }
+
+        ChangeMaterialType(0);
+        
         timeOnSelection = 0;
     }
 
@@ -128,6 +139,12 @@ public class CharacterSelectController : NetworkBehaviour {
             ChangeToNextCharacterType(ChangeCharacterDir > 0 ? 1 : -1);
         }
 
+        if (GetComponent<PlayerController>().InputDevice.GetIsAxisTapped(MappedAxis.ChangeMaterial))
+        {
+            float ChangeMaterialDir = GetComponent<PlayerController>().InputDevice.GetAxis(MappedAxis.ChangeMaterial);
+            ChangeMaterialType(ChangeMaterialDir > 0 ? 1 : -1);
+        }
+
         if (LevelManager.Instance.ShowTutorialPrompt == true)
         {
             if (GetComponent<GravityObjectRigidBody>().GravityDirection.y < 0)
@@ -144,25 +161,13 @@ public class CharacterSelectController : NetworkBehaviour {
 
     public void ChangeToNextCharacterType(int dir)
     {
-        if(!playerController.IsReady)
-            CmdChangeToNextCharacterType(dir);
-    }
-
-    [Command]
-    public void CmdChangeToNextCharacterType(int dir)
-    {
-        ChangeToNextCharacterTypeInternal(dir);
-    }
-
-    private void ChangeToNextCharacterTypeInternal(int dir)
-    {
         //get the indexing right
         int index = CharacterTypes.IndexOf(GetComponent<PlayerController>().CharacterType);
         int indexRight, indexLeft;
         index += dir;
         index = (index + CharacterTypes.Count) % CharacterTypes.Count;
         indexRight = (index + 1 + CharacterTypes.Count) % CharacterTypes.Count;
-        indexLeft  = (index - 1 + CharacterTypes.Count) % CharacterTypes.Count;
+        indexLeft = (index - 1 + CharacterTypes.Count) % CharacterTypes.Count;
 
         //set the current character
         currentCharacterType = CharacterTypes[index];
@@ -177,13 +182,13 @@ public class CharacterSelectController : NetworkBehaviour {
         nextCharacterType = CharacterTypes[indexRight];
         GameObject nextGO = characterTypeAnimatorGOMappings[nextCharacterType];
         nextGO.transform.localPosition = new Vector3(1.5f, -1.33f, 0);
-        nextGO.transform.localScale = new Vector3(3.5f, 3.5f, 3.5f);
+        nextGO.transform.localScale = new Vector3(5f, 5f, 5f);
 
         //set the left character preview
         previousCharacterType = CharacterTypes[indexLeft];
         GameObject previousGO = characterTypeAnimatorGOMappings[previousCharacterType];
         previousGO.transform.localPosition = new Vector3(-1.5f, -1.33f, 0);
-        previousGO.transform.localScale = new Vector3(3.5f, 3.5f, 3.5f);
+        previousGO.transform.localScale = new Vector3(5f, 5f, 5f);
 
         if (LevelManager.Instance.ShowTutorialPrompt == true)
         {
@@ -192,5 +197,29 @@ public class CharacterSelectController : NetworkBehaviour {
             timeOnSelection = 0;
             descriptionCanvas.SetActive(false);
         }
+    }
+    
+    private void ChangeMaterialType(int dir){
+
+        //get a list of all currently active characterselectcontroller
+        CharacterSelectController[] characterSelectControllerArray = FindObjectsOfType<CharacterSelectController>();
+        List<CharacterSelectController> characterSelectControllers = new List<CharacterSelectController>(characterSelectControllerArray);
+
+        //find remaining available materials, based color regardless of what character type;
+        List<int> takenMaterialIndexes= new List<int>();
+        foreach(CharacterSelectController c in characterSelectControllers){
+            takenMaterialIndexes.Add(c.characterTypeCurrentMaterialIndexMappings[c.currentCharacterType]);
+        }
+
+        List<Material> currentMaterialOptions = CharacterTypeMaterialMappings[currentCharacterType];
+
+        //update the current character material index, taking into account whats available
+        characterTypeCurrentMaterialIndexMappings[currentCharacterType] = (characterTypeCurrentMaterialIndexMappings[currentCharacterType] + dir + currentMaterialOptions.Count) % currentMaterialOptions.Count;
+        while(takenMaterialIndexes.Contains(characterTypeCurrentMaterialIndexMappings[currentCharacterType])){
+            characterTypeCurrentMaterialIndexMappings[currentCharacterType] = (characterTypeCurrentMaterialIndexMappings[currentCharacterType] + 1 + currentMaterialOptions.Count) % currentMaterialOptions.Count;
+        }
+
+        //set the material to the decided up index
+        characterTypeAnimatorGOMappings[currentCharacterType].GetComponentInChildren<SkinnedMeshRenderer>().material = currentMaterialOptions[characterTypeCurrentMaterialIndexMappings[currentCharacterType]];
     }
 }

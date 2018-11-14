@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.Networking;
 using System;
 using System.Linq;
 
-public class ControllerSelectManager : NetworkBehaviour {
+public class ControllerSelectManager : MonoBehaviour
+{
 
     private static ControllerSelectManager _instance;
     public static ControllerSelectManager Instance { get { return _instance; } }
@@ -16,7 +16,7 @@ public class ControllerSelectManager : NetworkBehaviour {
     [SerializeField]
     private List<InputDevice> _usedDevices = new List<InputDevice>();
     [SerializeField]
-    private GameObject NetworkPlayerPrefab;
+    private GameObject PlayerPrefab;
     
     public List<InputDevice> DevicesWaitingForPlayer = new List<InputDevice>();
 
@@ -51,11 +51,7 @@ public class ControllerSelectManager : NetworkBehaviour {
 
     private short SpawnPlayer(short id)
     {
-        if(!ClientScene.AddPlayer(id))
-        {
-           return SpawnPlayer((short)(id + 1));
-        }
-
+        Instantiate(PlayerPrefab);
         return id;
     }
 
@@ -65,13 +61,9 @@ public class ControllerSelectManager : NetworkBehaviour {
         {
             if (!_usedDevices.Contains(inputDevice) &&
                 (inputDevice.GetIsAxisTappedPos(MappedAxis.ShootGravGun) || inputDevice.GetButton(MappedButton.ShootGravGun)) &&
-                !(inputDevice is KeyboardInputDevice || inputDevice is MouseInputDevice) &&
-                ClientScene.readyConnection != null)
+                !(inputDevice is KeyboardInputDevice || inputDevice is MouseInputDevice))
             {
                 _usedDevices.Add(inputDevice);
-
-                var player = new Player(LevelSelectManager.Instance.numLivesPerPlayer);
-                player.NetworkControllerId = 1;
                 
                 SpawnPlayer(0);
                 

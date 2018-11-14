@@ -47,8 +47,7 @@ public class CountDownTimer : MonoBehaviour {
         yield return new WaitForSeconds(_timePerTick);
         _terminateImage.SetActive(true);
         yield return new WaitForSeconds(_timePerTick);
-        if (FindObjectOfType<PlayerController>().isServer)
-            LevelManager.Instance.StartGame();
+        LevelManager.Instance.StartGame();
         if(gameObject)
             Destroy(gameObject);
     }
