@@ -18,7 +18,10 @@ public class SlowdownEffectController : MonoBehaviour {
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Debug.Log(collision.name + " " + IsSlowDownCurrentlyRunning);
-        if(AttachedGORB.isServer && collision.GetComponent<PlayerController>() && !IsSlowDownCurrentlyRunning)
+        if(AttachedGORB.isServer && 
+            collision.GetComponent<PlayerController>() && 
+            !IsSlowDownCurrentlyRunning && 
+            !collision.GetComponent<PlayerCooldownController>().IsCoolingDown(CooldownType.Dash))
         {
             StartCoroutine(SlowTimeEffect());
         }
