@@ -1,13 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Networking;
 
-public class AimingReticle : NetworkBehaviour {
-    [SyncVar]
+public class AimingReticle : MonoBehaviour
+{
     public short Id;
-    [SyncVar]
-    public NetworkInstanceId PlayerAttachedTo;
+    public PlayerController PlayerAttachedTo;
 
     private void Start()
     {
@@ -16,11 +14,9 @@ public class AimingReticle : NetworkBehaviour {
 
     private void Update()
     {
-        var player = ClientScene.FindLocalObject(PlayerAttachedTo);
-
-        if(player)
+        if(PlayerAttachedTo)
         {
-            GetComponent<Renderer>().material = player.GetComponent<Renderer>().material;
+            GetComponent<Renderer>().material = PlayerAttachedTo.GetComponent<Renderer>().material;
         }
     }
 }

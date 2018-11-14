@@ -10,7 +10,7 @@ public class EndScoreScreenLevelManager : LevelManager {
 
     public override void Update()
     {
-        if (isServer && !GameManager.Instance.CurrentlyChangingScenes)
+        if (!GameManager.Instance.CurrentlyChangingScenes)
         {
             var allPlayersReady = Players.All(x => x.IsReady);
             if(allPlayersReady)

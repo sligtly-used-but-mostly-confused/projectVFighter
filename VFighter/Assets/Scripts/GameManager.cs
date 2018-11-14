@@ -3,9 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.Networking;
+using UnityEngine.SceneManagement;
 
-public class GameManager : NetworkBehaviour {
+public class GameManager : MonoBehaviour
+{
     private static GameManager _instance;
     public static GameManager Instance { get { return _instance; } }
 
@@ -20,11 +21,8 @@ public class GameManager : NetworkBehaviour {
     public bool CurrentlyChangingScenes = false;
     public float ProgressionThroughGame = 1;
     public bool CanChangeCharacters = true;
-    [SyncVar]
     public float TimeScale = 1;
-    [SyncVar]
     public int RoundNumber = 0;
-    [SyncVar]
     public int NumRounds = 0;
 
     public delegate void PlayerJoinCallback(PlayerController player);
@@ -46,39 +44,33 @@ public class GameManager : NetworkBehaviour {
         RoundNumber = 1;
         _roundLevelNames = roundStages;
         NumRounds = _roundLevelNames.Count();
-        CheckHeartBeatThenCallback(LoadNewLevel);
+        LoadNewLevel();
         CanChangeCharacters = false;
         GameObject.FindObjectsOfType<TutorialPromptController>().ToList().ForEach(x => x.gameObject.SetActive(false));
     }
 
     public void LoadEndScoreScreen()
     {
-        CheckHeartBeatThenCallback(() =>
-        {
-            CurrentlyChangingScenes = true;
-            NetworkManager.singleton.ServerChangeScene(EndScoreScreen);
-            CanChangeCharacters = false;
-        });
+        CurrentlyChangingScenes = true;
+        // NetworkManager.singleton.ServerChangeScene(EndScoreScreen);
+        SceneManager.LoadScene(EndScoreScreen);
+        CanChangeCharacters = false;
     }
 
     public void EndGame()
     {
         var players = FindObjectsOfType<PlayerController>().ToList();
-        CheckHeartBeatThenCallback(() =>
-        {
-            players.ForEach(x => x.ControlledPlayer.ResetForNewGame());
-            CurrentlyChangingScenes = true;
-            NetworkManager.singleton.ServerChangeScene(LevelSelect);
-            CanChangeCharacters = true;
-        });
+        players.ForEach(x => x.ControlledPlayer.ResetForNewGame());
+        CurrentlyChangingScenes = true;
+        SceneManager.LoadScene(LevelSelect);
+        CanChangeCharacters = true;
     }
 
     public void LoadNextStage()
     {
         var players = FindObjectsOfType<PlayerController>().ToList();
         var alive = players.Where(x => { return (x.ControlledPlayer.NumLives - x.ControlledPlayer.NumDeaths) > 0; }).ToList();
-
-        CheckHeartBeatThenCallback(StartNewRound);
+        StartNewRound();
     }
 
     private void StartNewRound()
@@ -103,7 +95,7 @@ public class GameManager : NetworkBehaviour {
         _levelName = _roundLevelNames[0];
         _roundLevelNames.RemoveAt(0);
         players.ForEach(x => x.ControlledPlayer.Reset());
-        CheckHeartBeatThenCallback(StartNewLevel);
+        StartNewLevel();
     }
 
     private void StartNewLevel()
@@ -112,14 +104,14 @@ public class GameManager : NetworkBehaviour {
         ProgressionThroughGame = players.Max(x => x.ControlledPlayer.NumDeaths) / (float)players[0].ControlledPlayer.NumLives;
         players.ForEach(x => x.IsDead = false);
         CurrentlyChangingScenes = true;
-        NetworkManager.singleton.ServerChangeScene(_levelName);
+        SceneManager.LoadScene(_levelName);
     }
 
     public void DoneChangingScenes()
     {
         CurrentlyChangingScenes = false;
     }
-
+    /*
     public void CheckHeartBeatThenCallback(Action callback)
     {
         StartCoroutine(CheckHeartBeatThenCallbackInternal(callback));
@@ -152,4 +144,5 @@ public class GameManager : NetworkBehaviour {
 
         callback();
     }
+    */
 }

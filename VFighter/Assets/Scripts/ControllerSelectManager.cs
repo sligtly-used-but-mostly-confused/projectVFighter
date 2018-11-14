@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.Networking;
 using System;
 using System.Linq;
 
-public class ControllerSelectManager : NetworkBehaviour {
+public class ControllerSelectManager : MonoBehaviour
+{
 
     private static ControllerSelectManager _instance;
     public static ControllerSelectManager Instance { get { return _instance; } }
@@ -51,11 +51,6 @@ public class ControllerSelectManager : NetworkBehaviour {
 
     private short SpawnPlayer(short id)
     {
-        if(!ClientScene.AddPlayer(id))
-        {
-           return SpawnPlayer((short)(id + 1));
-        }
-
         return id;
     }
 
@@ -65,8 +60,7 @@ public class ControllerSelectManager : NetworkBehaviour {
         {
             if (!_usedDevices.Contains(inputDevice) &&
                 (inputDevice.GetIsAxisTappedPos(MappedAxis.ShootGravGun) || inputDevice.GetButton(MappedButton.ShootGravGun)) &&
-                !(inputDevice is KeyboardInputDevice || inputDevice is MouseInputDevice) &&
-                ClientScene.readyConnection != null)
+                !(inputDevice is KeyboardInputDevice || inputDevice is MouseInputDevice))
             {
                 _usedDevices.Add(inputDevice);
                 
