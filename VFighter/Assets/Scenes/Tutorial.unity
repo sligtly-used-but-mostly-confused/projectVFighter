@@ -1438,109 +1438,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1 &559351038
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 1450297720615606, guid: fbbea25d4aad6446cb165f0427859009,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 559351042}
-  - component: {fileID: 559351039}
-  - component: {fileID: 559351040}
-  m_Layer: 0
-  m_Name: LevelSelectManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &559351039
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 114794089520426024, guid: fbbea25d4aad6446cb165f0427859009,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 559351038}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 04aa933b1b7e64aceb2a080a10b76945, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  levels:
-  - levelName: EasyLevel
-    previewMaterial: {fileID: 2100000, guid: 54ab12148d5bc3247a26770f01a220e3, type: 2}
-  - levelName: LongLevel
-    previewMaterial: {fileID: 2100000, guid: 37062a5117345db49a98e29d33c1bb43, type: 2}
-  - levelName: TeleporterLoopLevel
-    previewMaterial: {fileID: 2100000, guid: 54ab12148d5bc3247a26770f01a220e3, type: 2}
-  - levelName: TeleporterLoopLevel
-    previewMaterial: {fileID: 2100000, guid: 54ab12148d5bc3247a26770f01a220e3, type: 2}
-  platform: {fileID: 1841537160547452, guid: c8f09f02dca094a2aab8d34e4220d023, type: 2}
-  levelZone: {fileID: 1647109427917884, guid: c571407ca27484f0fb1de03b5a495f4b, type: 2}
-  areaWidth: 16
-  timer: {fileID: 0}
-  selectTime: 5
-  numLivesPerPlayer: 1
-  countdown: {fileID: 8300000, guid: d7216433c9f000346bc08ebc86e49352, type: 3}
-  countdownFinal: {fileID: 8300000, guid: e81d9bab7613db642bd0caac36e989ad, type: 3}
-  _playerReadyIndicatorPrefab: {fileID: 1574300143994424, guid: 50239be1e91c0ce48b9f24ef90027d08,
-    type: 2}
-  _isWaitingForReady: 1
-  timeRemaining: 0
-  _minPlayers: 2
-  _numRounds: 1
---- !u!114 &559351040
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 559351038}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SceneId:
-    m_Value: 0
-  m_AssetId:
-    i0: 251
-    i1: 190
-    i2: 162
-    i3: 93
-    i4: 74
-    i5: 173
-    i6: 100
-    i7: 70
-    i8: 203
-    i9: 22
-    i10: 95
-    i11: 4
-    i12: 39
-    i13: 133
-    i14: 144
-    i15: 9
-  m_ServerOnly: 0
-  m_LocalPlayerAuthority: 0
---- !u!224 &559351042
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 559351038}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!43 &609029314
 Mesh:
   m_ObjectHideFlags: 0
@@ -1877,6 +1774,7 @@ MonoBehaviour:
   _gravityScaleGradientEnd: 1
   _gravityScaleGradientRate: 0.1
   _hasGameStarted: 0
+  ShowTutorialPrompt: 0
   JailTransform: {fileID: 0}
 --- !u!4 &707236919
 Transform:
@@ -3264,6 +3162,109 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1235337092}
   m_CullTransparentMesh: 0
+--- !u!1 &1240428602
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 1450297720615606, guid: fbbea25d4aad6446cb165f0427859009,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1240428605}
+  - component: {fileID: 1240428604}
+  - component: {fileID: 1240428603}
+  m_Layer: 0
+  m_Name: LevelSelectManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1240428603
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1240428602}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 251
+    i1: 190
+    i2: 162
+    i3: 93
+    i4: 74
+    i5: 173
+    i6: 100
+    i7: 70
+    i8: 203
+    i9: 22
+    i10: 95
+    i11: 4
+    i12: 39
+    i13: 133
+    i14: 144
+    i15: 9
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0
+--- !u!114 &1240428604
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 114794089520426024, guid: fbbea25d4aad6446cb165f0427859009,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1240428602}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04aa933b1b7e64aceb2a080a10b76945, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levels:
+  - levelName: EasyLevel
+    previewMaterial: {fileID: 2100000, guid: 54ab12148d5bc3247a26770f01a220e3, type: 2}
+  - levelName: LongLevel
+    previewMaterial: {fileID: 2100000, guid: 37062a5117345db49a98e29d33c1bb43, type: 2}
+  - levelName: TeleporterLoopLevel
+    previewMaterial: {fileID: 2100000, guid: 54ab12148d5bc3247a26770f01a220e3, type: 2}
+  - levelName: TeleporterLoopLevel
+    previewMaterial: {fileID: 2100000, guid: 54ab12148d5bc3247a26770f01a220e3, type: 2}
+  platform: {fileID: 1841537160547452, guid: c8f09f02dca094a2aab8d34e4220d023, type: 2}
+  levelZone: {fileID: 1647109427917884, guid: c571407ca27484f0fb1de03b5a495f4b, type: 2}
+  areaWidth: 16
+  timer: {fileID: 0}
+  selectTime: 5
+  numLivesPerPlayer: 1
+  countdown: {fileID: 8300000, guid: d7216433c9f000346bc08ebc86e49352, type: 3}
+  countdownFinal: {fileID: 8300000, guid: e81d9bab7613db642bd0caac36e989ad, type: 3}
+  _playerReadyIndicatorPrefab: {fileID: 1574300143994424, guid: 50239be1e91c0ce48b9f24ef90027d08,
+    type: 2}
+  _isWaitingForReady: 1
+  timeRemaining: 0
+  _minPlayers: 2
+  _numRounds: 1
+--- !u!224 &1240428605
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1240428602}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1497032972
 GameObject:
   m_ObjectHideFlags: 0

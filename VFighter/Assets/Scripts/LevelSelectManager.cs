@@ -54,8 +54,11 @@ public class LevelSelectManager : NetworkBehaviour
 
     void Start()
     {
-        SpawnLevelPlatforms();
-        timeRemaining = selectTime;
+        if (LevelManager.Instance.ShowTutorialPrompt == true)
+        {
+            SpawnLevelPlatforms();
+            timeRemaining = selectTime;
+        }
 
         //the first time we load the game this list will be empty, but after that it will have players
         FindObjectsOfType<PlayerController>().ToList().ForEach(x =>
