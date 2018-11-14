@@ -21,19 +21,23 @@ public class CharacterAnimScript : MonoBehaviour {
 	void Update () {
         int angleY = 180;
         if(rb.velocity.y > 5 || rb.velocity.y < -5 && (GetComponent<GravityObjectRigidBody>().GravityDirection.y > .97 || GetComponent<GravityObjectRigidBody>().GravityDirection.y < -.97) ){
-            currentAnimator.SetBool("IsFloating", true);
-            /*
-            if(interrupt && (currentAnimator.GetBool("IsFloating") == true)){
+            if (!interrupt && (currentAnimator.GetBool("IsFloating") == false))
+            {
 
-                currentAnimator.SetTrigger("LandInterrupt");
-                interrupt = false;
+                currentAnimator.SetTrigger("FloatTrigger");
+                interrupt = true;
             }
-            currentAnimator.SetBool("IsFloating", false);
-            */
+            currentAnimator.SetBool("IsFloating", true);
         }
         else{
+            if ((currentAnimator.GetBool("IsFloating") == true) || currentAnimator.GetCurrentAnimatorStateInfo(1).IsName("FloatCycle"))
+            {
+
+                currentAnimator.SetTrigger("LandTrigger");
+                interrupt = false;
+            }
+
             currentAnimator.SetBool("IsFloating", false);
-            interrupt = true;
         }
         if(rb.velocity.x < 0){
             facingRight = false;
