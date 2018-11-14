@@ -246,7 +246,7 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -590,6 +590,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfccc28f2e525a2418cf88c02bdd194c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AttachedGORB: {fileID: 114227078285474836}
+  _slowdownDuration: 0.5
+  _slowdownTimeScale: 0.1
 --- !u!120 &120430625065509466
 LineRenderer:
   m_ObjectHideFlags: 1
