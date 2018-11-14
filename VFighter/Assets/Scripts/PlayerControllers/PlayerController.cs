@@ -109,6 +109,7 @@ public abstract class PlayerController : NetworkBehaviour {
     {
         IsDead = false;
         _cooldownController = GetComponent<PlayerCooldownController>();
+        
     }
 
     private void Start()
@@ -120,6 +121,7 @@ public abstract class PlayerController : NetworkBehaviour {
         de = GetComponentInChildren<DashEffect>();
         gc = GetComponentInChildren<GravityChange>();
         dth = GetComponentInChildren<deatheffect>();
+        GameManager.Instance.OnPlayerJoin(this);
     }
 
     public override void OnStartServer()

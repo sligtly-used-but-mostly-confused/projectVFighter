@@ -69,9 +69,6 @@ public class ControllerSelectManager : NetworkBehaviour {
                 ClientScene.readyConnection != null)
             {
                 _usedDevices.Add(inputDevice);
-
-                var player = new Player(LevelSelectManager.Instance.numLivesPerPlayer);
-                player.NetworkControllerId = 1;
                 
                 SpawnPlayer(0);
                 
