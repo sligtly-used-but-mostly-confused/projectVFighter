@@ -2230,8 +2230,6 @@ GameObject:
   - component: {fileID: 23672511711457686}
   - component: {fileID: 33479548286814250}
   - component: {fileID: 114155156425097820}
-  - component: {fileID: 114662783024654882}
-  - component: {fileID: 114133254777048290}
   - component: {fileID: 114313954095473740}
   - component: {fileID: 82572999522015082}
   - component: {fileID: 82838794393769670}
@@ -6075,27 +6073,6 @@ MonoBehaviour:
   rb: {fileID: 0}
   tm: {fileID: 0}
   de: {fileID: 0}
---- !u!114 &114133254777048290
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1865601022989246}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -1768714887, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_TransformSyncMode: 2
-  m_SendInterval: 0.1
-  m_SyncRotationAxis: 3
-  m_RotationSyncCompression: 0
-  m_SyncSpin: 0
-  m_MovementTheshold: 0.001
-  m_VelocityThreshold: 0.0001
-  m_SnapThreshold: 2
-  m_InterpolateRotation: 1
-  m_InterpolateMovement: 2
 --- !u!114 &114155156425097820
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6278,38 +6255,6 @@ MonoBehaviour:
     CooldownTime: 1
     IsCoolingDown: 0
   cooldownFlashInterval: 0
---- !u!114 &114662783024654882
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1865601022989246}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SceneId:
-    m_Value: 0
-  m_AssetId:
-    i0: 88
-    i1: 251
-    i2: 73
-    i3: 251
-    i4: 74
-    i5: 144
-    i6: 85
-    i7: 52
-    i8: 57
-    i9: 52
-    i10: 246
-    i11: 249
-    i12: 149
-    i13: 218
-    i14: 201
-    i15: 90
-  m_ServerOnly: 0
-  m_LocalPlayerAuthority: 1
 --- !u!114 &114730022364382558
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6335,7 +6280,6 @@ MonoBehaviour:
   Bounciness: 0
   CanBeSelected: 0
   KillsPlayer: 1
-  IsSimulatedOnThisConnection: 0
   CanMove: 1
   Owner: {fileID: 0}
   DebugVelocities: []
