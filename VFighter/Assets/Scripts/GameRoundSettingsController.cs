@@ -11,6 +11,12 @@ public class GameRoundSettingsController : MonoBehaviour {
     public int NumLivesPerRound;
     private void Awake()
     {
+        if(Instance)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
         Instance = this;
     }
 

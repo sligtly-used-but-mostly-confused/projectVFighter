@@ -40,8 +40,6 @@ GameObject:
   - component: {fileID: 23659528077647868}
   - component: {fileID: 33606344499528984}
   - component: {fileID: 114986693633491420}
-  - component: {fileID: 114518410800354810}
-  - component: {fileID: 114694900390513130}
   - component: {fileID: 114702252443559322}
   - component: {fileID: 96795395787533722}
   - component: {fileID: 199699462741809706}
@@ -452,59 +450,6 @@ TrailRenderer:
   m_MinVertexDistance: 0.1
   m_Autodestruct: 0
   m_Emitting: 1
---- !u!114 &114518410800354810
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1844762346393596}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SceneId:
-    m_Value: 0
-  m_AssetId:
-    i0: 96
-    i1: 28
-    i2: 77
-    i3: 39
-    i4: 225
-    i5: 213
-    i6: 187
-    i7: 20
-    i8: 251
-    i9: 254
-    i10: 31
-    i11: 137
-    i12: 128
-    i13: 102
-    i14: 114
-    i15: 162
-  m_ServerOnly: 0
-  m_LocalPlayerAuthority: 0
---- !u!114 &114694900390513130
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1844762346393596}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -1768714887, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_TransformSyncMode: 2
-  m_SendInterval: 0.1
-  m_SyncRotationAxis: 3
-  m_RotationSyncCompression: 0
-  m_SyncSpin: 0
-  m_MovementTheshold: 0.001
-  m_VelocityThreshold: 0.0001
-  m_SnapThreshold: 2
-  m_InterpolateRotation: 1
-  m_InterpolateMovement: 3
 --- !u!114 &114702252443559322
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -552,14 +497,15 @@ MonoBehaviour:
   Bounciness: 0
   CanBeSelected: 1
   KillsPlayer: 1
-  IsSimulatedOnThisConnection: 0
   CanMove: 1
   Owner: {fileID: 0}
+  DebugVelocities: []
+  collAudio: {fileID: 82478617305493386}
   _speedMultiplier: 1
   _speedMultiplierStep: 0.1
   _maxSpeedMultiplier: 2
+  LastShotBy: {fileID: 0}
   sfxAudio: {fileID: 82694951199250962}
-  collAudio: {fileID: 82478617305493386}
   LaunchSound:
   - {fileID: 8300000, guid: 149e04db1685d28429e00b64800f83d6, type: 3}
   LaunchSoundCave:

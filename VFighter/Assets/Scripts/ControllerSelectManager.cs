@@ -16,7 +16,7 @@ public class ControllerSelectManager : MonoBehaviour
     [SerializeField]
     private List<InputDevice> _usedDevices = new List<InputDevice>();
     [SerializeField]
-    private GameObject NetworkPlayerPrefab;
+    private GameObject PlayerPrefab;
     
     public List<InputDevice> DevicesWaitingForPlayer = new List<InputDevice>();
 
@@ -51,6 +51,7 @@ public class ControllerSelectManager : MonoBehaviour
 
     private short SpawnPlayer(short id)
     {
+        Instantiate(PlayerPrefab);
         return id;
     }
 
