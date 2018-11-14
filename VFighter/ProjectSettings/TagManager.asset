@@ -7,6 +7,7 @@ TagManager:
   - SpawnPosition
   - ProjectileMagnetZone
   - ProjectileBody
+  - projectile
   layers:
   - Default
   - TransparentFX
