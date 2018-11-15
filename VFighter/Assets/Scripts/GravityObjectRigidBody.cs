@@ -237,25 +237,6 @@ public class GravityObjectRigidBody : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        /*
-        if(collision.gameObject.GetComponent<GravityObjectRigidBody>())
-        {
-            var vel = _rB.velocity;
-            var normal = Vector2.zero;
-            foreach (var contact in collision.contacts)
-            {
-                normal += contact.normal;
-                break;
-            }
-
-            vel = Vector2.Reflect(vel, normal.normalized);
-            var thisMass = _rB.mass;
-            var otherMass = collision.rigidbody.mass;
-            var reflectionCoef = collision.gameObject.GetComponent<GravityObjectRigidBody>().Bounciness * (1 - (thisMass / (thisMass + otherMass)));
-            var reflectionVec = vel * reflectionCoef;
-            UpdateVelocity(VelocityType.OtherPhysics, reflectionVec);
-        }
-        */
         if (_stopObjectOnCollide && !collision.gameObject.GetComponent<PlayerController>())
         {
             //FindObjectOfType<PlayerController>().ChangeGORBGravityDirection(this, Vector2.zero);
