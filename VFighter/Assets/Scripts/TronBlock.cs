@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Networking;
 using System.Linq;
 
 [RequireComponent(typeof(GravityObjectRigidBody))]
@@ -36,7 +35,6 @@ public class TronBlock : MonoBehaviour
         _lastTailPlaced.GetComponent<TronTail>().SecondsForTailToSurvive = _secondsForTailToSurvive;
         StartCoroutine(DestoryTailCoroutine(newTail));
         _tails.Add(_lastTailPlaced);
-        NetworkServer.Spawn(newTail);
     }
 
     private void Update()
