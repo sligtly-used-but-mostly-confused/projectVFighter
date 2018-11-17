@@ -6242,19 +6242,30 @@ MonoBehaviour:
   - Type: 1
     CooldownTime: 0.3
     IsCoolingDown: 0
+  - Type: 7
+    CooldownTime: 0.1
+    IsCoolingDown: 0
   - Type: 2
-    CooldownTime: 1.5
+    CooldownTime: 0.25
     IsCoolingDown: 0
   - Type: 3
-    CooldownTime: 0.2
+    CooldownTime: 1.25
     IsCoolingDown: 0
   - Type: 4
-    CooldownTime: 0.01
+    CooldownTime: 0.2
     IsCoolingDown: 0
   - Type: 5
+    CooldownTime: 0.01
+    IsCoolingDown: 0
+  - Type: 6
     CooldownTime: 1
     IsCoolingDown: 0
   cooldownFlashInterval: 0
+  _characterRenderers:
+  - {fileID: 137930573651136688}
+  - {fileID: 137954926379053218}
+  - {fileID: 137095500352298006}
+  FlashingMaterial: {fileID: 0}
 --- !u!114 &114730022364382558
 MonoBehaviour:
   m_ObjectHideFlags: 1

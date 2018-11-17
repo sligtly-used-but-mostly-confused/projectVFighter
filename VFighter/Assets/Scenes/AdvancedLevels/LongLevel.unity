@@ -455,7 +455,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.5882353, g: 0.5882353, b: 0.5882353, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1341,11 +1341,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4994604039750398, guid: 69fde143739c4f646a3284ad55e3d8d8, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -13.810383
+      value: -14.13669
       objectReference: {fileID: 0}
     - target: {fileID: 4994604039750398, guid: 69fde143739c4f646a3284ad55e3d8d8, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 4.8677063
+      value: 10.858578
       objectReference: {fileID: 0}
     - target: {fileID: 4313654698854626, guid: 69fde143739c4f646a3284ad55e3d8d8, type: 2}
       propertyPath: m_LocalPosition.z
@@ -2275,12 +2275,12 @@ MonoBehaviour:
   Owner: {fileID: 0}
   DebugVelocities: []
   collAudio: {fileID: 0}
---- !u!43 &976491211
+--- !u!43 &973002079
 Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: pb_Mesh-424990
+  m_Name: pb_Mesh-1902952
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -3252,6 +3252,11 @@ Prefab:
       propertyPath: _spawnPositions.Array.data[3]
       value: 
       objectReference: {fileID: 1200214151}
+    - target: {fileID: 114657139503209278, guid: 0c9a1517dd2ebba4cbbed10d6a04200c,
+        type: 2}
+      propertyPath: _gravityScaleGradientEnd
+      value: 0.75
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0c9a1517dd2ebba4cbbed10d6a04200c, type: 2}
   m_IsPrefabAsset: 0
@@ -5349,7 +5354,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0

@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Linq;
+using TMPro;
 
 public class LevelSelectManager : MonoBehaviour
 {
@@ -19,7 +20,7 @@ public class LevelSelectManager : MonoBehaviour
     public GameObject platform;
     public GameObject levelZone;
     public float areaWidth;
-    public Text timer;
+    public TextMeshProUGUI timer;
     public int selectTime;
     public bool IsTimerStarted { get { return _timerCoroutine != null; } }
     public int numLivesPerPlayer;
