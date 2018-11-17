@@ -366,6 +366,7 @@ public abstract class PlayerController : MonoBehaviour
         ChangeGORBGravityDirection(projectileClone.GetComponent<GravityObjectRigidBody>(), dir);
         projectileClone.GetComponent<GravityObjectRigidBody>().ChangeGravityScale(ShootSpeed);
         projectileClone.GetComponent<GravityObjectRigidBody>().ClearAllVelocities();
+        projectileClone.transform.rotation = Quaternion.identity;
         projectileClone.transform.Rotate(0, 0, angle);
         projectileClone.OnShot();
     }
