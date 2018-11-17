@@ -15,18 +15,15 @@ public class deatheffect : MonoBehaviour {
     public BoxCollider2D bc;
     private GameObject cloneObject;
     private Transform location;
-    // Use this for initialization;
+
     void Start()
     {
         kp = GetComponent<KeyboardPlayerController>();
         bc = GetComponent<BoxCollider2D>();
     }
   
-    // Update is called once per frame
     void Update()
     {
-        
-         
         if(pulse != null)
         {
             if (!pulse.isPlaying)
@@ -34,19 +31,13 @@ public class deatheffect : MonoBehaviour {
                 Destroy(cloneObject);
             }
         }
-      
-    }
-  void OnCollisionEnter2D(Collision2D other)
-    {
-       
-        if(other.collider.tag == "projectile")
-        {
-            cloneObject = Instantiate(DeathPrefab);
-            cloneObject.transform.position = other.transform.position;
-            pulse = cloneObject.GetComponent<ParticleSystem>();
-            pulse.Play();
-        }
-     
     }
 
+    public void PlayDeathEffect()
+    {
+        cloneObject = Instantiate(DeathPrefab);
+        cloneObject.transform.position = transform.position;
+        pulse = cloneObject.GetComponent<ParticleSystem>();
+        pulse.Play();
+    }
 }
