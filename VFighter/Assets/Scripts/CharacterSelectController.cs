@@ -47,6 +47,8 @@ public class CharacterSelectController : MonoBehaviour
 
     private bool _hasFoundReticle = false;
     private float timeOnSelection;
+    public Material CurrentPlayerMaterial;
+    public Material CurrentPlayerRenderingMaterial;
 
     [System.Serializable]
     public struct TutorialPrompt
@@ -209,5 +211,35 @@ public class CharacterSelectController : MonoBehaviour
 
         //set the material to the decided up index
         characterTypeAnimatorGOMappings[currentCharacterType].GetComponentInChildren<SkinnedMeshRenderer>().material = currentMaterialOptions[characterTypeCurrentMaterialIndexMappings[currentCharacterType]];
+        SetCurrentMaterial(currentMaterialOptions[characterTypeCurrentMaterialIndexMappings[currentCharacterType]]);
+        
+    }
+
+    public Material GetCurrentPlayerMaterial()
+    {
+        return CurrentPlayerMaterial;
+    }
+
+    public Material GetCurrentPlayerRenderingMaterial()
+    {
+        return characterTypeAnimatorGOMappings[currentCharacterType].GetComponentInChildren<SkinnedMeshRenderer>().material;
+    }
+
+    public void SetCurrentMaterial(Material mat)
+    {
+        CurrentPlayerMaterial = mat;
+        SetCurrentMaterialLossy(mat);
+    }
+
+    //use this when you only want to change the material temporaraly
+    public void SetCurrentMaterialLossy(Material mat)
+    {
+        //set the material to the decided up index
+        characterTypeAnimatorGOMappings[currentCharacterType].GetComponentInChildren<SkinnedMeshRenderer>().material = mat;
+    }
+
+    public void ResetToCurrentMaterial()
+    {
+        SetCurrentMaterialLossy(CurrentPlayerMaterial);
     }
 }

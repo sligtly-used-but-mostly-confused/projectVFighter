@@ -41,18 +41,17 @@ public class PlayerCooldownController : MonoBehaviour
 
     [SerializeField]
     private float cooldownFlashInterval;
-
-    [SerializeField]
-    private List<Renderer> _characterRenderers;
-    private Dictionary<Renderer, Material> _defaultMaterials;
+    
     private Coroutine _flashCoroutine;
     [SerializeField]
     private Material FlashingMaterial;
+    private CharacterSelectController characterSelect;
 
     private void Start()
     {
         Enum.GetValues(typeof(CooldownType)).Cast<CooldownType>().ToList().ForEach(x => _coolDownTimers.Add(x, null));
         _flashCoroutine = null;
+        characterSelect = GetComponent<CharacterSelectController>();
     }
 
     public bool TryStartCooldown(CooldownType type)
@@ -81,8 +80,7 @@ public class PlayerCooldownController : MonoBehaviour
         ChangeCooldownState(temp);
         if(_flashCoroutine != null)
         {
-            _characterRenderers.ForEach(x => x.material = _defaultMaterials[x]);
-                
+            characterSelect.ResetToCurrentMaterial();
             StopCoroutine(_flashCoroutine);
         }
 
@@ -142,14 +140,7 @@ public class PlayerCooldownController : MonoBehaviour
 
     public IEnumerator FlashRenderer(float interval, float duration)
     {
-        _defaultMaterials = new Dictionary<Renderer, Material>();
-        foreach(Renderer renderer in _characterRenderers)
-        {
-            _defaultMaterials.Add(renderer, renderer.material);
-        }
-
-        _characterRenderers.ForEach(x => x.material = FlashingMaterial);
-
+        characterSelect.SetCurrentMaterialLossy(FlashingMaterial);
         Color minColor = Color.black;
         Color maxColor = new Color(1f,1f,1f,1f);
 
@@ -157,8 +148,7 @@ public class PlayerCooldownController : MonoBehaviour
         while (duration > 0)
         {
             float tColor = currentInterval / interval;
-            _characterRenderers.ForEach(x => x.material.color = Color.Lerp(minColor, maxColor, tColor));
-
+            FlashingMaterial.color = Color.Lerp(minColor, maxColor, tColor);
             currentInterval += Time.deltaTime;
             if (currentInterval >= interval)
             {
@@ -171,7 +161,6 @@ public class PlayerCooldownController : MonoBehaviour
             yield return null;
         }
         
-        _characterRenderers.ForEach(x => x.material = _defaultMaterials[x]);
+        characterSelect.ResetToCurrentMaterial();
     }
-
 }
