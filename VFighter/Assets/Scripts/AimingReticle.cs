@@ -16,7 +16,7 @@ public class AimingReticle : MonoBehaviour
     {
         if(PlayerAttachedTo)
         {
-            GetComponent<Renderer>().material = PlayerAttachedTo.GetComponent<Renderer>().material;
+            //GetComponent<Renderer>().material = PlayerAttachedTo.GetComponent<Renderer>().material;
         }
     }
 }
