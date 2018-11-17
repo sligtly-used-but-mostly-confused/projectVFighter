@@ -227,18 +227,6 @@ public abstract class PlayerController : MonoBehaviour
             ChangeGORBGravityDirection(GORB, ClosestDirection(dir, compass.ToArray(), GORB.GravityDirection));
             PlaySingle(dash, 1);
 
-            //GetComponent<GravityObjectRigidBody>().Dash(dashVec, DashDurationTime, () => { de.dashOn = false; });
-
-            /*
-                ClearAllVelocities();
-                GravityScale = 0;
-                UpdateVelocity(VelocityType.Dash, dashVec);
-                yield return new WaitForSeconds(timeToStop);
-                GravityScale = 1;
-                ClearAllVelocities();
-                onFinish(); 
-             */
-
             GORB.ClearAllVelocities();
             GORB.ChangeGravityScale(0);
             GORB.UpdateVelocity(VelocityType.Dash, dashVec);
@@ -247,8 +235,7 @@ public abstract class PlayerController : MonoBehaviour
                 GORB.ClearAllVelocities();
                 GORB.ChangeGravityScale(1);
                 de.dashOn = false;
-                Debug.Log("starting Recharge");
-                _cooldownController.StartCooldown(CooldownType.DashRecharge, () => { Debug.Log("finish Recharge"); });
+                _cooldownController.StartCooldown(CooldownType.DashRecharge, () => { });
             });
         }
 
@@ -353,8 +340,18 @@ public abstract class PlayerController : MonoBehaviour
         SpawnProjectile(Quaternion.Euler(0, 0, -30) * new Vector3(dir.x, dir.y, 0), DurationOfShotgunGravityProjectile, ProjectileControllerType.Shotgun);
         SpawnProjectile(Quaternion.Euler(0, 0, 15) * new Vector3(dir.x, dir.y, 0), DurationOfShotgunGravityProjectile, ProjectileControllerType.Shotgun);
         SpawnProjectile(Quaternion.Euler(0, 0, -15) * new Vector3(dir.x, dir.y, 0), DurationOfShotgunGravityProjectile, ProjectileControllerType.Shotgun);
-        GetComponent<GravityObjectRigidBody>().Dash(-dir * ShotGunKickBackForce, _cooldownController.GetCooldownTime(CooldownType.ShotGunShot) * .25f, () => { });
+
         RandomizeSfx(shotGunFire, shotGunFireCave, 1);
+
+        var GORB = GetComponent<GravityObjectRigidBody>();
+        GORB.ClearAllVelocities();
+        GORB.ChangeGravityScale(0);
+        GORB.UpdateVelocity(VelocityType.Dash, -dir * ShotGunKickBackForce);
+        _cooldownController.StartCooldown(CooldownType.ShotgunKnockback, () =>
+        {
+            GORB.ClearAllVelocities();
+            GORB.ChangeGravityScale(1);
+        });
     }
 
     public void SpawnProjectile(Vector2 dir, float secondsUntilDestroy, ProjectileControllerType type)

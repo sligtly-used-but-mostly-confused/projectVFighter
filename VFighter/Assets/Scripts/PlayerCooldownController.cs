@@ -12,7 +12,8 @@ public enum CooldownType
     DashRecharge,
     Rocket,
     ChangeGravity,
-    Invincibility
+    Invincibility,
+    ShotgunKnockback
 }
 
 public class PlayerCooldownController : MonoBehaviour
@@ -141,8 +142,6 @@ public class PlayerCooldownController : MonoBehaviour
 
     public IEnumerator FlashRenderer(float interval, float duration)
     {
-        //var renderer = GetComponent<Renderer>();
-        //_defaultMaterials = Color.white;
         _defaultMaterials = new Dictionary<Renderer, Material>();
         foreach(Renderer renderer in _characterRenderers)
         {
@@ -159,7 +158,6 @@ public class PlayerCooldownController : MonoBehaviour
         {
             float tColor = currentInterval / interval;
             _characterRenderers.ForEach(x => x.material.color = Color.Lerp(minColor, maxColor, tColor));
-            //renderer.material.color = Color.Lerp(_defaultColor, maxColor, tColor);
 
             currentInterval += Time.deltaTime;
             if (currentInterval >= interval)
@@ -172,8 +170,7 @@ public class PlayerCooldownController : MonoBehaviour
             duration -= Time.deltaTime;
             yield return null;
         }
-
-        //renderer.material.color = _defaultColor;
+        
         _characterRenderers.ForEach(x => x.material = _defaultMaterials[x]);
     }
 

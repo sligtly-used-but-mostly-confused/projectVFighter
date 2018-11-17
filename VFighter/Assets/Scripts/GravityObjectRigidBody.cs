@@ -210,22 +210,6 @@ public class GravityObjectRigidBody : MonoBehaviour
         GravityScale = newGravityScale;
     }
 
-    public void Dash(Vector2 dashVec, float timeToStop, Action onFinish)
-    {
-        StartCoroutine(StartDash(dashVec, timeToStop, onFinish));
-    }
-
-    private IEnumerator StartDash(Vector2 dashVec, float timeToStop, Action onFinish)
-    {
-        ClearAllVelocities();
-        GravityScale = 0;
-        UpdateVelocity(VelocityType.Dash, dashVec);
-        yield return new WaitForSeconds(timeToStop);
-        GravityScale = 1;
-        ClearAllVelocities();
-        onFinish();
-    }
-
     public void ClearAllVelocities()
     {
         var velKeys = _velocities.Keys.ToList();
