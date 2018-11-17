@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,7 +8,7 @@ public class CountDownTimer : MonoBehaviour {
     public static CountDownTimer Instance;
 
     [SerializeField]
-    private Text _countDownText;
+    private TextMeshProUGUI _countDownText;
     [SerializeField]
     private float _timePerTick = 1;
     [SerializeField]
