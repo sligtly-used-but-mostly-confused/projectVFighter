@@ -128,20 +128,6 @@ public abstract class PlayerController : MonoBehaviour
         LevelManager.Instance.SpawnPlayerDestructive(this);
         GetComponent<GravityObjectRigidBody>().CanMove = false;
     }
-    /*
-    public override void OnStartServer()
-    {
-        base.OnStartServer();
-
-    }
-
-    public override void OnStartLocalPlayer()
-    {
-        StartCoroutine(AttachInputDeviceToPlayer());
-        LevelManager.Instance.SpawnPlayerDestructive(this);
-        GetComponent<GravityObjectRigidBody>().CanMove = false;
-    }
-    */
 
     IEnumerator AttachInputDeviceToPlayer()
     {
@@ -230,7 +216,7 @@ public abstract class PlayerController : MonoBehaviour
 
     public void Dash(Vector2 dir)
     {
-        if (!_cooldownController.IsCoolingDown(CooldownType.Dash))
+        if (!_cooldownController.IsCoolingDown(CooldownType.Dash) && !_cooldownController.IsCoolingDown(CooldownType.DashRecharge))
         {
             de.dashOn = true;
             //need to account for gravity
@@ -239,11 +225,31 @@ public abstract class PlayerController : MonoBehaviour
             var GORB = GetComponent<GravityObjectRigidBody>();
             var compass = new List<Vector2> { GORB.GravityDirection, -GORB.GravityDirection };
             ChangeGORBGravityDirection(GORB, ClosestDirection(dir, compass.ToArray(), GORB.GravityDirection));
-
-            GetComponent<GravityObjectRigidBody>().Dash(dashVec, DashDurationTime, () => { de.dashOn = false; });
             PlaySingle(dash, 1);
 
-            _cooldownController.StartCooldown(CooldownType.Dash, () => { });
+            //GetComponent<GravityObjectRigidBody>().Dash(dashVec, DashDurationTime, () => { de.dashOn = false; });
+
+            /*
+                ClearAllVelocities();
+                GravityScale = 0;
+                UpdateVelocity(VelocityType.Dash, dashVec);
+                yield return new WaitForSeconds(timeToStop);
+                GravityScale = 1;
+                ClearAllVelocities();
+                onFinish(); 
+             */
+
+            GORB.ClearAllVelocities();
+            GORB.ChangeGravityScale(0);
+            GORB.UpdateVelocity(VelocityType.Dash, dashVec);
+            _cooldownController.StartCooldown(CooldownType.Dash, () => 
+            {
+                GORB.ClearAllVelocities();
+                GORB.ChangeGravityScale(1);
+                de.dashOn = false;
+                Debug.Log("starting Recharge");
+                _cooldownController.StartCooldown(CooldownType.DashRecharge, () => { Debug.Log("finish Recharge"); });
+            });
         }
 
     }
@@ -372,37 +378,6 @@ public abstract class PlayerController : MonoBehaviour
         AttachedObject = gravityObjectRB;
         ReticleParent = AttachedObject.gameObject;
     }
-
-    /*
-    [Command]
-    public void CmdBroadCastAttachReticle(NetworkInstanceId gravityObjectId)
-    {
-        if (isLocalPlayer)
-        {
-            AttachReticleInternal(NetworkServer.FindLocalObject(gravityObjectId).GetComponent<GravityObjectRigidBody>());
-        }
-        else
-        {
-            RpcBroadCastAttachReticle(gravityObjectId);
-        }
-    }
-
-    [ClientRpc]
-    public void RpcBroadCastAttachReticle(NetworkInstanceId gravityObjectId)
-    {
-        if (isLocalPlayer)
-        {
-            AttachReticleInternal(ClientScene.FindLocalObject(gravityObjectId).GetComponent<GravityObjectRigidBody>());
-        }
-    }
-    
-
-    public void AttachReticleInternal(GravityObjectRigidBody gravityObjectRB)
-    {
-        AttachedObject = gravityObjectRB;
-        ReticleParent = AttachedObject.gameObject;
-    }
-    */
 
     public void DetachReticle()
     {
@@ -551,28 +526,6 @@ public abstract class PlayerController : MonoBehaviour
         }
     }
 
-    /*
-    public void CmdKill()
-    {
-        
-        
-    }
-
-    [ClientRpc]
-    public void RpcKill()
-    {
-        if(isLocalPlayer)
-        {
-        
-            InternalKill();
-        }
-    }
-    
-    private void InternalKill()
-    {
-        
-    }*/
-
     private void ChangeInvincibility(bool isInvincible)
     {
         IsInvincible = isInvincible;
@@ -594,58 +547,10 @@ public abstract class PlayerController : MonoBehaviour
         GORB.UpdateVelocity(type, dir);
     }
 
-    /*
-    [Command]
-    public void CmdUpdateGORBVelocity(GameObject GORB, VelocityType type, Vector2 dir)
-    {
-        if (GORB.GetComponent<GravityObjectRigidBody>().IsSimulatedOnThisConnection)
-        {
-            GORB.GetComponent<GravityObjectRigidBody>().UpdateVelocity(type, dir);
-        }
-        else
-        {
-            RpcUpdateGORBVelocity(GORB, type, dir);
-        }
-    }
-
-    [ClientRpc]
-    public void RpcUpdateGORBVelocity(GameObject GORB, VelocityType type, Vector2 dir)
-    {
-        if (GORB.GetComponent<GravityObjectRigidBody>().IsSimulatedOnThisConnection)
-        {
-            GORB.GetComponent<GravityObjectRigidBody>().UpdateVelocity(type, dir);
-        }
-    }
-    */
-
     public void ChangeGORBGravityDirection(GravityObjectRigidBody GORB, Vector2 dir)
     {
         GORB.ChangeGravityDirectionInternal(dir);
     }
-
-    /*
-    [Command]
-    public void CmdChangeGORBGravityDirection(GameObject GORB, Vector2 dir)
-    {
-        if (GORB.GetComponent<GravityObjectRigidBody>().IsSimulatedOnThisConnection)
-        {
-            GORB.GetComponent<GravityObjectRigidBody>().ChangeGravityDirectionInternal(dir);
-        }
-        else
-        {
-            RpcChangeGORBGravityDirection(GORB, dir);
-        }
-    }
-
-    [ClientRpc]
-    public void RpcChangeGORBGravityDirection(GameObject GORB, Vector2 dir)
-    {
-        if (GORB.GetComponent<GravityObjectRigidBody>().IsSimulatedOnThisConnection)
-        {
-            GORB.GetComponent<GravityObjectRigidBody>().ChangeGravityDirectionInternal(dir);
-        }
-    }
-    */
 
     public void ClearVelocities(GameObject GORB)
     {
