@@ -11,6 +11,12 @@ public class MagnetZoneController : MonoBehaviour {
     private List<ControllableGravityObjectRigidBody> ObjectsInsideOfMagnetZone = new List<ControllableGravityObjectRigidBody>();
     private ControllableGravityObjectRigidBody _currentlyTracking;
 
+    public void ClearTrackingData()
+    {
+        ObjectsInsideOfMagnetZone.Clear();
+        _currentlyTracking = null;
+    }
+
     public void OnTriggerEnter2D(Collider2D collision)
     {
         var gravityObjectRB = collision.GetComponent<ControllableGravityObjectRigidBody>();
