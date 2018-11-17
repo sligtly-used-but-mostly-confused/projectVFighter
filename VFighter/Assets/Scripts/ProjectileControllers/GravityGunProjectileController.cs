@@ -59,10 +59,9 @@ public class GravityGunProjectileController : MonoBehaviour
         }
     }
 
-    public virtual void OnTriggerEnter2D(Collider2D collision)
+    protected bool TryGetCollisionContactWithTag(Collider2D collision, string tag)
     {
         var gravityObjectRB = collision.GetComponent<GravityObjectRigidBody>();
-        //we have 2 colliders on some objects we only want this on tigger to deal with the main collider so check if it was actually the one that collided
         Collider2D[] res = new Collider2D[100];
 
         var numRes = collision.GetContacts(res);
@@ -70,14 +69,21 @@ public class GravityGunProjectileController : MonoBehaviour
 
         for (int i = 0; i < numRes; i++)
         {
-            isProjectileBodyFound |= res[i].tag == "ProjectileBody";
+            isProjectileBodyFound |= res[i].tag == tag;
         }
 
-        if(!isProjectileBodyFound)
+        return isProjectileBodyFound;
+    }
+
+    public virtual void OnTriggerEnter2D(Collider2D collision)
+    {
+        var gravityObjectRB = collision.GetComponent<GravityObjectRigidBody>();
+
+        if (!TryGetCollisionContactWithTag(collision, "ProjectileBody"))
         {
             return;
         }
-
+        
         if (gravityObjectRB)
         {
 
