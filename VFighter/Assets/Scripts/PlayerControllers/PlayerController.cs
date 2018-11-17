@@ -522,6 +522,8 @@ public abstract class PlayerController : MonoBehaviour
             _cooldownController.StartCooldown(CooldownType.Invincibility, () => { ChangeInvincibility(false); });
 
         }
+
+        GetComponent<deatheffect>().PlayDeathEffect();
     }
 
     private void ChangeInvincibility(bool isInvincible)
