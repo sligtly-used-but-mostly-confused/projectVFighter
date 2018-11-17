@@ -62,6 +62,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4157283484071610}
   - component: {fileID: 58745336886285666}
+  - component: {fileID: 114900816744556678}
   m_Layer: 10
   m_Name: magnetZone
   m_TagString: ProjectileMagnetZone
@@ -262,6 +263,18 @@ MonoBehaviour:
     i15: 77
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 0
+--- !u!114 &114900816744556678
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1378924076265414}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48c27ef213362194b94e1a4eb15a7a9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GORB: {fileID: 114992691814861348}
 --- !u!114 &114918010818131692
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -275,7 +288,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SecondsUntilDestroy: 1
   Owner: {fileID: 0}
-  MagnetCollider: {fileID: 58745336886285666}
 --- !u!114 &114992691814861348
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -299,9 +311,9 @@ MonoBehaviour:
   Bounciness: 0
   CanBeSelected: 0
   KillsPlayer: 0
-  IsSimulatedOnThisConnection: 1
   CanMove: 1
   Owner: {fileID: 0}
+  DebugVelocities: []
   collAudio: {fileID: 0}
 --- !u!198 &198037884154010018
 ParticleSystem:
