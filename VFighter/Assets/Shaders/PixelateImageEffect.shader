@@ -127,8 +127,10 @@ Shader "Custom/PixelateImageEffect"
                 InitializeInputData(IN, normalTS, inputData);
 
                 half4 color = LightweightFragmentBlinnPhong(inputData, diffuse, specularGloss, shininess, emission, alpha);
-                float color_total = (step(.3,color.r) + step(.3,color.b) + step(.3,color.g))/7;
-                color.rgb = color.rgb * (color_total*albedo + albedo*.2) + emission + color.rgb*.05;
+                float color_total = step(.2,(color.r + color.b + color.g))/6;
+                float color_total2 = step(.8,(color.r + color.b + color.g))/3;
+                float color_total3 = step(.95,(color.r + color.b + color.g)/3);
+                color.rgb =  ((color_total*albedo.rgb )+(color_total2*albedo.rgb) +(color_total3*albedo.rgb) +  color.rgb*.3)*.7 + emission ;
 
                 //ApplyFog(color.rgb, inputData.fogCoord);
                 return color;
