@@ -74,22 +74,29 @@ public class CharacterSelectController : MonoBehaviour
         descriptionCanvas.transform.SetParent(transform);
         descriptionCanvas.transform.position = Vector3.down * 2 + new Vector3(0, 0, -3);
 
-        ChangeToNextCharacterType(0);
+        //ChangeToNextCharacterType(0);
 
         //initialize materials
         foreach(CharacterData cd in characterDataList){
             cd.AnimatorGameObject.GetComponentInChildren<SkinnedMeshRenderer>().material = cd.materials[cd.currentMaterialIndex];
         }
 
-        //ChangeMaterialType(1);
-        
         timeOnSelection = 0;
-
-        CurrentPlayerMaterial = characterTypeAnimatorGOMappings[currentCharacterType].GetComponentInChildren<SkinnedMeshRenderer>().material;
     }
 
-    void Update() {
-        
+    /*
+    IEnumerator Start()
+    {
+        yield return new WaitForEndOfFrame();
+        //ChangeToNextCharacterType(1);
+        ChangeMaterialType(1);
+        //ChangeMaterialType(1);
+        //CurrentPlayerMaterial = characterTypeAnimatorGOMappings[currentCharacterType].GetComponentInChildren<SkinnedMeshRenderer>().material;
+    }
+    */
+
+    void Update()
+    {    
         if (!GameManager.Instance.CanChangeCharacters)
         {
             return;
@@ -123,6 +130,7 @@ public class CharacterSelectController : MonoBehaviour
         {
             _hasFoundReticle = true;
             ChangeToNextCharacterType(1);
+            ChangeMaterialType(1);
         }
 
         if(GetComponent<PlayerController>().InputDevice.GetButtonDown(MappedButton.SubmitCharacterChoice))
@@ -194,14 +202,14 @@ public class CharacterSelectController : MonoBehaviour
     private void ChangeMaterialType(int dir)
     {
         //get a list of all currently active characterselectcontroller
-        CharacterSelectController[] characterSelectControllerArray = FindObjectsOfType<CharacterSelectController>();
-        List<CharacterSelectController> characterSelectControllers = new List<CharacterSelectController>(characterSelectControllerArray);
-
+        List<CharacterSelectController> characterSelectControllers = FindObjectsOfType<CharacterSelectController>().ToList();
+        
         //find remaining available materials, based color regardless of what character type;
         List<int> takenMaterialIndexes= new List<int>();
         foreach(CharacterSelectController c in characterSelectControllers)
         {
             takenMaterialIndexes.Add(c.characterTypeCurrentMaterialIndexMappings[c.currentCharacterType]);
+            Debug.Log("taken " + c.characterTypeCurrentMaterialIndexMappings[c.currentCharacterType]);
         }
 
         List<Material> currentMaterialOptions = CharacterTypeMaterialMappings[currentCharacterType];

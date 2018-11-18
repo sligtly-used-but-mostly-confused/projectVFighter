@@ -181,6 +181,8 @@ public abstract class PlayerController : MonoBehaviour
 
             ChangeGravity(GetComponent<GravityObjectRigidBody>().GravityDirection * -1);
             gc.PlayEffect(GetComponent<GravityObjectRigidBody>());
+            Animator currentAnimator = GetComponent<CharacterAnimScript>().currentAnimator;
+            currentAnimator.SetTrigger("Flip");
         }
     }
 
@@ -195,6 +197,8 @@ public abstract class PlayerController : MonoBehaviour
         if (GetComponent<GravityObjectRigidBody>().GravityDirection.y < 0)
         {
             rotY = 0;
+            Animator currentAnimator = GetComponent<CharacterAnimScript>().currentAnimator;
+            currentAnimator.SetTrigger("Flip");
         }
         //characterContainer.transform.rotation = Quaternion.Euler(rotY, characterContainer.transform.rotation.y, 0);
     }
@@ -206,6 +210,9 @@ public abstract class PlayerController : MonoBehaviour
             ChangeGORBGravityDirection(GetComponent<GravityObjectRigidBody>(), dir);
             _cooldownController.StartCooldown(CooldownType.ChangeGravity, () => { });
             PlaySingle(gravChange, 2);
+
+                Animator currentAnimator = GetComponent<CharacterAnimScript>().currentAnimator;
+            currentAnimator.SetTrigger("Flip");
         }
     }
 
