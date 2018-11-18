@@ -2,7 +2,7 @@
 // Only directional light is supported for lit particles
 // No shadow
 // No distortion
-Shader "Custom/PixelateImageEffect"
+Shader "Custom/TrueCelShading"
 {
     Properties
     {
@@ -89,7 +89,7 @@ Shader "Custom/PixelateImageEffect"
             float LightToonShading(half3 normal, half3 lightDir)
             {
                 float NdotL = max(0.0, dot(normalize(normal), normalize(lightDir)));
-                return floor(NdotL * 3) / (3 - 0.5);
+                return floor(NdotL * 2.5) / (2.5 - 0.5);
             }
 
             VertexOutputLit ParticlesLitVertex(appdata_particles v)
@@ -130,7 +130,7 @@ Shader "Custom/PixelateImageEffect"
                 float color_total = step(.2,(color.r + color.b + color.g))/6;
                 float color_total2 = step(.8,(color.r + color.b + color.g))/3;
                 float color_total3 = step(.95,(color.r + color.b + color.g)/3);
-                color.rgb =  ((color_total*albedo.rgb )+(color_total2*albedo.rgb) +(color_total3*albedo.rgb) +  color.rgb*.3)*.7 + emission ;
+                color.rgb = albedo.rgb * saturate(LightToonShading(inputData.normalWS, _MainLightPosition.xyz) +.1 ) * _MainLightColor.rgb + emission;
 
                 //ApplyFog(color.rgb, inputData.fogCoord);
                 return color;
