@@ -1,7 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Linq;
 
 public class PlayerHealthIndicatorCardController : MonoBehaviour {
 
@@ -16,6 +16,18 @@ public class PlayerHealthIndicatorCardController : MonoBehaviour {
     private PlayerController _attachedPlayer;
 
     private List<GameObject> _cells = new List<GameObject>();
+
+    [System.Serializable]
+    public class CharacterTypeIconPair
+    {
+        public PlayerCharacterType Type;
+        public Sprite Icon;
+    }
+
+    public List<CharacterTypeIconPair> IconMappings;
+    public Image CharacterIcon;
+
+    private PlayerCharacterType DisplayedCharacterType = PlayerCharacterType.ShotGun;
 
     public void Init(PlayerController player)
     {
@@ -48,6 +60,13 @@ public class PlayerHealthIndicatorCardController : MonoBehaviour {
             for (; i < _attachedPlayer.ControlledPlayer.NumLives; i++)
             {
                 _cells[i].GetComponent<Image>().material = AliveMaterial;
+            }
+
+            if(_attachedPlayer.CharacterType != DisplayedCharacterType)
+            {
+                DisplayedCharacterType = _attachedPlayer.CharacterType;
+                var pair = IconMappings.Find(x => x.Type == DisplayedCharacterType);
+                CharacterIcon.sprite = pair.Icon;
             }
         }
 	}

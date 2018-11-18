@@ -58,6 +58,11 @@ public class ProjectilePool : MonoBehaviour
         projectile.GetComponent<GravityObjectRigidBody>().ClearAllVelocities();
         projectile.GetComponent<GravityObjectRigidBody>().ChangeGravityDirection(Vector2.zero);
         projectile.gameObject.SetActive(false);
+        var magnetZone = projectile.GetComponentInChildren<MagnetZoneController>();
+        if(magnetZone)
+        {
+            magnetZone.ClearTrackingData();
+        }
     }
 
     private void MakePool(GameObject prefab, Type type)
