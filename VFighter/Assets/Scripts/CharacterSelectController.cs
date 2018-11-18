@@ -75,14 +75,14 @@ public class CharacterSelectController : MonoBehaviour
         descriptionCanvas.transform.SetParent(transform);
         descriptionCanvas.transform.position = Vector3.down * 2 + new Vector3(0, 0, -3);
 
-        ChangeToNextCharacterType(0);
+        ChangeToNextCharacterType(1);
 
         //initialize materials
         foreach(CharacterData cd in characterDataList){
             cd.AnimatorGameObject.GetComponentInChildren<SkinnedMeshRenderer>().material = cd.materials[cd.currentMaterialIndex];
         }
 
-        ChangeMaterialType(0);
+        //ChangeMaterialType(1);
         
         timeOnSelection = 0;
     }
@@ -187,6 +187,7 @@ public class CharacterSelectController : MonoBehaviour
         descriptionCanvas.transform.GetChild(0).transform.GetChild(0).GetComponent<UnityEngine.UI.Text>().text = CharacterTypeDescriptionMappings[GetComponent<PlayerController>().CharacterType];
         timeOnSelection = 0;
         descriptionCanvas.SetActive(false);
+        ChangeMaterialType(0);
     }
     
     private void ChangeMaterialType(int dir){
