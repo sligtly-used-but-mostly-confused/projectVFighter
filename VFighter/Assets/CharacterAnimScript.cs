@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,6 +6,7 @@ public class CharacterAnimScript : MonoBehaviour {
     public Animator currentAnimator;
     Rigidbody2D rb;
     bool facingRight;
+    bool interrupt;
 
     [SerializeField]
     protected GameObject characterContainer;
@@ -13,12 +14,31 @@ public class CharacterAnimScript : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         rb = GetComponent<Rigidbody2D>();
-        facingRight = true;
+        interrupt = false;
 	}
 	
 	// Update is called once per frame
 	void Update () {
         int angleY = 180;
+        if(rb.velocity.y > 5 || rb.velocity.y < -5 && (GetComponent<GravityObjectRigidBody>().GravityDirection.y > .97 || GetComponent<GravityObjectRigidBody>().GravityDirection.y < -.97) ){
+            if (!interrupt && (currentAnimator.GetBool("IsFloating") == false))
+            {
+
+                currentAnimator.SetTrigger("FloatTrigger");
+                interrupt = true;
+            }
+            currentAnimator.SetBool("IsFloating", true);
+        }
+        else{
+            if ((currentAnimator.GetBool("IsFloating") == true) || currentAnimator.GetCurrentAnimatorStateInfo(1).IsName("FloatCycle"))
+            {
+
+                currentAnimator.SetTrigger("LandTrigger");
+                interrupt = false;
+            }
+
+            currentAnimator.SetBool("IsFloating", false);
+        }
         if(rb.velocity.x < 0){
             facingRight = false;
         }
