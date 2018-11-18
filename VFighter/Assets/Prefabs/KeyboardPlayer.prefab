@@ -6095,7 +6095,7 @@ MonoBehaviour:
     - {fileID: 2100000, guid: d80dc501157c04476bcdfff643f74e44, type: 2}
     - {fileID: 2100000, guid: 933dcf88b99434814994644244847a83, type: 2}
     - {fileID: 2100000, guid: 64c269d71c67246cda474dbd449ce7f8, type: 2}
-    currentMaterialIndex: 2
+    currentMaterialIndex: 0
   - IconMaterial: {fileID: 2100000, guid: 21b6171e8989f401ebd087ac2b2c0c07, type: 2}
     description: Dash in the direction you aim. Pushes objects and kills players.
     CharacterType: 1
@@ -6116,9 +6116,8 @@ MonoBehaviour:
     - {fileID: 2100000, guid: 3234f74efe2a2405eb0b9fb939056d61, type: 2}
     - {fileID: 2100000, guid: a948278223d6e4af393f298fc7d7d228, type: 2}
     - {fileID: 2100000, guid: 81d494a18e0d84ffcbfb77a025479b8c, type: 2}
-    currentMaterialIndex: 1
+    currentMaterialIndex: 0
   CurrentPlayerMaterial: {fileID: 0}
-  CurrentPlayerRenderingMaterial: {fileID: 0}
 --- !u!114 &114532030782225478
 MonoBehaviour:
   m_ObjectHideFlags: 1
