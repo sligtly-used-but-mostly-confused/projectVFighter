@@ -15,7 +15,7 @@ AvatarMask:
   - m_Path: c_pelvis_bn/c_hip_bn
     m_Weight: 1
   - m_Path: c_pelvis_bn/c_hip_bn/c_torso_bn
-    m_Weight: 0
+    m_Weight: 1
   - m_Path: c_pelvis_bn/c_hip_bn/c_torso_bn/c_chest_bn
     m_Weight: 0
   - m_Path: c_pelvis_bn/c_hip_bn/c_torso_bn/c_chest_bn/c_head_bn

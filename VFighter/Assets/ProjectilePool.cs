@@ -21,7 +21,8 @@ public class ProjectilePool : MonoBehaviour
     {
         if(Instance)
         {
-            Destroy(Instance.gameObject);
+            Destroy(gameObject);
+            return;
         }
         
         Instance = this;
@@ -57,7 +58,12 @@ public class ProjectilePool : MonoBehaviour
         projectile.transform.rotation = Quaternion.identity;
         projectile.GetComponent<GravityObjectRigidBody>().ClearAllVelocities();
         projectile.GetComponent<GravityObjectRigidBody>().ChangeGravityDirection(Vector2.zero);
-        projectile.transform.position = new Vector3(1000000, 1000000, 0);
+        projectile.gameObject.SetActive(false);
+        var magnetZone = projectile.GetComponentInChildren<MagnetZoneController>();
+        if(magnetZone)
+        {
+            magnetZone.ClearTrackingData();
+        }
     }
 
     private void MakePool(GameObject prefab, Type type)

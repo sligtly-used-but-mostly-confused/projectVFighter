@@ -47,6 +47,7 @@ public class CharacterSelectController : MonoBehaviour
 
     private bool _hasFoundReticle = false;
     private float timeOnSelection;
+    public Material CurrentPlayerMaterial;
 
     [System.Serializable]
     public struct TutorialPrompt
@@ -76,20 +77,19 @@ public class CharacterSelectController : MonoBehaviour
             descriptionCanvas.transform.position = Vector3.down * 2 + new Vector3(0, 0, -3);
         }
 
-        ChangeToNextCharacterType(0);
+        //ChangeToNextCharacterType(0);
 
         //initialize materials
         foreach(CharacterData cd in characterDataList){
             cd.AnimatorGameObject.GetComponentInChildren<SkinnedMeshRenderer>().material = cd.materials[cd.currentMaterialIndex];
         }
 
-        ChangeMaterialType(0);
-        
         timeOnSelection = 0;
+        CurrentPlayerMaterial = characterTypeAnimatorGOMappings[currentCharacterType].GetComponentInChildren<SkinnedMeshRenderer>().material;
     }
 
-    void Update() {
-        
+    void Update()
+    {    
         if (!GameManager.Instance.CanChangeCharacters)
         {
             return;
@@ -126,6 +126,7 @@ public class CharacterSelectController : MonoBehaviour
         {
             _hasFoundReticle = true;
             ChangeToNextCharacterType(1);
+            ChangeMaterialType(1);
         }
 
         if(GetComponent<PlayerController>().InputDevice.GetButtonDown(MappedButton.SubmitCharacterChoice))
@@ -161,22 +162,26 @@ public class CharacterSelectController : MonoBehaviour
 
     public void ChangeToNextCharacterType(int dir)
     {
+        //reset the player material incase its flashing
+        SetCurrentMaterialLossy(CurrentPlayerMaterial);
+
         //get the indexing right
         int index = CharacterTypes.IndexOf(GetComponent<PlayerController>().CharacterType);
         int indexRight, indexLeft;
         index += dir;
         index = (index + CharacterTypes.Count) % CharacterTypes.Count;
-        indexRight = (index + 1 + CharacterTypes.Count) % CharacterTypes.Count;
-        indexLeft = (index - 1 + CharacterTypes.Count) % CharacterTypes.Count;
+        indexRight = (index - 1 + CharacterTypes.Count) % CharacterTypes.Count;
+        indexLeft = (index + 1 + CharacterTypes.Count) % CharacterTypes.Count;
 
         //set the current character
         currentCharacterType = CharacterTypes[index];
+
         GetComponent<PlayerController>().CharacterType = currentCharacterType;
         GameObject currentGO = characterTypeAnimatorGOMappings[currentCharacterType];
+        CurrentPlayerMaterial = currentGO.GetComponentInChildren<SkinnedMeshRenderer>().material;
         GetComponent<CharacterAnimScript>().currentAnimator = currentGO.GetComponent<Animator>();
         currentGO.transform.localPosition = new Vector3(0, -1.33f, 0);
         currentGO.transform.localScale = new Vector3(5, 5, 5);
-
 
         //set the right character preview
         nextCharacterType = CharacterTypes[indexRight];
@@ -199,15 +204,18 @@ public class CharacterSelectController : MonoBehaviour
         }
     }
     
-    private void ChangeMaterialType(int dir){
+    private void ChangeMaterialType(int dir)
+    {
+        //reset the player material incase its flashing
+        SetCurrentMaterialLossy(CurrentPlayerMaterial);
 
         //get a list of all currently active characterselectcontroller
-        CharacterSelectController[] characterSelectControllerArray = FindObjectsOfType<CharacterSelectController>();
-        List<CharacterSelectController> characterSelectControllers = new List<CharacterSelectController>(characterSelectControllerArray);
-
+        List<CharacterSelectController> characterSelectControllers = FindObjectsOfType<CharacterSelectController>().ToList();
+        
         //find remaining available materials, based color regardless of what character type;
         List<int> takenMaterialIndexes= new List<int>();
-        foreach(CharacterSelectController c in characterSelectControllers){
+        foreach(CharacterSelectController c in characterSelectControllers)
+        {
             takenMaterialIndexes.Add(c.characterTypeCurrentMaterialIndexMappings[c.currentCharacterType]);
         }
 
@@ -215,11 +223,41 @@ public class CharacterSelectController : MonoBehaviour
 
         //update the current character material index, taking into account whats available
         characterTypeCurrentMaterialIndexMappings[currentCharacterType] = (characterTypeCurrentMaterialIndexMappings[currentCharacterType] + dir + currentMaterialOptions.Count) % currentMaterialOptions.Count;
-        while(takenMaterialIndexes.Contains(characterTypeCurrentMaterialIndexMappings[currentCharacterType])){
+        while(takenMaterialIndexes.Contains(characterTypeCurrentMaterialIndexMappings[currentCharacterType]))
+        {
             characterTypeCurrentMaterialIndexMappings[currentCharacterType] = (characterTypeCurrentMaterialIndexMappings[currentCharacterType] + 1 + currentMaterialOptions.Count) % currentMaterialOptions.Count;
         }
 
         //set the material to the decided up index
         characterTypeAnimatorGOMappings[currentCharacterType].GetComponentInChildren<SkinnedMeshRenderer>().material = currentMaterialOptions[characterTypeCurrentMaterialIndexMappings[currentCharacterType]];
+        SetCurrentMaterial(currentMaterialOptions[characterTypeCurrentMaterialIndexMappings[currentCharacterType]]);
+    }
+
+    public Material GetCurrentPlayerMaterial()
+    {
+        return CurrentPlayerMaterial;
+    }
+
+    public Material GetCurrentPlayerRenderingMaterial()
+    {
+        return characterTypeAnimatorGOMappings[currentCharacterType].GetComponentInChildren<SkinnedMeshRenderer>().material;
+    }
+
+    public void SetCurrentMaterial(Material mat)
+    {
+        CurrentPlayerMaterial = mat;
+        SetCurrentMaterialLossy(mat);
+    }
+
+    //use this when you only want to change the material temporaraly
+    public void SetCurrentMaterialLossy(Material mat)
+    {
+        //set the material to the decided up index
+        characterTypeAnimatorGOMappings[currentCharacterType].GetComponentInChildren<SkinnedMeshRenderer>().material = mat;
+    }
+
+    public void ResetToCurrentMaterial()
+    {
+        SetCurrentMaterialLossy(CurrentPlayerMaterial);
     }
 }

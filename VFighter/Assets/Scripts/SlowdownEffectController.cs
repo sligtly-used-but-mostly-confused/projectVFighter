@@ -13,6 +13,8 @@ public class SlowdownEffectController : MonoBehaviour {
     [SerializeField]
     private float _slowdownDuration = .5f;
     [SerializeField]
+    private float _slowdownCooldownDuration = 1f;
+    [SerializeField]
     private float _slowdownTimeScale = .1f;
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -37,6 +39,7 @@ public class SlowdownEffectController : MonoBehaviour {
         yield return new WaitForSeconds(_slowdownDuration);
         bloom.intensity.value = 7.5f;
         GameManager.Instance.TimeScale = prevTimeScale;
+        yield return new WaitForSeconds(_slowdownCooldownDuration);
         IsSlowDownCurrentlyRunning = false;
     }
 

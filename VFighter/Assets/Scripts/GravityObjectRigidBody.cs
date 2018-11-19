@@ -210,22 +210,6 @@ public class GravityObjectRigidBody : MonoBehaviour
         GravityScale = newGravityScale;
     }
 
-    public void Dash(Vector2 dashVec, float timeToStop, Action onFinish)
-    {
-        StartCoroutine(StartDash(dashVec, timeToStop, onFinish));
-    }
-
-    private IEnumerator StartDash(Vector2 dashVec, float timeToStop, Action onFinish)
-    {
-        ClearAllVelocities();
-        GravityScale = 0;
-        UpdateVelocity(VelocityType.Dash, dashVec);
-        yield return new WaitForSeconds(timeToStop);
-        GravityScale = 1;
-        ClearAllVelocities();
-        onFinish();
-    }
-
     public void ClearAllVelocities()
     {
         var velKeys = _velocities.Keys.ToList();
@@ -237,25 +221,6 @@ public class GravityObjectRigidBody : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        /*
-        if(collision.gameObject.GetComponent<GravityObjectRigidBody>())
-        {
-            var vel = _rB.velocity;
-            var normal = Vector2.zero;
-            foreach (var contact in collision.contacts)
-            {
-                normal += contact.normal;
-                break;
-            }
-
-            vel = Vector2.Reflect(vel, normal.normalized);
-            var thisMass = _rB.mass;
-            var otherMass = collision.rigidbody.mass;
-            var reflectionCoef = collision.gameObject.GetComponent<GravityObjectRigidBody>().Bounciness * (1 - (thisMass / (thisMass + otherMass)));
-            var reflectionVec = vel * reflectionCoef;
-            UpdateVelocity(VelocityType.OtherPhysics, reflectionVec);
-        }
-        */
         if (_stopObjectOnCollide && !collision.gameObject.GetComponent<PlayerController>())
         {
             //FindObjectOfType<PlayerController>().ChangeGORBGravityDirection(this, Vector2.zero);

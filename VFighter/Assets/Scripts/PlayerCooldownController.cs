@@ -9,9 +9,11 @@ public enum CooldownType
     NormalShot,
     ShotGunShot,
     Dash,
+    DashRecharge,
     Rocket,
     ChangeGravity,
-    Invincibility
+    Invincibility,
+    ShotgunKnockback
 }
 
 public class PlayerCooldownController : MonoBehaviour
@@ -39,13 +41,17 @@ public class PlayerCooldownController : MonoBehaviour
 
     [SerializeField]
     private float cooldownFlashInterval;
-
+    
     private Coroutine _flashCoroutine;
-    private Color _defaultColor;
+    [SerializeField]
+    private Material FlashingMaterial;
+    private CharacterSelectController characterSelect;
+
     private void Start()
     {
         Enum.GetValues(typeof(CooldownType)).Cast<CooldownType>().ToList().ForEach(x => _coolDownTimers.Add(x, null));
         _flashCoroutine = null;
+        characterSelect = GetComponent<CharacterSelectController>();
     }
 
     public bool TryStartCooldown(CooldownType type)
@@ -74,7 +80,7 @@ public class PlayerCooldownController : MonoBehaviour
         ChangeCooldownState(temp);
         if(_flashCoroutine != null)
         {
-            GetComponent<Renderer>().material.color = _defaultColor;
+            characterSelect.ResetToCurrentMaterial();
             StopCoroutine(_flashCoroutine);
         }
 
@@ -134,17 +140,15 @@ public class PlayerCooldownController : MonoBehaviour
 
     public IEnumerator FlashRenderer(float interval, float duration)
     {
-        var renderer = GetComponent<Renderer>();
-        _defaultColor = renderer.material.color;
-        Color minColor = _defaultColor;
+        characterSelect.SetCurrentMaterialLossy(FlashingMaterial);
+        Color minColor = Color.black;
         Color maxColor = new Color(1f,1f,1f,1f);
 
         float currentInterval = 0;
         while (duration > 0)
         {
             float tColor = currentInterval / interval;
-            renderer.material.color = Color.Lerp(_defaultColor, maxColor, tColor);
-
+            FlashingMaterial.color = Color.Lerp(minColor, maxColor, tColor);
             currentInterval += Time.deltaTime;
             if (currentInterval >= interval)
             {
@@ -156,8 +160,7 @@ public class PlayerCooldownController : MonoBehaviour
             duration -= Time.deltaTime;
             yield return null;
         }
-
-        renderer.material.color = _defaultColor;
+        
+        characterSelect.ResetToCurrentMaterial();
     }
-
 }

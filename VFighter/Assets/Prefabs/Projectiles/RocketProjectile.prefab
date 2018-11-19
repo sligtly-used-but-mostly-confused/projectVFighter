@@ -75,8 +75,6 @@ GameObject:
   - component: {fileID: 50495849334074580}
   - component: {fileID: 58451206881471868}
   - component: {fileID: 114395236093753420}
-  - component: {fileID: 114770715396034166}
-  - component: {fileID: 114900159125151600}
   - component: {fileID: 212801089002888464}
   - component: {fileID: 95928490133601512}
   - component: {fileID: 114913544696293776}
@@ -354,63 +352,10 @@ MonoBehaviour:
   Bounciness: 0
   CanBeSelected: 0
   KillsPlayer: 0
-  IsSimulatedOnThisConnection: 1
   CanMove: 1
   Owner: {fileID: 0}
+  DebugVelocities: []
   collAudio: {fileID: 0}
---- !u!114 &114770715396034166
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1768928368749820}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SceneId:
-    m_Value: 0
-  m_AssetId:
-    i0: 144
-    i1: 163
-    i2: 248
-    i3: 157
-    i4: 220
-    i5: 32
-    i6: 74
-    i7: 180
-    i8: 88
-    i9: 255
-    i10: 36
-    i11: 100
-    i12: 181
-    i13: 174
-    i14: 70
-    i15: 120
-  m_ServerOnly: 0
-  m_LocalPlayerAuthority: 0
---- !u!114 &114900159125151600
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1768928368749820}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -1768714887, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_TransformSyncMode: 2
-  m_SendInterval: 0.1
-  m_SyncRotationAxis: 3
-  m_RotationSyncCompression: 0
-  m_SyncSpin: 0
-  m_MovementTheshold: 0.001
-  m_VelocityThreshold: 0.0001
-  m_SnapThreshold: 5
-  m_InterpolateRotation: 1
-  m_InterpolateMovement: 2
 --- !u!114 &114913544696293776
 MonoBehaviour:
   m_ObjectHideFlags: 1
