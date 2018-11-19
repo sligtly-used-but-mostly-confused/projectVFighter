@@ -163,16 +163,21 @@ public class CharacterSelectController : MonoBehaviour
 
     public void ChangeToNextCharacterType(int dir)
     {
+        Debug.Log(dir);
+
         //get the indexing right
         int index = CharacterTypes.IndexOf(GetComponent<PlayerController>().CharacterType);
         int indexRight, indexLeft;
         index += dir;
         index = (index + CharacterTypes.Count) % CharacterTypes.Count;
-        indexRight = (index + 1 + CharacterTypes.Count) % CharacterTypes.Count;
-        indexLeft = (index - 1 + CharacterTypes.Count) % CharacterTypes.Count;
+        indexRight = (index - 1 + CharacterTypes.Count) % CharacterTypes.Count;
+        indexLeft = (index + 1 + CharacterTypes.Count) % CharacterTypes.Count;
 
         //set the current character
+        Debug.Log(currentCharacterType);
         currentCharacterType = CharacterTypes[index];
+        Debug.Log(currentCharacterType);
+
         GetComponent<PlayerController>().CharacterType = currentCharacterType;
         GameObject currentGO = characterTypeAnimatorGOMappings[currentCharacterType];
         CurrentPlayerMaterial = currentGO.GetComponentInChildren<SkinnedMeshRenderer>().material;
