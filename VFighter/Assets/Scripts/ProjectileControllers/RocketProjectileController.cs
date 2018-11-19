@@ -13,7 +13,7 @@ public class RocketProjectileController : GravityGunProjectileController
     public GameObject RocketBlastPrefab;
     public override void OnHitGORB(GravityObjectRigidBody GORB)
     {
-        BlastSfx();
+        //BlastSfx();
     }
 
     protected override void ReturnToPool()

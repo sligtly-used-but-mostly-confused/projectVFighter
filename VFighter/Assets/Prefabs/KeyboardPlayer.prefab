@@ -6052,6 +6052,11 @@ MonoBehaviour:
   - {fileID: 8300000, guid: d7a1574ef8b6c2e43bcd697216476eaf, type: 3}
   - {fileID: 8300000, guid: 25f1e330765785c4692a384dc948d7bd, type: 3}
   - {fileID: 8300000, guid: 3a224acb471aebd41bb209bd31158e68, type: 3}
+  deathIndicator:
+  - {fileID: 8300000, guid: 6697e9d80d523554a9c90ea417490039, type: 3}
+  - {fileID: 8300000, guid: 7ee4b29a5df31e94fa7e86e20993ddbf, type: 3}
+  - {fileID: 8300000, guid: 7e7f54500d695144293d102f56612dbd, type: 3}
+  - {fileID: 8300000, guid: c9642d6336dae394ba796a2eea99801b, type: 3}
   deathLocation: {fileID: 0}
   ReticleId: -1
   MaterialId: -1

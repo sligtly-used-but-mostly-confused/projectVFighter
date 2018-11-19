@@ -229,9 +229,9 @@ public class GravityObjectRigidBody : MonoBehaviour
         else if (_stopObjectOnCollide)
             //Replace with player-object collision sound fx?
             AudioManager.instance.RandomizeSfx(AudioManager.instance.Coll, AudioManager.instance.CollCave, collAudio);
-        else if (GetComponent<PlayerController>()!= null)
+        //else if (GetComponent<PlayerController>()!= null)
             //Replace with player collision sound fx?
-            AudioManager.instance.RandomizeSfx(AudioManager.instance.Coll, AudioManager.instance.CollCave, collAudio);
+            //AudioManager.instance.RandomizeSfx(AudioManager.instance.Coll, AudioManager.instance.CollCave, collAudio);
 
     }
 }

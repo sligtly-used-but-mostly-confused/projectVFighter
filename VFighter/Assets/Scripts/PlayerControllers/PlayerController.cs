@@ -79,6 +79,7 @@ public abstract class PlayerController : MonoBehaviour
     public AudioClip[] gravGunFireCave;
     public AudioClip[] shotGunFire;
     public AudioClip[] shotGunFireCave;
+    public AudioClip[] deathIndicator;
     public Transform deathLocation;
 
     public Action OnHitObjectWithNormalProjectile;
@@ -512,7 +513,7 @@ public abstract class PlayerController : MonoBehaviour
         }
 
         PlaySingle(death, 3);
-
+        RandomizeSfx(deathIndicator, deathIndicator, 1);
         if (ControlledPlayer.NumDeaths >= ControlledPlayer.NumLives)
         {
             IsDead = true;
