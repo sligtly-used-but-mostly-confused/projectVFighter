@@ -102,7 +102,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SecondsOfExplosion: 0.125
   SecondsForEffect: 10
-  ExplosionVelocity: 100
+  ExplosionVelocity: 10
   IsStillExploding: 1
 --- !u!198 &198641438626834018
 ParticleSystem:
