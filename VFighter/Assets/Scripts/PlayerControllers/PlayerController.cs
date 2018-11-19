@@ -593,7 +593,7 @@ public abstract class PlayerController : MonoBehaviour
     {
         //Set the clip of our efxSource audio source to the clip passed in as a parameter.
         channels[channel].clip = clip;
-
+        channels[channel].volume = 1.0f * AudioManager.SFXVol * AudioManager.MasterVol;
         //Play the clip.
         channels[channel].Play();
     }
