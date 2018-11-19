@@ -34,10 +34,14 @@ public class SlowdownEffectController : MonoBehaviour {
         GameManager.Instance.TimeScale = _slowdownTimeScale;
         PostProcessVolume vol = FindObjectOfType<PostProcessVolume>();
         Bloom bloom = null;
+        ChromaticAberration CA = null;
         vol.profile.TryGetSettings(out bloom);
+        vol.profile.TryGetSettings(out CA);
         bloom.intensity.value = 15;
+        CA.intensity.value = 0.4f;
         yield return new WaitForSeconds(_slowdownDuration);
         bloom.intensity.value = 7.5f;
+        CA.intensity.value = 0.1f;
         GameManager.Instance.TimeScale = prevTimeScale;
         yield return new WaitForSeconds(_slowdownCooldownDuration);
         IsSlowDownCurrentlyRunning = false;
