@@ -226,12 +226,12 @@ public class GravityObjectRigidBody : MonoBehaviour
             //FindObjectOfType<PlayerController>().ChangeGORBGravityDirection(this, Vector2.zero);
             //AudioManager.instance.RandomizeSfx(AudioManager.instance.Coll, AudioManager.instance.CollCave, collAudio);
         }
-        else if (_stopObjectOnCollide)
-            //Replace with player-object collision sound fx?
+        else if (GetComponent<PlayerController>() != null)
+        //Replace with player collision sound fx?
+        {
+            collAudio.loop = false;
+            collAudio.volume = AudioManager.SFXVol * AudioManager.MusicVol;
             AudioManager.instance.RandomizeSfx(AudioManager.instance.Coll, AudioManager.instance.CollCave, collAudio);
-        else if (GetComponent<PlayerController>()!= null)
-            //Replace with player collision sound fx?
-            AudioManager.instance.RandomizeSfx(AudioManager.instance.Coll, AudioManager.instance.CollCave, collAudio);
-
+        }
     }
 }
