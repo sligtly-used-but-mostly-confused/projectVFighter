@@ -82,18 +82,8 @@ public class CharacterSelectController : MonoBehaviour
         }
 
         timeOnSelection = 0;
+        CurrentPlayerMaterial = characterTypeAnimatorGOMappings[currentCharacterType].GetComponentInChildren<SkinnedMeshRenderer>().material;
     }
-
-    /*
-    IEnumerator Start()
-    {
-        yield return new WaitForEndOfFrame();
-        //ChangeToNextCharacterType(1);
-        ChangeMaterialType(1);
-        //ChangeMaterialType(1);
-        //CurrentPlayerMaterial = characterTypeAnimatorGOMappings[currentCharacterType].GetComponentInChildren<SkinnedMeshRenderer>().material;
-    }
-    */
 
     void Update()
     {    
@@ -163,7 +153,8 @@ public class CharacterSelectController : MonoBehaviour
 
     public void ChangeToNextCharacterType(int dir)
     {
-        Debug.Log(dir);
+        //reset the player material incase its flashing
+        SetCurrentMaterialLossy(CurrentPlayerMaterial);
 
         //get the indexing right
         int index = CharacterTypes.IndexOf(GetComponent<PlayerController>().CharacterType);
@@ -174,9 +165,7 @@ public class CharacterSelectController : MonoBehaviour
         indexLeft = (index + 1 + CharacterTypes.Count) % CharacterTypes.Count;
 
         //set the current character
-        Debug.Log(currentCharacterType);
         currentCharacterType = CharacterTypes[index];
-        Debug.Log(currentCharacterType);
 
         GetComponent<PlayerController>().CharacterType = currentCharacterType;
         GameObject currentGO = characterTypeAnimatorGOMappings[currentCharacterType];
@@ -201,11 +190,13 @@ public class CharacterSelectController : MonoBehaviour
         descriptionCanvas.transform.GetChild(0).transform.GetChild(0).GetComponent<UnityEngine.UI.Text>().text = CharacterTypeDescriptionMappings[GetComponent<PlayerController>().CharacterType];
         timeOnSelection = 0;
         descriptionCanvas.SetActive(false);
-        
     }
     
     private void ChangeMaterialType(int dir)
     {
+        //reset the player material incase its flashing
+        SetCurrentMaterialLossy(CurrentPlayerMaterial);
+
         //get a list of all currently active characterselectcontroller
         List<CharacterSelectController> characterSelectControllers = FindObjectsOfType<CharacterSelectController>().ToList();
         
@@ -214,7 +205,6 @@ public class CharacterSelectController : MonoBehaviour
         foreach(CharacterSelectController c in characterSelectControllers)
         {
             takenMaterialIndexes.Add(c.characterTypeCurrentMaterialIndexMappings[c.currentCharacterType]);
-            Debug.Log("taken " + c.characterTypeCurrentMaterialIndexMappings[c.currentCharacterType]);
         }
 
         List<Material> currentMaterialOptions = CharacterTypeMaterialMappings[currentCharacterType];
