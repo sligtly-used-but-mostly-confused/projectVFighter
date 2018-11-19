@@ -21,7 +21,8 @@ public class ProjectilePool : MonoBehaviour
     {
         if(Instance)
         {
-            Destroy(Instance.gameObject);
+            Destroy(gameObject);
+            return;
         }
         
         Instance = this;

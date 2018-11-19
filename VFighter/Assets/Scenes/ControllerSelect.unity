@@ -644,6 +644,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _menuObject: {fileID: 1559389152}
+  MainMenu: {fileID: 102900000, guid: 1ff683f5d89d24e06ad137e40550dbb2, type: 3}
 --- !u!114 &243025640
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,12 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.Networking;
+using UnityEditor;
 
 public class InGameMenuUIManager : MonoBehaviour {
     public static InGameMenuUIManager Instance;
     [SerializeField]
     private GameObject _menuObject;
+    [SerializeField]
+    private SceneAsset MainMenu;
 
     private void Awake()
     {
@@ -29,25 +33,6 @@ public class InGameMenuUIManager : MonoBehaviour {
     public void Disconnect()
     {
         _menuObject.SetActive(false);
-
-        //CustomNetworkManager.Instance.StopClient();
-        //
-        NetworkIdentity networkIdentity = GetComponent<NetworkIdentity>();
-        NetworkManager networkManager = CustomNetworkManager.Instance;
-
-        if (networkIdentity.isServer && networkIdentity.isClient)
-        {
-            networkManager.StopHost();
-        }
-        else if (networkIdentity.isServer)
-        {
-            networkManager.StopServer();
-        }
-        else
-        {
-            networkManager.StopClient();
-        }
-
-        Destroy(CustomNetworkManager.Instance.gameObject);
+        SceneManager.LoadScene(MainMenu.name);
     }
 }
