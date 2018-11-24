@@ -51,12 +51,6 @@ public class PlayerCooldownController : MonoBehaviour
 
     private Material _flashingMaterialCopy;
 
-    /*
-    [SerializeField]
-    private Material ShootFlashingMaterial;
-    [SerializeField]
-    private Material SpecialFlashingMaterial;
-    */
     private CharacterSelectController characterSelect;
 
     private void Start()
