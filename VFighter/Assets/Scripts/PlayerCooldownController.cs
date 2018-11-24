@@ -27,6 +27,8 @@ public class PlayerCooldownController : MonoBehaviour
         public float CooldownTime;
         [SerializeField]
         public bool IsCoolingDown;
+        [SerializeField]
+        public Material FlashingMaterial;
     }
 
     public class CooldownCoroutineCallbackPair
@@ -43,8 +45,12 @@ public class PlayerCooldownController : MonoBehaviour
     private float cooldownFlashInterval;
     
     private Coroutine _flashCoroutine;
+    
     [SerializeField]
     private Material FlashingMaterial;
+
+    private Material _flashingMaterialCopy;
+
     private CharacterSelectController characterSelect;
 
     private void Start()
@@ -52,6 +58,7 @@ public class PlayerCooldownController : MonoBehaviour
         Enum.GetValues(typeof(CooldownType)).Cast<CooldownType>().ToList().ForEach(x => _coolDownTimers.Add(x, null));
         _flashCoroutine = null;
         characterSelect = GetComponent<CharacterSelectController>();
+        _flashingMaterialCopy = new Material(FlashingMaterial);
     }
 
     public bool TryStartCooldown(CooldownType type)
@@ -87,7 +94,7 @@ public class PlayerCooldownController : MonoBehaviour
         var coolDown = new CooldownCoroutineCallbackPair();
 
         coolDown.CooldownTimer = StartCoroutine(CooldownInternal(type, temp.CooldownTime, cb));
-        _flashCoroutine = StartCoroutine(FlashRenderer(cooldownFlashInterval, temp.CooldownTime));
+        _flashCoroutine = StartCoroutine(FlashRenderer(cooldownFlashInterval, temp.CooldownTime, _coolDowns[index].FlashingMaterial));
         coolDown.Callback = cb;
         _coolDownTimers[type] = coolDown;
     }
@@ -138,29 +145,27 @@ public class PlayerCooldownController : MonoBehaviour
         _coolDowns[index] = pair;
     }
 
-    public IEnumerator FlashRenderer(float interval, float duration)
+    public IEnumerator FlashRenderer(float interval, float duration, Material OtherMaterialState)
     {
-        characterSelect.SetCurrentMaterialLossy(FlashingMaterial);
+        Material playerMaterial = characterSelect.GetCurrentPlayerMaterial();
+        characterSelect.SetCurrentMaterialLossy(_flashingMaterialCopy);
         Color minColor = Color.black;
-        Color maxColor = new Color(1f,1f,1f,1f);
+        Color maxColor = OtherMaterialState.GetColor("_Color");
 
-        float currentInterval = 0;
+        Color minEmission = Color.black;
+        Color maxEmission = OtherMaterialState.GetColor("_EmissionColor");
+
         while (duration > 0)
         {
-            float tColor = currentInterval / interval;
-            FlashingMaterial.color = Color.Lerp(minColor, maxColor, tColor);
-            currentInterval += Time.deltaTime;
-            if (currentInterval >= interval)
-            {
-                Color temp = minColor;
-                minColor = maxColor;
-                maxColor = temp;
-                currentInterval = currentInterval - interval;
-            }
+            float lerp = Mathf.PingPong(Time.time, duration) / duration;
+            _flashingMaterialCopy.SetColor("_Color", Color.Lerp(minColor, maxColor, lerp));
+            _flashingMaterialCopy.SetColor("_EmissionColor", Color.Lerp(minEmission, maxEmission, lerp));
+
             duration -= Time.deltaTime;
             yield return null;
         }
-        
+
+        _flashingMaterialCopy.CopyPropertiesFromMaterial(FlashingMaterial);
         characterSelect.ResetToCurrentMaterial();
     }
 }
