@@ -6155,7 +6155,7 @@ MonoBehaviour:
   - Type: 0
     CooldownTime: 0.4
     IsCoolingDown: 0
-    FlashingMaterial: {fileID: 2100000, guid: 04d126ba1f0d0478f801292308bbc946, type: 2}
+    FlashingMaterial: {fileID: 2100000, guid: 1ca7f837df226e243aa9443535fefe74, type: 2}
   - Type: 1
     CooldownTime: 0.3
     IsCoolingDown: 0
@@ -6179,7 +6179,7 @@ MonoBehaviour:
   - Type: 5
     CooldownTime: 0.01
     IsCoolingDown: 0
-    FlashingMaterial: {fileID: 2100000, guid: 6b27233b30329469ea2c8f7bafe5d057, type: 2}
+    FlashingMaterial: {fileID: 2100000, guid: d1a34e5e47473784cbc28a97a06f2299, type: 2}
   - Type: 6
     CooldownTime: 1
     IsCoolingDown: 0
