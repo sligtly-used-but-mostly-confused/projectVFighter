@@ -5449,10 +5449,10 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 4d4902c8741e455459786b38496785d9, type: 3}
+  m_audioClip: {fileID: 8300000, guid: c4c8d3e382ba4bb489e4a0ac3e5f5d79, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
-  m_Pitch: 1
+  m_Pitch: -3
   Loop: 1
   Mute: 0
   Spatialize: 0
@@ -6052,6 +6052,11 @@ MonoBehaviour:
   - {fileID: 8300000, guid: d7a1574ef8b6c2e43bcd697216476eaf, type: 3}
   - {fileID: 8300000, guid: 25f1e330765785c4692a384dc948d7bd, type: 3}
   - {fileID: 8300000, guid: 3a224acb471aebd41bb209bd31158e68, type: 3}
+  deathIndicator:
+  - {fileID: 8300000, guid: 6697e9d80d523554a9c90ea417490039, type: 3}
+  - {fileID: 8300000, guid: 7ee4b29a5df31e94fa7e86e20993ddbf, type: 3}
+  - {fileID: 8300000, guid: 7e7f54500d695144293d102f56612dbd, type: 3}
+  - {fileID: 8300000, guid: c9642d6336dae394ba796a2eea99801b, type: 3}
   deathLocation: {fileID: 0}
   ReticleId: -1
   MaterialId: -1
@@ -6150,29 +6155,37 @@ MonoBehaviour:
   - Type: 0
     CooldownTime: 0.4
     IsCoolingDown: 0
+    FlashingMaterial: {fileID: 2100000, guid: 1ca7f837df226e243aa9443535fefe74, type: 2}
   - Type: 1
     CooldownTime: 0.3
     IsCoolingDown: 0
+    FlashingMaterial: {fileID: 2100000, guid: c15c4b8059261441fa6ac72c71454e30, type: 2}
   - Type: 7
     CooldownTime: 0.1
     IsCoolingDown: 0
+    FlashingMaterial: {fileID: 2100000, guid: c15c4b8059261441fa6ac72c71454e30, type: 2}
   - Type: 2
     CooldownTime: 0.25
     IsCoolingDown: 0
+    FlashingMaterial: {fileID: 2100000, guid: b2a8a02c59a65284d9aae1c3dd996a45, type: 2}
   - Type: 3
     CooldownTime: 1.25
     IsCoolingDown: 0
+    FlashingMaterial: {fileID: 2100000, guid: b2a8a02c59a65284d9aae1c3dd996a45, type: 2}
   - Type: 4
     CooldownTime: 0.2
     IsCoolingDown: 0
+    FlashingMaterial: {fileID: 2100000, guid: f1a6e1fc3730df442be9feffac8c07c2, type: 2}
   - Type: 5
     CooldownTime: 0.01
     IsCoolingDown: 0
+    FlashingMaterial: {fileID: 2100000, guid: d1a34e5e47473784cbc28a97a06f2299, type: 2}
   - Type: 6
     CooldownTime: 1
     IsCoolingDown: 0
+    FlashingMaterial: {fileID: 2100000, guid: 6b27233b30329469ea2c8f7bafe5d057, type: 2}
   cooldownFlashInterval: 0
-  FlashingMaterial: {fileID: 2100000, guid: 6b27233b30329469ea2c8f7bafe5d057, type: 2}
+  FlashingMaterial: {fileID: 2100000, guid: d0a9ab11bedb25641819c6781f18fcaa, type: 2}
 --- !u!114 &114730022364382558
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -79,6 +79,7 @@ public abstract class PlayerController : MonoBehaviour
     public AudioClip[] gravGunFireCave;
     public AudioClip[] shotGunFire;
     public AudioClip[] shotGunFireCave;
+    public AudioClip[] deathIndicator;
     public Transform deathLocation;
 
     public Action OnHitObjectWithNormalProjectile;
@@ -512,25 +513,29 @@ public abstract class PlayerController : MonoBehaviour
         }
 
         PlaySingle(death, 3);
-
-        if (ControlledPlayer.NumDeaths >= ControlledPlayer.NumLives)
-        {
-            IsDead = true;
-            transform.position = LevelManager.Instance.JailTransform.position;
-        }
-        else
-        {
-
-            dth.isDead = true;
-
-            //respawning player
-            LevelManager.Instance.SpawnPlayer(this);
-            ChangeInvincibility(true);
-            _cooldownController.StartCooldown(CooldownType.Invincibility, () => { ChangeInvincibility(false); });
-
-        }
-
+        RandomizeSfx(deathIndicator, deathIndicator, 1);
+        ChangeInvincibility(true);
+        _cooldownController.StartCooldown(CooldownType.Invincibility, () => { ChangeInvincibility(false); });
         GetComponent<deatheffect>().PlayDeathEffect();
+
+        GetComponent<GravityObjectRigidBody>().CanMove = false;
+        
+        _cooldownController.StartCooldown(CooldownType.Death, () => 
+        {
+            if (ControlledPlayer.NumDeaths >= ControlledPlayer.NumLives)
+            {
+                IsDead = true;
+                transform.position = LevelManager.Instance.JailTransform.position;
+            }
+            else
+            {
+                dth.isDead = true;
+                //respawning player
+                LevelManager.Instance.SpawnPlayer(this);
+            }
+
+            GetComponent<GravityObjectRigidBody>().CanMove = true;
+        });
     }
 
     private void ChangeInvincibility(bool isInvincible)
@@ -592,7 +597,7 @@ public abstract class PlayerController : MonoBehaviour
     {
         //Set the clip of our efxSource audio source to the clip passed in as a parameter.
         channels[channel].clip = clip;
-
+        channels[channel].volume = 1.0f * AudioManager.SFXVol * AudioManager.MasterVol;
         //Play the clip.
         channels[channel].Play();
     }
