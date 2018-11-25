@@ -13,7 +13,8 @@ public enum CooldownType
     Rocket,
     ChangeGravity,
     Invincibility,
-    ShotgunKnockback
+    ShotgunKnockback,
+    Death
 }
 
 public class PlayerCooldownController : MonoBehaviour
