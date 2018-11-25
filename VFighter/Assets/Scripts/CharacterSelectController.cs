@@ -104,7 +104,6 @@ public class CharacterSelectController : MonoBehaviour
         descriptionCanvas.SetActive(!ready && timeOnSelection > secondForCharacterTip); 
 
         GravityObjectRigidBody rb = GetComponent<GravityObjectRigidBody>();
-        rb.CanMove = ready;
 
         if(!ready){
             rb.ClearAllVelocities();

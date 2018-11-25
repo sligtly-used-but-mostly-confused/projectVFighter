@@ -514,24 +514,28 @@ public abstract class PlayerController : MonoBehaviour
 
         PlaySingle(death, 3);
         RandomizeSfx(deathIndicator, deathIndicator, 1);
-        if (ControlledPlayer.NumDeaths >= ControlledPlayer.NumLives)
-        {
-            IsDead = true;
-            transform.position = LevelManager.Instance.JailTransform.position;
-        }
-        else
-        {
-
-            dth.isDead = true;
-
-            //respawning player
-            LevelManager.Instance.SpawnPlayer(this);
-            ChangeInvincibility(true);
-            _cooldownController.StartCooldown(CooldownType.Invincibility, () => { ChangeInvincibility(false); });
-
-        }
-
+        ChangeInvincibility(true);
+        _cooldownController.StartCooldown(CooldownType.Invincibility, () => { ChangeInvincibility(false); });
         GetComponent<deatheffect>().PlayDeathEffect();
+
+        GetComponent<GravityObjectRigidBody>().CanMove = false;
+        
+        _cooldownController.StartCooldown(CooldownType.Death, () => 
+        {
+            if (ControlledPlayer.NumDeaths >= ControlledPlayer.NumLives)
+            {
+                IsDead = true;
+                transform.position = LevelManager.Instance.JailTransform.position;
+            }
+            else
+            {
+                dth.isDead = true;
+                //respawning player
+                LevelManager.Instance.SpawnPlayer(this);
+            }
+
+            GetComponent<GravityObjectRigidBody>().CanMove = true;
+        });
     }
 
     private void ChangeInvincibility(bool isInvincible)
