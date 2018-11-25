@@ -127,10 +127,15 @@ Shader "Custom/TrueCelShading"
                 InitializeInputData(IN, normalTS, inputData);
 
                 half4 color = LightweightFragmentBlinnPhong(inputData, diffuse, specularGloss, shininess, emission, alpha);
-                float color_total = step(.2,(color.r + color.b + color.g))/6;
-                float color_total2 = step(.8,(color.r + color.b + color.g))/3;
-                float color_total3 = step(.95,(color.r + color.b + color.g)/3);
-                color.rgb = albedo.rgb * saturate(LightToonShading(inputData.normalWS, _MainLightPosition.xyz) +.1 ) * _MainLightColor.rgb + emission;
+                //float color_total = step(.2,(color.r + color.b + color.g))/6;
+                //float color_total2 = step(.8,(color.r + color.b + color.g))/3;
+                //float color_total3 = step(.95,(color.r + color.b + color.g)/3);
+                if(emission.r > 0.9 || emission.g > 0.9 || emission.b > 0.9){
+                    color.rgb = emission;
+                }
+                else{
+                    color.rgb = (albedo.rgb*.7) * saturate(LightToonShading(inputData.normalWS, _MainLightPosition.xyz) +.1 ) * _MainLightColor.rgb + emission;
+                }
 
                 //ApplyFog(color.rgb, inputData.fogCoord);
                 return color;

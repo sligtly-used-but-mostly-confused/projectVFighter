@@ -37,7 +37,7 @@ public class TeleportZoneController : MonoBehaviour {
             teleporterScale = new Vector3(Mathf.Abs(teleporterScale.x), Mathf.Abs(teleporterScale.y), Mathf.Abs(teleporterScale.z));
             var playerOffsetFromTeleporter = Vector3.Project(deltaPosition, teleporterScale);
 
-            gorb.AddVelocity(VelocityType.OtherPhysics, TeleportTo.ForceKickDirection * TeleportTo.ForceKickScale);
+            //gorb.AddVelocity(VelocityType.OtherPhysics, TeleportTo.ForceKickDirection * TeleportTo.ForceKickScale);
             collision.transform.position = TeleportTo.transform.position + playerOffsetFromTeleporter;
 
             TeleportTo.StartCoroutine(TeleportTo.ObjectExitTeleporterTimeout(gorb));

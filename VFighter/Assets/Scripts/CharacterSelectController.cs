@@ -110,7 +110,6 @@ public class CharacterSelectController : MonoBehaviour
         }
 
         GravityObjectRigidBody rb = GetComponent<GravityObjectRigidBody>();
-        rb.CanMove = ready;
 
         if(!ready){
             rb.ClearAllVelocities();
