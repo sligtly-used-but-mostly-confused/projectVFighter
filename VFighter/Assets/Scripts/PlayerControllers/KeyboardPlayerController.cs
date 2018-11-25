@@ -29,7 +29,7 @@ public class KeyboardPlayerController : PlayerController
 
         if (InputDevice.GetButtonDown(MappedButton.OpenMenu))
         {
-            InGameMenuUIManager.Instance.ToggleMenu();
+            InGameMenuUIManager.Instance.ToggleMenu(this);
         }
     }
 

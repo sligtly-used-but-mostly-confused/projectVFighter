@@ -86,6 +86,7 @@ public abstract class PlayerController : MonoBehaviour
     private List<GameObject> GravityGunProjectiles = new List<GameObject>();
     private Coroutine GravGunCoolDownCoroutine;
     private PlayerCooldownController _cooldownController;
+    private GameObject playerReadyIndicator;
 
     public short ReticleId = -1;
     public short MaterialId = -1;
@@ -108,6 +109,7 @@ public abstract class PlayerController : MonoBehaviour
         StartCoroutine(FindReticle());
         var indicator = Instantiate(PlayerReadyIndicatorPrefab);
         indicator.GetComponent<PlayerReadyIndicatorController>().AttachedPlayer = this;
+        playerReadyIndicator = indicator;
         de = GetComponentInChildren<DashEffect>();
         gc = GetComponentInChildren<GravityChange>();
         dth = GetComponentInChildren<deatheffect>();
@@ -622,5 +624,10 @@ public abstract class PlayerController : MonoBehaviour
         channels[channel].volume = 1.0f * AudioManager.SFXVol * AudioManager.MasterVol;
         //Play the clip.
         channels[channel].Play();
+    }
+
+    public void cleanUp()
+    {
+        Destroy(playerReadyIndicator);
     }
 }

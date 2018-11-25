@@ -12,6 +12,8 @@ public class InGameMenuUIManager : MonoBehaviour {
     [SerializeField]
     private SceneAsset MainMenu;
 
+    private KeyboardPlayerController menuToggler;
+
     private void Awake()
     {
         if(Instance != null)
@@ -24,8 +26,9 @@ public class InGameMenuUIManager : MonoBehaviour {
         DontDestroyOnLoad(gameObject);
     }
 
-    public void ToggleMenu()
+    public void ToggleMenu(KeyboardPlayerController kbpc)
     {
+        menuToggler = kbpc;
         Debug.Log(gameObject + " " + _menuObject);
         _menuObject.SetActive(!_menuObject.activeSelf);
     }
@@ -34,5 +37,10 @@ public class InGameMenuUIManager : MonoBehaviour {
     {
         _menuObject.SetActive(false);
         SceneManager.LoadScene(MainMenu.name);
+    }
+
+    public void RemoveCharacter(){
+        Destroy(menuToggler.gameObject);
+        _menuObject.SetActive(false);
     }
 }
