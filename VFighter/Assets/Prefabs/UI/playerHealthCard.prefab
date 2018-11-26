@@ -247,9 +247,9 @@ MonoBehaviour:
   - Type: 0
     Icon: {fileID: 21300000, guid: fab2197f002ab4d4f8fe287deaa35811, type: 3}
   - Type: 1
-    Icon: {fileID: 21300000, guid: c71811ddbb15440d69808dc86d621652, type: 3}
+    Icon: {fileID: 21300000, guid: c0fa9983590fe7e44bc55fea18b0fa70, type: 3}
   - Type: 2
-    Icon: {fileID: 21300000, guid: 90ada9208e32d3744b3eaba9cc1a5a92, type: 3}
+    Icon: {fileID: 21300000, guid: 3bad648c1b70e9648905dd830f49d6a7, type: 3}
   CharacterIcon: {fileID: 114231239296626554}
 --- !u!222 &222038541264388960
 CanvasRenderer:
