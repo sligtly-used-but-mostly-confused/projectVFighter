@@ -88,7 +88,7 @@ public class LevelSelectManager : MonoBehaviour
         }
     }
 
-    private List<string> LeadingLevels(){
+    public List<string> LeadingLevels(){
         var copy = new List<LevelZoneController>(zones);
         copy.Sort((x,y) => { return x.playersInside.CompareTo(y.playersInside); });
         if(copy.Last().playersInside == 0)

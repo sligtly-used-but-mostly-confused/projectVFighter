@@ -506,6 +506,11 @@ public abstract class PlayerController : MonoBehaviour
 
     public virtual void Kill()
     {
+        if(IsInvincible)
+        {
+            return;
+        }
+
         if (LevelManager.Instance.PlayersCanDieInThisLevel)
         {
             ControlledPlayer.NumDeaths++;
@@ -515,7 +520,7 @@ public abstract class PlayerController : MonoBehaviour
         PlaySingle(death, 3);
         RandomizeSfx(deathIndicator, deathIndicator, 1);
         ChangeInvincibility(true);
-        _cooldownController.StartCooldown(CooldownType.Invincibility, () => { ChangeInvincibility(false); });
+        
         GetComponent<deatheffect>().PlayDeathEffect();
 
         GetComponent<GravityObjectRigidBody>().CanMove = false;
@@ -535,6 +540,7 @@ public abstract class PlayerController : MonoBehaviour
             }
 
             GetComponent<GravityObjectRigidBody>().CanMove = true;
+            _cooldownController.StartCooldown(CooldownType.Invincibility, () => { ChangeInvincibility(false); });
         });
     }
 
