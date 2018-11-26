@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -18,6 +19,7 @@ public class CharacterSelectController : MonoBehaviour
     private readonly List<PlayerCharacterType> CharacterTypes = Enum.GetValues(typeof(PlayerCharacterType)).Cast<PlayerCharacterType>().ToList();
 
     private GameObject currentIcon;
+    [SerializeField]
     private GameObject descriptionCanvas;
     private PlayerCharacterType currentCharacterType;
     private PlayerCharacterType nextCharacterType;
@@ -186,7 +188,8 @@ public class CharacterSelectController : MonoBehaviour
         previousGO.transform.localScale = new Vector3(5f, 5f, 5f);
 
         //reset selection time and update description
-        descriptionCanvas.transform.GetChild(0).transform.GetChild(0).GetComponent<UnityEngine.UI.Text>().text = CharacterTypeDescriptionMappings[GetComponent<PlayerController>().CharacterType];
+        descriptionCanvas.transform.GetChild(0).transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = GetComponent<PlayerController>().CharacterType.ToString();
+        descriptionCanvas.transform.GetChild(0).transform.GetChild(1).GetComponent<UnityEngine.UI.Text>().text = CharacterTypeDescriptionMappings[GetComponent<PlayerController>().CharacterType];
         timeOnSelection = 0;
         descriptionCanvas.SetActive(false);
     }

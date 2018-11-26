@@ -6090,6 +6090,7 @@ MonoBehaviour:
   descriptionPrefab: {fileID: 1728269792808170, guid: 2915887537fe745e39dc7f21354108d2,
     type: 2}
   secondForCharacterTip: 0.25
+  descriptionCanvas: {fileID: 0}
   characterDataList:
   - IconMaterial: {fileID: 2100000, guid: 6ac76df83ec42493d8e0b67f512c83e1, type: 2}
     description: Shoots several projectiles, which push players and objects on collision.
@@ -6181,6 +6182,10 @@ MonoBehaviour:
     IsCoolingDown: 0
     FlashingMaterial: {fileID: 2100000, guid: d1a34e5e47473784cbc28a97a06f2299, type: 2}
   - Type: 6
+    CooldownTime: 1
+    IsCoolingDown: 0
+    FlashingMaterial: {fileID: 2100000, guid: 6b27233b30329469ea2c8f7bafe5d057, type: 2}
+  - Type: 8
     CooldownTime: 1
     IsCoolingDown: 0
     FlashingMaterial: {fileID: 2100000, guid: 6b27233b30329469ea2c8f7bafe5d057, type: 2}
