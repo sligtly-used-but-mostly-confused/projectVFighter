@@ -28,6 +28,9 @@ public class GameManager : MonoBehaviour
     public delegate void PlayerJoinCallback(PlayerController player);
     public PlayerJoinCallback OnPlayerJoin;
 
+    public delegate void LevelChangedDelegate();
+    public LevelChangedDelegate OnLevelChanged;
+
     void Awake () {
         if(_instance)
         {
@@ -37,7 +40,10 @@ public class GameManager : MonoBehaviour
 
         _instance = this;
         DontDestroyOnLoad(this);
-	}
+
+        OnPlayerJoin += (x) => { };
+        OnLevelChanged += () => { };
+    }
 
     public void StartGame(List<string> roundStages)
     {
@@ -76,7 +82,6 @@ public class GameManager : MonoBehaviour
     {
         var players = FindObjectsOfType<PlayerController>().ToList();
         players.Where(x => !x.IsDead).ToList().ForEach(x => x.ControlledPlayer.NumStageWins++);
-
         if (_roundLevelNames.Count > 0)
         {
             RoundNumber++;

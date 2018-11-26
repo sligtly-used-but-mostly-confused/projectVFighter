@@ -36,6 +36,12 @@ public class PlayerHealthIndicatorCardController : MonoBehaviour {
         player.GetComponent<CharacterSelectController>().OnPlayerColorChanged += OnPlayerColorChange;
     }
 
+    public void OnDestroy()
+    {
+        _attachedPlayer.GetComponent<CharacterSelectController>().OnCharacterChanged -= OnCharacterTypeChange;
+        _attachedPlayer.GetComponent<CharacterSelectController>().OnPlayerColorChanged -= OnPlayerColorChange;
+    }
+
     // Update is called once per frame
     void Update () {
         if(_attachedPlayer)
