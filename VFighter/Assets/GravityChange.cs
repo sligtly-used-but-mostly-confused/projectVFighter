@@ -46,7 +46,7 @@ public class GravityChange : MonoBehaviour
 
         gP.Play();
         //this.transform.localPosition = new Vector3(0.0f, 0.0f, 0.0f);
-        this.transform.rotation = Quaternion.Euler(angle, 0, 0);
+       // this.transform.rotation = Quaternion.Euler(angle, 0, 0);
 
         yield return new WaitForSeconds(.5f);
 

@@ -8,8 +8,9 @@ public class LightingLookAt : MonoBehaviour {
     public float hSliderValue = 0.01f;
     [SerializeField]
     public KeyboardPlayerController kp;
+    public CharacterSelectController cs;
     [SerializeField]
-    protected GameObject prefabLight;
+    public GameObject[] prefabLight;
     [SerializeField]
     protected ParticleSystem[] ps;
     private GameObject LObject;
@@ -17,12 +18,14 @@ public class LightingLookAt : MonoBehaviour {
    public AudioSource ad;
     private float globalDistance = 0;
     // Use this for initialization
-
+    [SerializeField]
+    public int index = 0;
 
 
     void Start () {
-        LObject = Instantiate(prefabLight);
-       
+        cs = GetComponent<CharacterSelectController>();
+        index = cs.currentMaterialIndex;
+        LObject = Instantiate(prefabLight[index]);
         DontDestroyOnLoad(LObject);
         ps = LObject.GetComponentsInChildren<ParticleSystem>();
         kp = GetComponent<KeyboardPlayerController>();

@@ -36,7 +36,7 @@ public class deatheffect : MonoBehaviour {
     public void PlayDeathEffect()
     {
         cloneObject = Instantiate(DeathPrefab);
-        cloneObject.transform.position = transform.position;
+        cloneObject.transform.position = kp.transform.position;
         pulse = cloneObject.GetComponent<ParticleSystem>();
         pulse.Play();
     }
