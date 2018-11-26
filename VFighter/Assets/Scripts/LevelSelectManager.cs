@@ -21,6 +21,8 @@ public class LevelSelectManager : MonoBehaviour
     public GameObject levelZone;
     public float areaWidth;
     public TextMeshProUGUI timer;
+    public Image timerClockFace;
+
     public int selectTime;
     public bool IsTimerStarted { get { return _timerCoroutine != null; } }
     public int numLivesPerPlayer;
@@ -36,7 +38,7 @@ public class LevelSelectManager : MonoBehaviour
     [SerializeField]
     private bool _isWaitingForReady = true;
     [SerializeField]
-    private int timeRemaining;
+    private float timeRemaining;
     [SerializeField]
     private int _minPlayers = 2;
     [SerializeField]
@@ -79,9 +81,6 @@ public class LevelSelectManager : MonoBehaviour
 
     private void Update()
     {
-        if(timer != null)
-            timer.text = timeRemaining.ToString();
-
         //if all players are ready start the timer
         if (CheckForAllPlayersReady() && !Instance.IsTimerStarted)
         {
@@ -131,16 +130,29 @@ public class LevelSelectManager : MonoBehaviour
 
     private IEnumerator CountDown()
     {
+        float startingTime = timeRemaining;
+
         if (timer)
-            timer.text = timeRemaining.ToString();
+            timer.text = "" + timeRemaining;
+
+        int valToPass = (int) timeRemaining;
+
         while (timeRemaining > 0){
-            yield return new WaitForSeconds(1);
-            if (timeRemaining > 1)
+            yield return new WaitForEndOfFrame();
+            if (timeRemaining < valToPass)
+            {
                 AudioManager.instance.PlaySingle(countdown);
-            else
-                AudioManager.instance.PlaySingle(countdownFinal);
-            --timeRemaining;
+                valToPass--;
+                timer.text = "" + Mathf.RoundToInt(timeRemaining);
+            }
+
+            timerClockFace.rectTransform.Rotate(new Vector3(0,0, startingTime / timeRemaining), Space.World);
+            
+            timeRemaining -= Time.deltaTime;
         }
+
+        AudioManager.instance.PlaySingle(countdownFinal);
+        timer.text = "0";
 
         yield return new WaitForSeconds(1);
         GameManager.Instance.StartGame(LeadingLevels());
