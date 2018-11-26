@@ -151,7 +151,6 @@ GameObject:
   m_Component:
   - component: {fileID: 12132764}
   - component: {fileID: 12132766}
-  - component: {fileID: 12132765}
   m_Layer: 0
   m_Name: PlayerSpawnPosition
   m_TagString: Untagged
@@ -173,38 +172,6 @@ Transform:
   m_Father: {fileID: 9587887}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &12132765
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 12132763}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SceneId:
-    m_Value: 0
-  m_AssetId:
-    i0: 0
-    i1: 0
-    i2: 0
-    i3: 0
-    i4: 0
-    i5: 0
-    i6: 0
-    i7: 0
-    i8: 0
-    i9: 0
-    i10: 0
-    i11: 0
-    i12: 0
-    i13: 0
-    i14: 0
-    i15: 0
-  m_ServerOnly: 0
-  m_LocalPlayerAuthority: 0
 --- !u!114 &12132766
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -640,7 +607,6 @@ GameObject:
   - component: {fileID: 243025641}
   - component: {fileID: 243025640}
   - component: {fileID: 243025639}
-  - component: {fileID: 243025638}
   m_Layer: 5
   m_Name: InGameMenuCanvas
   m_TagString: Untagged
@@ -648,38 +614,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &243025638
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 243025637}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SceneId:
-    m_Value: 0
-  m_AssetId:
-    i0: 0
-    i1: 0
-    i2: 0
-    i3: 0
-    i4: 0
-    i5: 0
-    i6: 0
-    i7: 0
-    i8: 0
-    i9: 0
-    i10: 0
-    i11: 0
-    i12: 0
-    i13: 0
-    i14: 0
-    i15: 0
-  m_ServerOnly: 0
-  m_LocalPlayerAuthority: 0
 --- !u!114 &243025639
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1015,7 +949,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 368930186}
-  - component: {fileID: 368930185}
   - component: {fileID: 368930184}
   m_Layer: 0
   m_Name: PoolManager
@@ -1042,38 +975,6 @@ MonoBehaviour:
   ShotGunProjectilePrefab: {fileID: 1599802459956264, guid: 9785f25303de0d44fba65c5c4e467027,
     type: 2}
   _startingPoolSize: 10
---- !u!114 &368930185
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 368930183}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SceneId:
-    m_Value: 0
-  m_AssetId:
-    i0: 0
-    i1: 0
-    i2: 0
-    i3: 0
-    i4: 0
-    i5: 0
-    i6: 0
-    i7: 0
-    i8: 0
-    i9: 0
-    i10: 0
-    i11: 0
-    i12: 0
-    i13: 0
-    i14: 0
-    i15: 0
-  m_ServerOnly: 0
-  m_LocalPlayerAuthority: 0
 --- !u!4 &368930186
 Transform:
   m_ObjectHideFlags: 0
@@ -1758,7 +1659,7 @@ Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: pb_Mesh-242034
+  m_Name: pb_Mesh-2008658
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -1988,7 +1889,7 @@ Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: pb_Mesh24476
+  m_Name: pb_Mesh60606
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -2147,7 +2048,6 @@ GameObject:
   m_Component:
   - component: {fileID: 636215035}
   - component: {fileID: 636215034}
-  - component: {fileID: 636215036}
   m_Layer: 0
   m_Name: ControllerSelectManager
   m_TagString: Untagged
@@ -2187,38 +2087,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &636215036
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 636215033}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SceneId:
-    m_Value: 0
-  m_AssetId:
-    i0: 0
-    i1: 0
-    i2: 0
-    i3: 0
-    i4: 0
-    i5: 0
-    i6: 0
-    i7: 0
-    i8: 0
-    i9: 0
-    i10: 0
-    i11: 0
-    i12: 0
-    i13: 0
-    i14: 0
-    i15: 0
-  m_ServerOnly: 0
-  m_LocalPlayerAuthority: 0
 --- !u!1 &647533064
 GameObject:
   m_ObjectHideFlags: 0
@@ -2326,7 +2194,6 @@ GameObject:
   m_Component:
   - component: {fileID: 707236919}
   - component: {fileID: 707236918}
-  - component: {fileID: 707236920}
   m_Layer: 0
   m_Name: LevelManager
   m_TagString: Untagged
@@ -2369,38 +2236,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &707236920
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 707236917}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SceneId:
-    m_Value: 0
-  m_AssetId:
-    i0: 0
-    i1: 0
-    i2: 0
-    i3: 0
-    i4: 0
-    i5: 0
-    i6: 0
-    i7: 0
-    i8: 0
-    i9: 0
-    i10: 0
-    i11: 0
-    i12: 0
-    i13: 0
-    i14: 0
-    i15: 0
-  m_ServerOnly: 0
-  m_LocalPlayerAuthority: 0
 --- !u!1 &775129555
 GameObject:
   m_ObjectHideFlags: 0
@@ -2469,7 +2304,7 @@ Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: pb_Mesh24488
+  m_Name: pb_Mesh60624
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -2851,43 +2686,6 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 891144740}
   m_CullTransparentMesh: 0
---- !u!1 &911928687 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1927028461619176, guid: 68dd72ba98b26804c946fe051bbb26f9,
-    type: 2}
-  m_PrefabInternal: {fileID: 279955786}
---- !u!114 &911928688
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 911928687}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SceneId:
-    m_Value: 0
-  m_AssetId:
-    i0: 104
-    i1: 221
-    i2: 114
-    i3: 186
-    i4: 152
-    i5: 178
-    i6: 104
-    i7: 4
-    i8: 201
-    i9: 70
-    i10: 254
-    i11: 5
-    i12: 27
-    i13: 187
-    i14: 38
-    i15: 249
-  m_ServerOnly: 0
-  m_LocalPlayerAuthority: 0
 --- !u!1 &979650297
 GameObject:
   m_ObjectHideFlags: 0
@@ -3909,7 +3707,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1240428605}
   - component: {fileID: 1240428604}
-  - component: {fileID: 1240428603}
   m_Layer: 0
   m_Name: LevelSelectManager
   m_TagString: Untagged
@@ -3917,38 +3714,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1240428603
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1240428602}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SceneId:
-    m_Value: 0
-  m_AssetId:
-    i0: 251
-    i1: 190
-    i2: 162
-    i3: 93
-    i4: 74
-    i5: 173
-    i6: 100
-    i7: 70
-    i8: 203
-    i9: 22
-    i10: 95
-    i11: 4
-    i12: 39
-    i13: 133
-    i14: 144
-    i15: 9
-  m_ServerOnly: 0
-  m_LocalPlayerAuthority: 0
 --- !u!114 &1240428604
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4249,7 +4014,7 @@ Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: pb_Mesh48898
+  m_Name: pb_Mesh60536
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -5668,7 +5433,7 @@ Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: pb_Mesh24552
+  m_Name: pb_Mesh60686
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -6007,7 +5772,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2044579166}
-  - component: {fileID: 2044579162}
   - component: {fileID: 2044579161}
   - component: {fileID: 2044579160}
   - component: {fileID: 2044579159}
@@ -6145,38 +5909,6 @@ MonoBehaviour:
   Owner: {fileID: 0}
   DebugVelocities: []
   collAudio: {fileID: 0}
---- !u!114 &2044579162
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2044579156}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SceneId:
-    m_Value: 0
-  m_AssetId:
-    i0: 0
-    i1: 0
-    i2: 0
-    i3: 0
-    i4: 0
-    i5: 0
-    i6: 0
-    i7: 0
-    i8: 0
-    i9: 0
-    i10: 0
-    i11: 0
-    i12: 0
-    i13: 0
-    i14: 0
-    i15: 0
-  m_ServerOnly: 0
-  m_LocalPlayerAuthority: 0
 --- !u!4 &2044579166
 Transform:
   m_ObjectHideFlags: 0
