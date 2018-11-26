@@ -19,7 +19,7 @@ MonoBehaviour:
   - target: 5
     buttons: 0c000000
   - target: 7
-    buttons: 0e000000
+    buttons: 00000000
   axisMappings:
   - target: 0
     axes: 00000000
