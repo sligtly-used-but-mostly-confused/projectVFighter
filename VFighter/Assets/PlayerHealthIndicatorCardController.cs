@@ -32,6 +32,8 @@ public class PlayerHealthIndicatorCardController : MonoBehaviour {
     public void Init(PlayerController player)
     {
         _attachedPlayer = player;
+        player.GetComponent<CharacterSelectController>().OnCharacterChanged += OnCharacterTypeChange;
+        player.GetComponent<CharacterSelectController>().OnPlayerColorChanged += OnPlayerColorChange;
     }
 
     // Update is called once per frame
@@ -61,13 +63,18 @@ public class PlayerHealthIndicatorCardController : MonoBehaviour {
             {
                 _cells[i].GetComponent<Image>().material = AliveMaterial;
             }
-
-            if(_attachedPlayer.CharacterType != DisplayedCharacterType)
-            {
-                DisplayedCharacterType = _attachedPlayer.CharacterType;
-                var pair = IconMappings.Find(x => x.Type == DisplayedCharacterType);
-                CharacterIcon.sprite = pair.Icon;
-            }
         }
 	}
+
+    public void OnPlayerColorChange(Color color)
+    {
+        CharacterIcon.color = color;
+    }
+
+    public void OnCharacterTypeChange(PlayerCharacterType type)
+    {
+        DisplayedCharacterType = type;
+        var pair = IconMappings.Find(x => x.Type == DisplayedCharacterType);
+        CharacterIcon.sprite = pair.Icon;
+    }
 }
