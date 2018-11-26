@@ -112,7 +112,12 @@ public abstract class PlayerController : MonoBehaviour
         de = GetComponentInChildren<DashEffect>();
         gc = GetComponentInChildren<GravityChange>();
         dth = GetComponentInChildren<deatheffect>();
-        GameManager.Instance.OnPlayerJoin(this);
+
+        if (GameManager.Instance.OnPlayerJoin != null)
+        {
+            GameManager.Instance.OnPlayerJoin(this);
+        }
+
 
         GameObject aimingReticle = Instantiate(AimingReticlePrefab);
         _aimingReticleIdCnt++;
