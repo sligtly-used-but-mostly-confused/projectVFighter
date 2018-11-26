@@ -62,6 +62,14 @@ public class PlayerCooldownController : MonoBehaviour
         _flashingMaterialCopy = new Material(FlashingMaterial);
     }
 
+    public void OnDisable()
+    {
+    #if !UNITY_EDITOR
+                CancelInvoke();
+                StopAllCoroutines();
+    #endif
+    }
+
     public bool TryStartCooldown(CooldownType type)
     {
         return TryStartCooldown(type, () => { });
