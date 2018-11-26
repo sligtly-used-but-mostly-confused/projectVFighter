@@ -1,0 +1,126 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: Wall9
+  m_Shader: {fileID: 4800000, guid: a2610fbf4eaac4428905ab8f081b8004, type: 3}
+  m_ShaderKeywords: _EMISSION
+  m_LightmapFlags: 2
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - Texture2D_A9690805:
+        m_Texture: {fileID: 2800000, guid: 98601b4a1a108d3428344129dca391c2, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BumpMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailAlbedoMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailMask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailNormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MetallicGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NormalCreate_BA333F13_Texture:
+        m_Texture: {fileID: 2800000, guid: d09b9edf9cccf2541811316957338aa6, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OcclusionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ParallaxMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_48A311F_Texture:
+        m_Texture: {fileID: 2800000, guid: d09b9edf9cccf2541811316957338aa6, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SpecGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Subgraph_A520D4E0_Texture2D70592C4B:
+        m_Texture: {fileID: 2800000, guid: 98601b4a1a108d3428344129dca391c2, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - Vector1_2987ACA1: 0.01
+    - Vector1_4AD0A8D4: 0.5
+    - Vector1_712D3D04: 0.1
+    - Vector1_83E8818F: 0.02
+    - Vector1_B83AACBA: 0.3
+    - _AlphaClip: 0
+    - _Blend: 0
+    - _BumpScale: 1
+    - _Cull: 2
+    - _Cutoff: 0.5
+    - _DetailNormalMapScale: 1
+    - _DstBlend: 0
+    - _GlossMapScale: 1
+    - _Glossiness: 0.61
+    - _GlossyReflections: 1
+    - _MaxTriSize: 200
+    - _Metallic: 0.84
+    - _Mode: 0
+    - _OcclusionStrength: 1
+    - _Parallax: 0.02
+    - _SmoothnessTextureChannel: 0
+    - _SpecularHighlights: 1
+    - _SrcBlend: 1
+    - _Surface: 0
+    - _Thickness: 74.77
+    - _UVSec: 0
+    - _WireSmoothness: 5.4
+    - _WireThickness: 608
+    - _WorkflowMode: 1
+    - _ZWrite: 1
+    m_Colors:
+    - Color_25706F65: {r: 0.8679245, g: 0.36436453, b: 0.7692243, a: 1}
+    - Color_26BE4CAD: {r: 0.63988286, g: 1, b: 0.41981128, a: 0}
+    - Color_4D800E74: {r: 1, g: 0.4292453, b: 0.702427, a: 0}
+    - Color_585E1186: {r: 0.4589808, g: 1, b: 0.37264147, a: 0}
+    - Color_6B08ADB9: {r: 0.6603774, g: 0, b: 0, a: 0}
+    - Color_72FF29BE: {r: 0.6475797, g: 0, b: 0.727, a: 1}
+    - Color_83748418: {r: 0.582, g: 0, b: 0.5233511, a: 1}
+    - Color_90BD083A: {r: 0.495283, g: 1, b: 0.6586595, a: 0}
+    - Color_E9DC1FD4: {r: 0, g: 0.37735847, b: 0.11851657, a: 0}
+    - Vector2_3DB5D654: {r: 1, g: 3.33, b: 0, a: 0}
+    - Vector2_ACD1EF2D: {r: 1, g: 1, b: 0, a: 0}
+    - Vector2_F33FA330: {r: 1, g: 0.01, b: 0, a: 0}
+    - Vector3_CD97C420: {r: 1, g: 1, b: 1, a: 0}
+    - _BaseColor: {r: 0.33903778, g: 0, b: 0.7169812, a: 1}
+    - _Color: {r: 1, g: 0.4198113, b: 1, a: 1}
+    - _EmissionColor: {r: 0.6698113, g: 0.33806515, b: 0.5975076, a: 1}
+    - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
+    - _WireColor: {r: 1, g: 0.6650944, b: 0.9410066, a: 1}
