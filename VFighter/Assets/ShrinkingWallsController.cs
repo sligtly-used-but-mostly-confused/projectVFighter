@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class ShrinkingWallsController : MonoBehaviour {
 
@@ -10,34 +11,36 @@ public class ShrinkingWallsController : MonoBehaviour {
         public Vector3 startLocation;
         public Vector3 endLocation;
 
-        public WallPoint(GameObject s, GameObject f){
+        public WallPoint(GameObject s, GameObject f)
+        {
             startLocation = s.transform.position;
             endLocation = f.transform.position;
         }
-    }
-
-    [System.Serializable]
-    public struct WallPointGameObjects
-    {
-        public GameObject startPoint;
-        public GameObject endPoint;
     }
 
     public GameObject wallPrefab;
     public GameObject pointMarker;
 
     public float timeToShrink;
-    [SerializeField]
-    private List<WallPointGameObjects> wallPointGameObjects = new List<WallPointGameObjects>();
+    public GameObject startPoints;
+    public GameObject endPoints;
 
     private List<WallPoint> wallPoints = new List<WallPoint>();
     private List<GameObject> walls = new List<GameObject>();
     private float startTime;
 
 	void Start () {
-        //set the wall points to whatever is in WallpointGameObjects
-        foreach(WallPointGameObjects wpgo in wallPointGameObjects){
-            wallPoints.Add(new WallPoint(wpgo.startPoint, wpgo.endPoint));
+        //set the wall points to whatever is input
+        List<RectTransform> startTransforms = startPoints.GetComponentsInChildren<RectTransform>().ToList();
+        List<RectTransform> finishTransfroms = endPoints.GetComponentsInChildren<RectTransform>().ToList();
+
+        Debug.Assert(startTransforms.Count == finishTransfroms.Count);
+
+        // -1 for the first point, which is the root
+        int numPoints = startTransforms.Count - 1;
+
+        for (int i = 1; i < startTransforms.Count; ++i){
+            wallPoints.Add(new WallPoint(startTransforms[i].gameObject, finishTransfroms[i].gameObject));
         }
 
         //grab the start time
@@ -73,7 +76,7 @@ public class ShrinkingWallsController : MonoBehaviour {
 
     void UpdateWallToPoints(GameObject wall, Vector3 point1, Vector3 point2){
         //set scale
-        wall.transform.localScale = new Vector3(Vector3.Distance(point1, point2), 0.5f, 0.5f);
+        wall.transform.localScale = new Vector3(Vector3.Distance(point1, point2), 0.7f, 0.7f);
 
         //set location
         wall.transform.position = new Vector3((point1.x + point2.x) / 2 , (point1.y + point2.y) / 2 , 0);
