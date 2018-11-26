@@ -66,8 +66,15 @@ public class LevelSelectManager : MonoBehaviour
             x.IsReady = false;
         });
 
+        RefreshRoundSettings();
+    }
+
+    public void RefreshRoundSettings()
+    {
         _numRounds = GameRoundSettingsController.Instance.NumRounds;
         numLivesPerPlayer = GameRoundSettingsController.Instance.NumLivesPerRound;
+        var players = FindObjectsOfType<PlayerController>().ToList();
+        players.ForEach(x => x.ControlledPlayer.NumLives = numLivesPerPlayer);
     }
 
     private void Update()

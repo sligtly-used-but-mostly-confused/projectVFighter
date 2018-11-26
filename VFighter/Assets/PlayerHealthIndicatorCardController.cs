@@ -38,6 +38,12 @@ public class PlayerHealthIndicatorCardController : MonoBehaviour {
 
     public void OnDestroy()
     {
+        //player got destoryed before we could detach things
+        if(!_attachedPlayer)
+        {
+            return;
+        }
+
         _attachedPlayer.GetComponent<CharacterSelectController>().OnCharacterChanged -= OnCharacterTypeChange;
         _attachedPlayer.GetComponent<CharacterSelectController>().OnPlayerColorChanged -= OnPlayerColorChange;
     }

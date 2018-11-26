@@ -25,14 +25,4 @@ public class GameRoundSettingsController : MonoBehaviour {
     {
         DontDestroyOnLoad(gameObject);
     }
-
-    public void SetNumRounds(TMP_Dropdown dropdown)
-    {
-        NumRounds = Int32.Parse(dropdown.options[dropdown.value].text);
-    }
-
-    public void SetNumLivesPerRound(TMP_InputField text)
-    {
-        NumLivesPerRound = Int32.Parse(text.text);
-    }
 }
