@@ -6090,6 +6090,7 @@ MonoBehaviour:
   descriptionPrefab: {fileID: 1728269792808170, guid: 2915887537fe745e39dc7f21354108d2,
     type: 2}
   secondForCharacterTip: 0.25
+  descriptionCanvas: {fileID: 0}
   characterDataList:
   - IconMaterial: {fileID: 2100000, guid: 6ac76df83ec42493d8e0b67f512c83e1, type: 2}
     description: Shoots several projectiles, which push players and objects on collision.
@@ -6122,6 +6123,11 @@ MonoBehaviour:
     - {fileID: 2100000, guid: a948278223d6e4af393f298fc7d7d228, type: 2}
     - {fileID: 2100000, guid: 81d494a18e0d84ffcbfb77a025479b8c, type: 2}
     currentMaterialIndex: 0
+  PlayerColors:
+  - {r: 0.4470588, g: 0.81347734, b: 1, a: 1}
+  - {r: 0.93877363, g: 0.495283, b: 1, a: 1}
+  - {r: 1, g: 0.66583204, b: 0.6084906, a: 1}
+  - {r: 0.72473305, g: 1, b: 0.5707547, a: 1}
   CurrentPlayerMaterial: {fileID: 0}
 --- !u!114 &114532030782225478
 MonoBehaviour:
@@ -6155,7 +6161,7 @@ MonoBehaviour:
   - Type: 0
     CooldownTime: 0.4
     IsCoolingDown: 0
-    FlashingMaterial: {fileID: 2100000, guid: 1ca7f837df226e243aa9443535fefe74, type: 2}
+    FlashingMaterial: {fileID: 2100000, guid: 04d126ba1f0d0478f801292308bbc946, type: 2}
   - Type: 1
     CooldownTime: 0.3
     IsCoolingDown: 0
@@ -6181,7 +6187,11 @@ MonoBehaviour:
     IsCoolingDown: 0
     FlashingMaterial: {fileID: 2100000, guid: d1a34e5e47473784cbc28a97a06f2299, type: 2}
   - Type: 6
-    CooldownTime: 1
+    CooldownTime: 2
+    IsCoolingDown: 0
+    FlashingMaterial: {fileID: 2100000, guid: 6b27233b30329469ea2c8f7bafe5d057, type: 2}
+  - Type: 8
+    CooldownTime: 0.5
     IsCoolingDown: 0
     FlashingMaterial: {fileID: 2100000, guid: 6b27233b30329469ea2c8f7bafe5d057, type: 2}
   cooldownFlashInterval: 0
