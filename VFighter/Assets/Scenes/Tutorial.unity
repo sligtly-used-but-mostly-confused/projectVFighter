@@ -595,6 +595,48 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &170820872
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 170820874}
+  - component: {fileID: 170820873}
+  m_Layer: 0
+  m_Name: RoundSettings
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &170820873
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 170820872}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cde1ed03bb41ec49b47ff0bcd2d1467, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NumRounds: 3
+  NumLivesPerRound: 4
+--- !u!4 &170820874
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 170820872}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 942.0586, y: 541.00415, z: 25.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 27
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &243025637
 GameObject:
   m_ObjectHideFlags: 0
@@ -2072,7 +2114,8 @@ MonoBehaviour:
   - {fileID: 2100000, guid: d1a34e5e47473784cbc28a97a06f2299, type: 2}
   - {fileID: 2100000, guid: f1a6e1fc3730df442be9feffac8c07c2, type: 2}
   _usedDevices: []
-  PlayerPrefab: {fileID: 0}
+  PlayerPrefab: {fileID: 1865601022989246, guid: 58fb49fb4a9055343934f6f995dac95a,
+    type: 2}
   DevicesWaitingForPlayer: []
 --- !u!4 &636215035
 Transform:
