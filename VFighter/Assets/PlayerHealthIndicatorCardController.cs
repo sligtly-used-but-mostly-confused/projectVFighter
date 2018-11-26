@@ -5,8 +5,8 @@ using System.Linq;
 
 public class PlayerHealthIndicatorCardController : MonoBehaviour {
 
-    public Material AliveMaterial;
-    public Material DeadMaterial;
+    public Color AliveColor;
+    public Color DeadColor;
 
     [SerializeField]
     private GameObject _healthIndicatorCellPrefab;
@@ -56,12 +56,12 @@ public class PlayerHealthIndicatorCardController : MonoBehaviour {
             int i = 0;
             for (; i < _attachedPlayer.ControlledPlayer.NumDeaths; i++)
             {
-                _cells[i].GetComponent<Image>().material = DeadMaterial;
+                _cells[i].GetComponent<Image>().color = DeadColor;
             }
 
             for (; i < _attachedPlayer.ControlledPlayer.NumLives; i++)
             {
-                _cells[i].GetComponent<Image>().material = AliveMaterial;
+                _cells[i].GetComponent<Image>().color = AliveColor;
             }
         }
 	}
