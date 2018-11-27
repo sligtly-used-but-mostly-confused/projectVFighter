@@ -52,11 +52,13 @@ public class LevelManager : MonoBehaviour
 
         if (CountDownTimer.Instance)
             StartCoroutine(CountDownTimer.Instance.CountDown());
+
+        GameManager.Instance.OnLevelChanged();
     }
 
     public virtual void Update()
     {
-        if(!GameManager.Instance.CurrentlyChangingScenes)
+        if(!GameManager.Instance.CurrentlyChangingScenes && !GameManager.Instance.DebugScene)
         {
             var alive = Players.Where(x => !x.IsDead);
             if (_startNextLevelWinCondition && alive.Count() <= 1)

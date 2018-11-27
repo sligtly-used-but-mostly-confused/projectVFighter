@@ -87,7 +87,8 @@ public abstract class PlayerController : MonoBehaviour
     private List<GameObject> GravityGunProjectiles = new List<GameObject>();
     private Coroutine GravGunCoolDownCoroutine;
     private PlayerCooldownController _cooldownController;
-
+    static short PlayerIdCounter = 0;
+    public short PlayerId = -1;
     public short ReticleId = -1;
     public short MaterialId = -1;
     public bool IsReady = false;
@@ -100,7 +101,7 @@ public abstract class PlayerController : MonoBehaviour
     {
         IsDead = false;
         _cooldownController = GetComponent<PlayerCooldownController>();
-
+        PlayerId = ++PlayerIdCounter;
     }
 
     private void Start()
@@ -119,8 +120,7 @@ public abstract class PlayerController : MonoBehaviour
         aimingReticle.GetComponent<AimingReticle>().Id = _aimingReticleIdCnt;
         aimingReticle.GetComponent<AimingReticle>().PlayerAttachedTo = this;
         ReticleId = _aimingReticleIdCnt;
-
-        //NetworkServer.SpawnWithClientAuthority(aimingReticle, connectionToClient);
+        
         ReticleParent = gameObject;
 
         ControlledPlayer.NumLives = LevelSelectManager.Instance.numLivesPerPlayer;
@@ -506,6 +506,11 @@ public abstract class PlayerController : MonoBehaviour
 
     public virtual void Kill()
     {
+        if(IsInvincible)
+        {
+            return;
+        }
+
         if (LevelManager.Instance.PlayersCanDieInThisLevel)
         {
             ControlledPlayer.NumDeaths++;
@@ -514,24 +519,29 @@ public abstract class PlayerController : MonoBehaviour
 
         PlaySingle(death, 3);
         RandomizeSfx(deathIndicator, deathIndicator, 1);
-        if (ControlledPlayer.NumDeaths >= ControlledPlayer.NumLives)
-        {
-            IsDead = true;
-            transform.position = LevelManager.Instance.JailTransform.position;
-        }
-        else
-        {
-
-            dth.isDead = true;
-
-            //respawning player
-            LevelManager.Instance.SpawnPlayer(this);
-            ChangeInvincibility(true);
-            _cooldownController.StartCooldown(CooldownType.Invincibility, () => { ChangeInvincibility(false); });
-
-        }
-
+        ChangeInvincibility(true);
+        
         GetComponent<deatheffect>().PlayDeathEffect();
+
+        GetComponent<GravityObjectRigidBody>().CanMove = false;
+        
+        _cooldownController.StartCooldown(CooldownType.Death, () => 
+        {
+            if (ControlledPlayer.NumDeaths >= ControlledPlayer.NumLives)
+            {
+                IsDead = true;
+                transform.position = LevelManager.Instance.JailTransform.position;
+            }
+            else
+            {
+                dth.isDead = true;
+                //respawning player
+                LevelManager.Instance.SpawnPlayer(this);
+            }
+
+            GetComponent<GravityObjectRigidBody>().CanMove = true;
+            _cooldownController.StartCooldown(CooldownType.Invincibility, () => { ChangeInvincibility(false); });
+        });
     }
 
     private void ChangeInvincibility(bool isInvincible)
