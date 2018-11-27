@@ -38,7 +38,7 @@ public class InGameMenuUIManager : MonoBehaviour {
 
         foreach(var player in FindObjectsOfType<PlayerController>())
         {
-            player.DropPlayer();
+            player.DropPlayerInternal();
         }
 
         SceneManager.LoadScene(MainMenu.SceneName);

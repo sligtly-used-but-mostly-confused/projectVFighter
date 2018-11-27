@@ -2129,6 +2129,26 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 23698395132917756, guid: 3e53bc01518843747bee56c0f8bc0b5e,
+        type: 2}
+      propertyPath: m_LightProbeUsage
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 23698395132917756, guid: 3e53bc01518843747bee56c0f8bc0b5e,
+        type: 2}
+      propertyPath: m_ReflectionProbeUsage
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 23698395132917756, guid: 3e53bc01518843747bee56c0f8bc0b5e,
+        type: 2}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 23698395132917756, guid: 3e53bc01518843747bee56c0f8bc0b5e,
+        type: 2}
+      propertyPath: m_ReceiveShadows
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3e53bc01518843747bee56c0f8bc0b5e, type: 2}
   m_IsPrefabAsset: 0

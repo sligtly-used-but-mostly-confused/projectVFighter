@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
     public bool DebugScene = false;
     public bool CurrentlyChangingScenes = false;
     public float ProgressionThroughGame = 1;
-    public bool CanChangeCharacters = true;
+    public bool IsInCharacterSelect = true;
     public float TimeScale = 1;
     public int RoundNumber = 0;
     public int NumRounds = 0;
@@ -51,7 +51,7 @@ public class GameManager : MonoBehaviour
         _roundLevelNames = roundStages;
         NumRounds = _roundLevelNames.Count();
         LoadNewLevel();
-        CanChangeCharacters = false;
+        IsInCharacterSelect = false;
         GameObject.FindObjectsOfType<TutorialPromptController>().ToList().ForEach(x => x.gameObject.SetActive(false));
     }
 
@@ -65,7 +65,7 @@ public class GameManager : MonoBehaviour
             objs.ForEach(x => x.LoadChildren());
             TimeScale = 1;
         });
-        CanChangeCharacters = false;
+        IsInCharacterSelect = false;
     }
 
     public void EndGame()
@@ -76,7 +76,7 @@ public class GameManager : MonoBehaviour
         TransitionController.Instance.StartUnloadLevelTransition(() => 
         {
             SceneManager.LoadScene(LevelSelect);
-            CanChangeCharacters = true;
+            IsInCharacterSelect = true;
             var objs = FindObjectsOfType<ObjectsToBeLoadedAfterTransitionController>().ToList();
             objs.ForEach(x => x.LoadChildren());
             TimeScale = 1;

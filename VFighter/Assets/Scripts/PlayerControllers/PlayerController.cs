@@ -145,9 +145,17 @@ public abstract class PlayerController : MonoBehaviour
         }
     }
 
+    //to be used from external and ui operations, checks for specific states to ignore the drop
     public void DropPlayer()
     {
-        Debug.Log("dropping");
+        if (TransitionController.Instance.IsCurrentlyTransitioning() || !GameManager.Instance.IsInCharacterSelect)
+        {
+            return;
+        }
+    }
+
+    public void DropPlayerInternal()
+    {
         ControllerSelectManager.Instance.RemoveUsedDevice(InputDevice);
         
         if(AttachedObject)
@@ -220,7 +228,6 @@ public abstract class PlayerController : MonoBehaviour
             Animator currentAnimator = GetComponent<CharacterAnimScript>().currentAnimator;
             currentAnimator.SetTrigger("Flip");
         }
-        //characterContainer.transform.rotation = Quaternion.Euler(rotY, characterContainer.transform.rotation.y, 0);
     }
 
     public void ChangeGravity(Vector2 dir)
