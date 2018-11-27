@@ -6,8 +6,29 @@ using UnityEngine.Video;
 
 public class TransitionController : MonoBehaviour {
 
-	public void StartTransition(Action OnFinish)
+    public VideoClip LevelLoadDisplacmentMap;
+    public VideoClip LevelUnloadDisplacmentMap;
+    public static TransitionController Instance;
+
+    private void Awake()
     {
+        if(Instance)
+        {
+            Destroy(Instance.gameObject);
+        }
+
+        Instance = this;
+    }
+
+    public void StartUnloadLevelTransition(Action OnFinish)
+    {
+        GetComponent<VideoPlayer>().clip = LevelUnloadDisplacmentMap;
+        StartCoroutine(PlayAndWaitForVideoToEnd(OnFinish));
+    }
+
+    public void StartLoadLevelTransition(Action OnFinish)
+    {
+        GetComponent<VideoPlayer>().clip = LevelLoadDisplacmentMap;
         StartCoroutine(PlayAndWaitForVideoToEnd(OnFinish));
     }
 
@@ -15,8 +36,8 @@ public class TransitionController : MonoBehaviour {
     {
         GetComponent<Renderer>().enabled = true;
         var player = GetComponent<VideoPlayer>();
-        //player.clip.length
         player.Play();
+
         while (player.isPlaying)
         {
             yield return new WaitForEndOfFrame();

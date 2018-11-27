@@ -38,7 +38,7 @@ Transform:
   m_GameObject: {fileID: 1873463787353704}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.498, y: 0.032, z: -3}
-  m_LocalScale: {x: 21.983723, y: 12.313361, z: 1}
+  m_LocalScale: {x: 21.983719, y: 12.313359, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -96,6 +96,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d989e12028085ea4d8b5e640fd4432e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  LevelLoadDisplacmentMap: {fileID: 32900000, guid: 381ed2bde987be84892b94d240b3a630,
+    type: 3}
+  LevelUnloadDisplacmentMap: {fileID: 32900000, guid: e1b1c70798662df44b13c353c403c02a,
+    type: 3}
 --- !u!328 &328137327009910964
 VideoPlayer:
   m_ObjectHideFlags: 1
