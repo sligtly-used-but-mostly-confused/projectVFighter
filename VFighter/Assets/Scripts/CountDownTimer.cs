@@ -30,7 +30,8 @@ public class CountDownTimer : MonoBehaviour {
 
     void Start () {
         GameManager.Instance.TimeScale = 0;
-	}
+        StartCoroutine(CountDown());
+    }
 	
 	public IEnumerator CountDown()
     {

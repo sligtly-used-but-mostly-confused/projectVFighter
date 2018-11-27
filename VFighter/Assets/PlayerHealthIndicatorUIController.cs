@@ -8,8 +8,9 @@ public class PlayerHealthIndicatorUIController : MonoBehaviour {
     [SerializeField]
     private GameObject PlayerHealthUIPrefab;
 
-	// Use this for initialization
-	void Awake () {
+    // Use this for initialization
+    private void OnEnable()
+    {
         GameManager.Instance.OnPlayerJoin += MakeHealthDisplay;
         var players = FindObjectsOfType<PlayerController>().ToList();
         //players = players.OrderBy(x => x.GetInstanceID).ToList();
@@ -26,5 +27,6 @@ public class PlayerHealthIndicatorUIController : MonoBehaviour {
         var healthIndicator = Instantiate(PlayerHealthUIPrefab);
         healthIndicator.transform.SetParent(transform);
         healthIndicator.GetComponent<PlayerHealthIndicatorCardController>().Init(player);
+        player.GetComponent<CharacterSelectController>().RefreshCurrentMaterial();
     }
 }

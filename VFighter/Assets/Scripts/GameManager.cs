@@ -58,7 +58,13 @@ public class GameManager : MonoBehaviour
     public void LoadEndScoreScreen()
     {
         CurrentlyChangingScenes = true;
-        SceneManager.LoadScene(EndScoreScreen);
+        TransitionController.Instance.StartUnloadLevelTransition(() => 
+        {
+            SceneManager.LoadScene(EndScoreScreen);
+            var objs = FindObjectsOfType<ObjectsToBeLoadedAfterTransitionController>().ToList();
+            objs.ForEach(x => x.LoadChildren());
+            TimeScale = 1;
+        });
         CanChangeCharacters = false;
     }
 
@@ -67,8 +73,14 @@ public class GameManager : MonoBehaviour
         var players = FindObjectsOfType<PlayerController>().ToList();
         players.ForEach(x => x.ControlledPlayer.ResetForNewGame());
         CurrentlyChangingScenes = true;
-        SceneManager.LoadScene(LevelSelect);
-        CanChangeCharacters = true;
+        TransitionController.Instance.StartUnloadLevelTransition(() => 
+        {
+            SceneManager.LoadScene(LevelSelect);
+            CanChangeCharacters = true;
+            var objs = FindObjectsOfType<ObjectsToBeLoadedAfterTransitionController>().ToList();
+            objs.ForEach(x => x.LoadChildren());
+            TimeScale = 1;
+        });
     }
 
     public void LoadNextStage()
@@ -108,7 +120,16 @@ public class GameManager : MonoBehaviour
         ProgressionThroughGame = players.Max(x => x.ControlledPlayer.NumDeaths) / (float)players[0].ControlledPlayer.NumLives;
         players.ForEach(x => x.IsDead = false);
         CurrentlyChangingScenes = true;
-        SceneManager.LoadScene(_levelName);
+        TimeScale = 0;
+        string currentLevel = SceneManager.GetActiveScene().name;
+        SceneManager.LoadSceneAsync(_levelName, LoadSceneMode.Additive);
+        TransitionController.Instance.StartUnloadLevelTransition(() => 
+        {
+            SceneManager.UnloadSceneAsync(currentLevel);
+            var objs = FindObjectsOfType<ObjectsToBeLoadedAfterTransitionController>().ToList();
+            objs.ForEach(x => x.LoadChildren());
+            TimeScale = 1;
+        });
     }
 
     public void DoneChangingScenes()

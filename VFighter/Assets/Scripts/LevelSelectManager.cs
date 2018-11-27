@@ -137,25 +137,33 @@ public class LevelSelectManager : MonoBehaviour
 
         int valToPass = (int) timeRemaining;
 
-        while (timeRemaining > 0){
+        while (true)
+        {
             yield return new WaitForEndOfFrame();
             if (timeRemaining < valToPass)
             {
-                AudioManager.instance.PlaySingle(countdown);
+                if(valToPass == 1)
+                {
+                    AudioManager.instance.PlaySingle(countdownFinal);
+                }
+                if(valToPass < 0)
+                {
+                    timer.text = "0";
+                    timeRemaining = 0;
+                    GameManager.Instance.StartGame(LeadingLevels());
+                }
+                else
+                {
+                    AudioManager.instance.PlaySingle(countdown);
+                }
+                
                 valToPass--;
                 timer.text = "" + Mathf.RoundToInt(timeRemaining);
             }
-
-            timerClockFace.rectTransform.Rotate(new Vector3(0,0, startingTime / timeRemaining), Space.World);
             
             timeRemaining -= Time.deltaTime;
+            timerClockFace.rectTransform.Rotate(new Vector3(0, 0, startingTime / Mathf.Clamp( timeRemaining, .01f, startingTime)), Space.World);
         }
-
-        AudioManager.instance.PlaySingle(countdownFinal);
-        timer.text = "0";
-
-        yield return new WaitForSeconds(1);
-        GameManager.Instance.StartGame(LeadingLevels());
     }
 
     private void SpawnLevelPlatforms()
