@@ -6058,7 +6058,6 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 7e7f54500d695144293d102f56612dbd, type: 3}
   - {fileID: 8300000, guid: c9642d6336dae394ba796a2eea99801b, type: 3}
   deathLocation: {fileID: 0}
-  PlayerId: -1
   ReticleId: -1
   MaterialId: -1
   IsReady: 0
@@ -6127,7 +6126,7 @@ MonoBehaviour:
   PlayerColors:
   - {r: 0.4470588, g: 0.81347734, b: 1, a: 1}
   - {r: 0.93877363, g: 0.495283, b: 1, a: 1}
-  - {r: 1, g: 0.33490568, b: 0.3415533, a: 1}
+  - {r: 1, g: 0.66583204, b: 0.6084906, a: 1}
   - {r: 0.72473305, g: 1, b: 0.5707547, a: 1}
   CurrentPlayerMaterial: {fileID: 0}
 --- !u!114 &114532030782225478

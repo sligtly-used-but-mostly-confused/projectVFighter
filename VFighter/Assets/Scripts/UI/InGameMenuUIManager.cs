@@ -35,9 +35,4 @@ public class InGameMenuUIManager : MonoBehaviour {
         _menuObject.SetActive(false);
         SceneManager.LoadScene(MainMenu.name);
     }
-
-    public bool IsMenuDisplayed()
-    {
-        return _menuObject.activeSelf;
-    }
 }

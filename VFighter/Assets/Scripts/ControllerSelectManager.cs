@@ -61,8 +61,7 @@ public class ControllerSelectManager : MonoBehaviour
         {
             if (!_usedDevices.Contains(inputDevice) &&
                 (inputDevice.GetIsAxisTappedPos(MappedAxis.ShootGravGun) || inputDevice.GetButton(MappedButton.ShootGravGun)) &&
-                !(inputDevice is KeyboardInputDevice || inputDevice is MouseInputDevice) &&
-                !InGameMenuUIManager.Instance.IsMenuDisplayed())
+                !(inputDevice is KeyboardInputDevice || inputDevice is MouseInputDevice))
             {
                 _usedDevices.Add(inputDevice);
                 

@@ -10,17 +10,7 @@ public class KeyboardPlayerController : PlayerController
         {
             return;
         }
-
-        if (InputDevice.GetButtonDown(MappedButton.OpenMenu))
-        {
-            InGameMenuUIManager.Instance.ToggleMenu();
-        }
-
-        if(InGameMenuUIManager.Instance.IsMenuDisplayed())
-        {
-            return;
-        }
-
+        
         Move(this.InputDevice.GetAxis2DCircleClamp(MappedAxis.Horizontal, MappedAxis.Vertical));
 
         if (InputDevice.GetButtonDown(MappedButton.Ready))
@@ -35,6 +25,11 @@ public class KeyboardPlayerController : PlayerController
         else
         {
             Gamepad();
+        }
+
+        if (InputDevice.GetButtonDown(MappedButton.OpenMenu))
+        {
+            InGameMenuUIManager.Instance.ToggleMenu();
         }
     }
 

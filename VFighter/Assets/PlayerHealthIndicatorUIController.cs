@@ -9,7 +9,7 @@ public class PlayerHealthIndicatorUIController : MonoBehaviour {
     private GameObject PlayerHealthUIPrefab;
 
 	// Use this for initialization
-	void Awake () {
+	void Start () {
         GameManager.Instance.OnPlayerJoin += MakeHealthDisplay;
         var players = FindObjectsOfType<PlayerController>().ToList();
         //players = players.OrderBy(x => x.GetInstanceID).ToList();
