@@ -36,7 +36,6 @@ public class TransitionController : MonoBehaviour {
 
     IEnumerator PlayAndWaitForVideoToEnd(Action OnFinish)
     {
-        //GetComponent<Renderer>().enabled = true;
         TransitionRenderer.SetActive(true);
         var player = GetComponent<VideoPlayer>();
         player.Play();
@@ -45,8 +44,7 @@ public class TransitionController : MonoBehaviour {
         {
             yield return new WaitForEndOfFrame();
         }
-
-        //GetComponent<Renderer>().enabled = false;
+        
         TransitionRenderer.SetActive(false);
         OnFinish();
     }
