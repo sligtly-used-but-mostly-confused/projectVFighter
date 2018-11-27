@@ -9,7 +9,6 @@ public class TransitionControllerEditor : Editor {
     {
         DrawDefaultInspector();
 
-
         TransitionController myScript = (TransitionController)target;
 
         if (GUILayout.Button("Start Transition"))

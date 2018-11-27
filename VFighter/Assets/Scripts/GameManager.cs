@@ -109,7 +109,15 @@ public class GameManager : MonoBehaviour
         CurrentlyChangingScenes = true;
         TimeScale = 0;
         Debug.Log("load new scene");
-        TransitionController.Instance.StartUnloadLevelTransition(() => { SceneManager.LoadScene(_levelName); TimeScale = 1; });
+        string currentLevel = SceneManager.GetActiveScene().name;
+        SceneManager.LoadSceneAsync(_levelName, LoadSceneMode.Additive);
+        TransitionController.Instance.StartUnloadLevelTransition(() => 
+        {
+            SceneManager.UnloadSceneAsync(currentLevel);
+            var objs = FindObjectsOfType<ObjectsToBeLoadedAfterTransitionController>().ToList();
+            objs.ForEach(x => x.LoadChildren());
+            TimeScale = 1;
+        });
     }
 
     public void DoneChangingScenes()

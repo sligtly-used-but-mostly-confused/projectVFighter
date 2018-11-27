@@ -1891,8 +1891,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cde1ed03bb41ec49b47ff0bcd2d1467, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NumRounds: 2
-  NumLivesPerRound: 1
+  NumRounds: 3
+  NumLivesPerRound: 3
 --- !u!4 &352749857
 Transform:
   m_ObjectHideFlags: 0
