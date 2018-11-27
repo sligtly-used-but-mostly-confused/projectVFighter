@@ -20,7 +20,7 @@ public enum CooldownType
 public class PlayerCooldownController : MonoBehaviour
 {
     [System.Serializable]
-    public struct CooldownTimePair
+    public class CooldownTimePair
     {
         [SerializeField]
         public CooldownType Type;
@@ -30,6 +30,8 @@ public class PlayerCooldownController : MonoBehaviour
         public bool IsCoolingDown;
         [SerializeField]
         public Material FlashingMaterial;
+        [SerializeField]
+        public float TimeLeft;
     }
 
     public class CooldownCoroutineCallbackPair
@@ -46,7 +48,10 @@ public class PlayerCooldownController : MonoBehaviour
     private float cooldownFlashInterval;
     
     private Coroutine _flashCoroutine;
-    
+    [SerializeField]
+    private CooldownTimePair _currentlyFlashingCooldown;
+
+
     [SerializeField]
     private Material FlashingMaterial;
 
@@ -89,23 +94,29 @@ public class PlayerCooldownController : MonoBehaviour
     public void StartCooldown(CooldownType type, Action cb)
     {
         var temp = _coolDowns.Find(x => x.Type == type);
-        int index = _coolDowns.IndexOf(temp);
 
         temp.IsCoolingDown = true;
-        _coolDowns[index] = temp;
-        ChangeCooldownState(temp);
+
         if(_flashCoroutine != null)
         {
-            characterSelect.ResetToCurrentMaterial();
-            StopCoroutine(_flashCoroutine);
+            //theres already a flasher going so we need to check which one will stop first
+            if(_currentlyFlashingCooldown.TimeLeft < temp.CooldownTime)
+            {
+                characterSelect.ResetToCurrentMaterial();
+                StopCoroutine(_flashCoroutine);
+                StartFlasher(temp);
+            }
+        }
+        else
+        {
+            //no current flasher so we can just start
+            StartFlasher(temp);
         }
 
         var coolDown = new CooldownCoroutineCallbackPair();
-
-        coolDown.CooldownTimer = StartCoroutine(CooldownInternal(type, temp.CooldownTime, cb));
-        _flashCoroutine = StartCoroutine(FlashRenderer(cooldownFlashInterval, temp.CooldownTime, _coolDowns[index].FlashingMaterial));
         coolDown.Callback = cb;
         _coolDownTimers[type] = coolDown;
+        coolDown.CooldownTimer = StartCoroutine(CooldownInternal(type, temp.CooldownTime, cb));
     }
 
     public bool IsCoolingDown(CooldownType type)
@@ -122,7 +133,6 @@ public class PlayerCooldownController : MonoBehaviour
     public void StopCooldown(CooldownType type)
     {
         var temp = _coolDowns.Find(x => x.Type == type);
-        int index = _coolDowns.IndexOf(temp);
         if(_coolDownTimers[type] != null)
         {
             StopCoroutine(_coolDownTimers[type].CooldownTimer);
@@ -131,30 +141,33 @@ public class PlayerCooldownController : MonoBehaviour
         }
 
         temp.IsCoolingDown = false;
-        _coolDowns[index] = temp;
-        ChangeCooldownState(temp);
     }
 
     private IEnumerator CooldownInternal(CooldownType type, float time, Action cb)
     {
         var temp = _coolDowns.Find(x => x.Type == type);
-        int index = _coolDowns.IndexOf(temp);
-        yield return new WaitForSeconds(time);
+
+        var timeRemaining = time;
+
+        while(timeRemaining > 0)
+        {
+            yield return new WaitForEndOfFrame();
+            timeRemaining -= Time.deltaTime * GameManager.Instance.TimeScale;
+            temp.TimeLeft = timeRemaining;
+        }
+        
         _coolDownTimers[type] = null;
         temp.IsCoolingDown = false;
-        _coolDowns[index] = temp;
-        ChangeCooldownState(temp);
         cb();
     }
-    
-    private void ChangeCooldownState(CooldownTimePair pair)
+
+    public void StartFlasher(CooldownTimePair cooldown)
     {
-        var temp = _coolDowns.Find(x => x.Type == pair.Type);
-        int index = _coolDowns.IndexOf(temp);
-        _coolDowns[index] = pair;
+        _flashCoroutine = StartCoroutine(FlashRenderer(cooldown.CooldownTime, cooldown.FlashingMaterial));
+        _currentlyFlashingCooldown = cooldown;
     }
 
-    public IEnumerator FlashRenderer(float interval, float duration, Material OtherMaterialState)
+    public IEnumerator FlashRenderer(float duration, Material OtherMaterialState)
     {
         Material playerMaterial = characterSelect.GetCurrentPlayerMaterial();
         characterSelect.SetCurrentMaterialLossy(_flashingMaterialCopy);
