@@ -10,6 +10,9 @@ public class InGameMenuUIManager : MonoBehaviour {
     [SerializeField]
     private GameObject _menuObject;
     public SceneField MainMenu;
+
+    private PlayerController _playerWhoCalledMenu;
+
     private void Awake()
     {
         if(Instance != null)
@@ -22,8 +25,9 @@ public class InGameMenuUIManager : MonoBehaviour {
         DontDestroyOnLoad(gameObject);
     }
 
-    public void ToggleMenu()
+    public void ToggleMenu(PlayerController player)
     {
+        _playerWhoCalledMenu = player;
         Debug.Log(gameObject + " " + _menuObject);
         _menuObject.SetActive(!_menuObject.activeSelf);
     }
@@ -37,5 +41,11 @@ public class InGameMenuUIManager : MonoBehaviour {
     public bool IsMenuDisplayed()
     {
         return _menuObject.activeSelf;
+    }
+
+    public void DropPlayer()
+    {
+        _playerWhoCalledMenu.DropPlayer();
+        ToggleMenu(null);
     }
 }

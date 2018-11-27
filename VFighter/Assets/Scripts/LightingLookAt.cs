@@ -33,6 +33,10 @@ public class LightingLookAt : MonoBehaviour {
 
     }
 
+    private void OnDestroy()
+    {
+        Destroy(LObject);
+    }
 
     // Update is called once per frame
     void Update () {
