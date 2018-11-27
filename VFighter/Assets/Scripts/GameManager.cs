@@ -58,7 +58,13 @@ public class GameManager : MonoBehaviour
     public void LoadEndScoreScreen()
     {
         CurrentlyChangingScenes = true;
-        TransitionController.Instance.StartUnloadLevelTransition(() => SceneManager.LoadScene(EndScoreScreen));
+        TransitionController.Instance.StartUnloadLevelTransition(() => 
+        {
+            SceneManager.LoadScene(EndScoreScreen);
+            var objs = FindObjectsOfType<ObjectsToBeLoadedAfterTransitionController>().ToList();
+            objs.ForEach(x => x.LoadChildren());
+            TimeScale = 1;
+        });
         CanChangeCharacters = false;
     }
 
@@ -67,7 +73,14 @@ public class GameManager : MonoBehaviour
         var players = FindObjectsOfType<PlayerController>().ToList();
         players.ForEach(x => x.ControlledPlayer.ResetForNewGame());
         CurrentlyChangingScenes = true;
-        TransitionController.Instance.StartUnloadLevelTransition(() => { SceneManager.LoadScene(LevelSelect); CanChangeCharacters = true; });
+        TransitionController.Instance.StartUnloadLevelTransition(() => 
+        {
+            SceneManager.LoadScene(LevelSelect);
+            CanChangeCharacters = true;
+            var objs = FindObjectsOfType<ObjectsToBeLoadedAfterTransitionController>().ToList();
+            objs.ForEach(x => x.LoadChildren());
+            TimeScale = 1;
+        });
     }
 
     public void LoadNextStage()
@@ -108,7 +121,6 @@ public class GameManager : MonoBehaviour
         players.ForEach(x => x.IsDead = false);
         CurrentlyChangingScenes = true;
         TimeScale = 0;
-        Debug.Log("load new scene");
         string currentLevel = SceneManager.GetActiveScene().name;
         SceneManager.LoadSceneAsync(_levelName, LoadSceneMode.Additive);
         TransitionController.Instance.StartUnloadLevelTransition(() => 
