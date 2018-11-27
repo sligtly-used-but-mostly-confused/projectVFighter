@@ -7,12 +7,12 @@ using UnityEditor;
 
 public class NetworkConnectionUIManager : MonoBehaviour {
 
-    public SceneAsset ControllerSelect;
+    //public SceneAsset ControllerSelect;
 
 	public void StartServer()
     {
         //CustomNetworkManager.Instance.StartHost();
-        SceneManager.LoadScene(ControllerSelect.name);
+        //SceneManager.LoadScene(ControllerSelect.name);
     }
 
     public void ConnectToServer(Text NetworkAddressInput)
