@@ -35,6 +35,12 @@ public class InGameMenuUIManager : MonoBehaviour {
     public void Disconnect()
     {
         _menuObject.SetActive(false);
+
+        foreach(var player in FindObjectsOfType<PlayerController>())
+        {
+            player.DropPlayer();
+        }
+
         SceneManager.LoadScene(MainMenu.SceneName);
     }
 
