@@ -9,9 +9,7 @@ public class InGameMenuUIManager : MonoBehaviour {
     public static InGameMenuUIManager Instance;
     [SerializeField]
     private GameObject _menuObject;
-    [SerializeField]
-    private SceneAsset MainMenu;
-
+    public SceneField MainMenu;
     private void Awake()
     {
         if(Instance != null)
@@ -33,7 +31,7 @@ public class InGameMenuUIManager : MonoBehaviour {
     public void Disconnect()
     {
         _menuObject.SetActive(false);
-        SceneManager.LoadScene(MainMenu.name);
+        SceneManager.LoadScene(MainMenu.SceneName);
     }
 
     public bool IsMenuDisplayed()
