@@ -2,11 +2,12 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
+using TMPro;
 
 public class PlayerHealthIndicatorCardController : MonoBehaviour {
 
-    public Material AliveMaterial;
-    public Material DeadMaterial;
+    public Color AliveColor;
+    public Color DeadColor;
 
     [SerializeField]
     private GameObject _healthIndicatorCellPrefab;
@@ -26,14 +27,29 @@ public class PlayerHealthIndicatorCardController : MonoBehaviour {
 
     public List<CharacterTypeIconPair> IconMappings;
     public Image CharacterIcon;
+    public TextMeshProUGUI PlayerNumberText;
+    public TextMeshProUGUI CharacterTypeText;
 
     private PlayerCharacterType DisplayedCharacterType = PlayerCharacterType.ShotGun;
 
     public void Init(PlayerController player)
     {
         _attachedPlayer = player;
+        PlayerNumberText.text = "P" + _attachedPlayer.PlayerId;
         player.GetComponent<CharacterSelectController>().OnCharacterChanged += OnCharacterTypeChange;
         player.GetComponent<CharacterSelectController>().OnPlayerColorChanged += OnPlayerColorChange;
+    }
+
+    public void OnDestroy()
+    {
+        //player got destoryed before we could detach things
+        if(!_attachedPlayer)
+        {
+            return;
+        }
+
+        _attachedPlayer.GetComponent<CharacterSelectController>().OnCharacterChanged -= OnCharacterTypeChange;
+        _attachedPlayer.GetComponent<CharacterSelectController>().OnPlayerColorChanged -= OnPlayerColorChange;
     }
 
     // Update is called once per frame
@@ -56,12 +72,12 @@ public class PlayerHealthIndicatorCardController : MonoBehaviour {
             int i = 0;
             for (; i < _attachedPlayer.ControlledPlayer.NumDeaths; i++)
             {
-                _cells[i].GetComponent<Image>().material = DeadMaterial;
+                _cells[i].GetComponent<Image>().color = DeadColor;
             }
 
             for (; i < _attachedPlayer.ControlledPlayer.NumLives; i++)
             {
-                _cells[i].GetComponent<Image>().material = AliveMaterial;
+                _cells[i].GetComponent<Image>().color = AliveColor;
             }
         }
 	}
@@ -69,6 +85,8 @@ public class PlayerHealthIndicatorCardController : MonoBehaviour {
     public void OnPlayerColorChange(Color color)
     {
         CharacterIcon.color = color;
+        CharacterTypeText.color = color;
+        PlayerNumberText.color = color;
     }
 
     public void OnCharacterTypeChange(PlayerCharacterType type)
@@ -76,5 +94,6 @@ public class PlayerHealthIndicatorCardController : MonoBehaviour {
         DisplayedCharacterType = type;
         var pair = IconMappings.Find(x => x.Type == DisplayedCharacterType);
         CharacterIcon.sprite = pair.Icon;
+        CharacterTypeText.text = type.ToString();
     }
 }
