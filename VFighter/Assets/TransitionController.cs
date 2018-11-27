@@ -42,6 +42,7 @@ public class TransitionController : MonoBehaviour {
         {
             yield return new WaitForEndOfFrame();
         }
+
         GetComponent<Renderer>().enabled = false;
         OnFinish();
     }
