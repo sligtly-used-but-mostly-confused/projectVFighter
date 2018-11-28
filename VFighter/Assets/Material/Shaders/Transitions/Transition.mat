@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: Transition
-  m_Shader: {fileID: 4800000, guid: ba971f874b92d4f43bcc823186b3075b, type: 3}
+  m_Shader: {fileID: 4800000, guid: e1c6a14f8806a7d4da4ea1a8ed802b75, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -18,12 +18,20 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - Texture2D_8604BB1B:
+        m_Texture: {fileID: 8400000, guid: af345d680b2c3104fabb9c39eb256875, type: 2}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - Texture2D_AF805F4C:
         m_Texture: {fileID: 8400000, guid: 8eeaa0700e00c4c208ede43dcbd3acd9, type: 2}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - Texture2D_C47BE3F:
         m_Texture: {fileID: 8400000, guid: af345d680b2c3104fabb9c39eb256875, type: 2}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_EF588876:
+        m_Texture: {fileID: 8400000, guid: 8eeaa0700e00c4c208ede43dcbd3acd9, type: 2}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
@@ -79,6 +87,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
+    - Vector1_2775E004: 0.5
     - Vector1_9633BEE5: 0.25
     - _AlphaClip: 0
     - _Blend: 0
