@@ -124,7 +124,7 @@ public abstract class PlayerController : MonoBehaviour
         
         ReticleParent = gameObject;
 
-        ControlledPlayer.NumLives = LevelSelectManager.Instance.numLivesPerPlayer;
+        ControlledPlayer.NumLives = GameRoundSettingsController.Instance.NumLivesPerRound;
 
         StartCoroutine(AttachInputDeviceToPlayer());
         LevelManager.Instance.SpawnPlayerDestructive(this);

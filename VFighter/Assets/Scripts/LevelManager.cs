@@ -15,12 +15,10 @@ public class LevelManager : MonoBehaviour
     protected List<PlayerSpawnPosition> _spawnPositions;
     [SerializeField]
     private bool _startNextLevelWinCondition = true;
-    [SerializeField]
-    private float _gravityScaleGradientStart = .5f;
-    [SerializeField]
-    private float _gravityScaleGradientEnd = 1f;
-    [SerializeField]
-    private float _gravityScaleGradientRate = .1f;
+    private float _gravityScaleGradientStart { get { return GameRoundSettingsController.Instance.GameSpeedMin; } }
+    private float _gravityScaleGradientEnd { get { return GameRoundSettingsController.Instance.GameSpeedMax;} }
+    private float _gravityScaleGradientRate { get { return GameRoundSettingsController.Instance.GameSpeedRate; } }
+
     [SerializeField]
     private bool _hasGameStarted = false;
 
@@ -77,6 +75,7 @@ public class LevelManager : MonoBehaviour
     public void StartGame()
     {
         GameManager.Instance.TimeScale = _gravityScaleGradientStart;
+        Debug.Log(GameManager.Instance.TimeScale);
         _hasGameStarted = true;
     }
 

@@ -1791,6 +1791,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   NumRounds: 2
   NumLivesPerRound: 3
+  GameSpeedMin: 0.5
+  GameSpeedMax: 1
+  GameSpeedRate: 0.05
+  MinPlayers: 2
 --- !u!4 &352749857
 Transform:
   m_ObjectHideFlags: 0
@@ -2748,23 +2752,20 @@ MonoBehaviour:
     previewMaterial: {fileID: 2100000, guid: 53455b4becedf4340977fd1b027495f8, type: 2}
   - levelName: TeleporterLoopLevel
     previewMaterial: {fileID: 2100000, guid: 8e95588dd395e9a459a402648e00e074, type: 2}
-  - levelName: TeleporterLoopLevel
-    previewMaterial: {fileID: 2100000, guid: 8e95588dd395e9a459a402648e00e074, type: 2}
+  - levelName: ShrinkingLevel
+    previewMaterial: {fileID: 2100000, guid: 0bf3c3c1c34e7494eb63b1c0a327f4fa, type: 2}
   platform: {fileID: 1841537160547452, guid: c8f09f02dca094a2aab8d34e4220d023, type: 2}
   levelZone: {fileID: 1647109427917884, guid: c571407ca27484f0fb1de03b5a495f4b, type: 2}
   areaWidth: 16
   timer: {fileID: 929608463}
   timerClockFace: {fileID: 856661107}
-  selectTime: 2
-  numLivesPerPlayer: 1
+  selectTime: 3
   countdown: {fileID: 8300000, guid: d7216433c9f000346bc08ebc86e49352, type: 3}
   countdownFinal: {fileID: 8300000, guid: e81d9bab7613db642bd0caac36e989ad, type: 3}
   _playerReadyIndicatorPrefab: {fileID: 1574300143994424, guid: 50239be1e91c0ce48b9f24ef90027d08,
     type: 2}
   _isWaitingForReady: 1
   timeRemaining: 0
-  _minPlayers: 2
-  _numRounds: 1
 --- !u!224 &559351042
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3163,9 +3164,6 @@ MonoBehaviour:
   - {fileID: 1765429015}
   - {fileID: 1902471868}
   _startNextLevelWinCondition: 0
-  _gravityScaleGradientStart: 0.5
-  _gravityScaleGradientEnd: 1
-  _gravityScaleGradientRate: 0.1
   _hasGameStarted: 0
   JailTransform: {fileID: 1807448646}
 --- !u!4 &707236919

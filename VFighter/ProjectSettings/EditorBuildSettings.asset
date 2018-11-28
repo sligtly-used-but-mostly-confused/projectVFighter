@@ -44,4 +44,7 @@ EditorBuildSettings:
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
+  - enabled: 1
+    path: Assets/Scenes/AdvancedLevels/ShrinkingLevel.unity
+    guid: 5795142f2533548be8289b7be77b5ebc
   m_configObjects: {}
