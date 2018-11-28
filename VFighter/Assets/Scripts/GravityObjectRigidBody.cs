@@ -111,9 +111,6 @@ public class GravityObjectRigidBody : MonoBehaviour
 
                 _rB.velocity += velocity.Value * GameManager.Instance.TimeScale;
             }
-
-            
-
         }
 
         if(!CanMove && _rB)

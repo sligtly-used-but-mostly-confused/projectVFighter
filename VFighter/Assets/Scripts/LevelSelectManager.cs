@@ -25,7 +25,7 @@ public class LevelSelectManager : MonoBehaviour
 
     public int selectTime;
     public bool IsTimerStarted { get { return _timerCoroutine != null; } }
-    public int numLivesPerPlayer;
+    
     public AudioClip countdown;
     public AudioClip countdownFinal;
 
@@ -39,10 +39,9 @@ public class LevelSelectManager : MonoBehaviour
     private bool _isWaitingForReady = true;
     [SerializeField]
     private float timeRemaining;
-    [SerializeField]
-    private int _minPlayers = 2;
-    [SerializeField]
-    private int _numRounds = 1;
+    private int _minPlayers { get { return GameRoundSettingsController.Instance.MinPlayers; } }
+    private int _numRounds { get { return GameRoundSettingsController.Instance.NumRounds; } }
+    private int _numLivesPerRound { get { return GameRoundSettingsController.Instance.NumLivesPerRound; } }
 
     private void Awake()
     {
@@ -84,10 +83,8 @@ public class LevelSelectManager : MonoBehaviour
 
     public void RefreshRoundSettings()
     {
-        _numRounds = GameRoundSettingsController.Instance.NumRounds;
-        numLivesPerPlayer = GameRoundSettingsController.Instance.NumLivesPerRound;
         var players = FindObjectsOfType<PlayerController>().ToList();
-        players.ForEach(x => x.ControlledPlayer.NumLives = numLivesPerPlayer);
+        players.ForEach(x => x.ControlledPlayer.NumLives = _numLivesPerRound);
     }
 
     private void Update()

@@ -9,7 +9,10 @@ public class GameRoundSettingsController : MonoBehaviour {
 
     public int NumRounds;
     public int NumLivesPerRound;
-
+    public float GameSpeedMin = .5f;
+    public float GameSpeedMax = 1;
+    public float GameSpeedRate = .05f;
+    public int MinPlayers = 2;
     private void Awake()
     {
         if(Instance)
