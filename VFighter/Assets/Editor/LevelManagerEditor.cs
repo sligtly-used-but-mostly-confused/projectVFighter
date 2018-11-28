@@ -4,7 +4,8 @@ using UnityEditor;
 using UnityEngine;
 
 [CustomEditor(typeof(LevelManager))]
-public class LevelManagerEditor : Editor {
+public class LevelManagerEditor : Editor
+{
     public override void OnInspectorGUI()
     {
         DrawDefaultInspector();

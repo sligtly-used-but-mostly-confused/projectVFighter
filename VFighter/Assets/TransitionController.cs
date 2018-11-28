@@ -6,11 +6,11 @@ using UnityEngine.Video;
 
 public class TransitionController : MonoBehaviour {
 
-    public VideoClip LevelLoadDisplacmentMap;
     public VideoClip LevelUnloadDisplacmentMap;
     public static TransitionController Instance;
 
     public GameObject TransitionRenderer;
+    private Coroutine TransitionCoroutine;
 
     private void Awake()
     {
@@ -25,13 +25,12 @@ public class TransitionController : MonoBehaviour {
     public void StartUnloadLevelTransition(Action OnFinish)
     {
         GetComponent<VideoPlayer>().clip = LevelUnloadDisplacmentMap;
-        StartCoroutine(PlayAndWaitForVideoToEnd(OnFinish));
+        TransitionCoroutine = StartCoroutine(PlayAndWaitForVideoToEnd(OnFinish));
     }
 
-    public void StartLoadLevelTransition(Action OnFinish)
+    public bool IsCurrentlyTransitioning()
     {
-        GetComponent<VideoPlayer>().clip = LevelLoadDisplacmentMap;
-        StartCoroutine(PlayAndWaitForVideoToEnd(OnFinish));
+        return TransitionCoroutine != null;
     }
 
     IEnumerator PlayAndWaitForVideoToEnd(Action OnFinish)
@@ -47,5 +46,6 @@ public class TransitionController : MonoBehaviour {
         
         TransitionRenderer.SetActive(false);
         OnFinish();
+        TransitionCoroutine = null;
     }
 }

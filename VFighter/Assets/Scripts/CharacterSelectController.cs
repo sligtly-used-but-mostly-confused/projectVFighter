@@ -104,7 +104,7 @@ public class CharacterSelectController : MonoBehaviour
 
     void Update()
     {    
-        if (!GameManager.Instance.CanChangeCharacters)
+        if (!GameManager.Instance.IsInCharacterSelect)
         {
             return;
         }

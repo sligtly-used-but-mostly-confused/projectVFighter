@@ -43,6 +43,11 @@ public class ControllerSelectManager : MonoBehaviour
         CheckForNewControllers();
     }
 
+    public void RemoveUsedDevice(InputDevice device)
+    {
+        _usedDevices.Remove(device);
+    }
+
     public void ClearUsedInputDevices()
     {
         _usedDevices.Clear();

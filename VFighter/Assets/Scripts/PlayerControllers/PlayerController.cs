@@ -96,6 +96,7 @@ public abstract class PlayerController : MonoBehaviour
     public bool IsDead;
     public bool IsInvincible;
     public PlayerCharacterType CharacterType;
+    public GameObject PlayerReadyIndicator;
 
     protected virtual void Awake()
     {
@@ -108,8 +109,8 @@ public abstract class PlayerController : MonoBehaviour
     {
         DontDestroyOnLoad(gameObject);
         StartCoroutine(FindReticle());
-        var indicator = Instantiate(PlayerReadyIndicatorPrefab);
-        indicator.GetComponent<PlayerReadyIndicatorController>().AttachedPlayer = this;
+        PlayerReadyIndicator = Instantiate(PlayerReadyIndicatorPrefab);
+        PlayerReadyIndicator.GetComponent<PlayerReadyIndicatorController>().AttachedPlayer = this;
         de = GetComponentInChildren<DashEffect>();
         gc = GetComponentInChildren<GravityChange>();
         dth = GetComponentInChildren<deatheffect>();
@@ -142,6 +143,31 @@ public abstract class PlayerController : MonoBehaviour
             yield return new WaitForEndOfFrame();
             yield return AttachInputDeviceToPlayer();
         }
+    }
+
+    //to be used from external and ui operations, checks for specific states to ignore the drop
+    public void DropPlayer()
+    {
+        if (TransitionController.Instance.IsCurrentlyTransitioning() || !GameManager.Instance.IsInCharacterSelect)
+        {
+            return;
+        }
+    }
+
+    public void DropPlayerInternal()
+    {
+        ControllerSelectManager.Instance.RemoveUsedDevice(InputDevice);
+        
+        if(AttachedObject)
+        {
+            AttachedObject.GetComponent<ConnectionToPlayerController>().DisconnectPlayer();
+            DetachReticle();
+
+        }
+
+        Destroy(PlayerReadyIndicator);
+        Destroy(Reticle);
+        Destroy(gameObject);
     }
 
     public virtual void Init(Player player, Transform spawnPosition)
@@ -201,7 +227,6 @@ public abstract class PlayerController : MonoBehaviour
             Animator currentAnimator = GetComponent<CharacterAnimScript>().currentAnimator;
             currentAnimator.SetTrigger("Flip");
         }
-        //characterContainer.transform.rotation = Quaternion.Euler(rotY, characterContainer.transform.rotation.y, 0);
     }
 
     public void ChangeGravity(Vector2 dir)
@@ -307,7 +332,6 @@ public abstract class PlayerController : MonoBehaviour
                 {
                     if (AttachedObject == null)
                     {
-
                         SpawnProjectile(dir, DurationOfNormalGravityProjectile, ProjectileControllerType.Normal);
                         RandomizeSfx(gravGunFire, gravGunFireCave, 0);
                         _cooldownController.StartCooldown(CooldownType.NormalShot, () => { });

@@ -150,12 +150,12 @@ MeshRenderer:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1826825223069112}
   m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
   m_DynamicOccludee: 1
   m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
+  m_LightProbeUsage: 0
+  m_ReflectionProbeUsage: 0
   m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: 8540d04628d2ea54f995e156ce1eb2a8, type: 2}
@@ -196,8 +196,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d989e12028085ea4d8b5e640fd4432e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LevelLoadDisplacmentMap: {fileID: 32900000, guid: 381ed2bde987be84892b94d240b3a630,
-    type: 3}
   LevelUnloadDisplacmentMap: {fileID: 32900000, guid: e1b1c70798662df44b13c353c403c02a,
     type: 3}
   TransitionRenderer: {fileID: 1826825223069112}

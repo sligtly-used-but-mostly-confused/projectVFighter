@@ -15,10 +15,5 @@ public class TransitionControllerEditor : Editor {
         {
             myScript.StartUnloadLevelTransition(() => Debug.Log("done"));
         }
-
-        if (GUILayout.Button("Start Transition Backwards"))
-        {
-            myScript.StartLoadLevelTransition(() => Debug.Log("done"));
-        }
     }
 }
