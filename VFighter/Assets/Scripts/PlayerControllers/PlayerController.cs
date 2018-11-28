@@ -167,7 +167,6 @@ public abstract class PlayerController : MonoBehaviour
 
         Destroy(PlayerReadyIndicator);
         Destroy(Reticle);
-
         Destroy(gameObject);
     }
 

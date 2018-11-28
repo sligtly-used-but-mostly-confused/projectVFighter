@@ -13,7 +13,6 @@ public class PlayerControllerEditor : Editor
         KeyboardPlayerController player = (KeyboardPlayerController) target;
         if (GUILayout.Button("Drop Player"))
         {
-            //GameManager.Instance.StartGame(myScript.LeadingLevels());
             player.DropPlayer();
         }
     }

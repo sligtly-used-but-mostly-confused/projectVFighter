@@ -11,6 +11,7 @@ public class TransitionController : MonoBehaviour {
 
     public GameObject TransitionRenderer;
     private Coroutine TransitionCoroutine;
+
     private void Awake()
     {
         if(Instance)

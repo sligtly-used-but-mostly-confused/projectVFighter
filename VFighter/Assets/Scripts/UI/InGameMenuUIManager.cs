@@ -28,7 +28,6 @@ public class InGameMenuUIManager : MonoBehaviour {
     public void ToggleMenu(PlayerController player)
     {
         _playerWhoCalledMenu = player;
-        Debug.Log(gameObject + " " + _menuObject);
         _menuObject.SetActive(!_menuObject.activeSelf);
     }
 
