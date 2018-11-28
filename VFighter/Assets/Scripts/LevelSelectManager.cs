@@ -52,10 +52,21 @@ public class LevelSelectManager : MonoBehaviour
         }
 
         Instance = this;
+        SceneManager.activeSceneChanged += OnLevelFinishedLoading;
     }
 
-    void Start()
+    void OnDestroy()
     {
+        SceneManager.activeSceneChanged -= OnLevelFinishedLoading;
+    }
+
+    void OnLevelFinishedLoading(Scene previousScene, Scene newScene)
+    {
+        if(newScene.name != "ControllerSelect")
+        {
+            return;
+        }
+
         SpawnLevelPlatforms();
         timeRemaining = selectTime;
 

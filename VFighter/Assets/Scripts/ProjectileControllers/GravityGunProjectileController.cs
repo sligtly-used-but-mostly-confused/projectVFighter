@@ -59,6 +59,11 @@ public class GravityGunProjectileController : MonoBehaviour
         }
     }
 
+    public virtual void OnHitPlayer(PlayerController player)
+    {
+        player.GetComponent<PlayerController>().FlipGravity();
+    }
+
     protected bool TryGetCollisionContactWithTag(Collider2D collision, string tag)
     {
         var gravityObjectRB = collision.GetComponent<GravityObjectRigidBody>();
@@ -89,7 +94,7 @@ public class GravityGunProjectileController : MonoBehaviour
 
             if (collision.GetComponent<PlayerController>() && collision.GetComponent<PlayerController>() != Owner)
             {
-                collision.GetComponent<PlayerController>().FlipGravity();
+                OnHitPlayer(collision.GetComponent<PlayerController>());
                 ReturnToPool();
                 return;
             }
