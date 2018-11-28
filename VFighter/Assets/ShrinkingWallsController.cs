@@ -21,7 +21,7 @@ public class ShrinkingWallsController : MonoBehaviour {
     public GameObject wallPrefab;
     public GameObject pointMarker;
 
-    public float timeToShrink;
+    public float cycleLength;
     public GameObject startPoints;
     public GameObject endPoints;
 
@@ -29,7 +29,10 @@ public class ShrinkingWallsController : MonoBehaviour {
     private List<GameObject> walls = new List<GameObject>();
     private float startTime;
 
-	void Start () {
+    const float pi = 3.1415f;
+    private float frequency; // Frequency in Hz
+
+    void Start () {
         //set the wall points to whatever is input
         List<RectTransform> startTransforms = startPoints.GetComponentsInChildren<RectTransform>().ToList();
         List<RectTransform> finishTransfroms = endPoints.GetComponentsInChildren<RectTransform>().ToList();
@@ -42,6 +45,9 @@ public class ShrinkingWallsController : MonoBehaviour {
         for (int i = 1; i < startTransforms.Count; ++i){
             wallPoints.Add(new WallPoint(startTransforms[i].gameObject, finishTransfroms[i].gameObject));
         }
+
+        //set frequency
+        frequency = 1/cycleLength; 
 
         //grab the start time
         startTime = Time.time;
@@ -59,8 +65,7 @@ public class ShrinkingWallsController : MonoBehaviour {
 	void Update () {
         //get the fraction of time to total time
         float passedTime = Time.time - startTime;
-        float percentageComplete = passedTime / timeToShrink;
-        if (passedTime > timeToShrink) percentageComplete = 1;
+        float percentageComplete = Pulse(passedTime);
 
         //move the walls
         for (int i = 0; i < wallPoints.Count; ++i)
@@ -88,6 +93,12 @@ public class ShrinkingWallsController : MonoBehaviour {
     Vector3 GetCurrentLocation(WallPoint wp, float percentage)
     {
         return Vector3.Lerp(wp.startLocation, wp.endLocation, percentage);
+    }
+
+    //taken from https://stackoverflow.com/questions/3018550/how-to-create-pulsating-value-from-0-1-0-1-0-etc-for-a-given-duration
+    float Pulse(float time)
+    {
+        return 0.5f * (1 + Mathf.Sin(2 * pi * frequency * time));
     }
 
 }
