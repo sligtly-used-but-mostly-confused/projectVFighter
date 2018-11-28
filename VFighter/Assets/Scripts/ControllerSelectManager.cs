@@ -54,10 +54,11 @@ public class ControllerSelectManager : MonoBehaviour
         DevicesWaitingForPlayer.Clear();
     }
 
-    private short SpawnPlayer(short id)
+    public void SpawnPlayer(InputDevice inputDevice)
     {
+        _usedDevices.Add(inputDevice);
         Instantiate(PlayerPrefab);
-        return id;
+        DevicesWaitingForPlayer.Add(inputDevice);
     }
 
     private void CheckForNewControllers()
@@ -69,11 +70,7 @@ public class ControllerSelectManager : MonoBehaviour
                 !(inputDevice is KeyboardInputDevice || inputDevice is MouseInputDevice) &&
                 !InGameMenuUIManager.Instance.IsMenuDisplayed())
             {
-                _usedDevices.Add(inputDevice);
-                
-                SpawnPlayer(0);
-                
-                DevicesWaitingForPlayer.Add(inputDevice);
+                SpawnPlayer(inputDevice);
             }
         }  
     }
