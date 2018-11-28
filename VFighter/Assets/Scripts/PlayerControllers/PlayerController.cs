@@ -148,7 +148,7 @@ public abstract class PlayerController : MonoBehaviour
     //to be used from external and ui operations, checks for specific states to ignore the drop
     public void DropPlayer()
     {
-        if (TransitionController.Instance.IsCurrentlyTransitioning() || !GameManager.Instance.IsInCharacterSelect)
+        if (SceneManagementController.Instance.IsCurrentlyTransitioning() || !GameManager.Instance.IsInCharacterSelect)
         {
             return;
         }
