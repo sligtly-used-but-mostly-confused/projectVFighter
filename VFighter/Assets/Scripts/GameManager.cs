@@ -20,13 +20,16 @@ public class GameManager : MonoBehaviour
     public bool DebugScene = false;
     public bool CurrentlyChangingScenes = false;
     public float ProgressionThroughGame = 1;
-    public bool CanChangeCharacters = true;
+    public bool IsInCharacterSelect = true;
     public float TimeScale = 1;
     public int RoundNumber = 0;
     public int NumRounds = 0;
 
     public delegate void PlayerJoinCallback(PlayerController player);
     public PlayerJoinCallback OnPlayerJoin;
+
+    public delegate void LevelChangedDelegate();
+    public LevelChangedDelegate OnLevelChanged;
 
     void Awake () {
         if(_instance)
@@ -37,7 +40,10 @@ public class GameManager : MonoBehaviour
 
         _instance = this;
         DontDestroyOnLoad(this);
-	}
+
+        OnPlayerJoin += (x) => { };
+        OnLevelChanged += () => { };
+    }
 
     public void StartGame(List<string> roundStages)
     {
@@ -45,15 +51,18 @@ public class GameManager : MonoBehaviour
         _roundLevelNames = roundStages;
         NumRounds = _roundLevelNames.Count();
         LoadNewLevel();
-        CanChangeCharacters = false;
+        IsInCharacterSelect = false;
         GameObject.FindObjectsOfType<TutorialPromptController>().ToList().ForEach(x => x.gameObject.SetActive(false));
     }
 
     public void LoadEndScoreScreen()
     {
         CurrentlyChangingScenes = true;
-        SceneManager.LoadScene(EndScoreScreen);
-        CanChangeCharacters = false;
+        TransitionController.Instance.ChangeScenesAsycBehindTransition(EndScoreScreen, () =>
+        {
+            TimeScale = 1;
+        });
+        IsInCharacterSelect = false;
     }
 
     public void EndGame()
@@ -61,8 +70,11 @@ public class GameManager : MonoBehaviour
         var players = FindObjectsOfType<PlayerController>().ToList();
         players.ForEach(x => x.ControlledPlayer.ResetForNewGame());
         CurrentlyChangingScenes = true;
-        SceneManager.LoadScene(LevelSelect);
-        CanChangeCharacters = true;
+        TransitionController.Instance.ChangeScenesAsycBehindTransition(LevelSelect, () => 
+        {
+            IsInCharacterSelect = true;
+            TimeScale = 1;
+        });
     }
 
     public void LoadNextStage()
@@ -76,7 +88,6 @@ public class GameManager : MonoBehaviour
     {
         var players = FindObjectsOfType<PlayerController>().ToList();
         players.Where(x => !x.IsDead).ToList().ForEach(x => x.ControlledPlayer.NumStageWins++);
-
         if (_roundLevelNames.Count > 0)
         {
             RoundNumber++;
@@ -103,7 +114,12 @@ public class GameManager : MonoBehaviour
         ProgressionThroughGame = players.Max(x => x.ControlledPlayer.NumDeaths) / (float)players[0].ControlledPlayer.NumLives;
         players.ForEach(x => x.IsDead = false);
         CurrentlyChangingScenes = true;
-        SceneManager.LoadScene(_levelName);
+        TimeScale = 0;
+
+        TransitionController.Instance.ChangeScenesAsycBehindTransition(_levelName, () =>
+        {
+            TimeScale = 1;
+        });
     }
 
     public void DoneChangingScenes()

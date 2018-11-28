@@ -50,8 +50,7 @@ public class LevelManager : MonoBehaviour
         Players = FindObjectsOfType<PlayerController>().ToList();
         GameManager.Instance.DoneChangingScenes();
 
-        if (CountDownTimer.Instance)
-            StartCoroutine(CountDownTimer.Instance.CountDown());
+        GameManager.Instance.OnLevelChanged();
     }
 
     public virtual void Update()

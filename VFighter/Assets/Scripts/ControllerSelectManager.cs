@@ -43,16 +43,22 @@ public class ControllerSelectManager : MonoBehaviour
         CheckForNewControllers();
     }
 
+    public void RemoveUsedDevice(InputDevice device)
+    {
+        _usedDevices.Remove(device);
+    }
+
     public void ClearUsedInputDevices()
     {
         _usedDevices.Clear();
         DevicesWaitingForPlayer.Clear();
     }
 
-    private short SpawnPlayer(short id)
+    public void SpawnPlayer(InputDevice inputDevice)
     {
+        _usedDevices.Add(inputDevice);
         Instantiate(PlayerPrefab);
-        return id;
+        DevicesWaitingForPlayer.Add(inputDevice);
     }
 
     private void CheckForNewControllers()
@@ -61,13 +67,10 @@ public class ControllerSelectManager : MonoBehaviour
         {
             if (!_usedDevices.Contains(inputDevice) &&
                 (inputDevice.GetIsAxisTappedPos(MappedAxis.ShootGravGun) || inputDevice.GetButton(MappedButton.ShootGravGun)) &&
-                !(inputDevice is KeyboardInputDevice || inputDevice is MouseInputDevice))
+                !(inputDevice is KeyboardInputDevice || inputDevice is MouseInputDevice) &&
+                !InGameMenuUIManager.Instance.IsMenuDisplayed())
             {
-                _usedDevices.Add(inputDevice);
-                
-                SpawnPlayer(0);
-                
-                DevicesWaitingForPlayer.Add(inputDevice);
+                SpawnPlayer(inputDevice);
             }
         }  
     }

@@ -89,9 +89,7 @@ public class CharacterSelectController : MonoBehaviour
         descriptionCanvas = Instantiate(descriptionPrefab);
         descriptionCanvas.transform.SetParent(transform);
         descriptionCanvas.transform.position = Vector3.down * 2 + new Vector3(0, 0, -3);
-
-        //ChangeToNextCharacterType(0);
-
+        
         //initialize materials
         foreach(CharacterData cd in characterDataList){
             cd.AnimatorGameObject.GetComponentInChildren<SkinnedMeshRenderer>().material = cd.materials[cd.currentMaterialIndex];
@@ -99,11 +97,14 @@ public class CharacterSelectController : MonoBehaviour
 
         timeOnSelection = 0;
         CurrentPlayerMaterial = characterTypeAnimatorGOMappings[currentCharacterType].GetComponentInChildren<SkinnedMeshRenderer>().material;
+        GameManager.Instance.OnLevelChanged += RefreshCurrentMaterial;
+        OnCharacterChanged += (x) => { };
+        OnPlayerColorChanged += (x) => { };
     }
 
     void Update()
     {    
-        if (!GameManager.Instance.CanChangeCharacters)
+        if (!GameManager.Instance.IsInCharacterSelect)
         {
             return;
         }
@@ -241,6 +242,8 @@ public class CharacterSelectController : MonoBehaviour
 
     public void RefreshCurrentMaterial()
     {
+        OnCharacterChanged(currentCharacterType);
+
         //get the indexing right
         int index = CharacterTypes.IndexOf(GetComponent<PlayerController>().CharacterType);
         int indexRight, indexLeft;
