@@ -98,7 +98,7 @@ public class ShrinkingWallsController : MonoBehaviour {
     //taken from https://stackoverflow.com/questions/3018550/how-to-create-pulsating-value-from-0-1-0-1-0-etc-for-a-given-duration
     float Pulse(float time)
     {
-        return 0.5f * (1 + Mathf.Sin(2 * pi * frequency * time));
+        return 0.5f * (1 + Mathf.Sin(2 * pi * frequency * time)) *GameManager.Instance.TimeScale;
     }
 
 }
