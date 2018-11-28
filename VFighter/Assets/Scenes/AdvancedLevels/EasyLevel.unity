@@ -3245,19 +3245,19 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4849992745814712, guid: 3e53bc01518843747bee56c0f8bc0b5e, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -0.0008
+      value: 0.0019
       objectReference: {fileID: 0}
     - target: {fileID: 4849992745814712, guid: 3e53bc01518843747bee56c0f8bc0b5e, type: 2}
       propertyPath: m_LocalScale.x
-      value: 0.8905307
+      value: 0.48970422
       objectReference: {fileID: 0}
     - target: {fileID: 4849992745814712, guid: 3e53bc01518843747bee56c0f8bc0b5e, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.0013
       objectReference: {fileID: 0}
     - target: {fileID: 4849992745814712, guid: 3e53bc01518843747bee56c0f8bc0b5e, type: 2}
       propertyPath: m_LocalScale.y
-      value: 0.8925731
+      value: 0.5086934
       objectReference: {fileID: 0}
     - target: {fileID: 1873463787353704, guid: 3e53bc01518843747bee56c0f8bc0b5e, type: 2}
       propertyPath: m_IsActive
