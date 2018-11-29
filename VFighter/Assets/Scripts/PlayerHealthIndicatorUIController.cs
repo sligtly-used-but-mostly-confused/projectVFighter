@@ -35,7 +35,7 @@ public class PlayerHealthIndicatorUIController : MonoBehaviour {
     private void MakeHealthDisplay(PlayerController player)
     {
         var healthIndicator = Instantiate(PlayerHealthUIPrefab);
-        healthIndicator.transform.SetParent(transform);
+        healthIndicator.transform.SetParent(transform, false);
         healthIndicator.GetComponent<PlayerHealthIndicatorCardController>().Init(player);
         player.GetComponent<CharacterSelectController>().RefreshCurrentMaterial();
     }

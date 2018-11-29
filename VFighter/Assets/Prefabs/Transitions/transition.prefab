@@ -25,7 +25,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1826825223069112
 GameObject:
   m_ObjectHideFlags: 1
@@ -52,6 +52,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4343717572647732}
   - component: {fileID: 114494923733267126}
+  - component: {fileID: 114842364302103838}
   m_Layer: 15
   m_Name: transition
   m_TagString: Untagged
@@ -69,6 +70,7 @@ GameObject:
   - component: {fileID: 4388015887462892}
   - component: {fileID: 20311076825405756}
   - component: {fileID: 114666361144881480}
+  - component: {fileID: 114384336465200830}
   m_Layer: 0
   m_Name: transitionCamera
   m_TagString: Untagged
@@ -99,8 +101,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1873463787353704}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.5, y: 0, z: -3}
-  m_LocalScale: {x: 21.983719, y: 12.313359, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 7}
+  m_LocalScale: {x: 39.812603, y: 21.207521, z: 1}
   m_Children:
   - {fileID: 4972255784840608}
   m_Father: {fileID: 0}
@@ -139,8 +141,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1826825223069112}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.0008, y: 0.0016, z: 0}
-  m_LocalScale: {x: 0.96275294, y: 0.9778219, z: 1}
+  m_LocalPosition: {x: 0.00088, y: -0.0003, z: 0}
+  m_LocalScale: {x: 0.5257841, y: 0.5508239, z: 1}
   m_Children: []
   m_Father: {fileID: 4972255784840608}
   m_RootOrder: 1
@@ -243,6 +245,21 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1826825223069112}
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &114384336465200830
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1939682174073522}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba6af5eaa8d821f4e93093fd37ee3484, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  renderShadows: 1
+  requiresDepthTexture: 0
+  requiresColorTexture: 0
+  m_Version: 1
 --- !u!114 &114494923733267126
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -316,6 +333,18 @@ MonoBehaviour:
   m_BeforeTransparentBundles: []
   m_BeforeStackBundles: []
   m_AfterStackBundles: []
+--- !u!114 &114842364302103838
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1873463787353704}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5dc66901faa2a84e83a5610bc0b020e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _tController: {fileID: 114494923733267126}
 --- !u!328 &328012201989220298
 VideoPlayer:
   m_ObjectHideFlags: 1

@@ -76,6 +76,7 @@ public class LevelSelectManager : MonoBehaviour
             indicator.GetComponent<PlayerReadyIndicatorController>().AttachedPlayer = x;
 
             x.IsReady = false;
+            x.GetComponent<GravityObjectRigidBody>().CanMove = true;
         });
 
         RefreshRoundSettings();

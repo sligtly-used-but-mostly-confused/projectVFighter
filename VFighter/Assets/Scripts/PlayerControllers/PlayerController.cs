@@ -128,7 +128,7 @@ public abstract class PlayerController : MonoBehaviour
 
         StartCoroutine(AttachInputDeviceToPlayer());
         LevelManager.Instance.SpawnPlayerDestructive(this);
-        GetComponent<GravityObjectRigidBody>().CanMove = false;
+        //GetComponent<GravityObjectRigidBody>().CanMove = false;
     }
 
     IEnumerator AttachInputDeviceToPlayer()
@@ -148,7 +148,7 @@ public abstract class PlayerController : MonoBehaviour
     //to be used from external and ui operations, checks for specific states to ignore the drop
     public void DropPlayer()
     {
-        if (TransitionController.Instance.IsCurrentlyTransitioning() || !GameManager.Instance.IsInCharacterSelect)
+        if (SceneManagementController.Instance.IsCurrentlyTransitioning() || !GameManager.Instance.IsInCharacterSelect)
         {
             return;
         }
@@ -205,7 +205,7 @@ public abstract class PlayerController : MonoBehaviour
     {
         if (!_cooldownController.IsCoolingDown(CooldownType.ChangeGravity))
         {
-
+            ControlledPlayer.GravityChanges++;
             ChangeGravity(GetComponent<GravityObjectRigidBody>().GravityDirection * -1);
             gc.PlayEffect(GetComponent<GravityObjectRigidBody>());
             Animator currentAnimator = GetComponent<CharacterAnimScript>().currentAnimator;
@@ -328,6 +328,7 @@ public abstract class PlayerController : MonoBehaviour
 
             if (type == ProjectileControllerType.Normal)
             {
+                ControlledPlayer.ShotsFired++;
                 if (!_cooldownController.IsCoolingDown(CooldownType.NormalShot))
                 {
                     if (AttachedObject == null)
@@ -609,6 +610,7 @@ public abstract class PlayerController : MonoBehaviour
 
     protected void DoSpecial(Vector2 aimVector)
     {
+        ControlledPlayer.SpecialsFired++;
         switch (CharacterType)
         {
             case PlayerCharacterType.ShotGun:

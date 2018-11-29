@@ -9,6 +9,6 @@ public class LoadSceneButton : MonoBehaviour {
 	
     public void Pressed()
     {
-        TransitionController.Instance.ChangeScenesAsycBehindTransition(SceneName);
+        SceneManagementController.Instance.ChangeScenesAsycBehindTransition(SceneName);
     }
 }
