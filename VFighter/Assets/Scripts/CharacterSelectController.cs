@@ -127,11 +127,6 @@ public class CharacterSelectController : MonoBehaviour
 
         GravityObjectRigidBody rb = GetComponent<GravityObjectRigidBody>();
 
-        if(!ready){
-            rb.ClearAllVelocities();
-            GetComponent<Rigidbody2D>().velocity = Vector3.zero;
-        }
-
         if (GetComponent<PlayerController>().InputDevice == null)
         {
             return;
@@ -144,10 +139,12 @@ public class CharacterSelectController : MonoBehaviour
             ChangeMaterialType(1);
         }
 
+        /*
         if(GetComponent<PlayerController>().InputDevice.GetButtonDown(MappedButton.SubmitCharacterChoice))
         {
             GetComponent<GravityObjectRigidBody>().CanMove = true;
         }
+        */
 
         if(GetComponent<PlayerController>().InputDevice.GetIsAxisTapped(MappedAxis.ChangeCharacter))
         {

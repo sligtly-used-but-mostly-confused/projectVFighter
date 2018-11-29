@@ -128,7 +128,7 @@ public abstract class PlayerController : MonoBehaviour
 
         StartCoroutine(AttachInputDeviceToPlayer());
         LevelManager.Instance.SpawnPlayerDestructive(this);
-        GetComponent<GravityObjectRigidBody>().CanMove = false;
+        //GetComponent<GravityObjectRigidBody>().CanMove = false;
     }
 
     IEnumerator AttachInputDeviceToPlayer()

@@ -5996,6 +5996,9 @@ MonoBehaviour:
     NumOverallKills: 0
     NumOverallDeaths: 0
     NumStageWins: 0
+    ShotsFired: 0
+    SpecialsFired: 0
+    GravityChanges: 0
   IsDead: 0
   IsInvincible: 0
   CharacterType: 0
@@ -6051,6 +6054,7 @@ MonoBehaviour:
     - {fileID: 2100000, guid: a948278223d6e4af393f298fc7d7d228, type: 2}
     - {fileID: 2100000, guid: 81d494a18e0d84ffcbfb77a025479b8c, type: 2}
     currentMaterialIndex: 0
+  currentMaterialIndex: 0
   PlayerColors:
   - {r: 0.4470588, g: 0.81347734, b: 1, a: 1}
   - {r: 0.93877363, g: 0.495283, b: 1, a: 1}
@@ -6127,7 +6131,7 @@ MonoBehaviour:
     FlashingMaterial: {fileID: 2100000, guid: 6b27233b30329469ea2c8f7bafe5d057, type: 2}
     TimeLeft: 0
   - Type: 8
-    CooldownTime: 0.5
+    CooldownTime: 0.15
     IsCoolingDown: 0
     FlashingMaterial: {fileID: 2100000, guid: 6b27233b30329469ea2c8f7bafe5d057, type: 2}
     TimeLeft: 0

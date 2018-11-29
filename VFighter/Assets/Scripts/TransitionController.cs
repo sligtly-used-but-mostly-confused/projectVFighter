@@ -10,10 +10,8 @@ public class TransitionController : MonoBehaviour {
 
     public VideoClip LevelUnloadDisplacmentMap;
     public VideoPlayer Player;
-    
 
     public GameObject TransitionRendererContainer;
-
     private Coroutine TransitionCoroutine;
     
     public void StartTransition(Action OnFinish)
@@ -29,15 +27,19 @@ public class TransitionController : MonoBehaviour {
 
     IEnumerator PlayAndWaitForVideoToEnd(Action OnFinish)
     {
-        TransitionRendererContainer.SetActive(true);
-        Player.Play();
-
-        while (Player.isPlaying)
+        if(GameRoundSettingsController.Instance.UseTransitions)
         {
-            yield return new WaitForEndOfFrame();
+            TransitionRendererContainer.SetActive(true);
+            Player.Play();
+
+            while (Player.isPlaying)
+            {
+                yield return new WaitForEndOfFrame();
+            }
+
+            TransitionRendererContainer.SetActive(false);
         }
 
-        TransitionRendererContainer.SetActive(false);
         OnFinish();
         TransitionCoroutine = null;
     }
