@@ -6051,6 +6051,7 @@ MonoBehaviour:
     - {fileID: 2100000, guid: a948278223d6e4af393f298fc7d7d228, type: 2}
     - {fileID: 2100000, guid: 81d494a18e0d84ffcbfb77a025479b8c, type: 2}
     currentMaterialIndex: 0
+  currentMaterialIndex: 0
   PlayerColors:
   - {r: 0.4470588, g: 0.81347734, b: 1, a: 1}
   - {r: 0.93877363, g: 0.495283, b: 1, a: 1}
@@ -6216,7 +6217,7 @@ MonoBehaviour:
   isDead: 0
   pulse: {fileID: 0}
   kp: {fileID: 0}
-  DeathPrefab: {fileID: 1708945919846298, guid: 36e60765b9effe148a5d92beaf68a220,
+  DeathPrefab: {fileID: 1569039143225024, guid: 9bb0544f083da314c8c638d590d08ab8,
     type: 2}
   bc: {fileID: 0}
 --- !u!114 &114883221867361214
