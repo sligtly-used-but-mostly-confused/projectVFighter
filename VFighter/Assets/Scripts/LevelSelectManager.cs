@@ -153,7 +153,7 @@ public class LevelSelectManager : MonoBehaviour
             {
                 if(valToPass == 1)
                 {
-                    AudioManager.instance.PlaySingle(countdownFinal);
+                    AudioManager.Instance.PlaySingle(countdownFinal);
                 }
                 if(valToPass < 0)
                 {
@@ -163,7 +163,7 @@ public class LevelSelectManager : MonoBehaviour
                 }
                 else
                 {
-                    AudioManager.instance.PlaySingle(countdown);
+                    AudioManager.Instance.PlaySingle(countdown);
                 }
                 
                 valToPass--;

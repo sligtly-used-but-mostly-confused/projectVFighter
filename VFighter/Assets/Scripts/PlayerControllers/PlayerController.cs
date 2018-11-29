@@ -152,6 +152,8 @@ public abstract class PlayerController : MonoBehaviour
         {
             return;
         }
+
+        DropPlayerInternal();
     }
 
     public void DropPlayerInternal()
@@ -639,19 +641,19 @@ public abstract class PlayerController : MonoBehaviour
     {
         //Generate a random number between 0 and the length of our array of clips passed in.
         int randomIndex;
-        if (AudioManager.instance.isCaveLevel)
+        if (AudioManager.Instance.isCaveLevel)
             randomIndex = UnityEngine.Random.Range(0, caveClips.Length);
         else
             randomIndex = UnityEngine.Random.Range(0, clips.Length);
 
         //Choose a random pitch to play back our clip at between our high and low pitch ranges.
-        float randomPitch = UnityEngine.Random.Range(AudioManager.instance.lowPitchRange, AudioManager.instance.highPitchRange);
+        float randomPitch = UnityEngine.Random.Range(AudioManager.Instance.lowPitchRange, AudioManager.Instance.highPitchRange);
 
         //Set the pitch of the audio source to the randomly chosen pitch.
         channels[channel].pitch = randomPitch;
 
         //Set the clip to the clip at our randomly chosen index.
-        if (AudioManager.instance.isCaveLevel)
+        if (AudioManager.Instance.isCaveLevel)
             channels[channel].clip = caveClips[randomIndex];
         else
             channels[channel].clip = clips[randomIndex];

@@ -52,6 +52,7 @@ public class InGameMenuUIManager : MonoBehaviour {
 
     public void DropPlayer()
     {
+        Debug.Log($"dropping {_playerWhoCalledMenu.name}");
         _playerWhoCalledMenu.DropPlayer();
         ToggleMenu(null);
     }

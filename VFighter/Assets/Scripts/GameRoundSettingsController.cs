@@ -15,6 +15,9 @@ public class GameRoundSettingsController : MonoBehaviour {
     public int MinPlayers = 2;
 
     public bool UseTransitions = true;
+    public float MasterVol { get { return AudioManager.MasterVol; } set { AudioManager.Instance.SetMasterVol(value); } }
+    public float MusicVol { get { return AudioManager.MusicVol; } set { AudioManager.Instance.SetMusicVol(value); } }
+    public float SFXVol { get { return AudioManager.SFXVol; } set { AudioManager.Instance.SetSFXVol(value); } }
 
     private void Awake()
     {

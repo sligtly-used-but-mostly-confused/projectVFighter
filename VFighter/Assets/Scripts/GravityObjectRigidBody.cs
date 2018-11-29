@@ -228,7 +228,7 @@ public class GravityObjectRigidBody : MonoBehaviour
         {
             collAudio.loop = false;
             collAudio.volume = AudioManager.SFXVol * AudioManager.MusicVol;
-            AudioManager.instance.RandomizeSfx(AudioManager.instance.Coll, AudioManager.instance.CollCave, collAudio);
+            AudioManager.Instance.RandomizeSfx(AudioManager.Instance.Coll, AudioManager.Instance.CollCave, collAudio);
         }
     }
 }
