@@ -34,7 +34,9 @@ public class ShotgunProjectileController : GravityGunProjectileController
                 (GORB as ControllableGravityObjectRigidBody).LastShotBy = Owner;
             }
 
-            GORB.ChangeGravityDirectionInternal(GetComponent<GravityObjectRigidBody>().GetVelocity(VelocityType.Gravity));
+            var dir = GetComponent<GravityObjectRigidBody>().GetVelocity(VelocityType.Gravity).normalized;
+
+            GORB.ChangeGravityDirectionInternal(dir);
         }
     }
 }
