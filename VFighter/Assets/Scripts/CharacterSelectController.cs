@@ -139,13 +139,6 @@ public class CharacterSelectController : MonoBehaviour
             ChangeMaterialType(1);
         }
 
-        /*
-        if(GetComponent<PlayerController>().InputDevice.GetButtonDown(MappedButton.SubmitCharacterChoice))
-        {
-            GetComponent<GravityObjectRigidBody>().CanMove = true;
-        }
-        */
-
         if(GetComponent<PlayerController>().InputDevice.GetIsAxisTapped(MappedAxis.ChangeCharacter))
         {
             float ChangeCharacterDir = GetComponent<PlayerController>().InputDevice.GetAxis(MappedAxis.ChangeCharacter);
