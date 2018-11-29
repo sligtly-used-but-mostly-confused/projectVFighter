@@ -205,7 +205,7 @@ public abstract class PlayerController : MonoBehaviour
     {
         if (!_cooldownController.IsCoolingDown(CooldownType.ChangeGravity))
         {
-
+            ControlledPlayer.GravityChanges++;
             ChangeGravity(GetComponent<GravityObjectRigidBody>().GravityDirection * -1);
             gc.PlayEffect(GetComponent<GravityObjectRigidBody>());
             Animator currentAnimator = GetComponent<CharacterAnimScript>().currentAnimator;
@@ -328,6 +328,7 @@ public abstract class PlayerController : MonoBehaviour
 
             if (type == ProjectileControllerType.Normal)
             {
+                ControlledPlayer.ShotsFired++;
                 if (!_cooldownController.IsCoolingDown(CooldownType.NormalShot))
                 {
                     if (AttachedObject == null)
@@ -609,6 +610,7 @@ public abstract class PlayerController : MonoBehaviour
 
     protected void DoSpecial(Vector2 aimVector)
     {
+        ControlledPlayer.SpecialsFired++;
         switch (CharacterType)
         {
             case PlayerCharacterType.ShotGun:
