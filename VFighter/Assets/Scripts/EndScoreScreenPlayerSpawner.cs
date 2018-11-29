@@ -8,7 +8,8 @@ public class EndScoreScreenPlayerSpawner : PlayerSpawnPosition {
     public MappedIconSprite MappedIcon;
     public TextMeshPro PlayerName;
     public TransitionController TController;
-
+    public PlayerStatisticsUIController StatsController;
+    public Transform PlayerSpawnPosition;
 
     private PlayerController _player;
     private bool _prevReadyState = false;
@@ -23,11 +24,22 @@ public class EndScoreScreenPlayerSpawner : PlayerSpawnPosition {
 
     private void Update()
     {
-        if(_player && _player.IsReady && !_prevReadyState)
+        if(_player && _player.IsReady != _prevReadyState)
         {
             if(TController)
             {
-                TController.StartTransition(() => { });
+                TController.StartTransition(() => 
+                {
+                    if(_player.IsReady)
+                    {
+                        StatsController.gameObject.SetActive(true);
+                        StatsController.Init(_player.ControlledPlayer);
+                    }
+                    else
+                    {
+                        StatsController.gameObject.SetActive(false);
+                    }
+                });
             }
         }
 

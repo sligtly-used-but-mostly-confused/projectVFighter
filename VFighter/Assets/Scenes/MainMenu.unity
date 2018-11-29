@@ -1924,19 +1924,19 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4849992745814712, guid: 3e53bc01518843747bee56c0f8bc0b5e, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0.0039
+      value: 0.00108
       objectReference: {fileID: 0}
     - target: {fileID: 4849992745814712, guid: 3e53bc01518843747bee56c0f8bc0b5e, type: 2}
       propertyPath: m_LocalScale.y
-      value: 1.5985297
+      value: 0.94355166
       objectReference: {fileID: 0}
     - target: {fileID: 4849992745814712, guid: 3e53bc01518843747bee56c0f8bc0b5e, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -0.0022
+      value: 0.00038
       objectReference: {fileID: 0}
     - target: {fileID: 4849992745814712, guid: 3e53bc01518843747bee56c0f8bc0b5e, type: 2}
       propertyPath: m_LocalScale.x
-      value: 1.5954083
+      value: 0.8930957
       objectReference: {fileID: 0}
     - target: {fileID: 4388015887462892, guid: 3e53bc01518843747bee56c0f8bc0b5e, type: 2}
       propertyPath: m_LocalPosition.x
