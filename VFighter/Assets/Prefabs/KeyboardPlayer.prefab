@@ -6074,8 +6074,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hSliderValue: 0.01
   kp: {fileID: 0}
-  prefabLight: {fileID: 1237948039889980, guid: 5f2d66ebc2ca7b44098e85e86a24a693,
-    type: 2}
+  cs: {fileID: 0}
+  prefabLight:
+  - {fileID: 1237948039889980, guid: 73421a96b390b1748b0b30ffbc408f11, type: 2}
+  - {fileID: 1058180639025638, guid: 1b6fff6fc908d4f17a01fb56eaffff64, type: 2}
+  - {fileID: 1984103561232568, guid: dd5805db258ef4c36a933603c94deb3c, type: 2}
+  - {fileID: 1712978897268334, guid: f5602a8057d59410089ac7b541f9c9a1, type: 2}
   ps: []
   ad: {fileID: 82343499896048070}
 --- !u!114 &114642983415842072
