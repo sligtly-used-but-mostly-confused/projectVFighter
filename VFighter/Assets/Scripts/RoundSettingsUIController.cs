@@ -10,6 +10,9 @@ public class RoundSettingsUIController : MonoBehaviour {
     public TMP_Dropdown NumRoundsDropDown;
     public TMP_InputField LivesPerRoundInput;
     public Toggle UseTransitionsToggle;
+    public Slider MasterVolSlider;
+    public Slider MusicVolSlider;
+    public Slider SFXVolSlider;
 
     public void OnOpen()
     {
@@ -28,6 +31,9 @@ public class RoundSettingsUIController : MonoBehaviour {
         }
 
         NumRoundsDropDown.value = dropdownOption;
+        MasterVolSlider.value = GameRoundSettingsController.Instance.MasterVol;
+        MusicVolSlider.value = GameRoundSettingsController.Instance.MusicVol;
+        SFXVolSlider.value = GameRoundSettingsController.Instance.SFXVol;
     }
 
     public void SetNumRounds(TMP_Dropdown dropdown)
