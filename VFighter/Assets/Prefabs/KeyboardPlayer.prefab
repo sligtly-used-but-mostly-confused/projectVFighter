@@ -6116,7 +6116,7 @@ MonoBehaviour:
     FlashingMaterial: {fileID: 2100000, guid: b2a8a02c59a65284d9aae1c3dd996a45, type: 2}
     TimeLeft: 0
   - Type: 4
-    CooldownTime: 0.2
+    CooldownTime: 0.35
     IsCoolingDown: 0
     FlashingMaterial: {fileID: 2100000, guid: f1a6e1fc3730df442be9feffac8c07c2, type: 2}
     TimeLeft: 0
