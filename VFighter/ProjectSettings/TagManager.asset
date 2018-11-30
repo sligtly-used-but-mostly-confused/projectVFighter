@@ -24,8 +24,8 @@ TagManager:
   - PostProcessing
   - IgnoreReflection
   - CameraIgnore
-  - 
-  - 
+  - Transition
+  - OtherTransition
   - 
   - 
   - 

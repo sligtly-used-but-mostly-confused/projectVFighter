@@ -4,6 +4,24 @@ using UnityEngine;
 
 public class ShotgunProjectileController : GravityGunProjectileController
 {
+
+    public float PlayerKnockBackForce = 2.5f;
+
+    public override void OnHitPlayer(PlayerController player)
+    {
+        var dir = GetComponent<GravityObjectRigidBody>().GetVelocity(VelocityType.Gravity);
+
+        var GORB = player.GetComponent<GravityObjectRigidBody>();
+        GORB.ClearAllVelocities();
+        GORB.ChangeGravityScale(0);
+        GORB.UpdateVelocity(VelocityType.Dash, dir * PlayerKnockBackForce);
+        player.GetComponent<PlayerCooldownController>().StartCooldown(CooldownType.ShotgunKnockback, () =>
+        {
+            GORB.ClearAllVelocities();
+            GORB.ChangeGravityScale(1);
+        });
+    }
+
     public override void OnHitGORB(GravityObjectRigidBody GORB)
     {
         if (GORB.CanBeSelected)
@@ -14,7 +32,10 @@ public class ShotgunProjectileController : GravityGunProjectileController
                 (GORB as ControllableGravityObjectRigidBody).LastShotBy = Owner;
             }
 
-            GORB.ChangeGravityDirectionInternal(GetComponent<GravityObjectRigidBody>().GetVelocity(VelocityType.Gravity));
+            var dir = GetComponent<GravityObjectRigidBody>().GetVelocity(VelocityType.Gravity).normalized;
+            
+            GORB.ClearAllVelocities();
+            GORB.AddVelocity(VelocityType.OtherPhysics, dir * 30);
         }
     }
 }

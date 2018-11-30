@@ -20,6 +20,8 @@ MonoBehaviour:
     buttons: 0c000000
   - target: 7
     buttons: 00000000
+  - target: 8
+    buttons: 01000000
   axisMappings:
   - target: 0
     axes: 00000000

@@ -8,35 +8,44 @@ public class LightingLookAt : MonoBehaviour {
     public float hSliderValue = 0.01f;
     [SerializeField]
     public KeyboardPlayerController kp;
+    public CharacterSelectController cs;
     [SerializeField]
-    protected GameObject prefabLight;
+    public GameObject[] prefabLight;
     [SerializeField]
     protected ParticleSystem[] ps;
     private GameObject LObject;
     [SerializeField]
-   public AudioSource ad;
+    public AudioSource ad;
     private float globalDistance = 0;
     // Use this for initialization
+    [SerializeField]
+    public static int index = 0;
 
 
+    void Start()
+    {
 
-    void Start () {
-        LObject = Instantiate(prefabLight);
-       
+        StartCoroutine(waitForColor());
+        cs = GetComponent<CharacterSelectController>();
+        LObject = Instantiate(prefabLight[index]);
         DontDestroyOnLoad(LObject);
         ps = LObject.GetComponentsInChildren<ParticleSystem>();
         kp = GetComponent<KeyboardPlayerController>();
         LObject.transform.position = this.transform.position;
         ad.Play();
         ad.Pause();
-
+        index++;
 
     }
 
 
     // Update is called once per frame
-    void Update () {
-        if(globalDistance > 0.5f){
+    void Update()
+    {
+        index = cs.currentMaterialIndex;
+        //Debug.Log("Index =" + index);
+        if (globalDistance > 0.5f)
+        {
             ad.pitch = Random.Range(0.9f, 1.1f);
             ad.UnPause();
         }
@@ -53,7 +62,7 @@ public class LightingLookAt : MonoBehaviour {
         // Rotate the camera every frame so it keeps looking at the target
         if (kp.AttachedObject)
         {
-          
+
             positions = kp.AttachedObject.transform.position;
 
             float dist = Vector3.Distance(LObject.transform.position, positions);
@@ -74,7 +83,7 @@ public class LightingLookAt : MonoBehaviour {
                 {
                     particles[i].remainingLifetime = 0;
                 }
-             
+
             }
             int num2 = ps[2].GetParticles(particles2);
             for (int i = 0; i < num; i++)
@@ -102,23 +111,26 @@ public class LightingLookAt : MonoBehaviour {
             ps[0].Play();
             ps[1].Play();
             ps[2].Play();
-      
+
         }
         else
         {
             globalDistance = 0.0f;
-            positions =  Vector3.zero;
+            positions = Vector3.zero;
             ps[0].Stop();
             ps[1].Stop();
             ps[2].Stop();
-      
+
         }
-       
+
+    }
+    IEnumerator waitForColor()
+    {
+        yield return new WaitForSeconds(2);
     }
 
 
 
-  
 
- 
+
 }

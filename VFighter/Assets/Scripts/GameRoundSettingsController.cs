@@ -9,6 +9,15 @@ public class GameRoundSettingsController : MonoBehaviour {
 
     public int NumRounds;
     public int NumLivesPerRound;
+    public float GameSpeedMin = .5f;
+    public float GameSpeedMax = 1;
+    public float GameSpeedRate = .05f;
+    public int MinPlayers = 2;
+
+    public bool UseTransitions = true;
+    public float MasterVol { get { return AudioManager.MasterVol; } set { AudioManager.Instance.SetMasterVol(value); } }
+    public float MusicVol { get { return AudioManager.MusicVol; } set { AudioManager.Instance.SetMusicVol(value); } }
+    public float SFXVol { get { return AudioManager.SFXVol; } set { AudioManager.Instance.SetSFXVol(value); } }
 
     private void Awake()
     {
@@ -24,15 +33,5 @@ public class GameRoundSettingsController : MonoBehaviour {
     private void Start()
     {
         DontDestroyOnLoad(gameObject);
-    }
-
-    public void SetNumRounds(TMP_Dropdown dropdown)
-    {
-        NumRounds = Int32.Parse(dropdown.options[dropdown.value].text);
-    }
-
-    public void SetNumLivesPerRound(TMP_InputField text)
-    {
-        NumLivesPerRound = Int32.Parse(text.text);
     }
 }

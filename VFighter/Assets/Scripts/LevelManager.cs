@@ -15,12 +15,10 @@ public class LevelManager : MonoBehaviour
     protected List<PlayerSpawnPosition> _spawnPositions;
     [SerializeField]
     private bool _startNextLevelWinCondition = true;
-    [SerializeField]
-    private float _gravityScaleGradientStart = .5f;
-    [SerializeField]
-    private float _gravityScaleGradientEnd = 1f;
-    [SerializeField]
-    private float _gravityScaleGradientRate = .1f;
+    private float _gravityScaleGradientStart { get { return GameRoundSettingsController.Instance.GameSpeedMin; } }
+    private float _gravityScaleGradientEnd { get { return GameRoundSettingsController.Instance.GameSpeedMax;} }
+    private float _gravityScaleGradientRate { get { return GameRoundSettingsController.Instance.GameSpeedRate; } }
+
     [SerializeField]
     private bool _hasGameStarted = false;
     [SerializeField]
@@ -51,8 +49,7 @@ public class LevelManager : MonoBehaviour
         Players = FindObjectsOfType<PlayerController>().ToList();
         GameManager.Instance.DoneChangingScenes();
 
-        if (CountDownTimer.Instance)
-            StartCoroutine(CountDownTimer.Instance.CountDown());
+        GameManager.Instance.OnLevelChanged();
     }
 
     public virtual void Update()
@@ -79,6 +76,7 @@ public class LevelManager : MonoBehaviour
     public void StartGame()
     {
         GameManager.Instance.TimeScale = _gravityScaleGradientStart;
+        Debug.Log(GameManager.Instance.TimeScale);
         _hasGameStarted = true;
     }
 
@@ -92,13 +90,6 @@ public class LevelManager : MonoBehaviour
     public virtual void SpawnPlayer(PlayerController player)
     {
         SpawnPlayer(player, new List<PlayerSpawnPosition>(_spawnPositions));
-    }
-
-    //makes it so that once a spawn position is used another player can not spawn there
-    //used on the controller select screen
-    public virtual void SpawnPlayerDestructive(PlayerController player)
-    {
-        SpawnPlayer(player, _spawnPositions);
     }
 
     public virtual void SpawnPlayer(PlayerController player, List<PlayerSpawnPosition> spawnPositions)

@@ -87,7 +87,8 @@ public abstract class PlayerController : MonoBehaviour
     private List<GameObject> GravityGunProjectiles = new List<GameObject>();
     private Coroutine GravGunCoolDownCoroutine;
     private PlayerCooldownController _cooldownController;
-
+    static short PlayerIdCounter = 0;
+    public short PlayerId = -1;
     public short ReticleId = -1;
     public short MaterialId = -1;
     public bool IsReady = false;
@@ -95,20 +96,21 @@ public abstract class PlayerController : MonoBehaviour
     public bool IsDead;
     public bool IsInvincible;
     public PlayerCharacterType CharacterType;
+    public GameObject PlayerReadyIndicator;
 
     protected virtual void Awake()
     {
         IsDead = false;
         _cooldownController = GetComponent<PlayerCooldownController>();
-
+        PlayerId = ++PlayerIdCounter;
     }
 
     private void Start()
     {
         DontDestroyOnLoad(gameObject);
         StartCoroutine(FindReticle());
-        var indicator = Instantiate(PlayerReadyIndicatorPrefab);
-        indicator.GetComponent<PlayerReadyIndicatorController>().AttachedPlayer = this;
+        PlayerReadyIndicator = Instantiate(PlayerReadyIndicatorPrefab);
+        PlayerReadyIndicator.GetComponent<PlayerReadyIndicatorController>().AttachedPlayer = this;
         de = GetComponentInChildren<DashEffect>();
         gc = GetComponentInChildren<GravityChange>();
         dth = GetComponentInChildren<deatheffect>();
@@ -124,15 +126,13 @@ public abstract class PlayerController : MonoBehaviour
         aimingReticle.GetComponent<AimingReticle>().Id = _aimingReticleIdCnt;
         aimingReticle.GetComponent<AimingReticle>().PlayerAttachedTo = this;
         ReticleId = _aimingReticleIdCnt;
-
-        //NetworkServer.SpawnWithClientAuthority(aimingReticle, connectionToClient);
+        
         ReticleParent = gameObject;
 
-        ControlledPlayer.NumLives = LevelSelectManager.Instance.numLivesPerPlayer;
+        ControlledPlayer.NumLives = GameRoundSettingsController.Instance.NumLivesPerRound;
 
         StartCoroutine(AttachInputDeviceToPlayer());
-        LevelManager.Instance.SpawnPlayerDestructive(this);
-        GetComponent<GravityObjectRigidBody>().CanMove = false;
+        LevelManager.Instance.SpawnPlayer(this);
     }
 
     IEnumerator AttachInputDeviceToPlayer()
@@ -147,6 +147,31 @@ public abstract class PlayerController : MonoBehaviour
             yield return new WaitForEndOfFrame();
             yield return AttachInputDeviceToPlayer();
         }
+    }
+
+    //to be used from external and ui operations, checks for specific states to ignore the drop
+    public void DropPlayer()
+    {
+        if (SceneManagementController.Instance.IsCurrentlyTransitioning() || !GameManager.Instance.IsInCharacterSelect)
+        {
+            return;
+        }
+
+        DropPlayerInternal();
+    }
+
+    public void DropPlayerInternal()
+    {
+        ControllerSelectManager.Instance.RemoveUsedDevice(InputDevice);
+        
+        if(AttachedObject)
+        {
+            DetachReticle();
+        }
+
+        Destroy(PlayerReadyIndicator);
+        Destroy(Reticle);
+        Destroy(gameObject);
     }
 
     public virtual void Init(Player player, Transform spawnPosition)
@@ -184,7 +209,7 @@ public abstract class PlayerController : MonoBehaviour
     {
         if (!_cooldownController.IsCoolingDown(CooldownType.ChangeGravity))
         {
-
+            ControlledPlayer.GravityChanges++;
             ChangeGravity(GetComponent<GravityObjectRigidBody>().GravityDirection * -1);
             gc.PlayEffect(GetComponent<GravityObjectRigidBody>());
             Animator currentAnimator = GetComponent<CharacterAnimScript>().currentAnimator;
@@ -206,7 +231,6 @@ public abstract class PlayerController : MonoBehaviour
             Animator currentAnimator = GetComponent<CharacterAnimScript>().currentAnimator;
             currentAnimator.SetTrigger("Flip");
         }
-        //characterContainer.transform.rotation = Quaternion.Euler(rotY, characterContainer.transform.rotation.y, 0);
     }
 
     public void ChangeGravity(Vector2 dir)
@@ -308,11 +332,11 @@ public abstract class PlayerController : MonoBehaviour
 
             if (type == ProjectileControllerType.Normal)
             {
+                ControlledPlayer.ShotsFired++;
                 if (!_cooldownController.IsCoolingDown(CooldownType.NormalShot))
                 {
                     if (AttachedObject == null)
                     {
-
                         SpawnProjectile(dir, DurationOfNormalGravityProjectile, ProjectileControllerType.Normal);
                         RandomizeSfx(gravGunFire, gravGunFireCave, 0);
                         _cooldownController.StartCooldown(CooldownType.NormalShot, () => { });
@@ -320,9 +344,11 @@ public abstract class PlayerController : MonoBehaviour
                     else
                     {
                         ChangeGORBGravityDirection(AttachedObject, dir);
+                        var CGORB = AttachedObject.GetComponent<ControllableGravityObjectRigidBody>();
+                        AttachedObject.GetComponent<ControllableGravityObjectRigidBody>().AttachedPlayer = null;
                         AttachedObject.GetComponent<ControllableGravityObjectRigidBody>().LaunchSfx();
-                        AttachedObject.GetComponent<ConnectionToPlayerController>().DisconnectPlayer();
                         DetachReticle();
+                        CGORB.OnShot(this, CGORB);
                     }
                 }
             }
@@ -524,7 +550,7 @@ public abstract class PlayerController : MonoBehaviour
 
         PlaySingle(death, 3);
         RandomizeSfx(deathIndicator, deathIndicator, 1);
-        ChangeInvincibility(true);
+        IsInvincible = true;
         
         GetComponent<deatheffect>().PlayDeathEffect();
 
@@ -545,13 +571,8 @@ public abstract class PlayerController : MonoBehaviour
             }
 
             GetComponent<GravityObjectRigidBody>().CanMove = true;
-            _cooldownController.StartCooldown(CooldownType.Invincibility, () => { ChangeInvincibility(false); });
+            _cooldownController.StartCooldown(CooldownType.Invincibility, () => { IsInvincible = false; });
         });
-    }
-
-    private void ChangeInvincibility(bool isInvincible)
-    {
-        IsInvincible = isInvincible;
     }
 
     public void DestroyAllGravGunProjectiles()
@@ -590,6 +611,7 @@ public abstract class PlayerController : MonoBehaviour
 
     protected void DoSpecial(Vector2 aimVector)
     {
+        ControlledPlayer.SpecialsFired++;
         switch (CharacterType)
         {
             case PlayerCharacterType.ShotGun:
@@ -619,19 +641,19 @@ public abstract class PlayerController : MonoBehaviour
     {
         //Generate a random number between 0 and the length of our array of clips passed in.
         int randomIndex;
-        if (AudioManager.instance.isCaveLevel)
+        if (AudioManager.Instance.isCaveLevel)
             randomIndex = UnityEngine.Random.Range(0, caveClips.Length);
         else
             randomIndex = UnityEngine.Random.Range(0, clips.Length);
 
         //Choose a random pitch to play back our clip at between our high and low pitch ranges.
-        float randomPitch = UnityEngine.Random.Range(AudioManager.instance.lowPitchRange, AudioManager.instance.highPitchRange);
+        float randomPitch = UnityEngine.Random.Range(AudioManager.Instance.lowPitchRange, AudioManager.Instance.highPitchRange);
 
         //Set the pitch of the audio source to the randomly chosen pitch.
         channels[channel].pitch = randomPitch;
 
         //Set the clip to the clip at our randomly chosen index.
-        if (AudioManager.instance.isCaveLevel)
+        if (AudioManager.Instance.isCaveLevel)
             channels[channel].clip = caveClips[randomIndex];
         else
             channels[channel].clip = clips[randomIndex];

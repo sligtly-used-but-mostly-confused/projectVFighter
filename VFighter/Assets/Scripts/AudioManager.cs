@@ -14,7 +14,7 @@ public class AudioManager : MonoBehaviour
 
     public AudioSource mainAudio;                   //Used for music
     public AudioSource sfxAudio;                    //Used for sound FX
-    public static AudioManager instance = null;
+    public static AudioManager Instance = null;
     bool isPlaying = false;
     public bool isCaveLevel = false;                // set to true when reverberated sound effects should be used
     public float lowPitchRange = .95f;              //The lowest a sound effect will be randomly pitched.
@@ -35,17 +35,17 @@ public class AudioManager : MonoBehaviour
     void Awake()
     {
         //Check if there is already an instance of SoundManager
-        if (instance == null)
+        if (Instance == null)
             //if not, set it to this.
-            instance = this;
+            Instance = this;
         //If instance already exists:
-        else if (instance != this)
+        else if (Instance != this)
         {
             if(_defaultToThisAudioManager)
             {
                 //Destroy this, this enforces our singleton pattern so there can only be one instance of SoundManager.
-                Destroy(instance.gameObject);
-                instance = this;
+                Destroy(Instance.gameObject);
+                Instance = this;
             }
             else
             {
@@ -162,19 +162,19 @@ public class AudioManager : MonoBehaviour
     {
         //Generate a random number between 0 and the length of our array of clips passed in.
         int randomIndex;
-        if (AudioManager.instance.isCaveLevel)
+        if (AudioManager.Instance.isCaveLevel)
             randomIndex = Random.Range(0, cave.Length);
         else
             randomIndex = Random.Range(0, def.Length);
 
         //Choose a random pitch to play back our clip at between our high and low pitch ranges.
-        float randomPitch = Random.Range(AudioManager.instance.lowPitchRange, AudioManager.instance.highPitchRange);
+        float randomPitch = Random.Range(AudioManager.Instance.lowPitchRange, AudioManager.Instance.highPitchRange);
 
         //Set the pitch of the audio source to the randomly chosen pitch.
         src.pitch = randomPitch;
 
         //Set the clip to the clip at our randomly chosen index.
-        if (AudioManager.instance.isCaveLevel)
+        if (AudioManager.Instance.isCaveLevel)
             src.clip = cave[randomIndex];
         else
             src.clip = def[randomIndex];

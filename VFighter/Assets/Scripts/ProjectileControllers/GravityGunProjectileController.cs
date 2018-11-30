@@ -46,17 +46,19 @@ public class GravityGunProjectileController : MonoBehaviour
         {
             if (otherGORB is ControllableGravityObjectRigidBody)
             {
-                (otherGORB as ControllableGravityObjectRigidBody).StepMultiplier();
-                (otherGORB as ControllableGravityObjectRigidBody).LastShotBy = Owner;
-                var connectionToPlayer = otherGORB.GetComponent<ConnectionToPlayerController>();
-                //if(connectionToPlayer)
-                {
-                    connectionToPlayer.ConnectToPlayer(Owner);
-                }
+                var CGORB = (otherGORB as ControllableGravityObjectRigidBody);
+                CGORB.StepMultiplier();
+                CGORB.AttachedPlayer = Owner;
+                CGORB.LastShotBy = Owner;
             }
 
             Owner.AttachReticle(otherGORB);
         }
+    }
+
+    public virtual void OnHitPlayer(PlayerController player)
+    {
+        player.GetComponent<PlayerController>().FlipGravity();
     }
 
     protected bool TryGetCollisionContactWithTag(Collider2D collision, string tag)
@@ -89,7 +91,7 @@ public class GravityGunProjectileController : MonoBehaviour
 
             if (collision.GetComponent<PlayerController>() && collision.GetComponent<PlayerController>() != Owner)
             {
-                collision.GetComponent<PlayerController>().FlipGravity();
+                OnHitPlayer(collision.GetComponent<PlayerController>());
                 ReturnToPool();
                 return;
             }

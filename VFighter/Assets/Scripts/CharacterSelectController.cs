@@ -45,7 +45,7 @@ public class CharacterSelectController : MonoBehaviour
     public Dictionary<PlayerCharacterType, Material> CharacterTypeIconMappings = new Dictionary<PlayerCharacterType, Material>();
     public Dictionary<PlayerCharacterType, string> CharacterTypeDescriptionMappings = new Dictionary<PlayerCharacterType, string>();
     public Dictionary<PlayerCharacterType, GameObject> characterTypeAnimatorGOMappings = new Dictionary<PlayerCharacterType, GameObject>();
-    int currentMaterialIndex = 0;
+    public int currentMaterialIndex = 0;
 
     public List<Color> PlayerColors;
     public Color CurrentPlayerColor {
@@ -93,8 +93,6 @@ public class CharacterSelectController : MonoBehaviour
             descriptionCanvas.transform.position = Vector3.down * 2 + new Vector3(0, 0, -3);
         }
 
-        //ChangeToNextCharacterType(0);
-
         //initialize materials
         foreach(CharacterData cd in characterDataList){
             cd.AnimatorGameObject.GetComponentInChildren<SkinnedMeshRenderer>().material = cd.materials[cd.currentMaterialIndex];
@@ -102,11 +100,19 @@ public class CharacterSelectController : MonoBehaviour
 
         timeOnSelection = 0;
         CurrentPlayerMaterial = characterTypeAnimatorGOMappings[currentCharacterType].GetComponentInChildren<SkinnedMeshRenderer>().material;
+        GameManager.Instance.OnLevelChanged += RefreshCurrentMaterial;
+        OnCharacterChanged += (x) => { };
+        OnPlayerColorChanged += (x) => { };
+    }
+
+    private void OnDestroy()
+    {
+        GameManager.Instance.OnLevelChanged -= RefreshCurrentMaterial;
     }
 
     void Update()
     {    
-        if (!GameManager.Instance.CanChangeCharacters)
+        if (!GameManager.Instance.IsInCharacterSelect)
         {
             return;
         }
@@ -127,11 +133,6 @@ public class CharacterSelectController : MonoBehaviour
 
         GravityObjectRigidBody rb = GetComponent<GravityObjectRigidBody>();
 
-        if(!ready){
-            rb.ClearAllVelocities();
-            GetComponent<Rigidbody2D>().velocity = Vector3.zero;
-        }
-
         if (GetComponent<PlayerController>().InputDevice == null)
         {
             return;
@@ -142,11 +143,6 @@ public class CharacterSelectController : MonoBehaviour
             _hasFoundReticle = true;
             ChangeToNextCharacterType(1);
             ChangeMaterialType(1);
-        }
-
-        if(GetComponent<PlayerController>().InputDevice.GetButtonDown(MappedButton.SubmitCharacterChoice))
-        {
-            GetComponent<GravityObjectRigidBody>().CanMove = true;
         }
 
         if(GetComponent<PlayerController>().InputDevice.GetIsAxisTapped(MappedAxis.ChangeCharacter))
@@ -253,6 +249,8 @@ public class CharacterSelectController : MonoBehaviour
 
     public void RefreshCurrentMaterial()
     {
+        OnCharacterChanged(currentCharacterType);
+
         //get the indexing right
         int index = CharacterTypes.IndexOf(GetComponent<PlayerController>().CharacterType);
         int indexRight, indexLeft;

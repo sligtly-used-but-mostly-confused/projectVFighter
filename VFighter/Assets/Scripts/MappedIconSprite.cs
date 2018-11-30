@@ -1,8 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-[RequireComponent(typeof(SpriteRenderer))]
 public class MappedIconSprite : MonoBehaviour {
 
     public MappedButton Button;
@@ -10,24 +10,37 @@ public class MappedIconSprite : MonoBehaviour {
     public InputDevice controller;
     private void Awake()
     {
-        controller = MappedInput.InputDevices[2];
+        //controller = MappedInput.InputDevices[2];
     }
 
     // Update is called once per frame
     void Update () {
         SelectIcon();
-        //GetComponent<SpriteRenderer>().sprite = controller.GetButtonIcon(Button);
-        //GetComponent<SpriteRenderer>().sprite = controller.GetAxisIcon(Axis);
 	}
 
     void SelectIcon() {
+        if(!controller)
+        {
+            return;
+        }
+
+        Sprite sprite;
         if (Button == MappedButton.None)
         {
-            GetComponent<SpriteRenderer>().sprite = controller.GetAxisIcon(Axis);
+            sprite = controller.GetAxisIcon(Axis);
         }
         else
         {
-            GetComponent<SpriteRenderer>().sprite = controller.GetButtonIcon(Button);
+            sprite = controller.GetButtonIcon(Button);
+        }
+
+        if(GetComponent<SpriteRenderer>())
+        {
+            GetComponent<SpriteRenderer>().sprite = sprite;
+        }
+        else if(GetComponent<Image>())
+        {
+            GetComponent<Image>().sprite = sprite;
         }
     }
 }
