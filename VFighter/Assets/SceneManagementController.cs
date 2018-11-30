@@ -49,7 +49,7 @@ public class SceneManagementController : MonoBehaviour
             yield return null;
             if (asyncLoad.progress >= 0.9f)
             {
-                Debug.Log("asdasd");
+                Debug.Log($"old scene {oldSceneName} load {asyncLoad.ToString()}");
                 callback();
                 asyncLoad.allowSceneActivation = true;
             }
