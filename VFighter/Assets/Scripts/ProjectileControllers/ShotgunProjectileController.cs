@@ -35,8 +35,9 @@ public class ShotgunProjectileController : GravityGunProjectileController
             }
 
             var dir = GetComponent<GravityObjectRigidBody>().GetVelocity(VelocityType.Gravity).normalized;
-
-            GORB.ChangeGravityDirectionInternal(dir);
+            
+            GORB.ClearAllVelocities();
+            GORB.AddVelocity(VelocityType.OtherPhysics, dir * 30);
         }
     }
 }
