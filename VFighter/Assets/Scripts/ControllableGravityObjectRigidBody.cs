@@ -55,7 +55,7 @@ public class ControllableGravityObjectRigidBody : GravityObjectRigidBody {
                     AddVelocity(VelocityType.OtherPhysics, dir * _passiveSpeed);
                 }
             }
-
+            
             yield return new WaitForSeconds(_timeBetweenPassiveJump);
         }
     }

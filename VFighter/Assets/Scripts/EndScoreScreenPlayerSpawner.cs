@@ -9,6 +9,7 @@ public class EndScoreScreenPlayerSpawner : PlayerSpawnPosition {
     public TextMeshPro PlayerName;
     public TransitionController TController;
     public PlayerStatisticsUIController StatsController;
+    public GameObject ReadyPanel;
     public Transform PlayerSpawnPosition;
 
     private PlayerController _player;
@@ -24,26 +25,42 @@ public class EndScoreScreenPlayerSpawner : PlayerSpawnPosition {
 
     private void Update()
     {
-        if(_player && _player.IsReady != _prevReadyState)
+        if(_player && _player.InputDevice.GetButtonDown(MappedButton.FlipToStatsCard))
         {
-            if(TController)
+            if (TController)
             {
-                TController.StartTransition(() => 
+                TController.StartTransition(() =>
                 {
-                    if(_player.IsReady)
+                    StatsController.gameObject.SetActive(!StatsController.gameObject.activeInHierarchy);
+
+                    if (StatsController.gameObject.activeInHierarchy)
                     {
-                        StatsController.gameObject.SetActive(true);
                         StatsController.Init(_player.ControlledPlayer);
                     }
-                    else
-                    {
-                        StatsController.gameObject.SetActive(false);
-                    }
+                    
                 });
             }
         }
 
+        if (_player && _player.InputDevice.GetButtonDown(MappedButton.Ready))
+        {
+            if (TController)
+            {
+                TController.StartTransition(() =>
+                {
+                    ReadyPanel.SetActive(!ReadyPanel.activeInHierarchy);
+                });
+            }
+        }
+        /*
+        if(_player && _player.IsReady != _prevReadyState)
+        {
+            
+        }
+
         if(_player)
             _prevReadyState = _player.IsReady;
+        */
     }
+    
 }

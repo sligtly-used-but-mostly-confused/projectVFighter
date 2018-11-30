@@ -527,7 +527,7 @@ MonoBehaviour:
   _speedMultiplierStep: 0.1
   _maxSpeedMultiplier: 2
   _passiveSpeed: 10
-  _timeBetweenPassiveJump: 0.5
+  _timeBetweenPassiveJump: 1
   AttachedPlayer: {fileID: 0}
   LastShotBy: {fileID: 0}
   sfxAudio: {fileID: 82144942733576756}
