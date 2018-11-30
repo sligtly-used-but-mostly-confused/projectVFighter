@@ -511,7 +511,9 @@ MonoBehaviour:
   _gravityScale: 1
   _gravityDirection: {x: 0, y: 0}
   _maxDefaultComponentSpeed: {x: 10, y: 10}
-  _maxComponentSpeeds: []
+  _maxComponentSpeeds:
+  - type: 3
+    Velocity: {x: 15, y: 15}
   _stopObjectOnCollide: 1
   _drag: 0.05
   Bounciness: 0
@@ -524,6 +526,9 @@ MonoBehaviour:
   _speedMultiplier: 1
   _speedMultiplierStep: 0.1
   _maxSpeedMultiplier: 2
+  _passiveSpeed: 10
+  _timeBetweenPassiveJump: 1
+  AttachedPlayer: {fileID: 0}
   LastShotBy: {fileID: 0}
   sfxAudio: {fileID: 82144942733576756}
   LaunchSound:

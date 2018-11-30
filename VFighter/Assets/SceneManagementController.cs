@@ -33,26 +33,13 @@ public class SceneManagementController : MonoBehaviour
         asyncLoad.allowSceneActivation = false;
         _tController.StartTransition(() =>
         {
-            StartCoroutine(WaitForSceneToLoad(asyncLoad, oldSceneName, callback));
+            callback();
+            asyncLoad.allowSceneActivation = true;
         });
     }
 
     public bool IsCurrentlyTransitioning()
     {
         return _tController.IsCurrentlyTransitioning();
-    }
-
-    private IEnumerator WaitForSceneToLoad(AsyncOperation asyncLoad, string oldSceneName, Action callback)
-    {
-        while (!asyncLoad.isDone)
-        {
-            yield return null;
-            if (asyncLoad.progress >= 0.9f)
-            {
-                Debug.Log("asdasd");
-                callback();
-                asyncLoad.allowSceneActivation = true;
-            }
-        }
     }
 }

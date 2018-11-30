@@ -42,7 +42,7 @@ public class GravityObjectRigidBody : MonoBehaviour
     [SerializeField]
     private float _drag = 1f;
 
-    private Rigidbody2D _rB;
+    protected Rigidbody2D _rB;
 
     public float Bounciness = 0f;
     public bool CanBeSelected = true;

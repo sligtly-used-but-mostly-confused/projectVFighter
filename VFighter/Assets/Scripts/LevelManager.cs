@@ -91,13 +91,6 @@ public class LevelManager : MonoBehaviour
         SpawnPlayer(player, new List<PlayerSpawnPosition>(_spawnPositions));
     }
 
-    //makes it so that once a spawn position is used another player can not spawn there
-    //used on the controller select screen
-    public virtual void SpawnPlayerDestructive(PlayerController player)
-    {
-        SpawnPlayer(player, _spawnPositions);
-    }
-
     public virtual void SpawnPlayer(PlayerController player, List<PlayerSpawnPosition> spawnPositions)
     {
         if(player.ControlledPlayer.NumLives - player.ControlledPlayer.NumDeaths <= 0)

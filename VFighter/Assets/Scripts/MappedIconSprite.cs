@@ -1,8 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-[RequireComponent(typeof(SpriteRenderer))]
 public class MappedIconSprite : MonoBehaviour {
 
     public MappedButton Button;
@@ -14,6 +14,14 @@ public class MappedIconSprite : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-        GetComponent<SpriteRenderer>().sprite = controller.GetButtonIcon(Button);
+        if(GetComponent<SpriteRenderer>())
+        {
+            GetComponent<SpriteRenderer>().sprite = controller.GetButtonIcon(Button);
+        }
+
+        if(GetComponent<Image>())
+        {
+            GetComponent<Image>().sprite = controller.GetButtonIcon(Button);
+        }
 	}
 }

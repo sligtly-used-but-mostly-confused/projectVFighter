@@ -127,8 +127,7 @@ public abstract class PlayerController : MonoBehaviour
         ControlledPlayer.NumLives = GameRoundSettingsController.Instance.NumLivesPerRound;
 
         StartCoroutine(AttachInputDeviceToPlayer());
-        LevelManager.Instance.SpawnPlayerDestructive(this);
-        //GetComponent<GravityObjectRigidBody>().CanMove = false;
+        LevelManager.Instance.SpawnPlayer(this);
     }
 
     IEnumerator AttachInputDeviceToPlayer()
@@ -162,9 +161,7 @@ public abstract class PlayerController : MonoBehaviour
         
         if(AttachedObject)
         {
-            AttachedObject.GetComponent<ConnectionToPlayerController>().DisconnectPlayer();
             DetachReticle();
-
         }
 
         Destroy(PlayerReadyIndicator);
@@ -342,6 +339,7 @@ public abstract class PlayerController : MonoBehaviour
                     else
                     {
                         ChangeGORBGravityDirection(AttachedObject, dir);
+                        AttachedObject.GetComponent<ControllableGravityObjectRigidBody>().AttachedPlayer = null;
                         AttachedObject.GetComponent<ControllableGravityObjectRigidBody>().LaunchSfx();
                         DetachReticle();
                     }
@@ -545,7 +543,7 @@ public abstract class PlayerController : MonoBehaviour
 
         PlaySingle(death, 3);
         RandomizeSfx(deathIndicator, deathIndicator, 1);
-        ChangeInvincibility(true);
+        IsInvincible = true;
         
         GetComponent<deatheffect>().PlayDeathEffect();
 
@@ -566,13 +564,8 @@ public abstract class PlayerController : MonoBehaviour
             }
 
             GetComponent<GravityObjectRigidBody>().CanMove = true;
-            _cooldownController.StartCooldown(CooldownType.Invincibility, () => { ChangeInvincibility(false); });
+            _cooldownController.StartCooldown(CooldownType.Invincibility, () => { IsInvincible = false; });
         });
-    }
-
-    private void ChangeInvincibility(bool isInvincible)
-    {
-        IsInvincible = isInvincible;
     }
 
     public void DestroyAllGravGunProjectiles()

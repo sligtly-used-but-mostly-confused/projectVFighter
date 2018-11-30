@@ -20,8 +20,6 @@ public class ShotgunProjectileController : GravityGunProjectileController
             GORB.ClearAllVelocities();
             GORB.ChangeGravityScale(1);
         });
-
-        
     }
 
     public override void OnHitGORB(GravityObjectRigidBody GORB)
@@ -35,8 +33,9 @@ public class ShotgunProjectileController : GravityGunProjectileController
             }
 
             var dir = GetComponent<GravityObjectRigidBody>().GetVelocity(VelocityType.Gravity).normalized;
-
-            GORB.ChangeGravityDirectionInternal(dir);
+            
+            GORB.ClearAllVelocities();
+            GORB.AddVelocity(VelocityType.OtherPhysics, dir * 30);
         }
     }
 }

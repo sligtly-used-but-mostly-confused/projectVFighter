@@ -18,6 +18,8 @@ MonoBehaviour:
     Icon: {fileID: 21300018, guid: e21cc2b9df86453438ba1228d9127211, type: 3}
   - Button: 0
     Icon: {fileID: 21300010, guid: e21cc2b9df86453438ba1228d9127211, type: 3}
+  - Button: 1
+    Icon: {fileID: 21300012, guid: e21cc2b9df86453438ba1228d9127211, type: 3}
   axisMappings:
   - Axes: 00000000
     Buttons: 

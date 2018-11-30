@@ -16,7 +16,8 @@ public class AimingReticle : MonoBehaviour
     {
         if(PlayerAttachedTo)
         {
-            //GetComponent<Renderer>().material = PlayerAttachedTo.GetComponent<Renderer>().material;
+            GetComponent<Renderer>().material.color = PlayerAttachedTo.GetComponent<CharacterSelectController>().CurrentPlayerColor;
+            GetComponent<Renderer>().material.SetColor("_EmissionColor", PlayerAttachedTo.GetComponent<CharacterSelectController>().CurrentPlayerColor);
         }
     }
 }
