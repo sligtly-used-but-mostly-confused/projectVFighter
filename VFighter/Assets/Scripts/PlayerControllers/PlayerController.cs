@@ -162,9 +162,7 @@ public abstract class PlayerController : MonoBehaviour
         
         if(AttachedObject)
         {
-            AttachedObject.GetComponent<ConnectionToPlayerController>().DisconnectPlayer();
             DetachReticle();
-
         }
 
         Destroy(PlayerReadyIndicator);
@@ -342,6 +340,7 @@ public abstract class PlayerController : MonoBehaviour
                     else
                     {
                         ChangeGORBGravityDirection(AttachedObject, dir);
+                        AttachedObject.GetComponent<ControllableGravityObjectRigidBody>().AttachedPlayer = null;
                         AttachedObject.GetComponent<ControllableGravityObjectRigidBody>().LaunchSfx();
                         DetachReticle();
                     }

@@ -20,8 +20,6 @@ public class ShotgunProjectileController : GravityGunProjectileController
             GORB.ClearAllVelocities();
             GORB.ChangeGravityScale(1);
         });
-
-        
     }
 
     public override void OnHitGORB(GravityObjectRigidBody GORB)

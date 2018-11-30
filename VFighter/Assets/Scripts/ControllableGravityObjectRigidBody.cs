@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class ControllableGravityObjectRigidBody : GravityObjectRigidBody {
@@ -10,6 +11,12 @@ public class ControllableGravityObjectRigidBody : GravityObjectRigidBody {
     [SerializeField]
     private float _maxSpeedMultiplier;
 
+    [SerializeField]
+    private float _passiveSpeed = 15;
+    [SerializeField]
+    private float _timeBetweenPassiveJump = .4f;
+
+    public PlayerController AttachedPlayer;
     public PlayerController LastShotBy;
 
     //Audio
@@ -17,9 +24,40 @@ public class ControllableGravityObjectRigidBody : GravityObjectRigidBody {
     public AudioClip[] LaunchSound;
     public AudioClip[] LaunchSoundCave;
 
+
     public void Start()
     {
         LastShotBy = null;
+        StartCoroutine(MoveToClosestPlayer());
+    }
+
+    IEnumerator MoveToClosestPlayer()
+    {
+        while(true)
+        {
+            if (_rB.velocity.magnitude < .05 && AttachedPlayer == null)
+            {
+                var players = FindObjectsOfType<PlayerController>();
+                if(players.Count() != 0)
+                {
+                    var closest = players.Aggregate((currMin, x) =>
+                    {
+                        bool isXSmaller = ((transform.position - x.transform.position).magnitude < (transform.position - currMin.transform.position).magnitude);
+                        if (isXSmaller)
+                        {
+                            return x;
+                        }
+
+                        return currMin;
+                    });
+                    
+                    var dir = (closest.transform.position - transform.position).normalized;
+                    AddVelocity(VelocityType.OtherPhysics, dir * _passiveSpeed);
+                }
+            }
+
+            yield return new WaitForSeconds(_timeBetweenPassiveJump);
+        }
     }
 
     public void StepMultiplier()
