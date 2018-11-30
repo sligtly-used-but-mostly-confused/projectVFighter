@@ -6,6 +6,7 @@ using UnityEngine;
 public class EndScoreScreenPlayerSpawner : PlayerSpawnPosition {
 
     public MappedIconSprite MappedIcon;
+    public MappedIconSprite FlipCardMappedIcon;
     public TextMeshPro PlayerName;
     public TransitionController TController;
     public PlayerStatisticsUIController StatsController;
@@ -19,6 +20,7 @@ public class EndScoreScreenPlayerSpawner : PlayerSpawnPosition {
         base.Spawn(player);
         _player = player;
         MappedIcon.controller = player.InputDevice;
+        FlipCardMappedIcon.controller = player.InputDevice;
         PlayerName.text = $"P{player.PlayerId}";
         PlayerName.color = player.GetComponent<CharacterSelectController>().CurrentPlayerColor;
     }
@@ -52,15 +54,5 @@ public class EndScoreScreenPlayerSpawner : PlayerSpawnPosition {
                 });
             }
         }
-        /*
-        if(_player && _player.IsReady != _prevReadyState)
-        {
-            
-        }
-
-        if(_player)
-            _prevReadyState = _player.IsReady;
-        */
     }
-    
 }
