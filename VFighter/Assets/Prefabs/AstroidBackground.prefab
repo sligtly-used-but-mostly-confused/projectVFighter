@@ -34,7 +34,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1573925112025090}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 40.5, y: 0, z: 0}
+  m_LocalPosition: {x: 100.5, y: 102.9, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -51,6 +51,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b825c4fe2458dd418a29482455a4620, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gb: {fileID: 1596375892301360, guid: caae282065c6f4493a9f3517d17364eb, type: 2}
-  numAstro: 100
+  gb: {fileID: 1657771202406832, guid: caae282065c6f4493a9f3517d17364eb, type: 2}
+  numAstro: 300
   astroArray: []
