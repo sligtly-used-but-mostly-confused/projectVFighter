@@ -6,7 +6,7 @@ Material:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: Gun1
+  m_Name: Gun4
   m_Shader: {fileID: 4800000, guid: fc9f76b7e34d645fabc08426c151037b, type: 3}
   m_ShaderKeywords: _EMISSION
   m_LightmapFlags: 0
@@ -19,10 +19,6 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
-    - Texture2D_CECB84C1:
-        m_Texture: {fileID: 2800000, guid: c345f39a544c383429403ad336b4a2ca, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - _BaseColorMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -75,12 +71,7 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _Subgraph_2EB93D77_Texture2D70592C4B:
-        m_Texture: {fileID: 2800000, guid: 98601b4a1a108d3428344129dca391c2, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     m_Floats:
-    - Vector1_9D00B49C: 0.35
     - _AlbedoMode: 1
     - _AlphaClip: 0
     - _Ambient: 0.1
@@ -120,14 +111,9 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - Color_E7460107: {r: 0.64377815, g: 0.504717, b: 1, a: 0}
-    - Vector2_24157A2A: {r: 1, g: 0.5, b: 0, a: 0}
-    - Vector2_37C87B14: {r: 0.5, g: 0.5, b: 0, a: 0}
-    - Vector2_461E429A: {r: 1, g: 1, b: 0, a: 0}
-    - Vector2_50650FAB: {r: 0, g: 0, b: 0, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _CameraFadeParams: {r: 0, g: Infinity, b: 0, a: 0}
-    - _Color: {r: 0, g: 0.31698117, b: 0.6792453, a: 1}
-    - _EmissionColor: {r: 0, g: 0.24536611, b: 0.33962262, a: 1}
+    - _Color: {r: 0, g: 0.7169812, b: 0.096839115, a: 1}
+    - _EmissionColor: {r: 0.318626, g: 0.4528302, b: 0, a: 1}
     - _SoftParticleFadeParams: {r: 0, g: 0, b: 0, a: 0}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
