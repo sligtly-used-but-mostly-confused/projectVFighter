@@ -952,8 +952,8 @@ MonoBehaviour:
   NumRounds: 1
   NumLivesPerRound: 1
   GameSpeedMin: 0.5
-  GameSpeedMax: 1
-  GameSpeedRate: 0.05
+  GameSpeedMax: 0.75
+  GameSpeedRate: 0.01
   MinPlayers: 2
   UseTransitions: 1
 --- !u!4 &352749857
