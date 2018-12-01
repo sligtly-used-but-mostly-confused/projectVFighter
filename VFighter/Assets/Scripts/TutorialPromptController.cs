@@ -20,6 +20,14 @@ public class TutorialPromptController : MonoBehaviour
         public MappedAxis MappedAxis;
     }
 
+    private void Awake()
+    {
+        if (LevelManager.Instance.ShowTutorialPrompt == false)
+        {
+            Destroy(this);
+        }
+    }
+
     void Update () {
 
         Controller = AttachedPlayer.InputDevice;

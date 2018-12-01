@@ -28,7 +28,13 @@ public class InGameMenuUIManager : MonoBehaviour {
     public void ToggleMenu(PlayerController player)
     {
         _playerWhoCalledMenu = player;
+        ToggleMenu();
+    }
+
+    public void ToggleMenu()
+    {
         _menuObject.SetActive(!_menuObject.activeSelf);
+        GameManager.Instance.TimeScale = _menuObject.activeInHierarchy ? 0 : 1;
     }
 
     public void Disconnect()
@@ -41,7 +47,7 @@ public class InGameMenuUIManager : MonoBehaviour {
         }
 
         GameManager.Instance.IsInCharacterSelect = true;
-
+        GameManager.Instance.TimeScale = 1;
         SceneManager.LoadScene(MainMenu.SceneName);
     }
 
