@@ -56,5 +56,8 @@ public struct Player {
         NumOverallKills = 0;
         NumOverallDeaths = 0;
         NumStageWins = 0;
+        ShotsFired = 0;
+        SpecialsFired = 0;
+        GravityChanges = 0;
     }
 }
