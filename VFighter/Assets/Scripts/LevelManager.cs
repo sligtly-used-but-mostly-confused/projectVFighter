@@ -21,7 +21,8 @@ public class LevelManager : MonoBehaviour
 
     [SerializeField]
     private bool _hasGameStarted = false;
-
+    [SerializeField]
+    public bool ShowTutorialPrompt = false; 
     [SerializeField]
     public Transform JailTransform;
 

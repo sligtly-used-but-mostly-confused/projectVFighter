@@ -14,6 +14,14 @@ public class RoundSettingsUIController : MonoBehaviour {
     public Slider MusicVolSlider;
     public Slider SFXVolSlider;
 
+    public GameObject SettingsContainer;
+    public bool IsSettingMenuDisplayed { get { return SettingsContainer.activeSelf; } }
+    public void ToggleSettingsMenu()
+    {
+        SettingsContainer.SetActive(!SettingsContainer.activeSelf);
+        OnOpen();
+    }
+
     public void OnOpen()
     {
         Debug.Log(UseTransitionsToggle);

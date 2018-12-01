@@ -6,22 +6,41 @@ using UnityEngine.UI;
 public class MappedIconSprite : MonoBehaviour {
 
     public MappedButton Button;
+    public MappedAxis Axis;
     public InputDevice controller;
     private void Awake()
     {
-        controller = MappedInput.InputDevices[2];
+        //controller = MappedInput.InputDevices[2];
     }
 
     // Update is called once per frame
     void Update () {
-        if(GetComponent<SpriteRenderer>())
+        SelectIcon();
+	}
+
+    void SelectIcon() {
+        if(!controller)
         {
-            GetComponent<SpriteRenderer>().sprite = controller.GetButtonIcon(Button);
+            return;
         }
 
-        if(GetComponent<Image>())
+        Sprite sprite;
+        if (Button == MappedButton.None)
         {
-            GetComponent<Image>().sprite = controller.GetButtonIcon(Button);
+            sprite = controller.GetAxisIcon(Axis);
         }
-	}
+        else
+        {
+            sprite = controller.GetButtonIcon(Button);
+        }
+
+        if(GetComponent<SpriteRenderer>())
+        {
+            GetComponent<SpriteRenderer>().sprite = sprite;
+        }
+        else if(GetComponent<Image>())
+        {
+            GetComponent<Image>().sprite = sprite;
+        }
+    }
 }
