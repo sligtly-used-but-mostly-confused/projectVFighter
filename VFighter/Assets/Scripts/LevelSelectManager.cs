@@ -61,6 +61,12 @@ public class LevelSelectManager : MonoBehaviour
 
     void OnLevelFinishedLoading(Scene previousScene, Scene newScene)
     {
+        if (LevelManager.Instance.ShowTutorialPrompt == true)
+        {
+            SpawnLevelPlatforms();
+            timeRemaining = selectTime;
+        }
+
         if(newScene.name != "ControllerSelect")
         {
             return;

@@ -24,11 +24,14 @@ public class ControllableGravityObjectRigidBody : GravityObjectRigidBody {
     public AudioClip[] LaunchSound;
     public AudioClip[] LaunchSoundCave;
 
+    public delegate void OnShotDelegate(PlayerController player, ControllableGravityObjectRigidBody GORB);
+    public OnShotDelegate OnShot;
 
     public void Start()
     {
         LastShotBy = null;
         StartCoroutine(MoveToClosestPlayer());
+        OnShot += (x, y) => { };
     }
 
     IEnumerator MoveToClosestPlayer()
