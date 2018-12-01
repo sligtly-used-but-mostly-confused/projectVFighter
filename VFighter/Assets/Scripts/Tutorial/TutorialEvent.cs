@@ -5,6 +5,7 @@ using UnityEngine.Events;
 
 public class TutorialEvent : MonoBehaviour {
     public UnityEvent OnFinish;
+    [SerializeField]
     protected PlayerController AttachedPlayer;
     public PlayerSpawnPosition PlayerSpawn;
 

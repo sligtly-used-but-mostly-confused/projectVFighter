@@ -26,4 +26,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/AdvancedLevels/EasyLevel.unity
     guid: 0f8683b1efac012418beb328c1813f19
+  - enabled: 1
+    path: Assets/Scenes/EndScoreScreen.unity
+    guid: 300a7e253076d58419577357327974a1
   m_configObjects: {}

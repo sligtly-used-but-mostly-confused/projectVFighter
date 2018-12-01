@@ -20,6 +20,8 @@ MonoBehaviour:
     Icon: {fileID: 21300000, guid: afb43938db215c640a6900ae2fb947ed, type: 3}
   - Keys: 77000000
     Icon: {fileID: 21300000, guid: afb43938db215c640a6900ae2fb947ed, type: 3}
+  - Keys: 1b000000
+    Icon: {fileID: 21300018, guid: afb43938db215c640a6900ae2fb947ed, type: 3}
   axisMappings:
   - Axes: 00000000
     Icon: {fileID: 21300000, guid: 490b637ae54f94206b854c5aa53cd458, type: 3}

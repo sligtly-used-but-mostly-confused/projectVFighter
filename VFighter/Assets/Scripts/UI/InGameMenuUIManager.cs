@@ -29,6 +29,7 @@ public class InGameMenuUIManager : MonoBehaviour {
     {
         _playerWhoCalledMenu = player;
         _menuObject.SetActive(!_menuObject.activeSelf);
+        GameManager.Instance.TimeScale = _menuObject.activeInHierarchy ? 0 : 1;
     }
 
     public void Disconnect()
