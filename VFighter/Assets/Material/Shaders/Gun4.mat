@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: Gun4
-  m_Shader: {fileID: 4800000, guid: fc9f76b7e34d645fabc08426c151037b, type: 3}
+  m_Shader: {fileID: 4800000, guid: 8dafc2dff589fae41b97f5dfe2de3c91, type: 3}
   m_ShaderKeywords: _EMISSION
   m_LightmapFlags: 0
   m_EnableInstancingVariants: 0
@@ -113,7 +113,7 @@ Material:
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _CameraFadeParams: {r: 0, g: Infinity, b: 0, a: 0}
-    - _Color: {r: 0, g: 0.7169812, b: 0.096839115, a: 1}
-    - _EmissionColor: {r: 0.318626, g: 0.4528302, b: 0, a: 1}
+    - _Color: {r: 0, g: 0.9150943, b: 0.12560123, a: 1}
+    - _EmissionColor: {r: 0.4339623, g: 0.4339623, b: 0.4339623, a: 1}
     - _SoftParticleFadeParams: {r: 0, g: 0, b: 0, a: 0}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
