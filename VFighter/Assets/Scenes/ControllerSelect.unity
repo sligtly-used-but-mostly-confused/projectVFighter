@@ -955,7 +955,7 @@ MonoBehaviour:
   GameSpeedMax: 0.75
   GameSpeedRate: 0.01
   MinPlayers: 2
-  UseTransitions: 1
+  UseTransitions: 0
 --- !u!4 &352749857
 Transform:
   m_ObjectHideFlags: 0
@@ -1499,7 +1499,7 @@ MonoBehaviour:
   - levelName: TeleporterLoopLevel
     previewMaterial: {fileID: 2100000, guid: 8e95588dd395e9a459a402648e00e074, type: 2}
   - levelName: ShrinkingLevel
-    previewMaterial: {fileID: 2100000, guid: 0bf3c3c1c34e7494eb63b1c0a327f4fa, type: 2}
+    previewMaterial: {fileID: 2100000, guid: c554c2dc844e3b049a717a456150df64, type: 2}
   platform: {fileID: 1841537160547452, guid: c8f09f02dca094a2aab8d34e4220d023, type: 2}
   levelZone: {fileID: 1647109427917884, guid: c571407ca27484f0fb1de03b5a495f4b, type: 2}
   areaWidth: 16
@@ -5357,6 +5357,12 @@ Prefab:
       propertyPath: m_RootOrder
       value: 16
       objectReference: {fileID: 0}
+    - target: {fileID: 328319657204624598, guid: 79fca88115bc0384dba3fd5c776204f6,
+        type: 2}
+      propertyPath: m_VideoClip
+      value: 
+      objectReference: {fileID: 32900000, guid: 596a8712b38a6f1468674cb1adf5bbb5,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 79fca88115bc0384dba3fd5c776204f6, type: 2}
   m_IsPrefabAsset: 0
