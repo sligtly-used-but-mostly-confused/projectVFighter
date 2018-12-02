@@ -58,7 +58,7 @@ public class GameManager : MonoBehaviour
     public void LoadEndScoreScreen()
     {
         CurrentlyChangingScenes = true;
-        TransitionController.Instance.ChangeScenesAsycBehindTransition(EndScoreScreen, () =>
+        SceneManagementController.Instance.ChangeScenesAsycBehindTransition(EndScoreScreen, () =>
         {
             TimeScale = 1;
         });
@@ -70,7 +70,7 @@ public class GameManager : MonoBehaviour
         var players = FindObjectsOfType<PlayerController>().ToList();
         players.ForEach(x => x.ControlledPlayer.ResetForNewGame());
         CurrentlyChangingScenes = true;
-        TransitionController.Instance.ChangeScenesAsycBehindTransition(LevelSelect, () => 
+        SceneManagementController.Instance.ChangeScenesAsycBehindTransition(LevelSelect, () => 
         {
             IsInCharacterSelect = true;
             TimeScale = 1;
@@ -116,7 +116,7 @@ public class GameManager : MonoBehaviour
         CurrentlyChangingScenes = true;
         TimeScale = 0;
 
-        TransitionController.Instance.ChangeScenesAsycBehindTransition(_levelName, () =>
+        SceneManagementController.Instance.ChangeScenesAsycBehindTransition(_levelName, () =>
         {
             TimeScale = 1;
         });

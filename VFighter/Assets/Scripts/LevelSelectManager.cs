@@ -61,6 +61,12 @@ public class LevelSelectManager : MonoBehaviour
 
     void OnLevelFinishedLoading(Scene previousScene, Scene newScene)
     {
+        if (LevelManager.Instance.ShowTutorialPrompt == true)
+        {
+            SpawnLevelPlatforms();
+            timeRemaining = selectTime;
+        }
+
         if(newScene.name != "ControllerSelect")
         {
             return;
@@ -76,6 +82,7 @@ public class LevelSelectManager : MonoBehaviour
             indicator.GetComponent<PlayerReadyIndicatorController>().AttachedPlayer = x;
 
             x.IsReady = false;
+            x.GetComponent<GravityObjectRigidBody>().CanMove = true;
         });
 
         RefreshRoundSettings();
@@ -109,8 +116,23 @@ public class LevelSelectManager : MonoBehaviour
         {
             return copy.Select(x => x.levelName).Take(_numRounds).ToList();
         }
-        var sorted = copy.Select(x => x.levelName).Reverse();
-        return sorted.Take(_numRounds).ToList();
+
+        copy.Reverse();
+
+        var LevelsThatGotVotes = copy.Where(x => x.playersInside > 0);
+        var LevelsThatGotNoVotes = copy.Where(x => x.playersInside == 0).ToList();
+
+        var finalLevelSelection = new List<string>();
+        finalLevelSelection.AddRange(LevelsThatGotVotes.Select(x => x.levelName).Take(_numRounds));
+        
+        while(finalLevelSelection.Count() < _numRounds)
+        {
+            int randIndex = Mathf.RoundToInt(Random.Range(0,LevelsThatGotNoVotes.Count()));
+            var randLevel = LevelsThatGotNoVotes[randIndex];
+            finalLevelSelection.Add(randLevel.levelName);
+        }
+
+        return finalLevelSelection;
     }
 
     public void StartTimer()
@@ -152,7 +174,7 @@ public class LevelSelectManager : MonoBehaviour
             {
                 if(valToPass == 1)
                 {
-                    AudioManager.instance.PlaySingle(countdownFinal);
+                    AudioManager.Instance.PlaySingle(countdownFinal);
                 }
                 if(valToPass < 0)
                 {
@@ -162,14 +184,14 @@ public class LevelSelectManager : MonoBehaviour
                 }
                 else
                 {
-                    AudioManager.instance.PlaySingle(countdown);
+                    AudioManager.Instance.PlaySingle(countdown);
                 }
                 
                 valToPass--;
                 timer.text = "" + Mathf.RoundToInt(timeRemaining);
             }
             
-            timeRemaining -= Time.deltaTime;
+            timeRemaining -= Time.deltaTime * GameManager.Instance.TimeScale;
             timerClockFace.rectTransform.Rotate(new Vector3(0, 0, startingTime / Mathf.Clamp( timeRemaining, .01f, startingTime)), Space.World);
         }
     }

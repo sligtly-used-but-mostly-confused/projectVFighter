@@ -12,5 +12,7 @@ public class PlayerSpawnPosition : SpawnPosition {
         {
             Destroy(prompt);
         }
+
+        OnSpawn(player.gameObject);
     }
 }

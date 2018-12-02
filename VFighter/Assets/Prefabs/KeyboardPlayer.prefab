@@ -5996,6 +5996,9 @@ MonoBehaviour:
     NumOverallKills: 0
     NumOverallDeaths: 0
     NumStageWins: 0
+    ShotsFired: 0
+    SpecialsFired: 0
+    GravityChanges: 0
   IsDead: 0
   IsInvincible: 0
   CharacterType: 0
@@ -6051,6 +6054,12 @@ MonoBehaviour:
     - {fileID: 2100000, guid: a948278223d6e4af393f298fc7d7d228, type: 2}
     - {fileID: 2100000, guid: 81d494a18e0d84ffcbfb77a025479b8c, type: 2}
     currentMaterialIndex: 0
+  _gunMaterials:
+  - {fileID: 2100000, guid: 89b6769bf25a5473d8a3200391e17d12, type: 2}
+  - {fileID: 2100000, guid: c98f7586898ac496b8679385df58ddbe, type: 2}
+  - {fileID: 2100000, guid: 696917009f3554754b034d5894abb0a2, type: 2}
+  - {fileID: 2100000, guid: 9290fbe4245860e458bd04e1a8b6f7e3, type: 2}
+  currentMaterialIndex: 0
   PlayerColors:
   - {r: 0.4470588, g: 0.81347734, b: 1, a: 1}
   - {r: 0.93877363, g: 0.495283, b: 1, a: 1}
@@ -6070,8 +6079,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hSliderValue: 0.01
   kp: {fileID: 0}
-  prefabLight: {fileID: 1237948039889980, guid: 5f2d66ebc2ca7b44098e85e86a24a693,
-    type: 2}
+  cs: {fileID: 0}
+  prefabLight:
+  - {fileID: 1237948039889980, guid: 73421a96b390b1748b0b30ffbc408f11, type: 2}
+  - {fileID: 1058180639025638, guid: 1b6fff6fc908d4f17a01fb56eaffff64, type: 2}
+  - {fileID: 1984103561232568, guid: dd5805db258ef4c36a933603c94deb3c, type: 2}
+  - {fileID: 1712978897268334, guid: f5602a8057d59410089ac7b541f9c9a1, type: 2}
   ps: []
   ad: {fileID: 82343499896048070}
 --- !u!114 &114642983415842072
@@ -6112,7 +6125,7 @@ MonoBehaviour:
     FlashingMaterial: {fileID: 2100000, guid: b2a8a02c59a65284d9aae1c3dd996a45, type: 2}
     TimeLeft: 0
   - Type: 4
-    CooldownTime: 0.2
+    CooldownTime: 0.35
     IsCoolingDown: 0
     FlashingMaterial: {fileID: 2100000, guid: f1a6e1fc3730df442be9feffac8c07c2, type: 2}
     TimeLeft: 0
@@ -6127,7 +6140,7 @@ MonoBehaviour:
     FlashingMaterial: {fileID: 2100000, guid: 6b27233b30329469ea2c8f7bafe5d057, type: 2}
     TimeLeft: 0
   - Type: 8
-    CooldownTime: 0.5
+    CooldownTime: 0.15
     IsCoolingDown: 0
     FlashingMaterial: {fileID: 2100000, guid: 6b27233b30329469ea2c8f7bafe5d057, type: 2}
     TimeLeft: 0
@@ -6216,7 +6229,7 @@ MonoBehaviour:
   isDead: 0
   pulse: {fileID: 0}
   kp: {fileID: 0}
-  DeathPrefab: {fileID: 1708945919846298, guid: 36e60765b9effe148a5d92beaf68a220,
+  DeathPrefab: {fileID: 1569039143225024, guid: 9bb0544f083da314c8c638d590d08ab8,
     type: 2}
   bc: {fileID: 0}
 --- !u!114 &114883221867361214
@@ -39105,7 +39118,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 80
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

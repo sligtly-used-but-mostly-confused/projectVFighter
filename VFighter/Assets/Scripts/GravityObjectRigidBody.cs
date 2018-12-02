@@ -42,7 +42,7 @@ public class GravityObjectRigidBody : MonoBehaviour
     [SerializeField]
     private float _drag = 1f;
 
-    private Rigidbody2D _rB;
+    protected Rigidbody2D _rB;
 
     public float Bounciness = 0f;
     public bool CanBeSelected = true;
@@ -228,7 +228,7 @@ public class GravityObjectRigidBody : MonoBehaviour
         {
             collAudio.loop = false;
             collAudio.volume = AudioManager.SFXVol * AudioManager.MusicVol;
-            AudioManager.instance.RandomizeSfx(AudioManager.instance.Coll, AudioManager.instance.CollCave, collAudio);
+            AudioManager.Instance.RandomizeSfx(AudioManager.Instance.Coll, AudioManager.Instance.CollCave, collAudio);
         }
     }
 }

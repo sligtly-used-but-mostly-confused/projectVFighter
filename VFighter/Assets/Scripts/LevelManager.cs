@@ -21,7 +21,8 @@ public class LevelManager : MonoBehaviour
 
     [SerializeField]
     private bool _hasGameStarted = false;
-
+    [SerializeField]
+    public bool ShowTutorialPrompt = false; 
     [SerializeField]
     public Transform JailTransform;
 
@@ -89,13 +90,6 @@ public class LevelManager : MonoBehaviour
     public virtual void SpawnPlayer(PlayerController player)
     {
         SpawnPlayer(player, new List<PlayerSpawnPosition>(_spawnPositions));
-    }
-
-    //makes it so that once a spawn position is used another player can not spawn there
-    //used on the controller select screen
-    public virtual void SpawnPlayerDestructive(PlayerController player)
-    {
-        SpawnPlayer(player, _spawnPositions);
     }
 
     public virtual void SpawnPlayer(PlayerController player, List<PlayerSpawnPosition> spawnPositions)

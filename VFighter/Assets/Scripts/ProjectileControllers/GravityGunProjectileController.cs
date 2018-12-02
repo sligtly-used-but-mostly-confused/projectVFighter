@@ -46,13 +46,10 @@ public class GravityGunProjectileController : MonoBehaviour
         {
             if (otherGORB is ControllableGravityObjectRigidBody)
             {
-                (otherGORB as ControllableGravityObjectRigidBody).StepMultiplier();
-                (otherGORB as ControllableGravityObjectRigidBody).LastShotBy = Owner;
-                var connectionToPlayer = otherGORB.GetComponent<ConnectionToPlayerController>();
-                //if(connectionToPlayer)
-                {
-                    connectionToPlayer.ConnectToPlayer(Owner);
-                }
+                var CGORB = (otherGORB as ControllableGravityObjectRigidBody);
+                CGORB.StepMultiplier();
+                CGORB.AttachedPlayer = Owner;
+                CGORB.LastShotBy = Owner;
             }
 
             Owner.AttachReticle(otherGORB);

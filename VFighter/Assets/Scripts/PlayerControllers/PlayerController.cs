@@ -114,7 +114,12 @@ public abstract class PlayerController : MonoBehaviour
         de = GetComponentInChildren<DashEffect>();
         gc = GetComponentInChildren<GravityChange>();
         dth = GetComponentInChildren<deatheffect>();
-        GameManager.Instance.OnPlayerJoin(this);
+
+        if (GameManager.Instance.OnPlayerJoin != null)
+        {
+            GameManager.Instance.OnPlayerJoin(this);
+        }
+
 
         GameObject aimingReticle = Instantiate(AimingReticlePrefab);
         _aimingReticleIdCnt++;
@@ -127,8 +132,7 @@ public abstract class PlayerController : MonoBehaviour
         ControlledPlayer.NumLives = GameRoundSettingsController.Instance.NumLivesPerRound;
 
         StartCoroutine(AttachInputDeviceToPlayer());
-        LevelManager.Instance.SpawnPlayerDestructive(this);
-        GetComponent<GravityObjectRigidBody>().CanMove = false;
+        LevelManager.Instance.SpawnPlayer(this);
     }
 
     IEnumerator AttachInputDeviceToPlayer()
@@ -148,10 +152,12 @@ public abstract class PlayerController : MonoBehaviour
     //to be used from external and ui operations, checks for specific states to ignore the drop
     public void DropPlayer()
     {
-        if (TransitionController.Instance.IsCurrentlyTransitioning() || !GameManager.Instance.IsInCharacterSelect)
+        if (SceneManagementController.Instance.IsCurrentlyTransitioning() || !GameManager.Instance.IsInCharacterSelect)
         {
             return;
         }
+
+        DropPlayerInternal();
     }
 
     public void DropPlayerInternal()
@@ -160,9 +166,7 @@ public abstract class PlayerController : MonoBehaviour
         
         if(AttachedObject)
         {
-            AttachedObject.GetComponent<ConnectionToPlayerController>().DisconnectPlayer();
             DetachReticle();
-
         }
 
         Destroy(PlayerReadyIndicator);
@@ -205,7 +209,7 @@ public abstract class PlayerController : MonoBehaviour
     {
         if (!_cooldownController.IsCoolingDown(CooldownType.ChangeGravity))
         {
-
+            ControlledPlayer.GravityChanges++;
             ChangeGravity(GetComponent<GravityObjectRigidBody>().GravityDirection * -1);
             gc.PlayEffect(GetComponent<GravityObjectRigidBody>());
             Animator currentAnimator = GetComponent<CharacterAnimScript>().currentAnimator;
@@ -328,6 +332,7 @@ public abstract class PlayerController : MonoBehaviour
 
             if (type == ProjectileControllerType.Normal)
             {
+                ControlledPlayer.ShotsFired++;
                 if (!_cooldownController.IsCoolingDown(CooldownType.NormalShot))
                 {
                     if (AttachedObject == null)
@@ -339,9 +344,11 @@ public abstract class PlayerController : MonoBehaviour
                     else
                     {
                         ChangeGORBGravityDirection(AttachedObject, dir);
+                        var CGORB = AttachedObject.GetComponent<ControllableGravityObjectRigidBody>();
+                        AttachedObject.GetComponent<ControllableGravityObjectRigidBody>().AttachedPlayer = null;
                         AttachedObject.GetComponent<ControllableGravityObjectRigidBody>().LaunchSfx();
-                        AttachedObject.GetComponent<ConnectionToPlayerController>().DisconnectPlayer();
                         DetachReticle();
+                        CGORB.OnShot(this, CGORB);
                     }
                 }
             }
@@ -543,7 +550,7 @@ public abstract class PlayerController : MonoBehaviour
 
         PlaySingle(death, 3);
         RandomizeSfx(deathIndicator, deathIndicator, 1);
-        ChangeInvincibility(true);
+        IsInvincible = true;
         
         GetComponent<deatheffect>().PlayDeathEffect();
 
@@ -564,13 +571,8 @@ public abstract class PlayerController : MonoBehaviour
             }
 
             GetComponent<GravityObjectRigidBody>().CanMove = true;
-            _cooldownController.StartCooldown(CooldownType.Invincibility, () => { ChangeInvincibility(false); });
+            _cooldownController.StartCooldown(CooldownType.Invincibility, () => { IsInvincible = false; });
         });
-    }
-
-    private void ChangeInvincibility(bool isInvincible)
-    {
-        IsInvincible = isInvincible;
     }
 
     public void DestroyAllGravGunProjectiles()
@@ -609,6 +611,7 @@ public abstract class PlayerController : MonoBehaviour
 
     protected void DoSpecial(Vector2 aimVector)
     {
+        ControlledPlayer.SpecialsFired++;
         switch (CharacterType)
         {
             case PlayerCharacterType.ShotGun:
@@ -638,19 +641,19 @@ public abstract class PlayerController : MonoBehaviour
     {
         //Generate a random number between 0 and the length of our array of clips passed in.
         int randomIndex;
-        if (AudioManager.instance.isCaveLevel)
+        if (AudioManager.Instance.isCaveLevel)
             randomIndex = UnityEngine.Random.Range(0, caveClips.Length);
         else
             randomIndex = UnityEngine.Random.Range(0, clips.Length);
 
         //Choose a random pitch to play back our clip at between our high and low pitch ranges.
-        float randomPitch = UnityEngine.Random.Range(AudioManager.instance.lowPitchRange, AudioManager.instance.highPitchRange);
+        float randomPitch = UnityEngine.Random.Range(AudioManager.Instance.lowPitchRange, AudioManager.Instance.highPitchRange);
 
         //Set the pitch of the audio source to the randomly chosen pitch.
         channels[channel].pitch = randomPitch;
 
         //Set the clip to the clip at our randomly chosen index.
-        if (AudioManager.instance.isCaveLevel)
+        if (AudioManager.Instance.isCaveLevel)
             channels[channel].clip = caveClips[randomIndex];
         else
             channels[channel].clip = clips[randomIndex];

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class ControllableGravityObjectRigidBody : GravityObjectRigidBody {
@@ -10,6 +11,12 @@ public class ControllableGravityObjectRigidBody : GravityObjectRigidBody {
     [SerializeField]
     private float _maxSpeedMultiplier;
 
+    [SerializeField]
+    private float _passiveSpeed = 15;
+    [SerializeField]
+    private float _timeBetweenPassiveJump = .4f;
+
+    public PlayerController AttachedPlayer;
     public PlayerController LastShotBy;
 
     //Audio
@@ -17,9 +24,43 @@ public class ControllableGravityObjectRigidBody : GravityObjectRigidBody {
     public AudioClip[] LaunchSound;
     public AudioClip[] LaunchSoundCave;
 
+    public delegate void OnShotDelegate(PlayerController player, ControllableGravityObjectRigidBody GORB);
+    public OnShotDelegate OnShot;
+
     public void Start()
     {
         LastShotBy = null;
+        StartCoroutine(MoveToClosestPlayer());
+        OnShot += (x, y) => { };
+    }
+
+    IEnumerator MoveToClosestPlayer()
+    {
+        while(true)
+        {
+            if (_rB.velocity.magnitude < .05 && AttachedPlayer == null)
+            {
+                var players = FindObjectsOfType<PlayerController>();
+                if(players.Count() != 0)
+                {
+                    var closest = players.Aggregate((currMin, x) =>
+                    {
+                        bool isXSmaller = ((transform.position - x.transform.position).magnitude < (transform.position - currMin.transform.position).magnitude);
+                        if (isXSmaller)
+                        {
+                            return x;
+                        }
+
+                        return currMin;
+                    });
+                    
+                    var dir = (closest.transform.position - transform.position).normalized;
+                    AddVelocity(VelocityType.OtherPhysics, dir * _passiveSpeed);
+                }
+            }
+            
+            yield return new WaitForSeconds(_timeBetweenPassiveJump);
+        }
     }
 
     public void StepMultiplier()
@@ -53,19 +94,19 @@ public class ControllableGravityObjectRigidBody : GravityObjectRigidBody {
     {
         //Generate a random number between 0 and the length of our array of clips passed in.
         int randomIndex;
-        if (AudioManager.instance.isCaveLevel)
+        if (AudioManager.Instance.isCaveLevel)
             randomIndex = Random.Range(0, LaunchSoundCave.Length);
         else
             randomIndex = Random.Range(0, LaunchSound.Length);
 
         //Choose a random pitch to play back our clip at between our high and low pitch ranges.
-        float randomPitch = Random.Range(AudioManager.instance.lowPitchRange, AudioManager.instance.highPitchRange);
+        float randomPitch = Random.Range(AudioManager.Instance.lowPitchRange, AudioManager.Instance.highPitchRange);
 
         //Set the pitch of the audio source to the randomly chosen pitch.
         sfxAudio.pitch = randomPitch;
 
         //Set the clip to the clip at our randomly chosen index.
-        if (AudioManager.instance.isCaveLevel)
+        if (AudioManager.Instance.isCaveLevel)
             sfxAudio.clip = LaunchSoundCave[randomIndex];
         else
             sfxAudio.clip = LaunchSound[randomIndex];
