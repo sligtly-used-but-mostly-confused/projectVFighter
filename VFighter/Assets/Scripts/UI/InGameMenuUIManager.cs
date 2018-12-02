@@ -41,6 +41,8 @@ public class InGameMenuUIManager : MonoBehaviour {
             player.DropPlayerInternal();
         }
 
+        GameManager.Instance.IsInCharacterSelect = true;
+
         SceneManager.LoadScene(MainMenu.SceneName);
     }
 

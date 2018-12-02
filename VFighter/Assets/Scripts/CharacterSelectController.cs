@@ -45,7 +45,7 @@ public class CharacterSelectController : MonoBehaviour
     public Dictionary<PlayerCharacterType, Material> CharacterTypeIconMappings = new Dictionary<PlayerCharacterType, Material>();
     public Dictionary<PlayerCharacterType, string> CharacterTypeDescriptionMappings = new Dictionary<PlayerCharacterType, string>();
     public Dictionary<PlayerCharacterType, GameObject> characterTypeAnimatorGOMappings = new Dictionary<PlayerCharacterType, GameObject>();
-    int currentMaterialIndex = 0;
+    public int currentMaterialIndex = 0;
 
     public List<Color> PlayerColors;
     public Color CurrentPlayerColor {
@@ -100,6 +100,11 @@ public class CharacterSelectController : MonoBehaviour
         GameManager.Instance.OnLevelChanged += RefreshCurrentMaterial;
         OnCharacterChanged += (x) => { };
         OnPlayerColorChanged += (x) => { };
+    }
+
+    private void OnDestroy()
+    {
+        GameManager.Instance.OnLevelChanged -= RefreshCurrentMaterial;
     }
 
     void Update()
