@@ -1322,12 +1322,12 @@ Prefab:
     - target: {fileID: 114238502701634164, guid: 2ac307f3e745042c5a5ad6a4663e5068,
         type: 2}
       propertyPath: wallWidth
-      value: 0.8
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 114238502701634164, guid: 2ac307f3e745042c5a5ad6a4663e5068,
         type: 2}
       propertyPath: cornerSize
-      value: 1.2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 224112952777981524, guid: 2ac307f3e745042c5a5ad6a4663e5068,
         type: 2}
