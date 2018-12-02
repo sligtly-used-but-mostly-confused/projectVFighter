@@ -60,23 +60,28 @@ public class ShrinkingWallsController : MonoBehaviour {
             UpdateWallToPoints(wall, firstWallPoint.startLocation, secondWallPoint.startLocation);
             walls.Add(wall);
         }
+        StartCoroutine(MoveWalls());
 	}
 	
-	void Update () {
-        //get the fraction of time to total time
-        float passedTime = Time.time - startTime;
-        float percentageComplete = Pulse(passedTime);
-
-        //move the walls
-        for (int i = 0; i < wallPoints.Count; ++i)
+    IEnumerator MoveWalls() {
+        float passedTime = 0;
+        while (true)
         {
-            WallPoint firstWallPoint = wallPoints[i];
-            WallPoint secondWallPoint = wallPoints[(i + 1) % wallPoints.Count];
-            Vector3 firstPoint = GetCurrentLocation(firstWallPoint, percentageComplete);
-            Vector3 secondPoint = GetCurrentLocation(secondWallPoint, percentageComplete);
-            UpdateWallToPoints(walls[i], firstPoint, secondPoint);
+            //get the fraction of time to total time
+            passedTime += Time.deltaTime * GameManager.Instance.TimeScale;
+            float percentageComplete = Pulse(passedTime);
+            Debug.Log(percentageComplete + " " + passedTime);
+            //move the walls
+            for (int i = 0; i < wallPoints.Count; ++i)
+            {
+                WallPoint firstWallPoint = wallPoints[i];
+                WallPoint secondWallPoint = wallPoints[(i + 1) % wallPoints.Count];
+                Vector3 firstPoint = GetCurrentLocation(firstWallPoint, percentageComplete);
+                Vector3 secondPoint = GetCurrentLocation(secondWallPoint, percentageComplete);
+                UpdateWallToPoints(walls[i], firstPoint, secondPoint);
+            }
+            yield return null;
         }
-
     }
 
     void UpdateWallToPoints(GameObject wall, Vector3 point1, Vector3 point2){
