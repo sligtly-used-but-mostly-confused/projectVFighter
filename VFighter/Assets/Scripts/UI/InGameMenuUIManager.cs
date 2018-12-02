@@ -13,6 +13,8 @@ public class InGameMenuUIManager : MonoBehaviour {
     public RoundSettingsUIController SettingsUIController;
     private PlayerController _playerWhoCalledMenu;
 
+    private float _prevTimeScale;
+
     private void Awake()
     {
         if(Instance != null)
@@ -23,6 +25,11 @@ public class InGameMenuUIManager : MonoBehaviour {
 
         Instance = this;
         DontDestroyOnLoad(gameObject);
+    }
+
+    private void Update()
+    {
+        GameManager.Instance.TimeScale = _menuObject.activeInHierarchy ? 0 : GameManager.Instance.TimeScale;
     }
 
     public void ToggleMenu(PlayerController player)
@@ -40,7 +47,16 @@ public class InGameMenuUIManager : MonoBehaviour {
         }
 
         _menuObject.SetActive(!_menuObject.activeSelf);
-        GameManager.Instance.TimeScale = _menuObject.activeInHierarchy ? 0 : 1;
+
+        if(_menuObject.activeInHierarchy)
+        {
+            _prevTimeScale = GameManager.Instance.TimeScale;
+        }
+        else
+        {
+            GameManager.Instance.TimeScale = _prevTimeScale;
+        }
+
     }
 
     public void Disconnect()
