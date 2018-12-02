@@ -4466,7 +4466,7 @@ Camera:
     height: 1
   near clip plane: 0.1
   far clip plane: 5000
-  field of view: 3
+  field of view: 48.645935
   orthographic: 1
   orthographic size: 5.5
   m_Depth: -1
@@ -4616,7 +4616,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 485077473}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.5732317, y: -0.43919468, z: -10}
+  m_LocalPosition: {x: 0.57323146, y: -0.43919444, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 659011731}
@@ -5136,6 +5136,34 @@ Mesh:
   m_MeshMetrics[0]: 1
   m_MeshMetrics[1]: 1
   m_MeshOptimized: 0
+--- !u!1 &511848675
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 511848676}
+  m_Layer: 0
+  m_Name: 
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &511848676
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 511848675}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 801607056}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!224 &512352711 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 224001494054764686, guid: 2915887537fe745e39dc7f21354108d2,
@@ -6323,6 +6351,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114227078285474836, guid: 55fe9360236ce094b8791837356c4d89,
+        type: 2}
+      propertyPath: OnKillPlayer.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4410707044762386, guid: 55fe9360236ce094b8791837356c4d89, type: 2}
       propertyPath: m_LocalPosition.x
       value: 8
@@ -6359,6 +6392,36 @@ Prefab:
         type: 2}
       propertyPath: _timeBetweenPassiveJump
       value: 100000
+      objectReference: {fileID: 0}
+    - target: {fileID: 114227078285474836, guid: 55fe9360236ce094b8791837356c4d89,
+        type: 2}
+      propertyPath: OnKillPlayer.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114227078285474836, guid: 55fe9360236ce094b8791837356c4d89,
+        type: 2}
+      propertyPath: OnKillPlayer.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114227078285474836, guid: 55fe9360236ce094b8791837356c4d89,
+        type: 2}
+      propertyPath: OnKillPlayer.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1266176273}
+    - target: {fileID: 114227078285474836, guid: 55fe9360236ce094b8791837356c4d89,
+        type: 2}
+      propertyPath: OnKillPlayer.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetTrigger
+      objectReference: {fileID: 0}
+    - target: {fileID: 114227078285474836, guid: 55fe9360236ce094b8791837356c4d89,
+        type: 2}
+      propertyPath: OnKillPlayer.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 114227078285474836, guid: 55fe9360236ce094b8791837356c4d89,
+        type: 2}
+      propertyPath: OnKillPlayer.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: ChangeCamera
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 55fe9360236ce094b8791837356c4d89, type: 2}
@@ -7398,6 +7461,7 @@ Transform:
   - {fileID: 186478648}
   - {fileID: 51375400}
   - {fileID: 623224807}
+  - {fileID: 511848676}
   m_Father: {fileID: 0}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -10673,7 +10737,7 @@ Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: pb_Mesh86800
+  m_Name: pb_Mesh104678
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -11934,7 +11998,7 @@ Prefab:
     - target: {fileID: 114568056544318070, guid: cba922a9b50d84c0c8d88a02f74a0188,
         type: 2}
       propertyPath: OnTeleport.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4064653207566866, guid: cba922a9b50d84c0c8d88a02f74a0188, type: 2}
       propertyPath: m_LocalPosition.x
@@ -12116,6 +12180,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1251027238}
   - component: {fileID: 1251027239}
+  - component: {fileID: 1251027240}
   m_Layer: 0
   m_Name: vcam1Collider
   m_TagString: Untagged
@@ -12165,6 +12230,20 @@ PolygonCollider2D:
       - {x: -9.3110485, y: -6.3505645}
       - {x: -9.060255, y: -5.8071747}
       - {x: 24.444263, y: -5.758706}
+--- !u!114 &1251027240
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1251027237}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84c122df2a93ee54eb8a45d2034d2f34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  anim: {fileID: 1266176273}
+  parameterSet: InTopPart
+  complimentParameterSet: InBottomPart
 --- !u!1 &1266176272
 GameObject:
   m_ObjectHideFlags: 0
@@ -12226,11 +12305,11 @@ MonoBehaviour:
   - {fileID: 2139380094}
   - {fileID: 1604979891}
   m_Instructions:
-  - m_FullHash: 533282942
+  - m_FullHash: -1203055181
     m_VirtualCamera: {fileID: 2139380094}
     m_ActivateAfter: 0
     m_MinDuration: 0
-  - m_FullHash: 904137936
+  - m_FullHash: -1972577049
     m_VirtualCamera: {fileID: 1604979891}
     m_ActivateAfter: 0
     m_MinDuration: 0
@@ -12245,9 +12324,9 @@ MonoBehaviour:
       m_RotationOrder: 4
   m_CustomBlends: {fileID: 0}
   m_ParentHash:
-  - m_Hash: 533282942
+  - m_Hash: -1203055181
     m_ParentHash: 756556552
-  - m_Hash: 904137936
+  - m_Hash: -1972577049
     m_ParentHash: 756556552
 --- !u!4 &1266176275
 Transform:
@@ -13234,7 +13313,7 @@ Prefab:
     - target: {fileID: 114568056544318070, guid: cba922a9b50d84c0c8d88a02f74a0188,
         type: 2}
       propertyPath: OnTeleport.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4064653207566866, guid: cba922a9b50d84c0c8d88a02f74a0188, type: 2}
       propertyPath: m_LocalPosition.x
@@ -14005,7 +14084,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1604979888}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.2600005, y: -1.3399999, z: -10}
+  m_LocalPosition: {x: -4.5200005, y: -2.6799998, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2016134150}
@@ -16934,6 +17013,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1849257379}
   - component: {fileID: 1849257380}
+  - component: {fileID: 1849257381}
   m_Layer: 0
   m_Name: vCam2Collider
   m_TagString: Untagged
@@ -16982,6 +17062,20 @@ PolygonCollider2D:
       - {x: -9.167418, y: -11.8949795}
       - {x: -9.066352, y: -24.283873}
       - {x: 119.88393, y: -24.256872}
+--- !u!114 &1849257381
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1849257378}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84c122df2a93ee54eb8a45d2034d2f34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  anim: {fileID: 1266176273}
+  parameterSet: InBottomPart
+  complimentParameterSet: InTopPart
 --- !u!1 &1853541198
 GameObject:
   m_ObjectHideFlags: 0
@@ -19589,7 +19683,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2139380091}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -4.5200005, y: -2.6799998, z: -10}
+  m_LocalPosition: {x: -2.2600005, y: -1.3399999, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1179334769}
