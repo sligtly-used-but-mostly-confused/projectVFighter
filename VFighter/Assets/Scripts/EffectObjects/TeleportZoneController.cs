@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class TeleportZoneController : MonoBehaviour {
 
@@ -19,6 +20,8 @@ public class TeleportZoneController : MonoBehaviour {
 
     [SerializeField]
     private float _objectExitFromTeleporterTimeout = .1f;
+
+    public UnityEvent OnTeleport; 
 
     private void OnTriggerStay2D(Collider2D collision)
     {
@@ -41,6 +44,7 @@ public class TeleportZoneController : MonoBehaviour {
             collision.transform.position = TeleportTo.transform.position + playerOffsetFromTeleporter;
 
             TeleportTo.StartCoroutine(TeleportTo.ObjectExitTeleporterTimeout(gorb));
+            OnTeleport.Invoke();
             TeleportSfx();
         }
     }
