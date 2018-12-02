@@ -6054,6 +6054,11 @@ MonoBehaviour:
     - {fileID: 2100000, guid: a948278223d6e4af393f298fc7d7d228, type: 2}
     - {fileID: 2100000, guid: 81d494a18e0d84ffcbfb77a025479b8c, type: 2}
     currentMaterialIndex: 0
+  _gunMaterials:
+  - {fileID: 2100000, guid: 89b6769bf25a5473d8a3200391e17d12, type: 2}
+  - {fileID: 2100000, guid: c98f7586898ac496b8679385df58ddbe, type: 2}
+  - {fileID: 2100000, guid: 696917009f3554754b034d5894abb0a2, type: 2}
+  - {fileID: 2100000, guid: 9290fbe4245860e458bd04e1a8b6f7e3, type: 2}
   currentMaterialIndex: 0
   PlayerColors:
   - {r: 0.4470588, g: 0.81347734, b: 1, a: 1}
