@@ -75,6 +75,10 @@ public class GravityObjectRigidBody : MonoBehaviour
     }
 
     public AudioSource collAudio;
+    [SerializeField]
+    private bool _inPausedState = false;
+    [SerializeField]
+    private Vector2 _savedVelocity;
     #endregion
 
     private void Awake()
@@ -97,6 +101,23 @@ public class GravityObjectRigidBody : MonoBehaviour
     {
         if (CanMove)
         {
+            if(GameManager.Instance.IsPaused)
+            {
+                if(!_inPausedState)
+                {
+                    _inPausedState = true;
+                    _savedVelocity = _rB.velocity;
+                }
+                _rB.velocity = Vector2.zero;
+                return;
+            }
+
+            if (_inPausedState && !GameManager.Instance.IsPaused)
+            {
+                _inPausedState = false;
+                _rB.velocity = _savedVelocity;
+            }
+
             DoGravity();
             DoDrag();
             _rB.velocity = Vector2.zero;

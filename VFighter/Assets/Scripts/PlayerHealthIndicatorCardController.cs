@@ -14,6 +14,7 @@ public class PlayerHealthIndicatorCardController : MonoBehaviour {
     [SerializeField]
     private GameObject _healthCellContainer;
 
+    [SerializeField]
     private PlayerController _attachedPlayer;
 
     private List<GameObject> _cells = new List<GameObject>();

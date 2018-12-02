@@ -1175,6 +1175,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 720bd7a24dae7a949b3233baac93e396, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  NumRoundsDropDown: {fileID: 0}
+  LivesPerRoundInput: {fileID: 0}
+  UseTransitionsToggle: {fileID: 0}
+  MasterVolSlider: {fileID: 0}
+  MusicVolSlider: {fileID: 0}
+  SFXVolSlider: {fileID: 0}
+  SettingsContainer: {fileID: 0}
 --- !u!114 &379206397
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5108,6 +5115,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   NumRounds: 2
   NumLivesPerRound: 3
+  GameSpeedMin: 0.5
+  GameSpeedMax: 1
+  GameSpeedRate: 0.05
+  MinPlayers: 2
+  UseTransitions: 0
 --- !u!4 &1428891037
 Transform:
   m_ObjectHideFlags: 0

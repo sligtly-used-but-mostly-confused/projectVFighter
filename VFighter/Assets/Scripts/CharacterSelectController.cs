@@ -275,7 +275,7 @@ public class CharacterSelectController : MonoBehaviour
         characterTypeAnimatorGOMappings[previousCharacterType].GetComponentInChildren<MeshRenderer>().material = _gunMaterials[currentMaterialIndex];
 
         List<Material> currentMaterialOptions = CharacterTypeMaterialMappings[currentCharacterType];
-        characterTypeAnimatorGOMappings[currentCharacterType].GetComponentInChildren<MeshRenderer>().material = currentMaterialOptions[currentMaterialIndex];
+        characterTypeAnimatorGOMappings[currentCharacterType].GetComponentInChildren<MeshRenderer>().material = _gunMaterials[currentMaterialIndex];
         SetCurrentMaterial(currentMaterialOptions[currentMaterialIndex]);
         OnPlayerColorChanged(CurrentPlayerColor);
     }
