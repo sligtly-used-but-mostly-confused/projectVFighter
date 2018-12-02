@@ -22,11 +22,14 @@ public class ShrinkingWallsController : MonoBehaviour {
     public GameObject pointMarker;
 
     public float cycleLength;
+    public float wallWidth = 0.7f;
+    public float cornerSize = 1f;
     public GameObject startPoints;
     public GameObject endPoints;
 
     private List<WallPoint> wallPoints = new List<WallPoint>();
     private List<GameObject> walls = new List<GameObject>();
+    private List<GameObject> corners = new List<GameObject>();
     private float startTime;
 
     const float pi = 3.1415f;
@@ -52,14 +55,20 @@ public class ShrinkingWallsController : MonoBehaviour {
         //grab the start time
         startTime = Time.time;
 
-        //spawn in the walls
+        //spawn in the walls and corners
         for (int i = 0; i < wallPoints.Count; ++i){
             WallPoint firstWallPoint = wallPoints[i];
             WallPoint secondWallPoint = wallPoints[(i + 1) % wallPoints.Count];
             GameObject wall = Instantiate(wallPrefab,transform);
             UpdateWallToPoints(wall, firstWallPoint.startLocation, secondWallPoint.startLocation);
             walls.Add(wall);
+
+            //corner
+            GameObject corner = Instantiate(wallPrefab, transform);
+            UpdateCornerToPoint(corner, firstWallPoint.startLocation);
+            corners.Add(corner);
         }
+
         StartCoroutine(MoveWalls());
 	}
 	
@@ -70,29 +79,40 @@ public class ShrinkingWallsController : MonoBehaviour {
             //get the fraction of time to total time
             passedTime += Time.deltaTime * GameManager.Instance.TimeScale;
             float percentageComplete = Pulse(passedTime);
-            Debug.Log(percentageComplete + " " + passedTime);
-            //move the walls
             for (int i = 0; i < wallPoints.Count; ++i)
             {
+                //move the walls
                 WallPoint firstWallPoint = wallPoints[i];
                 WallPoint secondWallPoint = wallPoints[(i + 1) % wallPoints.Count];
                 Vector3 firstPoint = GetCurrentLocation(firstWallPoint, percentageComplete);
                 Vector3 secondPoint = GetCurrentLocation(secondWallPoint, percentageComplete);
                 UpdateWallToPoints(walls[i], firstPoint, secondPoint);
+
+                //move the corners
+                UpdateCornerToPoint(corners[i], firstPoint);
             }
+
+
             yield return null;
         }
     }
 
     void UpdateWallToPoints(GameObject wall, Vector3 point1, Vector3 point2){
         //set scale
-        wall.transform.localScale = new Vector3(Vector3.Distance(point1, point2), 0.7f, 0.7f);
-
+        wall.transform.localScale = new Vector3(Vector3.Distance(point1, point2), wallWidth, wallWidth);
         //set location
         wall.transform.position = new Vector3((point1.x + point2.x) / 2 , (point1.y + point2.y) / 2 , 0);
-
         //set rotation
         wall.transform.rotation = Quaternion.Euler(wall.transform.rotation.x, wall.transform.rotation.y, Mathf.Rad2Deg * Mathf.Atan2(point2.y - point1.y, point2.x - point1.x));
+    }
+
+    void UpdateCornerToPoint(GameObject corner, Vector3 position){
+        //set scale
+        corner.transform.localScale = new Vector3(cornerSize,cornerSize,cornerSize);
+        //set location
+        corner.transform.position = position;
+        //set rotation
+        corner.transform.rotation = Quaternion.Euler(0f,0f,0f);
     }
 
     Vector3 GetCurrentLocation(WallPoint wp, float percentage)
