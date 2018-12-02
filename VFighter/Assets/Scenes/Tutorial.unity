@@ -90,7 +90,7 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaAO: 1
     m_ShowResolutionOverlay: 1
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -205,12 +205,12 @@ Prefab:
     - target: {fileID: 224001494054764686, guid: 2915887537fe745e39dc7f21354108d2,
         type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 68.72
+      value: 53.23
       objectReference: {fileID: 0}
     - target: {fileID: 224001494054764686, guid: 2915887537fe745e39dc7f21354108d2,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -18.58
+      value: -31.47
       objectReference: {fileID: 0}
     - target: {fileID: 224001494054764686, guid: 2915887537fe745e39dc7f21354108d2,
         type: 2}
@@ -256,7 +256,7 @@ Prefab:
         type: 2}
       propertyPath: m_Text
       value: Your goal is to eliminate the other players by hitting them with gravity
-        objects.
+        objects. Shoot the gravity object at the enemy to advance.
       objectReference: {fileID: 0}
     - target: {fileID: 1728269792808170, guid: 2915887537fe745e39dc7f21354108d2, type: 2}
       propertyPath: m_Name
@@ -3554,12 +3554,12 @@ Prefab:
     - target: {fileID: 114701423703069604, guid: 2915887537fe745e39dc7f21354108d2,
         type: 2}
       propertyPath: m_havePropertiesChanged
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114701423703069604, guid: 2915887537fe745e39dc7f21354108d2,
         type: 2}
       propertyPath: m_isInputParsingRequired
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114701423703069604, guid: 2915887537fe745e39dc7f21354108d2,
         type: 2}
@@ -3859,12 +3859,12 @@ Prefab:
     - target: {fileID: 224001494054764686, guid: 2915887537fe745e39dc7f21354108d2,
         type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 56
+      value: 56.47
       objectReference: {fileID: 0}
     - target: {fileID: 224001494054764686, guid: 2915887537fe745e39dc7f21354108d2,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -31.2
+      value: -19.45
       objectReference: {fileID: 0}
     - target: {fileID: 224001494054764686, guid: 2915887537fe745e39dc7f21354108d2,
         type: 2}
@@ -4678,7 +4678,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 485077473}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -4.1780896, y: -2.7004938, z: -10}
+  m_LocalPosition: {x: -4.1763825, y: -2.7005963, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 659011731}
@@ -5303,7 +5303,7 @@ Prefab:
     - target: {fileID: 114341256130431734, guid: 2915887537fe745e39dc7f21354108d2,
         type: 2}
       propertyPath: m_Text
-      value: 'The Red Thing will kill you if you touch it.
+      value: 'This Gravity Object (red ball) will kill you if you touch it.
 
 
         Shoot It with your Gravity Gun'
