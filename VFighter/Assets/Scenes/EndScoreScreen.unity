@@ -1652,6 +1652,7 @@ MonoBehaviour:
   - {fileID: 294609593}
   _startNextLevelWinCondition: 1
   _hasGameStarted: 1
+  ShowTutorialPrompt: 0
   JailTransform: {fileID: 0}
   _playerReadyIndicatorPrefab: {fileID: 1574300143994424, guid: 50239be1e91c0ce48b9f24ef90027d08,
     type: 2}
@@ -3377,6 +3378,26 @@ Prefab:
         type: 2}
       propertyPath: m_isInputParsingRequired
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114007601140936036, guid: 2491303b306c1f546995b9ba49402196,
+        type: 2}
+      propertyPath: m_text
+      value: 1ST PLACE
+      objectReference: {fileID: 0}
+    - target: {fileID: 114007601140936036, guid: 2491303b306c1f546995b9ba49402196,
+        type: 2}
+      propertyPath: m_firstOverflowCharacterIndex
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114007601140936036, guid: 2491303b306c1f546995b9ba49402196,
+        type: 2}
+      propertyPath: m_textInfo.characterCount
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 114007601140936036, guid: 2491303b306c1f546995b9ba49402196,
+        type: 2}
+      propertyPath: m_textInfo.lineCount
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2491303b306c1f546995b9ba49402196, type: 2}

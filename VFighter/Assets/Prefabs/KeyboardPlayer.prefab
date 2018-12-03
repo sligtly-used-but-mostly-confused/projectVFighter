@@ -1468,7 +1468,7 @@ GameObject:
   m_IsActive: 1
 --- !u!1 &1620016569019504
 GameObject:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 6
@@ -1757,6 +1757,21 @@ GameObject:
   - component: {fileID: 4015846940528270}
   m_Layer: 0
   m_Name: c_head_bn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1711475322352572
+GameObject:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4113907748491656}
+  m_Layer: 0
+  m_Name: AimingReticleCenterPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2907,6 +2922,20 @@ Transform:
   m_Father: {fileID: 4884899921086666}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4113907748491656
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1711475322352572}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.25, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 4242248583061100}
+  m_Father: {fileID: 4829514364397410}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4118452660289522
 Transform:
   m_ObjectHideFlags: 1
@@ -3254,11 +3283,11 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1620016569019504}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3.2199998, y: 1.24, z: 0}
+  m_LocalPosition: {x: -3.2199998, y: 0.99, z: 0}
   m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
   m_Children: []
-  m_Father: {fileID: 4986710107920854}
-  m_RootOrder: 5
+  m_Father: {fileID: 4113907748491656}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4247622541212548
 Transform:
@@ -4719,6 +4748,7 @@ Transform:
   - {fileID: 4532757022442176}
   - {fileID: 4598072038068028}
   - {fileID: 4132977719296876}
+  - {fileID: 4113907748491656}
   m_Father: {fileID: 4986710107920854}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5116,7 +5146,6 @@ Transform:
   - {fileID: 4934277148622456}
   - {fileID: 4528496375849850}
   - {fileID: 4884899921086666}
-  - {fileID: 4242248583061100}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6111,6 +6140,7 @@ MonoBehaviour:
   AimingReticlePrefab: {fileID: 1904020002216382, guid: fee8c362ea81b684890d6767eaf66389,
     type: 2}
   Reticle: {fileID: 1620016569019504}
+  AimingReticleCenter: {fileID: 4113907748491656}
   ReticleParent: {fileID: 1865601022989246}
   PlayerReadyIndicatorPrefab: {fileID: 1574300143994424, guid: 50239be1e91c0ce48b9f24ef90027d08,
     type: 2}

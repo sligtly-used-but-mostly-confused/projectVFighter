@@ -51,6 +51,8 @@ public abstract class PlayerController : MonoBehaviour
     [SerializeField]
     public GameObject Reticle;
     [SerializeField]
+    public Transform AimingReticleCenter;
+    [SerializeField]
     protected GameObject ReticleParent;
     [SerializeField]
     protected GameObject PlayerReadyIndicatorPrefab;
@@ -149,7 +151,7 @@ public abstract class PlayerController : MonoBehaviour
         {
             return;
         }
-
+        
         DropPlayerInternal();
     }
 
@@ -162,8 +164,8 @@ public abstract class PlayerController : MonoBehaviour
             DetachReticle();
         }
 
-        Destroy(PlayerReadyIndicator);
         Destroy(Reticle);
+        Destroy(PlayerReadyIndicator);
         Destroy(gameObject);
     }
 
@@ -275,14 +277,14 @@ public abstract class PlayerController : MonoBehaviour
     {
         if (!ReticleParent)
         {
-            ReticleParent = gameObject;
+            ReticleParent = AimingReticleCenter.gameObject;
         }
 
         if (Reticle)
         {
             var normalizedDir = dir.normalized;
-            Reticle.transform.position = ReticleParent.transform.position + new Vector3(normalizedDir.x, normalizedDir.y, 0);
-
+            Reticle.transform.position = ReticleParent.transform.position;
+            Reticle.transform.position += new Vector3(normalizedDir.x, normalizedDir.y, 0);
             //set animation details
             Animator currentAnimator = GetComponent<CharacterAnimScript>().currentAnimator;
             currentAnimator.SetFloat("Horizontal", normalizedDir.x);
@@ -373,7 +375,7 @@ public abstract class PlayerController : MonoBehaviour
         float yVlaue = dir.y;
         float angle = Mathf.Rad2Deg * Mathf.Atan2(dir.y, dir.x);
         GravityGunProjectileController projectileClone = ProjectilePool.Instance.GetProjectile(ProjectilePool.ConvertProjectileControllerTypeToType(type));
-        projectileClone.transform.position = transform.position + new Vector3(dir.x, dir.y, 0);
+        projectileClone.transform.position = Reticle.transform.position;
         projectileClone.Owner = this;
         projectileClone.SecondsUntilDestroy = secondsUntilDestroy;
         ChangeGORBGravityDirection(projectileClone.GetComponent<GravityObjectRigidBody>(), dir);
@@ -388,12 +390,14 @@ public abstract class PlayerController : MonoBehaviour
     {
         AttachedObject = gravityObjectRB;
         ReticleParent = AttachedObject.gameObject;
+        Reticle.transform.SetParent(ReticleParent.transform);
     }
 
     public void DetachReticle()
     {
         AttachedObject = null;
-        ReticleParent = gameObject;
+        ReticleParent = AimingReticleCenter.gameObject;
+        Reticle.transform.SetParent(ReticleParent.transform);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
