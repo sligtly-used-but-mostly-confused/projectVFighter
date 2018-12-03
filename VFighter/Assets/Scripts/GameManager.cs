@@ -86,8 +86,15 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void ReturnAllPlayerReticles()
+    {
+        var players = FindObjectsOfType<PlayerController>().ToList();
+        players.ForEach(x => x.DetachReticle());
+    }
+
     public void LoadEndScoreScreen()
     {
+        ReturnAllPlayerReticles();
         CurrentlyChangingScenes = true;
         SceneManagementController.Instance.ChangeScenesAsycBehindTransition(EndScoreScreen, () =>
         {
@@ -98,6 +105,7 @@ public class GameManager : MonoBehaviour
 
     public void EndGame()
     {
+        ReturnAllPlayerReticles();
         var players = FindObjectsOfType<PlayerController>().ToList();
         players.ForEach(x => x.ControlledPlayer.ResetForNewGame());
         CurrentlyChangingScenes = true;
@@ -141,6 +149,7 @@ public class GameManager : MonoBehaviour
 
     private void StartNewLevel()
     {
+        ReturnAllPlayerReticles();
         var players = FindObjectsOfType<PlayerController>().ToList();
         ProgressionThroughGame = players.Max(x => x.ControlledPlayer.NumDeaths) / (float)players[0].ControlledPlayer.NumLives;
         players.ForEach(x => x.IsDead = false);

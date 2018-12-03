@@ -55,6 +55,7 @@ public class InGameMenuUIManager : MonoBehaviour {
 
         GameManager.Instance.IsInCharacterSelect = true;
         GameManager.Instance.TimeScale = 1;
+        GameManager.Instance.TogglePause();
         SceneManager.LoadScene(MainMenu.SceneName);
     }
 
