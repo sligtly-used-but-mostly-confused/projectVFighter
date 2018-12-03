@@ -9,8 +9,11 @@ public class InGameMenuUIManager : MonoBehaviour {
     public static InGameMenuUIManager Instance;
     [SerializeField]
     private GameObject _menuObject;
-    [SerializeField]
-    private SceneAsset MainMenu;
+    public SceneField MainMenu;
+    public RoundSettingsUIController SettingsUIController;
+    private PlayerController _playerWhoCalledMenu;
+
+    private float _prevTimeScale;
 
     private void Awake()
     {
@@ -24,15 +27,61 @@ public class InGameMenuUIManager : MonoBehaviour {
         DontDestroyOnLoad(gameObject);
     }
 
+    private void Update()
+    {
+        GameManager.Instance.TimeScale = _menuObject.activeInHierarchy ? 0 : GameManager.Instance.TimeScale;
+    }
+
+    public void ToggleMenu(PlayerController player)
+    {
+        _playerWhoCalledMenu = player;
+        ToggleMenu();
+    }
+
     public void ToggleMenu()
     {
-        Debug.Log(gameObject + " " + _menuObject);
+        if(SettingsUIController.IsSettingMenuDisplayed)
+        {
+            SettingsUIController.ToggleSettingsMenu();
+            return;
+        }
+
         _menuObject.SetActive(!_menuObject.activeSelf);
+
+        if(_menuObject.activeInHierarchy)
+        {
+            _prevTimeScale = GameManager.Instance.TimeScale;
+        }
+        else
+        {
+            GameManager.Instance.TimeScale = _prevTimeScale;
+        }
+
     }
 
     public void Disconnect()
     {
         _menuObject.SetActive(false);
-        SceneManager.LoadScene(MainMenu.name);
+
+        foreach(var player in FindObjectsOfType<PlayerController>())
+        {
+            player.DropPlayerInternal();
+        }
+
+        GameManager.Instance.IsInCharacterSelect = true;
+        GameManager.Instance.TimeScale = 1;
+        SceneManager.LoadScene(MainMenu.SceneName);
+    }
+
+    public bool IsMenuDisplayed()
+    {
+        return _menuObject.activeSelf;
+    }
+
+    public void DropPlayer()
+    {
+        Debug.Log($"dropping {_playerWhoCalledMenu.name}");
+        _playerWhoCalledMenu.DropPlayer();
+        ToggleMenu(null);
     }
 }

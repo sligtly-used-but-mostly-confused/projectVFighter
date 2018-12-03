@@ -39,9 +39,9 @@ public class EndScoreScreenLevelManager : LevelManager {
         var indicator = Instantiate(_playerReadyIndicatorPrefab);
         indicator.GetComponent<PlayerReadyIndicatorController>().AttachedPlayer = player;
         int index = 0;
-        PlayerSpawnPosition position = spawnPositions[index];
+        EndScoreScreenPlayerSpawner position = (EndScoreScreenPlayerSpawner) spawnPositions[index];
         spawnPositions.RemoveAt(index);
-        player.InitializeForStartLevel(position.gameObject.transform.position, false);
+        player.InitializeForStartLevel(position.PlayerSpawnPosition.position, false);
         player.IsReady = false;
         player.GetComponent<GravityObjectRigidBody>().CanMove = false;
         position.Spawn(player);

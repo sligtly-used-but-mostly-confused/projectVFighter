@@ -135,24 +135,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &1055340758523344
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4990287168977190}
-  - component: {fileID: 33617355366639220}
-  - component: {fileID: 23204581670687912}
-  - component: {fileID: 114901505588449616}
-  m_Layer: 0
-  m_Name: PlayerIdentifier
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!1 &1056377258494776
 GameObject:
   m_ObjectHideFlags: 1
@@ -5101,7 +5083,6 @@ Transform:
   - {fileID: 4934277148622456}
   - {fileID: 4528496375849850}
   - {fileID: 4884899921086666}
-  - {fileID: 4990287168977190}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5119,19 +5100,6 @@ Transform:
   m_Father: {fileID: 4985792859183536}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4990287168977190
-Transform:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1055340758523344}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.25, y: 1.25, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4986710107920854}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &23092223808091876
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -5148,41 +5116,6 @@ MeshRenderer:
   m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: c98f7586898ac496b8679385df58ddbe, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 0
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
---- !u!23 &23204581670687912
-MeshRenderer:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1055340758523344}
-  m_Enabled: 0
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RenderingLayerMask: 4294967295
-  m_Materials:
-  - {fileID: 2100000, guid: efd13cd8cc5ef0b4992ab262bd2dc742, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5286,13 +5219,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1633901870629382}
   m_Mesh: {fileID: 4300002, guid: 238b0de3d2d3849e7a3e292854aef7d4, type: 3}
---- !u!33 &33617355366639220
-MeshFilter:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1055340758523344}
-  m_Mesh: {fileID: 0}
 --- !u!33 &33945135352919490
 MeshFilter:
   m_ObjectHideFlags: 1
@@ -6058,6 +5984,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 7e7f54500d695144293d102f56612dbd, type: 3}
   - {fileID: 8300000, guid: c9642d6336dae394ba796a2eea99801b, type: 3}
   deathLocation: {fileID: 0}
+  PlayerId: -1
   ReticleId: -1
   MaterialId: -1
   IsReady: 0
@@ -6069,9 +5996,13 @@ MonoBehaviour:
     NumOverallKills: 0
     NumOverallDeaths: 0
     NumStageWins: 0
+    ShotsFired: 0
+    SpecialsFired: 0
+    GravityChanges: 0
   IsDead: 0
   IsInvincible: 0
   CharacterType: 0
+  PlayerReadyIndicator: {fileID: 0}
 --- !u!114 &114313954095473740
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6123,10 +6054,16 @@ MonoBehaviour:
     - {fileID: 2100000, guid: a948278223d6e4af393f298fc7d7d228, type: 2}
     - {fileID: 2100000, guid: 81d494a18e0d84ffcbfb77a025479b8c, type: 2}
     currentMaterialIndex: 0
+  _gunMaterials:
+  - {fileID: 2100000, guid: 89b6769bf25a5473d8a3200391e17d12, type: 2}
+  - {fileID: 2100000, guid: c98f7586898ac496b8679385df58ddbe, type: 2}
+  - {fileID: 2100000, guid: 696917009f3554754b034d5894abb0a2, type: 2}
+  - {fileID: 2100000, guid: 9290fbe4245860e458bd04e1a8b6f7e3, type: 2}
+  currentMaterialIndex: 0
   PlayerColors:
   - {r: 0.4470588, g: 0.81347734, b: 1, a: 1}
   - {r: 0.93877363, g: 0.495283, b: 1, a: 1}
-  - {r: 1, g: 0.66583204, b: 0.6084906, a: 1}
+  - {r: 1, g: 0.33490568, b: 0.3415533, a: 1}
   - {r: 0.72473305, g: 1, b: 0.5707547, a: 1}
   CurrentPlayerMaterial: {fileID: 0}
 --- !u!114 &114532030782225478
@@ -6142,8 +6079,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hSliderValue: 0.01
   kp: {fileID: 0}
-  prefabLight: {fileID: 1237948039889980, guid: 5f2d66ebc2ca7b44098e85e86a24a693,
-    type: 2}
+  cs: {fileID: 0}
+  prefabLight:
+  - {fileID: 1237948039889980, guid: 73421a96b390b1748b0b30ffbc408f11, type: 2}
+  - {fileID: 1058180639025638, guid: 1b6fff6fc908d4f17a01fb56eaffff64, type: 2}
+  - {fileID: 1984103561232568, guid: dd5805db258ef4c36a933603c94deb3c, type: 2}
+  - {fileID: 1712978897268334, guid: f5602a8057d59410089ac7b541f9c9a1, type: 2}
   ps: []
   ad: {fileID: 82343499896048070}
 --- !u!114 &114642983415842072
@@ -6162,39 +6103,54 @@ MonoBehaviour:
     CooldownTime: 0.4
     IsCoolingDown: 0
     FlashingMaterial: {fileID: 2100000, guid: 04d126ba1f0d0478f801292308bbc946, type: 2}
+    TimeLeft: 0
   - Type: 1
     CooldownTime: 0.3
     IsCoolingDown: 0
     FlashingMaterial: {fileID: 2100000, guid: c15c4b8059261441fa6ac72c71454e30, type: 2}
+    TimeLeft: 0
   - Type: 7
     CooldownTime: 0.1
     IsCoolingDown: 0
     FlashingMaterial: {fileID: 2100000, guid: c15c4b8059261441fa6ac72c71454e30, type: 2}
+    TimeLeft: 0
   - Type: 2
     CooldownTime: 0.25
     IsCoolingDown: 0
     FlashingMaterial: {fileID: 2100000, guid: b2a8a02c59a65284d9aae1c3dd996a45, type: 2}
+    TimeLeft: 0
   - Type: 3
     CooldownTime: 1.25
     IsCoolingDown: 0
     FlashingMaterial: {fileID: 2100000, guid: b2a8a02c59a65284d9aae1c3dd996a45, type: 2}
+    TimeLeft: 0
   - Type: 4
-    CooldownTime: 0.2
+    CooldownTime: 0.35
     IsCoolingDown: 0
     FlashingMaterial: {fileID: 2100000, guid: f1a6e1fc3730df442be9feffac8c07c2, type: 2}
+    TimeLeft: 0
   - Type: 5
     CooldownTime: 0.01
     IsCoolingDown: 0
     FlashingMaterial: {fileID: 2100000, guid: d1a34e5e47473784cbc28a97a06f2299, type: 2}
+    TimeLeft: 0
   - Type: 6
     CooldownTime: 2
     IsCoolingDown: 0
     FlashingMaterial: {fileID: 2100000, guid: 6b27233b30329469ea2c8f7bafe5d057, type: 2}
+    TimeLeft: 0
   - Type: 8
-    CooldownTime: 0.5
+    CooldownTime: 0.15
     IsCoolingDown: 0
     FlashingMaterial: {fileID: 2100000, guid: 6b27233b30329469ea2c8f7bafe5d057, type: 2}
+    TimeLeft: 0
   cooldownFlashInterval: 0
+  _currentlyFlashingCooldown:
+    Type: 0
+    CooldownTime: 0
+    IsCoolingDown: 0
+    FlashingMaterial: {fileID: 0}
+    TimeLeft: 0
   FlashingMaterial: {fileID: 2100000, guid: d0a9ab11bedb25641819c6781f18fcaa, type: 2}
 --- !u!114 &114730022364382558
 MonoBehaviour:
@@ -6273,7 +6229,7 @@ MonoBehaviour:
   isDead: 0
   pulse: {fileID: 0}
   kp: {fileID: 0}
-  DeathPrefab: {fileID: 1708945919846298, guid: 36e60765b9effe148a5d92beaf68a220,
+  DeathPrefab: {fileID: 1569039143225024, guid: 9bb0544f083da314c8c638d590d08ab8,
     type: 2}
   bc: {fileID: 0}
 --- !u!114 &114883221867361214
@@ -6289,23 +6245,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dashOn: 0
   pulse: {fileID: 0}
---- !u!114 &114901505588449616
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1055340758523344}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 15876318c6924724da525b049260d40d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  PlayerIdentifierMaterials:
-  - {fileID: 2100000, guid: f90c0b31947fdcb4289c0969e54c37c5, type: 2}
-  - {fileID: 2100000, guid: fee112da274ff914e96e89f8b0fb1c9b, type: 2}
-  - {fileID: 2100000, guid: e58892e4a94abf248b1ba43b83fb58f1, type: 2}
-  - {fileID: 2100000, guid: c738e7b389eaae9409ab7058be4dfecb, type: 2}
-  MaterialIndex: 2
 --- !u!114 &114949913573940146
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -39179,7 +39118,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 80
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

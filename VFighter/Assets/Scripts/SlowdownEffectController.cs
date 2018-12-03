@@ -8,7 +8,7 @@ public class SlowdownEffectController : MonoBehaviour {
 
     public GravityObjectRigidBody AttachedGORB;
 
-    static bool IsSlowDownCurrentlyRunning = false;
+    public static bool IsSlowDownCurrentlyRunning = false;
 
     [SerializeField]
     private float _slowdownDuration = .5f;
@@ -32,6 +32,7 @@ public class SlowdownEffectController : MonoBehaviour {
         IsSlowDownCurrentlyRunning = true;
         var prevTimeScale = GameManager.Instance.TimeScale;
         GameManager.Instance.TimeScale = _slowdownTimeScale;
+
         PostProcessVolume vol = FindObjectOfType<PostProcessVolume>();
         Bloom bloom = null;
         ChromaticAberration CA = null;
@@ -39,9 +40,12 @@ public class SlowdownEffectController : MonoBehaviour {
         vol.profile.TryGetSettings(out CA);
         bloom.intensity.value = 15;
         CA.intensity.value = 0.4f;
+
         yield return new WaitForSeconds(_slowdownDuration);
+
         bloom.intensity.value = 7.5f;
         CA.intensity.value = 0.1f;
+
         GameManager.Instance.TimeScale = prevTimeScale;
         yield return new WaitForSeconds(_slowdownCooldownDuration);
         IsSlowDownCurrentlyRunning = false;

@@ -21,9 +21,11 @@ public class LevelSelectManager : MonoBehaviour
     public GameObject levelZone;
     public float areaWidth;
     public TextMeshProUGUI timer;
+    public Image timerClockFace;
+
     public int selectTime;
     public bool IsTimerStarted { get { return _timerCoroutine != null; } }
-    public int numLivesPerPlayer;
+    
     public AudioClip countdown;
     public AudioClip countdownFinal;
 
@@ -36,11 +38,10 @@ public class LevelSelectManager : MonoBehaviour
     [SerializeField]
     private bool _isWaitingForReady = true;
     [SerializeField]
-    private int timeRemaining;
-    [SerializeField]
-    private int _minPlayers = 2;
-    [SerializeField]
-    private int _numRounds = 1;
+    private float timeRemaining;
+    private int _minPlayers { get { return GameRoundSettingsController.Instance.MinPlayers; } }
+    private int _numRounds { get { return GameRoundSettingsController.Instance.NumRounds; } }
+    private int _numLivesPerRound { get { return GameRoundSettingsController.Instance.NumLivesPerRound; } }
 
     private void Awake()
     {
@@ -50,10 +51,27 @@ public class LevelSelectManager : MonoBehaviour
         }
 
         Instance = this;
+        SceneManager.activeSceneChanged += OnLevelFinishedLoading;
     }
 
-    void Start()
+    void OnDestroy()
     {
+        SceneManager.activeSceneChanged -= OnLevelFinishedLoading;
+    }
+
+    void OnLevelFinishedLoading(Scene previousScene, Scene newScene)
+    {
+        if (LevelManager.Instance.ShowTutorialPrompt == true)
+        {
+            SpawnLevelPlatforms();
+            timeRemaining = selectTime;
+        }
+
+        if(newScene.name != "ControllerSelect")
+        {
+            return;
+        }
+
         SpawnLevelPlatforms();
         timeRemaining = selectTime;
 
@@ -64,17 +82,20 @@ public class LevelSelectManager : MonoBehaviour
             indicator.GetComponent<PlayerReadyIndicatorController>().AttachedPlayer = x;
 
             x.IsReady = false;
+            x.GetComponent<GravityObjectRigidBody>().CanMove = true;
         });
 
-        _numRounds = GameRoundSettingsController.Instance.NumRounds;
-        numLivesPerPlayer = GameRoundSettingsController.Instance.NumLivesPerRound;
+        RefreshRoundSettings();
+    }
+
+    public void RefreshRoundSettings()
+    {
+        var players = FindObjectsOfType<PlayerController>().ToList();
+        players.ForEach(x => x.ControlledPlayer.NumLives = _numLivesPerRound);
     }
 
     private void Update()
     {
-        if(timer != null)
-            timer.text = timeRemaining.ToString();
-
         //if all players are ready start the timer
         if (CheckForAllPlayersReady() && !Instance.IsTimerStarted)
         {
@@ -95,8 +116,23 @@ public class LevelSelectManager : MonoBehaviour
         {
             return copy.Select(x => x.levelName).Take(_numRounds).ToList();
         }
-        var sorted = copy.Select(x => x.levelName).Reverse();
-        return sorted.Take(_numRounds).ToList();
+
+        copy.Reverse();
+
+        var LevelsThatGotVotes = copy.Where(x => x.playersInside > 0);
+        var LevelsThatGotNoVotes = copy.Where(x => x.playersInside == 0).ToList();
+
+        var finalLevelSelection = new List<string>();
+        finalLevelSelection.AddRange(LevelsThatGotVotes.Select(x => x.levelName).Take(_numRounds));
+        
+        while(finalLevelSelection.Count() < _numRounds)
+        {
+            int randIndex = Mathf.RoundToInt(Random.Range(0,LevelsThatGotNoVotes.Count()));
+            var randLevel = LevelsThatGotNoVotes[randIndex];
+            finalLevelSelection.Add(randLevel.levelName);
+        }
+
+        return finalLevelSelection;
     }
 
     public void StartTimer()
@@ -124,19 +160,40 @@ public class LevelSelectManager : MonoBehaviour
 
     private IEnumerator CountDown()
     {
-        if (timer)
-            timer.text = timeRemaining.ToString();
-        while (timeRemaining > 0){
-            yield return new WaitForSeconds(1);
-            if (timeRemaining > 1)
-                AudioManager.instance.PlaySingle(countdown);
-            else
-                AudioManager.instance.PlaySingle(countdownFinal);
-            --timeRemaining;
-        }
+        float startingTime = timeRemaining;
 
-        yield return new WaitForSeconds(1);
-        GameManager.Instance.StartGame(LeadingLevels());
+        if (timer)
+            timer.text = "" + timeRemaining;
+
+        int valToPass = (int) timeRemaining;
+
+        while (true)
+        {
+            yield return new WaitForEndOfFrame();
+            if (timeRemaining < valToPass)
+            {
+                if(valToPass == 1)
+                {
+                    AudioManager.Instance.PlaySingle(countdownFinal);
+                }
+                if(valToPass < 0)
+                {
+                    timer.text = "0";
+                    timeRemaining = 0;
+                    GameManager.Instance.StartGame(LeadingLevels());
+                }
+                else
+                {
+                    AudioManager.Instance.PlaySingle(countdown);
+                }
+                
+                valToPass--;
+                timer.text = "" + Mathf.RoundToInt(timeRemaining);
+            }
+            
+            timeRemaining -= Time.deltaTime * GameManager.Instance.TimeScale;
+            timerClockFace.rectTransform.Rotate(new Vector3(0, 0, startingTime / Mathf.Clamp( timeRemaining, .01f, startingTime)), Space.World);
+        }
     }
 
     private void SpawnLevelPlatforms()

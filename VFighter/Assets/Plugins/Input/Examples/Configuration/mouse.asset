@@ -16,6 +16,8 @@ MonoBehaviour:
     mouseButtonId: 0
   - target: 5
     mouseButtonId: 1
+  - target: 8
+    mouseButtonId: 1
   mouseAxisMappings:
   - target: 2
     mouseAxisId: 0

@@ -40,12 +40,16 @@ public class CharacterSelectController : MonoBehaviour
 
     [SerializeField]
     private List<CharacterData> characterDataList = new List<CharacterData>();
+    [SerializeField]
+    private List<Material> _gunMaterials= new List<Material>();
+
+
 
     public Dictionary<PlayerCharacterType, List<Material>> CharacterTypeMaterialMappings = new Dictionary<PlayerCharacterType, List<Material>>();
     public Dictionary<PlayerCharacterType, Material> CharacterTypeIconMappings = new Dictionary<PlayerCharacterType, Material>();
     public Dictionary<PlayerCharacterType, string> CharacterTypeDescriptionMappings = new Dictionary<PlayerCharacterType, string>();
     public Dictionary<PlayerCharacterType, GameObject> characterTypeAnimatorGOMappings = new Dictionary<PlayerCharacterType, GameObject>();
-    int currentMaterialIndex = 0;
+    public int currentMaterialIndex = 0;
 
     public List<Color> PlayerColors;
     public Color CurrentPlayerColor {
@@ -86,11 +90,12 @@ public class CharacterSelectController : MonoBehaviour
         characterDataList.ForEach(x => characterTypeAnimatorGOMappings.Add(x.CharacterType, x.AnimatorGameObject));
         //characterDataList.ForEach(x => characterTypeCurrentMaterialIndexMappings.Add(x.CharacterType, x.currentMaterialIndex));
 
-        descriptionCanvas = Instantiate(descriptionPrefab);
-        descriptionCanvas.transform.SetParent(transform);
-        descriptionCanvas.transform.position = Vector3.down * 2 + new Vector3(0, 0, -3);
-
-        //ChangeToNextCharacterType(0);
+        if (LevelManager.Instance.ShowTutorialPrompt == true)
+        {
+            descriptionCanvas = Instantiate(descriptionPrefab);
+            descriptionCanvas.transform.SetParent(transform);
+            descriptionCanvas.transform.position = Vector3.down * 2 + new Vector3(0, 0, -3);
+        }
 
         //initialize materials
         foreach(CharacterData cd in characterDataList){
@@ -99,11 +104,19 @@ public class CharacterSelectController : MonoBehaviour
 
         timeOnSelection = 0;
         CurrentPlayerMaterial = characterTypeAnimatorGOMappings[currentCharacterType].GetComponentInChildren<SkinnedMeshRenderer>().material;
+        GameManager.Instance.OnLevelChanged += RefreshCurrentMaterial;
+        OnCharacterChanged += (x) => { };
+        OnPlayerColorChanged += (x) => { };
+    }
+
+    private void OnDestroy()
+    {
+        GameManager.Instance.OnLevelChanged -= RefreshCurrentMaterial;
     }
 
     void Update()
     {    
-        if (!GameManager.Instance.CanChangeCharacters)
+        if (!GameManager.Instance.IsInCharacterSelect)
         {
             return;
         }
@@ -117,14 +130,12 @@ public class CharacterSelectController : MonoBehaviour
         characterTypeAnimatorGOMappings[previousCharacterType].SetActive(!ready);
         characterTypeAnimatorGOMappings[currentCharacterType].SetActive(true);
 
-        descriptionCanvas.SetActive(!ready && timeOnSelection > secondForCharacterTip); 
+        if (LevelManager.Instance.ShowTutorialPrompt == true)
+        {
+            descriptionCanvas.SetActive(!ready && timeOnSelection > secondForCharacterTip);
+        }
 
         GravityObjectRigidBody rb = GetComponent<GravityObjectRigidBody>();
-
-        if(!ready){
-            rb.ClearAllVelocities();
-            GetComponent<Rigidbody2D>().velocity = Vector3.zero;
-        }
 
         if (GetComponent<PlayerController>().InputDevice == null)
         {
@@ -136,11 +147,6 @@ public class CharacterSelectController : MonoBehaviour
             _hasFoundReticle = true;
             ChangeToNextCharacterType(1);
             ChangeMaterialType(1);
-        }
-
-        if(GetComponent<PlayerController>().InputDevice.GetButtonDown(MappedButton.SubmitCharacterChoice))
-        {
-            GetComponent<GravityObjectRigidBody>().CanMove = true;
         }
 
         if(GetComponent<PlayerController>().InputDevice.GetIsAxisTapped(MappedAxis.ChangeCharacter))
@@ -155,13 +161,16 @@ public class CharacterSelectController : MonoBehaviour
             ChangeMaterialType(ChangeMaterialDir > 0 ? 1 : -1);
         }
 
-        if (GetComponent<GravityObjectRigidBody>().GravityDirection.y < 0)
+        if (LevelManager.Instance.ShowTutorialPrompt == true)
         {
-            descriptionCanvas.transform.localPosition = Vector3.up * 4 + new Vector3(0, 0, -3);
-        }
-        else
-        {
-            descriptionCanvas.transform.localPosition = Vector3.down * 5 + new Vector3(0, 0, -3);
+            if (GetComponent<GravityObjectRigidBody>().GravityDirection.y < 0)
+            {
+                descriptionCanvas.transform.localPosition = Vector3.up * 4 + new Vector3(0, 0, -3);
+            }
+            else
+            {
+                descriptionCanvas.transform.localPosition = Vector3.down * 5 + new Vector3(0, 0, -3);
+            }
         }
 
     }
@@ -203,11 +212,14 @@ public class CharacterSelectController : MonoBehaviour
         previousGO.transform.localPosition = new Vector3(-1.5f, -1.33f, 0);
         previousGO.transform.localScale = new Vector3(5f, 5f, 5f);
 
-        //reset selection time and update description
-        descriptionCanvas.transform.GetChild(0).transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = GetComponent<PlayerController>().CharacterType.ToString();
-        descriptionCanvas.transform.GetChild(0).transform.GetChild(1).GetComponent<UnityEngine.UI.Text>().text = CharacterTypeDescriptionMappings[GetComponent<PlayerController>().CharacterType];
-        timeOnSelection = 0;
-        descriptionCanvas.SetActive(false);
+        if (LevelManager.Instance.ShowTutorialPrompt == true)
+        {
+            //reset selection time and update description
+            descriptionCanvas.transform.GetChild(0).transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = GetComponent<PlayerController>().CharacterType.ToString();
+            descriptionCanvas.transform.GetChild(0).transform.GetChild(1).GetComponent<UnityEngine.UI.Text>().text = CharacterTypeDescriptionMappings[GetComponent<PlayerController>().CharacterType];
+            timeOnSelection = 0;
+            descriptionCanvas.SetActive(false);
+        }
     }
     
     private void ChangeMaterialType(int dir)
@@ -241,6 +253,8 @@ public class CharacterSelectController : MonoBehaviour
 
     public void RefreshCurrentMaterial()
     {
+        OnCharacterChanged(currentCharacterType);
+
         //get the indexing right
         int index = CharacterTypes.IndexOf(GetComponent<PlayerController>().CharacterType);
         int indexRight, indexLeft;
@@ -252,13 +266,16 @@ public class CharacterSelectController : MonoBehaviour
         GameObject nextGO = characterTypeAnimatorGOMappings[nextCharacterType];
         List<Material> nextMaterialOptions = CharacterTypeMaterialMappings[nextCharacterType];
         characterTypeAnimatorGOMappings[nextCharacterType].GetComponentInChildren<SkinnedMeshRenderer>().material = nextMaterialOptions[currentMaterialIndex];
+        characterTypeAnimatorGOMappings[nextCharacterType].GetComponentInChildren<MeshRenderer>().material = _gunMaterials[currentMaterialIndex];
 
         previousCharacterType = CharacterTypes[indexLeft];
         GameObject previousGO = characterTypeAnimatorGOMappings[previousCharacterType];
         List<Material> prevMaterialOptions = CharacterTypeMaterialMappings[previousCharacterType];
         characterTypeAnimatorGOMappings[previousCharacterType].GetComponentInChildren<SkinnedMeshRenderer>().material = prevMaterialOptions[currentMaterialIndex];
+        characterTypeAnimatorGOMappings[previousCharacterType].GetComponentInChildren<MeshRenderer>().material = _gunMaterials[currentMaterialIndex];
 
         List<Material> currentMaterialOptions = CharacterTypeMaterialMappings[currentCharacterType];
+        characterTypeAnimatorGOMappings[currentCharacterType].GetComponentInChildren<MeshRenderer>().material = _gunMaterials[currentMaterialIndex];
         SetCurrentMaterial(currentMaterialOptions[currentMaterialIndex]);
         OnPlayerColorChanged(CurrentPlayerColor);
     }

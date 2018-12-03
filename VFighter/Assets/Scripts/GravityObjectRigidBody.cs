@@ -42,7 +42,7 @@ public class GravityObjectRigidBody : MonoBehaviour
     [SerializeField]
     private float _drag = 1f;
 
-    private Rigidbody2D _rB;
+    protected Rigidbody2D _rB;
 
     public float Bounciness = 0f;
     public bool CanBeSelected = true;
@@ -75,6 +75,10 @@ public class GravityObjectRigidBody : MonoBehaviour
     }
 
     public AudioSource collAudio;
+    [SerializeField]
+    private bool _inPausedState = false;
+    [SerializeField]
+    private Vector2 _savedVelocity;
     #endregion
 
     private void Awake()
@@ -97,6 +101,23 @@ public class GravityObjectRigidBody : MonoBehaviour
     {
         if (CanMove)
         {
+            if(GameManager.Instance.IsPaused)
+            {
+                if(!_inPausedState)
+                {
+                    _inPausedState = true;
+                    _savedVelocity = _rB.velocity;
+                }
+                _rB.velocity = Vector2.zero;
+                return;
+            }
+
+            if (_inPausedState && !GameManager.Instance.IsPaused)
+            {
+                _inPausedState = false;
+                _rB.velocity = _savedVelocity;
+            }
+
             DoGravity();
             DoDrag();
             _rB.velocity = Vector2.zero;
@@ -111,9 +132,6 @@ public class GravityObjectRigidBody : MonoBehaviour
 
                 _rB.velocity += velocity.Value * GameManager.Instance.TimeScale;
             }
-
-            
-
         }
 
         if(!CanMove && _rB)
@@ -231,7 +249,7 @@ public class GravityObjectRigidBody : MonoBehaviour
         {
             collAudio.loop = false;
             collAudio.volume = AudioManager.SFXVol * AudioManager.MusicVol;
-            AudioManager.instance.RandomizeSfx(AudioManager.instance.Coll, AudioManager.instance.CollCave, collAudio);
+            AudioManager.Instance.RandomizeSfx(AudioManager.Instance.Coll, AudioManager.Instance.CollCave, collAudio);
         }
     }
 }

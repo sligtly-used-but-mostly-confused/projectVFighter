@@ -19,5 +19,6 @@ public enum MappedButton
     Ready,
     Special,
     OpenMenu,
-    SubmitCharacterChoice
+    SubmitCharacterChoice,
+    FlipToStatsCard
 }
