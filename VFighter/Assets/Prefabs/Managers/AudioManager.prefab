@@ -366,3 +366,4 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 202505e91a0e71c4ab72c980095d31a3, type: 3}
   - {fileID: 8300000, guid: 48e944e867c981a4ebe38b0328de0ea1, type: 3}
   - {fileID: 8300000, guid: 2d16ac73d901dd64fa5b7b73f2febbb1, type: 3}
+  transition: {fileID: 8300000, guid: d7bae409686a28c448a7cee188987d61, type: 3}
