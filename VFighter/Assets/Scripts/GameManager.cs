@@ -21,15 +21,31 @@ public class GameManager : MonoBehaviour
     public bool CurrentlyChangingScenes = false;
     public float ProgressionThroughGame = 1;
     public bool IsInCharacterSelect = true;
-    public float TimeScale = 1;
+
+    [SerializeField]
+    private float _timeScale = 1;
+    private float _prevTimeScale = 1;
+
     public int RoundNumber = 0;
     public int NumRounds = 0;
-    public bool IsPaused { get { return TimeScale < .01f; } }
+    public bool IsPaused { get; private set; }
     public delegate void PlayerJoinCallback(PlayerController player);
     public PlayerJoinCallback OnPlayerJoin;
 
     public delegate void LevelChangedDelegate();
     public LevelChangedDelegate OnLevelChanged;
+
+    public float TimeScale
+    {
+        get { return _timeScale; }
+        set
+        {
+            if(!IsPaused)
+            {
+                _timeScale = value;
+            }
+        }
+    }
 
     void Awake () {
         if(_instance)
@@ -55,8 +71,30 @@ public class GameManager : MonoBehaviour
         GameObject.FindObjectsOfType<TutorialPromptController>().ToList().ForEach(x => x.gameObject.SetActive(false));
     }
 
+    public void TogglePause()
+    {
+        if(!IsPaused)
+        {
+            _prevTimeScale = _timeScale;
+            _timeScale = 0;
+            IsPaused = true;
+        }
+        else
+        {
+            _timeScale = _prevTimeScale;
+            IsPaused = false;
+        }
+    }
+
+    private void ReturnAllPlayerReticles()
+    {
+        var players = FindObjectsOfType<PlayerController>().ToList();
+        players.ForEach(x => x.DetachReticle());
+    }
+
     public void LoadEndScoreScreen()
     {
+        ReturnAllPlayerReticles();
         CurrentlyChangingScenes = true;
         SceneManagementController.Instance.ChangeScenesAsycBehindTransition(EndScoreScreen, () =>
         {
@@ -67,6 +105,7 @@ public class GameManager : MonoBehaviour
 
     public void EndGame()
     {
+        ReturnAllPlayerReticles();
         var players = FindObjectsOfType<PlayerController>().ToList();
         players.ForEach(x => x.ControlledPlayer.ResetForNewGame());
         CurrentlyChangingScenes = true;
@@ -110,6 +149,7 @@ public class GameManager : MonoBehaviour
 
     private void StartNewLevel()
     {
+        ReturnAllPlayerReticles();
         var players = FindObjectsOfType<PlayerController>().ToList();
         ProgressionThroughGame = players.Max(x => x.ControlledPlayer.NumDeaths) / (float)players[0].ControlledPlayer.NumLives;
         players.ForEach(x => x.IsDead = false);
