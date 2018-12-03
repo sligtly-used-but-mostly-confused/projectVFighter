@@ -822,6 +822,7 @@ MonoBehaviour:
   GameSpeedRate: 0.01
   MinPlayers: 2
   UseTransitions: 0
+  LoadBackgounds: 1
 --- !u!4 &352749857
 Transform:
   m_ObjectHideFlags: 0
@@ -1554,6 +1555,8 @@ MonoBehaviour:
   Owner: {fileID: 0}
   DebugVelocities: []
   collAudio: {fileID: 0}
+  _inPausedState: 0
+  _savedVelocity: {x: 0, y: 0}
 --- !u!1001 &598521467
 Prefab:
   m_ObjectHideFlags: 0

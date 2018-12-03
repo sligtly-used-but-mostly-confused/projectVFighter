@@ -63,6 +63,7 @@ public class InGameMenuUIManager : MonoBehaviour {
     {
         _menuObject.SetActive(false);
 
+        
         foreach(var player in FindObjectsOfType<PlayerController>())
         {
             player.DropPlayerInternal();
