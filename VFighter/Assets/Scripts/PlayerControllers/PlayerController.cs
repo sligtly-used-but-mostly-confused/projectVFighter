@@ -382,7 +382,7 @@ public abstract class PlayerController : MonoBehaviour
         SpawnProjectile(Quaternion.Euler(0, 0, 15) * new Vector3(dir.x, dir.y, 0), DurationOfShotgunGravityProjectile, ProjectileControllerType.Shotgun);
         SpawnProjectile(Quaternion.Euler(0, 0, -15) * new Vector3(dir.x, dir.y, 0), DurationOfShotgunGravityProjectile, ProjectileControllerType.Shotgun);
 
-        RandomizeSfx(shotGunFire, shotGunFireCave, 1);
+        RandomizeSfx(shotGunFire, shotGunFire, 1);
 
         var GORB = GetComponent<GravityObjectRigidBody>();
         GORB.ClearAllVelocities();

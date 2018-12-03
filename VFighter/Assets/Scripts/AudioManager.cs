@@ -13,6 +13,7 @@ public class AudioManager : MonoBehaviour
     private bool _defaultToThisAudioManager = true;
 
     public AudioSource mainAudio;                   //Used for music
+    public AudioSource mainAudio2;
     public AudioSource sfxAudio;                    //Used for sound FX
     public static AudioManager Instance = null;
     bool isPlaying = false;
@@ -27,6 +28,7 @@ public class AudioManager : MonoBehaviour
     public AudioClip finalRoundLoop;
     public bool hasInit;
     public bool hasFinRndVer;
+    private double nextEventTime;
 
     //Global Collision Clips
     public AudioClip[] Coll;
@@ -85,24 +87,22 @@ public class AudioManager : MonoBehaviour
             else
                 mainAudio.clip = defaultRoundLoop;
         }
-        mainAudio.Play();
-       
+        playSong();
+        
     }
 
     void Update()
     {
-        if (!mainAudio.isPlaying)
-        {
-            if (hasFinRndVer && (GameManager.Instance.NumRounds == GameManager.Instance.RoundNumber))
-                mainAudio.clip = finalRoundLoop;
-            else
-                mainAudio.clip = defaultRoundLoop;
-            mainAudio.loop = true;
-            mainAudio.Play();
-        }
         mainAudio.volume = 0.4f * MusicVol * MasterVol;
+        mainAudio2.volume = mainAudio.volume;
         sfxAudio.volume = 1.0f * SFXVol * MasterVol;
-    }
+
+        double time = AudioSettings.dspTime;
+        if (!mainAudio2.isPlaying && hasInit && time + 1.0f > nextEventTime)
+        {
+            mainAudio2.PlayScheduled(nextEventTime);
+        }
+        }
 
     // Sound FX functions
     //Used to play single sound clips.
@@ -182,4 +182,25 @@ public class AudioManager : MonoBehaviour
         //Play the clip.
         src.Play();
     }
+
+    public void playSong()
+    {
+        if (hasInit)
+        {
+            if (hasFinRndVer && (GameManager.Instance.NumRounds == GameManager.Instance.RoundNumber))
+                mainAudio2.clip = finalRoundLoop;
+            else
+                mainAudio2.clip = defaultRoundLoop;
+            mainAudio2.pitch = mainAudio.pitch;
+            mainAudio2.loop = true;
+        }
+        mainAudio.Play();
+        double len;
+        if (mainAudio.pitch != 1.0f)
+            len = mainAudio.clip.length / mainAudio.pitch + 0.25;
+        else
+            len = mainAudio.clip.length;
+        nextEventTime = AudioSettings.dspTime + len;
+    }
 }
+
