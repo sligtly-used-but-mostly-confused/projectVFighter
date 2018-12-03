@@ -12,9 +12,7 @@ public class InGameMenuUIManager : MonoBehaviour {
     public SceneField MainMenu;
     public RoundSettingsUIController SettingsUIController;
     private PlayerController _playerWhoCalledMenu;
-
-    //private float _prevTimeScale;
-
+    
     private void Awake()
     {
         if(Instance != null)
@@ -31,7 +29,6 @@ public class InGameMenuUIManager : MonoBehaviour {
     {
         _playerWhoCalledMenu = player;
         ToggleMenu();
-        
     }
 
     public void ToggleMenu()
