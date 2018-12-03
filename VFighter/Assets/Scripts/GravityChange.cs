@@ -4,16 +4,21 @@ using UnityEngine;
 
 public class GravityChange : MonoBehaviour
 {
-   [SerializeField]
+    [SerializeField]
     public ParticleSystem gP;
     [SerializeField]
+    public GameObject gravChange;
+    [SerializeField]
+    public KeyboardPlayerController kp;
+    [SerializeField]
     public GravityObjectRigidBody rd;
+    GameObject objectTemp;
     float pos = -1.5f;
     private Coroutine _playEffectCoroutine;
     void Start()
     {
-        gP = GetComponent<ParticleSystem>();
         rd = GetComponentInParent<GravityObjectRigidBody>();
+        kp = GetComponentInParent<KeyboardPlayerController>();
     }
 
     //1 for up, -1 for down
@@ -21,13 +26,11 @@ public class GravityChange : MonoBehaviour
     {
         int dir = GORB.GravityDirection.y > 0 ? 1 : -1;
 
-        if(_playEffectCoroutine != null)
+        if (_playEffectCoroutine != null)
         {
             StopCoroutine(_playEffectCoroutine);
-            if (!gP.isPlaying)
-            {
-                gP.Stop();
-            }
+
+
         }
 
         _playEffectCoroutine = StartCoroutine(PlayEffectOvertime(dir));
@@ -35,27 +38,31 @@ public class GravityChange : MonoBehaviour
 
     private IEnumerator PlayEffectOvertime(int dir)
     {
+        objectTemp = Instantiate(gravChange);
+        objectTemp.transform.position = kp.transform.position;
+
+        gP = objectTemp.GetComponent<ParticleSystem>();
         var angle = 0f;
         if (dir == -1)
         {
-            angle = 180;
+            angle = 180f;
         }
 
         float gDir = rd.GravityDirection.x;
         var main = gP.main;
 
-        gP.Play();
+        //gP.Play();
         //this.transform.localPosition = new Vector3(0.0f, 0.0f, 0.0f);
-        this.transform.rotation = Quaternion.Euler(angle, 0, 0);
+        objectTemp.transform.rotation = Quaternion.Euler(angle, 0, 0);
 
         yield return new WaitForSeconds(.5f);
 
-        gP.Stop();
+        //gP.Stop();
 
         if (!gP.isPlaying)
         {
             Debug.Log("stop");
-            
+
         }
     }
 }
