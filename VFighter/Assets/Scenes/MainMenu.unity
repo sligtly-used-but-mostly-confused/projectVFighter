@@ -5119,7 +5119,8 @@ MonoBehaviour:
   GameSpeedMax: 1
   GameSpeedRate: 0.05
   MinPlayers: 2
-  UseTransitions: 0
+  UseTransitions: 1
+  LoadBackgounds: 1
 --- !u!4 &1428891037
 Transform:
   m_ObjectHideFlags: 0

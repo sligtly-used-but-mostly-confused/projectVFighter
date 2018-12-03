@@ -816,13 +816,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   NumRounds: 1
-  NumLivesPerRound: 1
+  NumLivesPerRound: 5
   GameSpeedMin: 0.5
   GameSpeedMax: 0.75
   GameSpeedRate: 0.01
   MinPlayers: 2
   UseTransitions: 0
-  LoadBackgounds: 1
+  LoadBackgounds: 0
 --- !u!4 &352749857
 Transform:
   m_ObjectHideFlags: 0
@@ -1838,6 +1838,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MagnetCollider: {fileID: 726857266}
   MagnetStrengthControllableTarget: 10
+  PusherEffectsPlayer: 0
 --- !u!61 &726857266
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3305,6 +3306,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MagnetCollider: {fileID: 1700720311}
   MagnetStrengthControllableTarget: 10
+  PusherEffectsPlayer: 0
 --- !u!61 &1700720311
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4948,6 +4950,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MagnetCollider: {fileID: 2080346100}
   MagnetStrengthControllableTarget: 10
+  PusherEffectsPlayer: 0
 --- !u!61 &2080346100
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5016,6 +5019,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MagnetCollider: {fileID: 2103031841}
   MagnetStrengthControllableTarget: 10
+  PusherEffectsPlayer: 0
 --- !u!61 &2103031841
 BoxCollider2D:
   m_ObjectHideFlags: 0
