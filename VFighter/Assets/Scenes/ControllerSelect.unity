@@ -885,7 +885,7 @@ MonoBehaviour:
   GameSpeedMax: 0.75
   GameSpeedRate: 0.01
   MinPlayers: 2
-  UseTransitions: 0
+  UseTransitions: 1
   LoadBackgounds: 1
 --- !u!4 &352749857
 Transform:
