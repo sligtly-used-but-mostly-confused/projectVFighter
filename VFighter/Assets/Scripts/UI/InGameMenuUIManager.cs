@@ -10,8 +10,10 @@ public class InGameMenuUIManager : MonoBehaviour {
     [SerializeField]
     private GameObject _menuObject;
     public SceneField MainMenu;
-
+    public RoundSettingsUIController SettingsUIController;
     private PlayerController _playerWhoCalledMenu;
+
+    private float _prevTimeScale;
 
     private void Awake()
     {
@@ -25,29 +27,51 @@ public class InGameMenuUIManager : MonoBehaviour {
         DontDestroyOnLoad(gameObject);
     }
 
+    private void Update()
+    {
+        GameManager.Instance.TimeScale = _menuObject.activeInHierarchy ? 0 : GameManager.Instance.TimeScale;
+    }
+
     public void ToggleMenu(PlayerController player)
     {
+        GameManager.Instance.TimeScale = (int)GameManager.Instance.TimeScale == 0 ? 1 : 0;
         _playerWhoCalledMenu = player;
         ToggleMenu();
     }
 
     public void ToggleMenu()
     {
+        if(SettingsUIController.IsSettingMenuDisplayed)
+        {
+            SettingsUIController.ToggleSettingsMenu();
+            return;
+        }
+
         _menuObject.SetActive(!_menuObject.activeSelf);
-        GameManager.Instance.TimeScale = _menuObject.activeInHierarchy ? 0 : 1;
+
+        if(_menuObject.activeInHierarchy)
+        {
+            _prevTimeScale = GameManager.Instance.TimeScale;
+        }
+        else
+        {
+            GameManager.Instance.TimeScale = _prevTimeScale;
+        }
+
     }
 
     public void Disconnect()
     {
         _menuObject.SetActive(false);
 
+        
         foreach(var player in FindObjectsOfType<PlayerController>())
         {
             player.DropPlayerInternal();
         }
 
         GameManager.Instance.IsInCharacterSelect = true;
-
+        GameManager.Instance.TimeScale = 1;
         SceneManager.LoadScene(MainMenu.SceneName);
     }
 

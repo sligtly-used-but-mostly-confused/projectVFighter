@@ -24,7 +24,6 @@ public class GravityObjectPusher : MonoBehaviour
                 var newGravDirection = gravityObjectRB.GravityDirection + changeInGravDirection * MagnetStrengthControllableTarget * Time.deltaTime;
                 //Debug.Log(dir.normalized +" "+ gravityObjectRB.GravityDirection + " "+ changeInGravDirection * MagnetStrengthControllableTarget * Time.deltaTime + " "+changeInGravDirection + " "+newGravDirection);
                 gravityObjectRB.ChangeGravityDirectionInternal(newGravDirection);
-                
             }
         }
     }

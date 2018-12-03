@@ -66,17 +66,16 @@ public class LevelManager : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(_hasGameStarted)
+        if(_hasGameStarted && !SlowdownEffectController.IsSlowDownCurrentlyRunning && !GameManager.Instance.IsPaused)
         {
             GameManager.Instance.TimeScale += _gravityScaleGradientRate * Time.fixedDeltaTime;
-            GameManager.Instance.TimeScale = Mathf.Clamp(GameManager.Instance.TimeScale, 0, _gravityScaleGradientEnd);
+            GameManager.Instance.TimeScale = Mathf.Clamp(GameManager.Instance.TimeScale, _gravityScaleGradientStart, _gravityScaleGradientEnd);
         }
     }
 
     public void StartGame()
     {
         GameManager.Instance.TimeScale = _gravityScaleGradientStart;
-        Debug.Log(GameManager.Instance.TimeScale);
         _hasGameStarted = true;
     }
 

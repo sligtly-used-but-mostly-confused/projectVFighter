@@ -24,7 +24,7 @@ public class GameManager : MonoBehaviour
     public float TimeScale = 1;
     public int RoundNumber = 0;
     public int NumRounds = 0;
-
+    public bool IsPaused { get { return TimeScale < .01f; } }
     public delegate void PlayerJoinCallback(PlayerController player);
     public PlayerJoinCallback OnPlayerJoin;
 

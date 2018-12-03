@@ -191,7 +191,7 @@ public class LevelSelectManager : MonoBehaviour
                 timer.text = "" + Mathf.RoundToInt(timeRemaining);
             }
             
-            timeRemaining -= Time.deltaTime;
+            timeRemaining -= Time.deltaTime * GameManager.Instance.TimeScale;
             timerClockFace.rectTransform.Rotate(new Vector3(0, 0, startingTime / Mathf.Clamp( timeRemaining, .01f, startingTime)), Space.World);
         }
     }
