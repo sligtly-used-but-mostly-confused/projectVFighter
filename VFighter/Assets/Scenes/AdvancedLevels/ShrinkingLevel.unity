@@ -302,6 +302,8 @@ MonoBehaviour:
   Owner: {fileID: 0}
   DebugVelocities: []
   collAudio: {fileID: 0}
+  _inPausedState: 0
+  _savedVelocity: {x: 0, y: 0}
 --- !u!61 &182217109
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -526,6 +528,8 @@ MonoBehaviour:
   Owner: {fileID: 0}
   DebugVelocities: []
   collAudio: {fileID: 0}
+  _inPausedState: 0
+  _savedVelocity: {x: 0, y: 0}
 --- !u!224 &266488718 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 224641612547126226, guid: 1111fb481ba47cc4dbca84d5c38c2309,
@@ -802,6 +806,8 @@ MonoBehaviour:
   Owner: {fileID: 0}
   DebugVelocities: []
   collAudio: {fileID: 0}
+  _inPausedState: 0
+  _savedVelocity: {x: 0, y: 0}
 --- !u!43 &537022398
 Mesh:
   m_ObjectHideFlags: 0
@@ -1183,22 +1189,22 @@ Prefab:
         type: 2}
       propertyPath: defaultRoundInit
       value: 
-      objectReference: {fileID: 8300000, guid: 4aa2437e5c577b94db4e593a576c9325, type: 3}
+      objectReference: {fileID: 8300000, guid: 3b63e72710e011a4db3296dbe4f92150, type: 3}
     - target: {fileID: 114682017336131632, guid: 8feb7bff09b2062429be2363b9a14dbf,
         type: 2}
       propertyPath: defaultRoundLoop
       value: 
-      objectReference: {fileID: 8300000, guid: b82725aa4365436428a10589027c0dc4, type: 3}
+      objectReference: {fileID: 8300000, guid: 5fb920b8e9703124d8319c2d15231bce, type: 3}
     - target: {fileID: 114682017336131632, guid: 8feb7bff09b2062429be2363b9a14dbf,
         type: 2}
       propertyPath: finalRoundInit
       value: 
-      objectReference: {fileID: 8300000, guid: c641528442734d94083043e17a0e1fee, type: 3}
+      objectReference: {fileID: 8300000, guid: cf86c3f18bd76c4438df48b1812e948a, type: 3}
     - target: {fileID: 114682017336131632, guid: 8feb7bff09b2062429be2363b9a14dbf,
         type: 2}
       propertyPath: finalRoundLoop
       value: 
-      objectReference: {fileID: 8300000, guid: 79050923121273447a20baa6fe09ab4e, type: 3}
+      objectReference: {fileID: 8300000, guid: 6fd877898ee2115418aa97c5de4ccfab, type: 3}
     - target: {fileID: 114682017336131632, guid: 8feb7bff09b2062429be2363b9a14dbf,
         type: 2}
       propertyPath: hasInit
@@ -1380,6 +1386,8 @@ MonoBehaviour:
   Owner: {fileID: 0}
   DebugVelocities: []
   collAudio: {fileID: 0}
+  _inPausedState: 0
+  _savedVelocity: {x: 0, y: 0}
 --- !u!61 &699899708
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3099,6 +3107,8 @@ MonoBehaviour:
   Owner: {fileID: 0}
   DebugVelocities: []
   collAudio: {fileID: 0}
+  _inPausedState: 0
+  _savedVelocity: {x: 0, y: 0}
 --- !u!1001 &1682265528
 Prefab:
   m_ObjectHideFlags: 0
@@ -3386,6 +3396,8 @@ MonoBehaviour:
   Owner: {fileID: 0}
   DebugVelocities: []
   collAudio: {fileID: 0}
+  _inPausedState: 0
+  _savedVelocity: {x: 0, y: 0}
 --- !u!43 &1741496292
 Mesh:
   m_ObjectHideFlags: 0
