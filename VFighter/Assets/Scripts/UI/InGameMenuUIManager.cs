@@ -34,6 +34,7 @@ public class InGameMenuUIManager : MonoBehaviour {
 
     public void ToggleMenu(PlayerController player)
     {
+        GameManager.Instance.TimeScale = (int)GameManager.Instance.TimeScale == 0 ? 1 : 0;
         _playerWhoCalledMenu = player;
         ToggleMenu();
     }
@@ -63,6 +64,7 @@ public class InGameMenuUIManager : MonoBehaviour {
     {
         _menuObject.SetActive(false);
 
+        
         foreach(var player in FindObjectsOfType<PlayerController>())
         {
             player.DropPlayerInternal();

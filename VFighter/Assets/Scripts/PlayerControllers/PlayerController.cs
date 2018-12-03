@@ -109,26 +109,18 @@ public abstract class PlayerController : MonoBehaviour
     private void Start()
     {
         DontDestroyOnLoad(gameObject);
-        StartCoroutine(FindReticle());
+
         PlayerReadyIndicator = Instantiate(PlayerReadyIndicatorPrefab);
         PlayerReadyIndicator.GetComponent<PlayerReadyIndicatorController>().AttachedPlayer = this;
+        
         de = GetComponentInChildren<DashEffect>();
         gc = GetComponentInChildren<GravityChange>();
         dth = GetComponentInChildren<deatheffect>();
-
+        
         if (GameManager.Instance.OnPlayerJoin != null)
         {
             GameManager.Instance.OnPlayerJoin(this);
         }
-
-
-        GameObject aimingReticle = Instantiate(AimingReticlePrefab);
-        _aimingReticleIdCnt++;
-        aimingReticle.GetComponent<AimingReticle>().Id = _aimingReticleIdCnt;
-        aimingReticle.GetComponent<AimingReticle>().PlayerAttachedTo = this;
-        ReticleId = _aimingReticleIdCnt;
-        
-        ReticleParent = gameObject;
 
         ControlledPlayer.NumLives = GameRoundSettingsController.Instance.NumLivesPerRound;
 
@@ -277,26 +269,6 @@ public abstract class PlayerController : MonoBehaviour
             });
         }
 
-    }
-
-    private IEnumerator FindReticle()
-    {
-        if (ReticleId != -1 && !Reticle)
-        {
-            //look for matching reticle
-            var tempReticle = FindObjectsOfType<AimingReticle>().ToList().Find(x => x.Id == ReticleId);
-            if (tempReticle)
-            {
-                Reticle = tempReticle.gameObject;
-                if (!ReticleParent)
-                {
-                    ReticleParent = gameObject;
-                }
-            }
-        }
-
-        yield return new WaitForEndOfFrame();
-        yield return (FindReticle());
     }
 
     public void AimReticle(Vector2 dir)
