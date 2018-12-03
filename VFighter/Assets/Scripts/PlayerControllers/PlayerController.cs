@@ -69,7 +69,8 @@ public abstract class PlayerController : MonoBehaviour
     public InputDevice InputDevice;
 
     //sound effects
-    public AudioSource[] channels = new AudioSource[4]; //ch0 - ggfire, ch1 - dash/sgfire/rlaunch, ch2 - changeGrav, ch3 - death
+    public AudioSource[] channels = new AudioSource[4]; //ch0 - ggfire, ch1 - dash/sgfire/rlaunch, ch2 - changeGrav, ch3 - death, ch4 -death indicator
+    public AudioSource gg_grab;
     public AudioClip gravChange;
     public AudioClip death;
     public AudioClip dash;
@@ -335,6 +336,7 @@ public abstract class PlayerController : MonoBehaviour
                 ControlledPlayer.ShotsFired++;
                 if (!_cooldownController.IsCoolingDown(CooldownType.NormalShot))
                 {
+                    gg_grab.volume = AudioManager.MasterVol * AudioManager.SFXVol;
                     if (AttachedObject == null)
                     {
                         SpawnProjectile(dir, DurationOfNormalGravityProjectile, ProjectileControllerType.Normal);
@@ -549,7 +551,7 @@ public abstract class PlayerController : MonoBehaviour
         }
 
         PlaySingle(death, 3);
-        RandomizeSfx(deathIndicator, deathIndicator, 1);
+        RandomizeSfx(deathIndicator, deathIndicator, 4);
         IsInvincible = true;
         
         GetComponent<deatheffect>().PlayDeathEffect();
