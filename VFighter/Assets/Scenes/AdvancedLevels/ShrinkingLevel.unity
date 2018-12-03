@@ -1134,22 +1134,22 @@ Prefab:
         type: 2}
       propertyPath: defaultRoundInit
       value: 
-      objectReference: {fileID: 8300000, guid: 4aa2437e5c577b94db4e593a576c9325, type: 3}
+      objectReference: {fileID: 8300000, guid: 3b63e72710e011a4db3296dbe4f92150, type: 3}
     - target: {fileID: 114682017336131632, guid: 8feb7bff09b2062429be2363b9a14dbf,
         type: 2}
       propertyPath: defaultRoundLoop
       value: 
-      objectReference: {fileID: 8300000, guid: b82725aa4365436428a10589027c0dc4, type: 3}
+      objectReference: {fileID: 8300000, guid: 5fb920b8e9703124d8319c2d15231bce, type: 3}
     - target: {fileID: 114682017336131632, guid: 8feb7bff09b2062429be2363b9a14dbf,
         type: 2}
       propertyPath: finalRoundInit
       value: 
-      objectReference: {fileID: 8300000, guid: c641528442734d94083043e17a0e1fee, type: 3}
+      objectReference: {fileID: 8300000, guid: cf86c3f18bd76c4438df48b1812e948a, type: 3}
     - target: {fileID: 114682017336131632, guid: 8feb7bff09b2062429be2363b9a14dbf,
         type: 2}
       propertyPath: finalRoundLoop
       value: 
-      objectReference: {fileID: 8300000, guid: 79050923121273447a20baa6fe09ab4e, type: 3}
+      objectReference: {fileID: 8300000, guid: 6fd877898ee2115418aa97c5de4ccfab, type: 3}
     - target: {fileID: 114682017336131632, guid: 8feb7bff09b2062429be2363b9a14dbf,
         type: 2}
       propertyPath: hasInit
