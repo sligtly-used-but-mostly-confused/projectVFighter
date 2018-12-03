@@ -390,14 +390,14 @@ public abstract class PlayerController : MonoBehaviour
     {
         AttachedObject = gravityObjectRB;
         ReticleParent = AttachedObject.gameObject;
-        Reticle.transform.SetParent(ReticleParent.transform);
+        //Reticle.transform.SetParent(ReticleParent.transform);
     }
 
     public void DetachReticle()
     {
         AttachedObject = null;
         ReticleParent = AimingReticleCenter.gameObject;
-        Reticle.transform.SetParent(ReticleParent.transform);
+        //Reticle.transform.SetParent(ReticleParent.transform);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
