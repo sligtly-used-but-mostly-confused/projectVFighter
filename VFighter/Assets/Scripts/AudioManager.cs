@@ -33,6 +33,7 @@ public class AudioManager : MonoBehaviour
     //Global Collision Clips
     public AudioClip[] Coll;
     public AudioClip[] CollCave;
+    public AudioClip transition;
 
     void Awake()
     {
@@ -110,7 +111,16 @@ public class AudioManager : MonoBehaviour
     {
         //Set the clip of our efxSource audio source to the clip passed in as a parameter.
         sfxAudio.clip = clip;
+        sfxAudio.pitch = 1;
+        //Play the clip.
+        sfxAudio.Play();
+    }
 
+    public void PlaySingle(AudioClip clip, float pitch)
+    {
+        //Set the clip of our efxSource audio source to the clip passed in as a parameter.
+        sfxAudio.clip = clip;
+        sfxAudio.pitch = pitch;
         //Play the clip.
         sfxAudio.Play();
     }
