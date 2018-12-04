@@ -59,10 +59,10 @@ public class GravityChange : MonoBehaviour
 
         //gP.Stop();
 
-        if (!gP.isPlaying)
-        {
-            Debug.Log("stop");
+       // if (!gP.isPlaying)
+        //{
+       //     Debug.Log("stop");
 
-        }
+        //}
     }
 }
