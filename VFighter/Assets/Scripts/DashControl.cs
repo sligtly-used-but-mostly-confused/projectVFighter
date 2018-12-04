@@ -6,6 +6,8 @@ public class DashControl : MonoBehaviour {
     [SerializeField]
     private Rigidbody2D rb;
     [SerializeField]
+    private ParticleSystem[] ps;
+    [SerializeField]
     private Transform tm;
     [SerializeField]
     private DashEffect de;
@@ -18,6 +20,7 @@ public class DashControl : MonoBehaviour {
         rb = GetComponentInParent<Rigidbody2D>();
         tm = GetComponentInParent<Transform>();
         de = GetComponent<DashEffect>();
+        ps = GetComponentsInChildren<ParticleSystem>();
     }
     void Update () {
   
@@ -26,10 +29,22 @@ public class DashControl : MonoBehaviour {
             Vector2 dir = rb.velocity;
             float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg + 180;
             tm.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-            Debug.Log(angle);
+            //Debug.Log(angle);
+            if(ps[2].isPlaying && flag == false){
+                ps[0].Emit(10);
+                flag = true;
+            }
+
+
         }
-    
-        
-     
+        if (!ps[2].isPlaying)
+        {
+            flag = false;
+
+        }
+
+
+
+
     }
 }
