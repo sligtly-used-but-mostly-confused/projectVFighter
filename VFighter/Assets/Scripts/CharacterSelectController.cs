@@ -40,6 +40,10 @@ public class CharacterSelectController : MonoBehaviour
 
     [SerializeField]
     private List<CharacterData> characterDataList = new List<CharacterData>();
+    [SerializeField]
+    private List<Material> _gunMaterials= new List<Material>();
+
+
 
     public Dictionary<PlayerCharacterType, List<Material>> CharacterTypeMaterialMappings = new Dictionary<PlayerCharacterType, List<Material>>();
     public Dictionary<PlayerCharacterType, Material> CharacterTypeIconMappings = new Dictionary<PlayerCharacterType, Material>();
@@ -262,13 +266,16 @@ public class CharacterSelectController : MonoBehaviour
         GameObject nextGO = characterTypeAnimatorGOMappings[nextCharacterType];
         List<Material> nextMaterialOptions = CharacterTypeMaterialMappings[nextCharacterType];
         characterTypeAnimatorGOMappings[nextCharacterType].GetComponentInChildren<SkinnedMeshRenderer>().material = nextMaterialOptions[currentMaterialIndex];
+        characterTypeAnimatorGOMappings[nextCharacterType].GetComponentInChildren<MeshRenderer>().material = _gunMaterials[currentMaterialIndex];
 
         previousCharacterType = CharacterTypes[indexLeft];
         GameObject previousGO = characterTypeAnimatorGOMappings[previousCharacterType];
         List<Material> prevMaterialOptions = CharacterTypeMaterialMappings[previousCharacterType];
         characterTypeAnimatorGOMappings[previousCharacterType].GetComponentInChildren<SkinnedMeshRenderer>().material = prevMaterialOptions[currentMaterialIndex];
+        characterTypeAnimatorGOMappings[previousCharacterType].GetComponentInChildren<MeshRenderer>().material = _gunMaterials[currentMaterialIndex];
 
         List<Material> currentMaterialOptions = CharacterTypeMaterialMappings[currentCharacterType];
+        characterTypeAnimatorGOMappings[currentCharacterType].GetComponentInChildren<MeshRenderer>().material = _gunMaterials[currentMaterialIndex];
         SetCurrentMaterial(currentMaterialOptions[currentMaterialIndex]);
         OnPlayerColorChanged(CurrentPlayerColor);
     }

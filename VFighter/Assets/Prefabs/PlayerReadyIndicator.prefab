@@ -111,3 +111,4 @@ MonoBehaviour:
   AttachedPlayer: {fileID: 0}
   _readyMaterial: {fileID: 2100000, guid: 04d126ba1f0d0478f801292308bbc946, type: 2}
   _notReadyMaterial: {fileID: 2100000, guid: c15c4b8059261441fa6ac72c71454e30, type: 2}
+  _offset: {x: 0, y: 1, z: -0.5}

@@ -10,9 +10,9 @@ public class InGameMenuUIManager : MonoBehaviour {
     [SerializeField]
     private GameObject _menuObject;
     public SceneField MainMenu;
-
+    public RoundSettingsUIController SettingsUIController;
     private PlayerController _playerWhoCalledMenu;
-
+    
     private void Awake()
     {
         if(Instance != null)
@@ -33,21 +33,29 @@ public class InGameMenuUIManager : MonoBehaviour {
 
     public void ToggleMenu()
     {
+        GameManager.Instance.TogglePause();
+        if (SettingsUIController.IsSettingMenuDisplayed)
+        {
+            SettingsUIController.ToggleSettingsMenu();
+            return;
+        }
+
         _menuObject.SetActive(!_menuObject.activeSelf);
-        GameManager.Instance.TimeScale = _menuObject.activeInHierarchy ? 0 : 1;
     }
 
     public void Disconnect()
     {
         _menuObject.SetActive(false);
 
+        
         foreach(var player in FindObjectsOfType<PlayerController>())
         {
             player.DropPlayerInternal();
         }
 
         GameManager.Instance.IsInCharacterSelect = true;
-
+        GameManager.Instance.TimeScale = 1;
+        GameManager.Instance.TogglePause();
         SceneManager.LoadScene(MainMenu.SceneName);
     }
 

@@ -18,6 +18,7 @@ public class ScorePanelController : MonoBehaviour {
 	void Start () {
 
         List<PlayerController> players = FindObjectsOfType<PlayerController>().ToList();
+        players.Sort((x, y) => { return x.PlayerId.CompareTo(y.PlayerId); });
         int i = 0;
         for(; i < players.Count; i++)
         {
@@ -25,12 +26,6 @@ public class ScorePanelController : MonoBehaviour {
             var card = Instantiate(_playerCardPrefab);
             card.transform.SetParent(PlayerCardContainer.transform);
             card.GetComponent<PlayerCardController>().AttachToPlayer(x);
-        }
-        
-        for(; i < 4; i++)
-        {
-            var card = Instantiate(_emptyCardPrefab);
-            card.transform.SetParent(PlayerCardContainer.transform);
         }
 
 

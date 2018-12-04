@@ -7,12 +7,14 @@ public class RocketBlastController : MonoBehaviour {
     public float SecondsOfExplosion = .5f;
     public float SecondsForEffect = 10f;
     public float ExplosionVelocity = 20f;
+    public AudioSource blast_sfx;
 
     public bool IsStillExploding = true;
 
 
     // Use this for initialization
     void Start () {
+        blast_sfx.volume = AudioManager.MasterVol * AudioManager.SFXVol;
         StartCoroutine(DestroyOnTimer());
 	}
 	

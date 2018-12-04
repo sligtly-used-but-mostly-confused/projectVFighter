@@ -14,6 +14,7 @@ public class PlayerHealthIndicatorCardController : MonoBehaviour {
     [SerializeField]
     private GameObject _healthCellContainer;
 
+    [SerializeField]
     private PlayerController _attachedPlayer;
 
     private List<GameObject> _cells = new List<GameObject>();
@@ -38,6 +39,7 @@ public class PlayerHealthIndicatorCardController : MonoBehaviour {
         PlayerNumberText.text = "P" + _attachedPlayer.PlayerId;
         player.GetComponent<CharacterSelectController>().OnCharacterChanged += OnCharacterTypeChange;
         player.GetComponent<CharacterSelectController>().OnPlayerColorChanged += OnPlayerColorChange;
+        player.OnDestroyCallback += () => { Destroy(gameObject); };
     }
 
     public void OnDestroy()

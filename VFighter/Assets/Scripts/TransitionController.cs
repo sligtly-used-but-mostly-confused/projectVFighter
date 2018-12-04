@@ -31,7 +31,7 @@ public class TransitionController : MonoBehaviour {
         {
             TransitionRendererContainer.SetActive(true);
             Player.Play();
-
+            AudioManager.Instance.PlaySingle(AudioManager.Instance.transition, Player.playbackSpeed);
             while (Player.isPlaying)
             {
                 yield return new WaitForEndOfFrame();

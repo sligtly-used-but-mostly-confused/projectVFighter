@@ -51,6 +51,8 @@ public abstract class PlayerController : MonoBehaviour
     [SerializeField]
     public GameObject Reticle;
     [SerializeField]
+    public Transform AimingReticleCenter;
+    [SerializeField]
     protected GameObject ReticleParent;
     [SerializeField]
     protected GameObject PlayerReadyIndicatorPrefab;
@@ -62,6 +64,8 @@ public abstract class PlayerController : MonoBehaviour
     protected GameObject character;
     [SerializeField]
     protected GameObject characterContainer;
+    [SerializeField]
+    public LightingLookAt Lightning;
 
     protected deatheffect dth;
     protected readonly Vector2[] _gravChangeDirections = { Vector2.up, Vector2.down };
@@ -69,7 +73,8 @@ public abstract class PlayerController : MonoBehaviour
     public InputDevice InputDevice;
 
     //sound effects
-    public AudioSource[] channels = new AudioSource[4]; //ch0 - ggfire, ch1 - dash/sgfire/rlaunch, ch2 - changeGrav, ch3 - death
+    public AudioSource[] channels = new AudioSource[4]; //ch0 - ggfire, ch1 - dash/sgfire/rlaunch, ch2 - changeGrav, ch3 - death, ch4 -death indicator
+    public AudioSource gg_grab;
     public AudioClip gravChange;
     public AudioClip death;
     public AudioClip dash;
@@ -98,36 +103,32 @@ public abstract class PlayerController : MonoBehaviour
     public PlayerCharacterType CharacterType;
     public GameObject PlayerReadyIndicator;
 
+    public delegate void OnDestroyDelegate();
+    public OnDestroyDelegate OnDestroyCallback;
+
     protected virtual void Awake()
     {
         IsDead = false;
         _cooldownController = GetComponent<PlayerCooldownController>();
         PlayerId = ++PlayerIdCounter;
+        OnDestroyCallback += () => { };
     }
 
     private void Start()
     {
         DontDestroyOnLoad(gameObject);
-        StartCoroutine(FindReticle());
+
         PlayerReadyIndicator = Instantiate(PlayerReadyIndicatorPrefab);
         PlayerReadyIndicator.GetComponent<PlayerReadyIndicatorController>().AttachedPlayer = this;
+        
         de = GetComponentInChildren<DashEffect>();
         gc = GetComponentInChildren<GravityChange>();
         dth = GetComponentInChildren<deatheffect>();
-
+        
         if (GameManager.Instance.OnPlayerJoin != null)
         {
             GameManager.Instance.OnPlayerJoin(this);
         }
-
-
-        GameObject aimingReticle = Instantiate(AimingReticlePrefab);
-        _aimingReticleIdCnt++;
-        aimingReticle.GetComponent<AimingReticle>().Id = _aimingReticleIdCnt;
-        aimingReticle.GetComponent<AimingReticle>().PlayerAttachedTo = this;
-        ReticleId = _aimingReticleIdCnt;
-        
-        ReticleParent = gameObject;
 
         ControlledPlayer.NumLives = GameRoundSettingsController.Instance.NumLivesPerRound;
 
@@ -156,7 +157,7 @@ public abstract class PlayerController : MonoBehaviour
         {
             return;
         }
-
+        
         DropPlayerInternal();
     }
 
@@ -169,8 +170,11 @@ public abstract class PlayerController : MonoBehaviour
             DetachReticle();
         }
 
-        Destroy(PlayerReadyIndicator);
+        OnDestroyCallback();
+
         Destroy(Reticle);
+        Destroy(Lightning.LObject);
+        Destroy(PlayerReadyIndicator);
         Destroy(gameObject);
     }
 
@@ -278,38 +282,18 @@ public abstract class PlayerController : MonoBehaviour
 
     }
 
-    private IEnumerator FindReticle()
-    {
-        if (ReticleId != -1 && !Reticle)
-        {
-            //look for matching reticle
-            var tempReticle = FindObjectsOfType<AimingReticle>().ToList().Find(x => x.Id == ReticleId);
-            if (tempReticle)
-            {
-                Reticle = tempReticle.gameObject;
-                if (!ReticleParent)
-                {
-                    ReticleParent = gameObject;
-                }
-            }
-        }
-
-        yield return new WaitForEndOfFrame();
-        yield return (FindReticle());
-    }
-
     public void AimReticle(Vector2 dir)
     {
         if (!ReticleParent)
         {
-            ReticleParent = gameObject;
+            ReticleParent = AimingReticleCenter.gameObject;
         }
 
         if (Reticle)
         {
             var normalizedDir = dir.normalized;
-            Reticle.transform.position = ReticleParent.transform.position + new Vector3(normalizedDir.x, normalizedDir.y, 0);
-
+            Reticle.transform.position = ReticleParent.transform.position;
+            Reticle.transform.position += new Vector3(normalizedDir.x, normalizedDir.y, 0);
             //set animation details
             Animator currentAnimator = GetComponent<CharacterAnimScript>().currentAnimator;
             currentAnimator.SetFloat("Horizontal", normalizedDir.x);
@@ -335,6 +319,7 @@ public abstract class PlayerController : MonoBehaviour
                 ControlledPlayer.ShotsFired++;
                 if (!_cooldownController.IsCoolingDown(CooldownType.NormalShot))
                 {
+                    gg_grab.volume = AudioManager.MasterVol * AudioManager.SFXVol;
                     if (AttachedObject == null)
                     {
                         SpawnProjectile(dir, DurationOfNormalGravityProjectile, ProjectileControllerType.Normal);
@@ -380,7 +365,7 @@ public abstract class PlayerController : MonoBehaviour
         SpawnProjectile(Quaternion.Euler(0, 0, 15) * new Vector3(dir.x, dir.y, 0), DurationOfShotgunGravityProjectile, ProjectileControllerType.Shotgun);
         SpawnProjectile(Quaternion.Euler(0, 0, -15) * new Vector3(dir.x, dir.y, 0), DurationOfShotgunGravityProjectile, ProjectileControllerType.Shotgun);
 
-        RandomizeSfx(shotGunFire, shotGunFireCave, 1);
+        RandomizeSfx(shotGunFire, shotGunFire, 1);
 
         var GORB = GetComponent<GravityObjectRigidBody>();
         GORB.ClearAllVelocities();
@@ -399,7 +384,7 @@ public abstract class PlayerController : MonoBehaviour
         float yVlaue = dir.y;
         float angle = Mathf.Rad2Deg * Mathf.Atan2(dir.y, dir.x);
         GravityGunProjectileController projectileClone = ProjectilePool.Instance.GetProjectile(ProjectilePool.ConvertProjectileControllerTypeToType(type));
-        projectileClone.transform.position = transform.position + new Vector3(dir.x, dir.y, 0);
+        projectileClone.transform.position = Reticle.transform.position;
         projectileClone.Owner = this;
         projectileClone.SecondsUntilDestroy = secondsUntilDestroy;
         ChangeGORBGravityDirection(projectileClone.GetComponent<GravityObjectRigidBody>(), dir);
@@ -414,12 +399,14 @@ public abstract class PlayerController : MonoBehaviour
     {
         AttachedObject = gravityObjectRB;
         ReticleParent = AttachedObject.gameObject;
+        //Reticle.transform.SetParent(ReticleParent.transform);
     }
 
     public void DetachReticle()
     {
         AttachedObject = null;
-        ReticleParent = gameObject;
+        ReticleParent = AimingReticleCenter.gameObject;
+        //Reticle.transform.SetParent(ReticleParent.transform);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -549,7 +536,7 @@ public abstract class PlayerController : MonoBehaviour
         }
 
         PlaySingle(death, 3);
-        RandomizeSfx(deathIndicator, deathIndicator, 1);
+        RandomizeSfx(deathIndicator, deathIndicator, 4);
         IsInvincible = true;
         
         GetComponent<deatheffect>().PlayDeathEffect();

@@ -31,7 +31,13 @@ public class GravityGunProjectileController : MonoBehaviour
     }
 
     IEnumerator Onstart () {
-        yield return new WaitForSeconds(SecondsUntilDestroy);
+        float timeLeft = SecondsUntilDestroy;
+        while (timeLeft > 0)
+        {
+            yield return new WaitForEndOfFrame();
+            timeLeft -= Time.deltaTime * GameManager.Instance.TimeScale;
+        }
+        
         ReturnToPool();
     }
 
