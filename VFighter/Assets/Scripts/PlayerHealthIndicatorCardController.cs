@@ -39,6 +39,7 @@ public class PlayerHealthIndicatorCardController : MonoBehaviour {
         PlayerNumberText.text = "P" + _attachedPlayer.PlayerId;
         player.GetComponent<CharacterSelectController>().OnCharacterChanged += OnCharacterTypeChange;
         player.GetComponent<CharacterSelectController>().OnPlayerColorChanged += OnPlayerColorChange;
+        player.OnDestroyCallback += () => { Destroy(gameObject); };
     }
 
     public void OnDestroy()

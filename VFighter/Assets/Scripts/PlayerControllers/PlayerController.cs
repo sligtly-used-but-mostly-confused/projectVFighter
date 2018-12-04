@@ -103,11 +103,15 @@ public abstract class PlayerController : MonoBehaviour
     public PlayerCharacterType CharacterType;
     public GameObject PlayerReadyIndicator;
 
+    public delegate void OnDestroyDelegate();
+    public OnDestroyDelegate OnDestroyCallback;
+
     protected virtual void Awake()
     {
         IsDead = false;
         _cooldownController = GetComponent<PlayerCooldownController>();
         PlayerId = ++PlayerIdCounter;
+        OnDestroyCallback += () => { };
     }
 
     private void Start()
@@ -165,6 +169,8 @@ public abstract class PlayerController : MonoBehaviour
         {
             DetachReticle();
         }
+
+        OnDestroyCallback();
 
         Destroy(Reticle);
         Destroy(Lightning.LObject);
