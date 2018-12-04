@@ -5861,7 +5861,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 6.6256905, y: -5.533421}
+  m_Offset: {x: -56.32974, y: -21.085896}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -5872,7 +5872,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 32.25138, y: 0.96752834}
+  m_Size: {x: 32.3845, y: 0.94734}
   m_EdgeRadius: 0
 --- !u!61 &543931330
 BoxCollider2D:
@@ -5886,7 +5886,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 6.6365585, y: 5.5178976}
+  m_Offset: {x: -56.27039, y: -9.872338}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -5897,7 +5897,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 32.27311, y: 1.2728119}
+  m_Size: {x: 32.22164, y: 1.293478}
   m_EdgeRadius: 0
 --- !u!114 &543931332
 MonoBehaviour:
@@ -13647,7 +13647,7 @@ Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: pb_Mesh71758
+  m_Name: pb_Mesh20064
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -15427,7 +15427,7 @@ Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: pb_Mesh71842
+  m_Name: pb_Mesh20158
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
