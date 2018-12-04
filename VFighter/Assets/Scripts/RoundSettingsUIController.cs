@@ -47,7 +47,8 @@ public class RoundSettingsUIController : MonoBehaviour {
     public void SetNumRounds(TMP_Dropdown dropdown)
     {
         GameRoundSettingsController.Instance.NumRounds = Int32.Parse(dropdown.options[dropdown.value].text);
-        LevelSelectManager.Instance.RefreshRoundSettings();
+        if(LevelSelectManager.Instance)
+            LevelSelectManager.Instance.RefreshRoundSettings();
     }
 
     public void SetNumLivesPerRound(TMP_InputField text)
