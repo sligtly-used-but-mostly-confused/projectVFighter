@@ -1859,7 +1859,7 @@ MonoBehaviour:
   - {fileID: 1902471868}
   _startNextLevelWinCondition: 0
   _hasGameStarted: 0
-  ShowTutorialPrompt: 0
+  ShowTutorialPrompt: 1
   JailTransform: {fileID: 1807448646}
 --- !u!4 &707236919
 Transform:

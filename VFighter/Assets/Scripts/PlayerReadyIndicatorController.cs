@@ -10,12 +10,13 @@ public class PlayerReadyIndicatorController : MonoBehaviour {
     private Material _readyMaterial;
     [SerializeField]
     private Material _notReadyMaterial;
-    
+    [SerializeField]
+    private Vector3 _offset;
     private void Update()
     {
         if(AttachedPlayer)
         {
-            transform.position = AttachedPlayer.transform.position + Vector3.up * AttachedPlayer.transform.localScale.y * 2;
+            transform.position = AttachedPlayer.transform.position + _offset;
         }
 
         if(AttachedPlayer && AttachedPlayer.IsReady)
