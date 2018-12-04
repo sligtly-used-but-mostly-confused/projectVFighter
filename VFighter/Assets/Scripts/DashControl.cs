@@ -10,7 +10,7 @@ public class DashControl : MonoBehaviour {
     [SerializeField]
     private DashEffect de;
     Vector2 velVec;
-
+    bool flag = false;
     // Use this for initialization
     // Update is called once per frame
     private void Start()
@@ -20,21 +20,16 @@ public class DashControl : MonoBehaviour {
         de = GetComponent<DashEffect>();
     }
     void Update () {
-
+  
         if (de.dashEffectOn())
         {
-         
             Vector2 dir = rb.velocity;
             float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg + 180;
-            if(angle < 10)
-            {
-                de.dashOn = false;
-            }
-            else
-            {
-                tm.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-            }
+            tm.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+            Debug.Log(angle);
         }
+    
+        
      
     }
 }
