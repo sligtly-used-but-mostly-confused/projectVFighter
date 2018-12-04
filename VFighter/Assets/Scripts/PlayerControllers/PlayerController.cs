@@ -64,6 +64,8 @@ public abstract class PlayerController : MonoBehaviour
     protected GameObject character;
     [SerializeField]
     protected GameObject characterContainer;
+    [SerializeField]
+    public LightingLookAt Lightning;
 
     protected deatheffect dth;
     protected readonly Vector2[] _gravChangeDirections = { Vector2.up, Vector2.down };
@@ -165,6 +167,7 @@ public abstract class PlayerController : MonoBehaviour
         }
 
         Destroy(Reticle);
+        Destroy(Lightning.LObject);
         Destroy(PlayerReadyIndicator);
         Destroy(gameObject);
     }
