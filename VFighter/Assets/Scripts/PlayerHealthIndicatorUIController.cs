@@ -20,6 +20,7 @@ public class PlayerHealthIndicatorUIController : MonoBehaviour {
         {
             yield return new WaitForEndOfFrame();
         }
+
         GameManager.Instance.OnPlayerJoin += MakeHealthDisplay;
         
         var players = FindObjectsOfType<PlayerController>().ToList();
