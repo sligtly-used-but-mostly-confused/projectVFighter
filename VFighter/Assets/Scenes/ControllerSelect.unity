@@ -895,7 +895,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   NumRounds: 1
-  NumLivesPerRound: 5
+  NumLivesPerRound: 2
   GameSpeedMin: 0.5
   GameSpeedMax: 0.75
   GameSpeedRate: 0.01

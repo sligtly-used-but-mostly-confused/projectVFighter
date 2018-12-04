@@ -23,5 +23,6 @@ public class PlayerCardController : MonoBehaviour {
         _overallKillsText.text = "" + player.ControlledPlayer.NumOverallKills;
         _overallWinsText.text = "" + player.ControlledPlayer.NumStageWins;
         _playerIdText.text = "P" + player.PlayerId;
+        _playerIdText.color = player.GetComponent<CharacterSelectController>().CurrentPlayerColor;
     }
 }
