@@ -90,7 +90,7 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaAO: 1
     m_ShowResolutionOverlay: 1
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -1862,7 +1862,7 @@ Camera:
   field of view: 3
   orthographic: 1
   orthographic size: 5.2418103
-  m_Depth: -1
+  m_Depth: 90
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -1991,7 +1991,7 @@ Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: pb_Mesh-897802
+  m_Name: pb_Mesh48982
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -3176,6 +3176,15 @@ Prefab:
         type: 2}
       propertyPath: m_isInputParsingRequired
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 20988508573259988, guid: 2491303b306c1f546995b9ba49402196,
+        type: 2}
+      propertyPath: m_TargetDisplay
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1213144988118874, guid: 2491303b306c1f546995b9ba49402196, type: 2}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2491303b306c1f546995b9ba49402196, type: 2}

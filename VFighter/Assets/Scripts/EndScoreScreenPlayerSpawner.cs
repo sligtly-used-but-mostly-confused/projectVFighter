@@ -31,16 +31,12 @@ public class EndScoreScreenPlayerSpawner : PlayerSpawnPosition {
         {
             if (TController)
             {
-                TController.StartTransition(() =>
-                {
-                    StatsController.gameObject.SetActive(!StatsController.gameObject.activeInHierarchy);
+                StatsController.gameObject.SetActive(!StatsController.gameObject.activeInHierarchy);
 
-                    if (StatsController.gameObject.activeInHierarchy)
-                    {
-                        StatsController.Init(_player.ControlledPlayer);
-                    }
-                    
-                });
+                if (StatsController.gameObject.activeInHierarchy)
+                {
+                    StatsController.Init(_player.ControlledPlayer);
+                }
             }
         }
 
@@ -48,10 +44,7 @@ public class EndScoreScreenPlayerSpawner : PlayerSpawnPosition {
         {
             if (TController)
             {
-                TController.StartTransition(() =>
-                {
-                    ReadyPanel.SetActive(!ReadyPanel.activeInHierarchy);
-                });
+                ReadyPanel.SetActive(!ReadyPanel.activeInHierarchy);
             }
         }
     }

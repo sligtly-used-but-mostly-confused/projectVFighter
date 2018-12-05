@@ -39,7 +39,7 @@ public class PlayerHealthIndicatorCardController : MonoBehaviour {
         PlayerNumberText.text = "P" + _attachedPlayer.PlayerId;
         player.GetComponent<CharacterSelectController>().OnCharacterChanged += OnCharacterTypeChange;
         player.GetComponent<CharacterSelectController>().OnPlayerColorChanged += OnPlayerColorChange;
-        player.OnDestroyCallback += () => { Destroy(gameObject); };
+        player.OnDestroyCallback += OnPlayerDestroyed;
     }
 
     public void OnDestroy()
@@ -52,6 +52,7 @@ public class PlayerHealthIndicatorCardController : MonoBehaviour {
 
         _attachedPlayer.GetComponent<CharacterSelectController>().OnCharacterChanged -= OnCharacterTypeChange;
         _attachedPlayer.GetComponent<CharacterSelectController>().OnPlayerColorChanged -= OnPlayerColorChange;
+        _attachedPlayer.OnDestroyCallback -= OnPlayerDestroyed;
     }
 
     // Update is called once per frame
@@ -83,6 +84,11 @@ public class PlayerHealthIndicatorCardController : MonoBehaviour {
             }
         }
 	}
+
+    public void OnPlayerDestroyed()
+    {
+        Destroy(gameObject);
+    }
 
     public void OnPlayerColorChange(Color color)
     {
