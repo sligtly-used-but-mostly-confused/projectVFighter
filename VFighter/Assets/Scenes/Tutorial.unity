@@ -3775,7 +3775,7 @@ MonoBehaviour:
     hit close range gravity objects/enemies.
 
 
-    Use __ to use special.'
+    Use ..... to use special.'
 --- !u!222 &300372304
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5669,7 +5669,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.78200006}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.000061035156}
+  m_AnchoredPosition: {x: 0, y: -0.00012207031}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &447591044
@@ -10315,8 +10315,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 38.522, y: -835}
-  m_SizeDelta: {x: 440.8, y: 1670}
+  m_AnchoredPosition: {x: -4, y: -368}
+  m_SizeDelta: {x: 335, y: 736}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &764873538
 MonoBehaviour:
@@ -12521,7 +12521,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -219, y: 361}
+  m_AnchoredPosition: {x: -349, y: 275}
   m_SizeDelta: {x: 249.87, y: 211.8}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &867410613
@@ -13281,7 +13281,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Use ----- to switch to the dash character if you aren't already.
+  m_Text: Use ---- to switch to the dash character if you aren't already.
 --- !u!222 &879798054
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -13982,8 +13982,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 16.5, y: -94.9}
-  m_SizeDelta: {x: 2148.43, y: 1434.745}
+  m_AnchoredPosition: {x: 16.627, y: -95.473}
+  m_SizeDelta: {x: 2190.886, y: 1689.485}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &950382014
 RectTransform:
@@ -14002,8 +14002,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0.78200006}
-  m_AnchoredPosition: {x: 0, y: 0.000015258789}
-  m_SizeDelta: {x: 0, y: 0.000030517578}
+  m_AnchoredPosition: {x: 0.00012207031, y: 70}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &958297853
 Prefab:
@@ -27419,7 +27419,7 @@ MonoBehaviour:
     objects/enemies.
 
 
-    Use __ to use special.'
+    Use ..... to use special.'
 --- !u!222 &1881706161
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -28432,7 +28432,7 @@ MonoBehaviour:
     back without taking damage.
 
 
-    Use __ to use special.'
+    Use ..... to use special.'
 --- !u!222 &2005489278
 CanvasRenderer:
   m_ObjectHideFlags: 0
