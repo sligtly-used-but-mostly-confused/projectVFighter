@@ -1819,7 +1819,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Use ----- to switch to the rocket character.
+  m_Text: Use      .     to switch to the rocket character
 --- !u!222 &187835667
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3775,7 +3775,7 @@ MonoBehaviour:
     hit close range gravity objects/enemies.
 
 
-    Use ..... to use special.'
+    Use    .    to use special.'
 --- !u!222 &300372304
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -10726,7 +10726,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Use ----- to switch to the shotgun character
+  m_Text: Use      .     to switch to the shotgun character
 --- !u!222 &791426451
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -27419,7 +27419,7 @@ MonoBehaviour:
     objects/enemies.
 
 
-    Use ..... to use special.'
+    Use    .    to use special.'
 --- !u!222 &1881706161
 CanvasRenderer:
   m_ObjectHideFlags: 0
