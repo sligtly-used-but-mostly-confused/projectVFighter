@@ -1056,7 +1056,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 697, y: -35}
+  m_AnchoredPosition: {x: 647.3, y: -35}
   m_SizeDelta: {x: 340.1, y: 342.7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &67300750
@@ -6955,8 +6955,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 14.489, y: -32.162}
-  m_SizeDelta: {x: 1949.924, y: 1838.891}
+  m_AnchoredPosition: {x: 14.556, y: -32.629}
+  m_SizeDelta: {x: 1972.153, y: 2046.36}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &547333099
 RectTransform:
@@ -16291,7 +16291,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Aim The Gravity Object using ----, and press ---- to release it.
+  m_Text: Aim The Gravity Object using --- and press --- to release it.
 --- !u!222 &1100619191
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -24205,7 +24205,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -490, y: -20}
+  m_AnchoredPosition: {x: -422, y: -31}
   m_SizeDelta: {x: 335.8, y: 312.7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1677112175
@@ -28819,7 +28819,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Use __ to aim.\n Press __ to shoot."
+  m_Text: "Use ..... to aim.\n Press ..... to shoot."
 --- !u!222 &2045055229
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -29007,7 +29007,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0.78200006}
-  m_AnchoredPosition: {x: 0, y: -26.276}
+  m_AnchoredPosition: {x: 0, y: 26.277}
   m_SizeDelta: {x: 0, y: 52.553}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2070778645
