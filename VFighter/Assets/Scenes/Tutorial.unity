@@ -28432,7 +28432,7 @@ MonoBehaviour:
     back without taking damage.
 
 
-    Use ..... to use special.'
+    Use    .    to use special.'
 --- !u!222 &2005489278
 CanvasRenderer:
   m_ObjectHideFlags: 0
