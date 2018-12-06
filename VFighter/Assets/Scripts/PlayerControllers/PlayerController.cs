@@ -92,7 +92,7 @@ public abstract class PlayerController : MonoBehaviour
     private List<GameObject> GravityGunProjectiles = new List<GameObject>();
     private Coroutine GravGunCoolDownCoroutine;
     private PlayerCooldownController _cooldownController;
-    static short PlayerIdCounter = 0;
+    static List<short> PlayerIdPool = new List<short>() { 1, 2, 3, 4 };
     public short PlayerId = -1;
     public short ReticleId = -1;
     public short MaterialId = -1;
@@ -110,7 +110,8 @@ public abstract class PlayerController : MonoBehaviour
     {
         IsDead = false;
         _cooldownController = GetComponent<PlayerCooldownController>();
-        PlayerId = ++PlayerIdCounter;
+        PlayerId = PlayerIdPool[0];
+        PlayerIdPool.RemoveAt(0);
         OnDestroyCallback += () => { };
     }
 
@@ -172,7 +173,7 @@ public abstract class PlayerController : MonoBehaviour
 
         OnDestroyCallback();
 
-        _aimingReticleIdCnt--;
+        PlayerIdPool.Add(PlayerId);
         Debug.Log(_aimingReticleIdCnt);
         Destroy(Reticle);
         Destroy(Lightning.LObject);
