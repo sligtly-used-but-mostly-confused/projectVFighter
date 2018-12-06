@@ -13,7 +13,15 @@ public class PlayerCameraGroupController : MonoBehaviour {
 	
 	private IEnumerator CheckForPlayers()
     {
-        var players = FindObjectsOfType<PlayerController>().Select(x => {
+        List<PlayerController> playerObjects = FindObjectsOfType<PlayerController>().ToList();
+
+        if(playerObjects.Count == 0)
+        {
+            yield return new WaitForSeconds(.1f);
+            yield return CheckForPlayers();
+        }
+
+        var players = playerObjects.Select(x => {
             var target = new CinemachineTargetGroup.Target
             {
                 target = x.transform,
