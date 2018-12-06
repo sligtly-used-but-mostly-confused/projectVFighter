@@ -172,6 +172,8 @@ public abstract class PlayerController : MonoBehaviour
 
         OnDestroyCallback();
 
+        _aimingReticleIdCnt--;
+        Debug.Log(_aimingReticleIdCnt);
         Destroy(Reticle);
         Destroy(Lightning.LObject);
         Destroy(PlayerReadyIndicator);

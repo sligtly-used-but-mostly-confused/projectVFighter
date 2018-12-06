@@ -33,6 +33,7 @@ public class InGameMenuUIManager : MonoBehaviour {
 
     public void ToggleMenu()
     {
+        Debug.Log("toggling menu");
         GameManager.Instance.TogglePause();
         if (SettingsUIController.IsSettingMenuDisplayed)
         {
@@ -54,8 +55,9 @@ public class InGameMenuUIManager : MonoBehaviour {
         }
 
         GameManager.Instance.IsInCharacterSelect = true;
-        GameManager.Instance.TimeScale = 1;
+        //
         GameManager.Instance.TogglePause();
+        //GameManager.Instance.TimeScale = 1;
         SceneManager.LoadScene(MainMenu.SceneName);
     }
 

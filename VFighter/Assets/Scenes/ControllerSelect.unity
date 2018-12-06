@@ -909,7 +909,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &146462767
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2098,8 +2098,8 @@ MonoBehaviour:
   GameSpeedMax: 0.75
   GameSpeedRate: 0.01
   MinPlayers: 2
-  UseTransitions: 1
-  LoadBackgounds: 1
+  UseTransitions: 0
+  LoadBackgounds: 0
 --- !u!4 &352749857
 Transform:
   m_ObjectHideFlags: 0
